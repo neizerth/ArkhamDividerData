@@ -19,7 +19,7 @@ export const loadAllCards = async (encounters: boolean) => {
 }
 
 export const loadPackCards = async ({ code }: IArkhamDB.HasCode) => {
-  const { data } = await getAPIData(`/cards/code`);
+  const { data } = await getAPIData(`/cards/${code}`);
   return data as IArkhamDB.API.Card[];
 }
 

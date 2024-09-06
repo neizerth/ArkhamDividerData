@@ -34,6 +34,10 @@ export namespace IArkhamDB {
     pack_code: string
   }
 
+  export type HasEncounterCodes {
+    encounter_codes: string[]
+  };
+
   export namespace API {
     export type Entity = HasCode & HasUrl & HasName;
 
@@ -65,15 +69,13 @@ export namespace IArkhamDB {
     export type Entity = HasCode & HasName;
 
     export type Cycle = Entity & HasPosition & HasSize;
-    export type ExtendedCycle = Cycle & HasReturnSet<string>;
+    export type ExtendedCycle = Cycle & HasReturnSet<string> & HasEncounterCodes;
 
     export type Pack = Entity & HasPosition & HasSize & HasCycleCode & {
       cgdb_id: number
       date_release: string
     }
-    export type ExtendedPack = Pack & {
-      encounter_codes: string[]
-    };
+    export type ExtendedPack = Pack & HasEncounterCodes;
 
     export type Encounter = Entity;
     export type ExtendedEncounter = Encounter & HasPackCode & HasCycleCode;
