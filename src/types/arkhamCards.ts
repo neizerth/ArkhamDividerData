@@ -1,30 +1,28 @@
-export type IArkhamCardsScenarioStep = {
-  id: string;
-  type: string;
-  encounter_sets?: string[]
-}
-
-export type IArkhamCardsScenarioDetail = {
-  id: string;
-  scenario_name: string;
-  full_name: string;
-  setup: string[];
-  icon: string;
-  steps: IArkhamCardsScenarioStep[];
-}
-
-export type IArkhamCardsCampaign = {
-  campaign: {
-    id: string;
-    position: number;
-    version: number;
-    name: string;
-    scenarios: string[];
+export namespace IArkhamCards {
+  export type CampaignType = 'campaign' | 'standalone';
+  export type Campaign = {
+    id: string
+    position: number
+    version: number
+    name: string
+    campaign_type: CampaignType,
+    scenarios: string[]
   }
-  scenarios: IArkhamCardsScenarioDetail[]
-}
-
-export type IArkhamCardsScenario = {
-  id: string,
-  name: string
+  export type ScenarioStep = {
+    id: string;
+    type: string;
+    encounter_sets?: string[]
+  }
+  export type Scenario = {
+    id: string;
+    scenario_name: string;
+    full_name: string;
+    setup: string[];
+    icon: string;
+    steps: ScenarioStep[]
+  }
+  export type FullCampaign = {
+    campaign: Campaign
+    scenarios: Scenario[]
+  }
 }

@@ -1,13 +1,14 @@
-import { IArkhamCardsCampaign, IArkhamCardsScenarioDetail } from "@/types/arkhamCards";
-import { IArkhamDBPack } from "@/types/arkhamDB";
+
+import { IArkhamCards } from "@/types/arkhamCards";
+import { IArkhamDB } from "@/types/arkhamDB";
 import { ICampaign } from "@/types/campaigns";
 import { IIconMapping } from "@/types/icomoon";
 import { unique } from "@/util/common";
 
 export type GetCampaignsCacheOptions = {
-  campaigns: IArkhamCardsCampaign[],
+  campaigns: IArkhamCards.FullCampaign[],
   iconMapping: IIconMapping
-  packs: IArkhamDBPack[]
+  packs: IArkhamDB.HasCode[]
 }
 
 export const getCampaignsCache = ({
@@ -22,13 +23,13 @@ export const getCampaignsCache = ({
 }
 
 
-export const scenarioToEncounterSets = ({ steps }: IArkhamCardsScenarioDetail) => {
+export const scenarioToEncounterSets = ({ steps }: IArkhamCards.Scenario) => {
   const step = steps.find(({ type }) => type === 'encounter_sets');
 
   return step?.encounter_sets || [];
 }
 
-export const transformArkhamCardsCampaign = ({ campaign, scenarios }: IArkhamCardsCampaign): ICampaign => {
+export const transformArkhamCardsCampaign = ({ campaign, scenarios }: IArkhamCards.FullCampaign): ICampaign => {
   const encounterSets = scenarios.map(scenarioToEncounterSets).flat();
   const uniqueEncounterSets = unique(encounterSets);
 

@@ -1,15 +1,15 @@
 import { GITHUB_CONTENTS_BASE_URL, GITHUB_RAW_BASE_URL } from "@/config/api";
-import { fetchIcomoonProject } from "./arkhamCardsOld";
-import { getWithPrefix } from "./request";
+import { fetchIcomoonProject } from "../arkhamCardsOld";
+import { getWithPrefix } from "../request";
 
 const getGithubRaw = getWithPrefix(GITHUB_RAW_BASE_URL);
 const getGithubContents = getWithPrefix(GITHUB_CONTENTS_BASE_URL);
 
-export const withLanguagePostfix = (getUrl: (language: string) => string) => async (language: string) => {
+export const withLanguagePostfix = <T>(getUrl: (language: string) => string) => async (language: string) => {
   const postfix = language === 'en' ? '' : '_' + language;
   const url = getUrl(postfix);
   const { data } = await getGithubRaw(url);
-  return data;
+  return data as T;
 }
 
 export const loadIcons = async () => {
@@ -24,4 +24,4 @@ export const loadIconsPatch = async () => {
   return data;
 }
 
-export const loadcampaigns = withLanguagePostfix((language: string) => `/assets/generated/allCampaigns${language}.json`);
+export const loadСampaigns = withLanguagePostfix((language: string) => `/assets/generated/allCampaigns${language}.json`);

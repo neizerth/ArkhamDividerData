@@ -1,5 +1,5 @@
-import { IArkhamCardsCampaign, IArkhamCardsScenarioDetail } from "@/types/arkhamCards";
+import { IArkhamCards } from "@/types/arkhamCards";
 
-export type ICampaign = IArkhamCardsCampaign & {
+export type ICampaign = IArkhamCards.FullCampaign & {
   encounter_sets: string[]
 }

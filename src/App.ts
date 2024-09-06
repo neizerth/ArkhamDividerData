@@ -1,15 +1,25 @@
-import { loadcampaigns } from "./api/arkhamCards";
-import { getPacks } from "./api/arkhamDB";
-import { getCampaignsCache } from "./components/cache/campaigns/getCampaignsCache";
-import { getEncounterSetsCache } from "./components/cache/encounterSets/getEncounterSetsCache";
-import { getIconsMapping } from "./components/cache/encounterSets/getIconsMapping";
+import fs from 'fs';
+import path from 'path';
+import * as R from 'ramda';
+
+import { getCampaignsCache } from "@/components/cache/campaigns/getCampaignsCache";
+import { getIconsMapping } from "@/components/cache/encounterSets/getIconsMapping";
+import { ROOT_DIR } from './config/app';
+import { getCyclesJSONCache } from './components/cache/cycles/getCyclesJSONCache';
+
 
 export class App {
   async run() {
     console.log('starting application');
+    const { cycles, packs, encounterSets } = await getCyclesJSONCache();
+    // this.cache('cycles', cycles);
+    // this.cache('packs', packs);
+    // this.cache('encounterSets', encounterSets);
+
+    // const campaignsRaw = await loadСampaigns('en');
+
+    return;
     const iconMapping = await getIconsMapping();
-    const packs = await getPacks();
-    const campaignsRaw = await loadcampaigns('en');
 
     const campaigns = getCampaignsCache({
       campaigns: campaignsRaw,
@@ -23,7 +33,11 @@ export class App {
     // this.cache('encounterSet', getEncounterSetsCache);
     // getEncounterSetsCache();
   }
-  cache<T>(name: string, data: () =>T) {
+  cache<T>(name: string, data: object) {
+    const contents = JSON.stringify(data);
 
+    const filename = path.join(`${ROOT_DIR}/build/${name}.json`);
+
+    fs.writeFileSync(filename, contents);
   }
 }

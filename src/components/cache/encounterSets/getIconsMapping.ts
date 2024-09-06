@@ -1,4 +1,4 @@
-import { loadIconsPatch } from "@/api/arkhamCards";
+import { loadIconsPatch } from "@/api/arkhamCards/api";
 import { IIconMapping } from "@/types/icomoon";
 
 export const getIconsMapping = async () => {
