@@ -1,7 +1,6 @@
 import { ARKHAMDB_BASE_URL, ARKHAMDB_API_BASE_URL, ARKHAMDB_JSON_BASE_URL } from "@/config/api";
 import { getWithPrefix } from "../request";
 import { IArkhamDB } from "@/types/arkhamDB";
-import { strIf } from "@/util/common";
 
 const getAPIData = getWithPrefix(ARKHAMDB_API_BASE_URL);
 const getPageContents = getWithPrefix(ARKHAMDB_BASE_URL);
@@ -13,7 +12,8 @@ export const loadPacks = async () => {
 }
 
 export const loadAllCards = async (encounters: boolean) => {
-  const qs = strIf('encounter=true', encounters);
+  const qs = encounters ? 'encounter=true' : '';
+
   const { data } = await getAPIData(`/cards?${qs}`);
   return data as IArkhamDB.API.Card[];
 }

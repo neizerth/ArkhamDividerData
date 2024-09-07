@@ -6,5 +6,5 @@ export const getWithPrefix = (baseURL: string) => {
   const client = axios.create({
     baseURL
   })
-  return (path: string, config?: AxiosRequestConfig) => client.get(path, config);
+  return <T>(path: string, config?: AxiosRequestConfig) => client.get<T>(path, config);
 };

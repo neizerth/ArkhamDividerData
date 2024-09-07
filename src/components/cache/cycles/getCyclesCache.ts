@@ -1,4 +1,4 @@
-import { loadJSONCycles, loadJSONEncounters, loadJSONPacks, loadPackCards } from "@/api/arkhamDB/api";
+import { loadJSONCycles, loadJSONEncounters, loadJSONPacks } from "@/api/arkhamDB/api";
 import { RETURN_CYCLE_CODE } from "@/api/arkhamDB/constants";
 import { withCode, withoutCode } from "@/api/arkhamDB/criteria";
 import { withReturnSetCode } from "@/api/arkhamDB/util";

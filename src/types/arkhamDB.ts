@@ -79,5 +79,13 @@ export namespace IArkhamDB {
 
     export type Encounter = Entity;
     export type ExtendedEncounter = Encounter & HasPackCode & HasCycleCode;
+
+    export type Card = HasName & HasPosition & HasPackCode;
+
+    export type EncounterCard = Card & {
+      faction_code: string
+      encounter_position: number
+      encounter_code: string
+    }
   }
 }

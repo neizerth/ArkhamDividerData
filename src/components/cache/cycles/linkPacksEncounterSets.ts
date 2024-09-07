@@ -1,6 +1,6 @@
 import { loadPackCards } from "@/api/arkhamDB/api";
 import { IArkhamDB } from "@/types/arkhamDB";
-import { unique } from "@/util/common";
+import { delay, unique } from "@/util/common";
 import { identity, prop } from "ramda";
 
 export const linkPacksEncounterSets = async (packs: IArkhamDB.JSON.Pack[]) => {
