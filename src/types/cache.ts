@@ -7,9 +7,10 @@ export const enum CacheType {
   ENCOUNTERS = 'encounters',
   ENCOUNTER_SETS = 'encounterSets',
 
-  DATABASE_CAMPAIGNS = 'databaseCampaigns',
-  DATABASE_ENCOUNTER_SETS = 'databaseEncounterSets',
+  DATABASE_CAMPAIGNS = 'database.campaigns',
+  DATABASE_ENCOUNTER_SETS = 'database.encounterSets',
   LANGUAGES = 'languages',
 
   COMMON_TRANSLATION = 'commonTranslation',
+  CORE = 'core',
 }

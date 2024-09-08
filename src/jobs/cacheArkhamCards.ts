@@ -3,6 +3,7 @@ import { getCampaignsCache, getIconsMappingCache, getEncounterSetsCache } from "
 import { CacheType } from "@/types/cache";
 
 export const cacheArkhamCards = async () => {
+  console.log('caching Arkham Cards...');
   await cacheCampaigns();
   await cacheEncounterSets();
   await cacheIconMapping();

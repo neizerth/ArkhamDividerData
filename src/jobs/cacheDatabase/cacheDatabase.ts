@@ -14,6 +14,7 @@ import { cacheDatabaseEncounterSets } from "./cacheDatabaseEncounterSets";
 import { packToCampaign } from "./packToCampaign";
 import { identity, propEq } from "ramda";
 import { toCustomCampaign } from "./toCustomCampaigns";
+import { IDatabase } from "@/types/database";
 
 export const cacheDatabase = async () => {
   console.log('caching database...');
@@ -56,13 +57,15 @@ export const getMainCampaigns = () => {
   }));
 }
 
-export const getOfficialPackCampaigns =() => {
+export const getOfficialPackCampaigns = (): IDatabase.Campaign[] => {
   const campaigns = getCampaignsFromCache();
   const packs = getPacksFromCache(); 
 
-  return packs.filter(
+  const packCampaigns = packs.filter(
       ({ cycle_code }) => SPECIAL_CAMPAIGN_TYPES.includes(cycle_code)
     )
     .map(packToCampaign(campaigns))
     .filter(identity);
+
+  return packCampaigns as IDatabase.Campaign[];
 }

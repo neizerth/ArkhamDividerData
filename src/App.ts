@@ -1,6 +1,9 @@
 import { cacheArkhamCards, cacheArkhamDB, cacheDatabase } from "./jobs";
+import { build } from "./jobs/build";
+import { buildFromCache } from "./jobs/buildFromCache";
 import { cacheLanguages } from "./jobs/cacheLanguages";
 import { cacheTranslations } from "./jobs/cacheTranslations/cacheTranslations";
+import { createCache } from "./jobs/createCache";
 
 export class App {
   async run(type?: string) {
@@ -17,16 +20,12 @@ export class App {
         return await cacheLanguages();
       case 'i18n':
         return await cacheTranslations();
-      case 'all':
-        return await this.all();
+      case 'create-cache':
+        return await createCache();
+      case 'build-from-cache':
+        return await buildFromCache();
       default:
-        return console.log(`${type} is not supported`);
+        return await build();
     }
-  }
-  async all() {
-    await cacheArkhamCards();
-    await cacheArkhamDB();
-    await cacheDatabase();
-    await cacheLanguages();
   }
 }
