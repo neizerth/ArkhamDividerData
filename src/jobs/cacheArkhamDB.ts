@@ -1,6 +1,6 @@
 import { cache } from "@/util/cache";
-import { getCyclesCache } from "@/components";
 import { CacheType } from "@/types/cache";
+import { getCyclesCache } from "@/components/cache/cycles/getCyclesCache";
 
 export const cacheArkhamDB = async () => {
   console.log('caching ArkhamDB data...');

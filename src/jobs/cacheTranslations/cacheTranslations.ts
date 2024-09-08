@@ -1,12 +1,12 @@
 import { loadCoreTranslations, loadEncounterSets } from "@/api/arkhamCards/api";
-import { getAvailableLanguagesFromCache, getCampaignsCache, getCampaignsFromCache, getScenariosFromCache } from "@/components";
-import { getLanguagesCache } from "@/components/cache/languages/getLanguagesCache"
 import { CacheType } from "@/types/cache";
 import { Mapping } from "@/types/common";
 import { cache, createI18NCacheWriter } from "@/util/cache";
 import { delay } from "@/util/common";
 import { getCampaignMapping } from "./getCampaignsMapping";
 import { getScenarioMapping } from "./getScenarioMapping";
+import { getAvailableLanguagesFromCache, getCampaignsFromCache, getScenariosFromCache } from "@/components/cache";
+import { getCampaignsCache } from "@/components/cache/campaigns/getCampaignsCache";
 
 export const cacheTranslations = async () => {
   const languages = getAvailableLanguagesFromCache();

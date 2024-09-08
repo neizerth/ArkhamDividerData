@@ -1,4 +1,4 @@
-import { getEncountersFromCache, getEncountersSetsFromCache, getIconMappingFromCache } from "@/components";
+import { getEncountersFromCache, getEncountersSetsFromCache, getIconMappingFromCache } from "@/components/cache";
 import { IArkhamDB } from "@/types/arkhamDB";
 import { CacheType } from "@/types/cache";
 import { Mapping } from "@/types/common";

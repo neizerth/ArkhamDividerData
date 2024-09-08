@@ -1,10 +1,3 @@
-import { 
-  getCampaignsFromCache, 
-  getCyclesFromCache, 
-  getDatabaseEncounterSetsFromCache,
-  getPacksFromCache, 
-} from "@/components";
-
 import { CacheType } from "@/types/cache";
 import { cache } from "@/util/cache";
 
@@ -15,6 +8,7 @@ import { packToCampaign } from "./packToCampaign";
 import { identity, propEq } from "ramda";
 import { toCustomCampaign } from "./toCustomCampaigns";
 import { IDatabase } from "@/types/database";
+import { getCampaignsFromCache, getCyclesFromCache, getDatabaseEncounterSetsFromCache, getPacksFromCache } from "@/components/cache";
 
 export const cacheDatabase = async () => {
   console.log('caching database...');

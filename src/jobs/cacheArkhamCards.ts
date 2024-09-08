@@ -1,6 +1,8 @@
 import { cache } from "@/util/cache";
-import { getCampaignsCache, getIconsMappingCache, getEncounterSetsCache } from "@/components"
 import { CacheType } from "@/types/cache";
+import { getIconsMappingCache } from "@/components/cache/icons/getIconsMappingCache";
+import { getEncounterSetsCache } from "@/components/cache/encounterSets/getEncounterSetsCache";
+import { getCampaignsCache } from "@/components/cache/campaigns/getCampaignsCache";
 
 export const cacheArkhamCards = async () => {
   console.log('caching Arkham Cards...');

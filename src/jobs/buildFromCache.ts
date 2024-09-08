@@ -1,11 +1,4 @@
-import { 
-  getAvailableLanguagesFromCache,
-  getCyclesFromCache, 
-  getDatabaseCampaignsFromCache, 
-  getDatabaseEncounterSetsFromCache, 
-  getPacksFromCache, 
-  getScenariosFromCache 
-} from "@/components";
+import { getAvailableLanguagesFromCache, getCyclesFromCache, getDatabaseCampaignsFromCache, getDatabaseEncounterSetsFromCache, getPacksFromCache, getScenariosFromCache } from "@/components/cache";
 import { CacheType } from "@/types/cache";
 import { buildSource } from "@/util/build";
 import { createI18NCacheReader } from "@/util/cache";
