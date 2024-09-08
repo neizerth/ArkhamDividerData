@@ -8,7 +8,7 @@ import {
 import { CacheType } from "@/types/cache";
 import { cache } from "@/util/cache";
 
-import { NO_MAIN_CYCLE_CODES, SIDE_STORIES_CODE } from "@/api/arkhamDB/constants";
+import { NO_MAIN_CYCLE_CODES, SIDE_STORY_CODE } from "@/api/arkhamDB/constants";
 import { toMainCampaign } from "./toMainCampaign";
 import { cacheDatabaseEncounterSets } from "../cacheDatabaseEncounterSets";
 import { withCode } from "@/api/arkhamDB/criteria";
@@ -39,7 +39,7 @@ export const cacheCampaigns = () => {
     }));
   
   const sidePacks = packs
-    .filter(propEq(SIDE_STORIES_CODE, 'campaign_type'))
+    .filter(propEq(SIDE_STORY_CODE, 'campaign_type'))
   
   const sideCampaigns = sidePacks
     .map(packToCampaign({

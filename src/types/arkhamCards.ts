@@ -30,7 +30,7 @@ export namespace IArkhamCards {
       scenario_name: string;
       full_name: string;
       header: string;
-      side_scenario_type: ScenarioType;
+      side_scenario_type: string;
       setup: string[];
       icon: string;
       steps: ScenarioStep[]
@@ -55,7 +55,7 @@ export namespace IArkhamCards {
       position?: number
       version?: number
       name: string
-      campaign_type: CampaignType | ScenarioType,
+      campaign_type: string
 
       encounter_sets: string[];
       is_scenario: boolean;

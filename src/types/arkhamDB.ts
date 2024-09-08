@@ -18,8 +18,8 @@ export namespace IArkhamDB {
     cycle_code: string
   }
 
-  export type HasCode = {
-    code: string
+  export type HasCode<T = string> = {
+    code: T
   }
 
   export type HasUrl = {

@@ -51,7 +51,7 @@ export const toMainCampaign = ({ campaigns, encounterSets }: IMainCampaignOption
       position,
       official: true,
       packs: pack_codes,
-      campaign_type: IDatabase.CampaignType.CAMPAIGN,
+      campaign_type: IDatabase.CampaignType.SIDE,
       return_set_code
     }
 
