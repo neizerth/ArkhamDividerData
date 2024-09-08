@@ -1,3 +1,3 @@
 export * from './cacheArkhamCards';
 export * from './cacheArkhamDB';
-export * from './database/cacheDatabase/cacheDatabase';
+export * from './cacheDatabase/cacheDatabase';
