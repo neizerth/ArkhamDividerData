@@ -1,3 +1,5 @@
+import { Mapping } from "./common"
+
 export namespace IArkhamCards {
 
   export enum ScenarioType {
@@ -11,6 +13,11 @@ export namespace IArkhamCards {
     STANDALONE = 'standalone',
   };
   
+  export type CustomContent = {
+    creator: string;
+    download_link: Mapping
+  }
+
   export namespace JSON {
     export type Campaign = {
       id: string
@@ -19,6 +26,7 @@ export namespace IArkhamCards {
       name: string
       campaign_type: CampaignType,
       scenarios: string[]
+      custom?: CustomContent;
     }
     export type ScenarioStep = {
       id: string;
@@ -30,6 +38,7 @@ export namespace IArkhamCards {
       scenario_name: string;
       full_name: string;
       header: string;
+      custom?: CustomContent;
       side_scenario_type: ScenarioType;
       setup: string[];
       icon: string;
@@ -50,6 +59,7 @@ export namespace IArkhamCards {
       header: string
       icon: string
     }
+
     export type Campaign = {
       id: string
       position?: number
@@ -59,6 +69,12 @@ export namespace IArkhamCards {
 
       encounter_sets: string[];
       is_scenario: boolean;
+      is_custom: boolean
+      custom?: CustomContent;
+      scenarios: string[];
+    }
+
+    export type ExtendedCampaign = Omit<Campaign, 'scenarios'> & {
       scenarios: Scenario[]
     }
   }

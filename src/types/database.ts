@@ -30,14 +30,16 @@ export namespace IDatabase {
   export type Campaign = {
     id: string
     name: string
+    is_custom: boolean
+    campaign_type: string
+    arkham_cards_campaigns: ArkhamCardsCampaign[]
+    arkham_cards_scenarios: string[]
+    encounter_sets: string[]
+
     position?: number
     packs?: string[]
-    official: boolean
-    campaign_type: string
     return_set_code?: string
     arkhamdb_pack_code?: string;
-    arkham_cards_campaigns: ArkhamCardsCampaign[]
-    encounter_sets: string[]
-    arkham_cards_scenarios: IArkhamCards.Parsed.Scenario[]
+    custom_content?: IArkhamCards.CustomContent
   }
 }

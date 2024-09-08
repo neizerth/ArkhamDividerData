@@ -49,7 +49,7 @@ export const toMainCampaign = ({ campaigns, encounterSets }: IMainCampaignOption
       id: code,
       name,
       position,
-      official: true,
+      is_custom: false,
       packs: pack_codes,
       campaign_type: IDatabase.CampaignType.SIDE,
       return_set_code

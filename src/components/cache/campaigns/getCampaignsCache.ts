@@ -9,7 +9,23 @@ export const getCampaignsCache = async () => {
   const campaignsJSON = await loadСampaigns('en');
   const campaigns = getCampaigns(campaignsJSON);
 
-  return campaigns
+  return withScenarios(campaigns);
+}
+
+
+export const withScenarios = (data: IArkhamCards.Parsed.ExtendedCampaign[]) => {
+  const scenarios = data.map(prop('scenarios')).flat();
+  
+  const campaigns: IArkhamCards.Parsed.Campaign[] = data
+    .map(({ scenarios, ...campaign }) => ({
+      ...campaign,
+      scenarios: scenarios.map(prop('id'))
+    }));
+
+  return {
+    scenarios,
+    campaigns
+  }
 }
 
 export const getCampaigns = (campaigns: IArkhamCards.JSON.FullCampaign[]) => {

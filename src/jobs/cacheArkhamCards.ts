@@ -10,9 +10,10 @@ export const cacheArkhamCards = async () => {
 
 export const cacheCampaigns = async () => {
   console.log('caching Arkham Cards campaigns...');
-  const campaigns = await getCampaignsCache();
+  const { campaigns, scenarios } = await getCampaignsCache();
 
   cache(CacheType.CAMPAIGNS, campaigns);
+  cache(CacheType.SCENARIOS, scenarios);
 }
 
 export const cacheIconMapping = async () => {
