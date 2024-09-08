@@ -1,5 +1,3 @@
-import { IArkhamDB } from "@/types/arkhamDB";
-
 export const CORE_RETURN_CODE = 'rtnotz';
 
 export const RETURN_CYCLE_CODE = 'return';

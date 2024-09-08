@@ -1,5 +1,4 @@
 import { withCode } from "@/api/arkhamDB/criteria";
-import { IArkhamDB } from "@/types/arkhamDB";
 import { IDatabase } from "@/types/database";
 
 export const replaceIcon = (encounterSets: IDatabase.EncounterSet[]) => 

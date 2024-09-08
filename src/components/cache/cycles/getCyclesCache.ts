@@ -1,6 +1,6 @@
 import { loadJSONCycles, loadJSONEncounters, loadJSONPacks } from "@/api/arkhamDB/api";
 import { RETURN_CYCLE_CODE } from "@/api/arkhamDB/constants";
-import { withCode, withoutCode } from "@/api/arkhamDB/criteria";
+import { withoutCode } from "@/api/arkhamDB/criteria";
 import { getCampaignType, withReturnSetCode } from "@/api/arkhamDB/util";
 import { IArkhamDB } from "@/types/arkhamDB";
 import { unique } from "@/util/common";

@@ -2,7 +2,7 @@ import { RETURN_CYCLE_PREFIX } from "@/api/arkhamDB/constants";
 import { IArkhamCards } from "@/types/arkhamCards";
 import { IArkhamDB } from "@/types/arkhamDB";
 import { IDatabase } from "@/types/database";
-import { prop, propEq } from "ramda";
+import { propEq } from "ramda";
 import { getLinkedEncounterSets, getLinkedScenarios, toLinkedCampaign } from "./toLinkedCampaign";
 
 export const getReturnToCode = (id: string, cycles: IArkhamDB.JSON.ExtendedCycle[]) => {

@@ -1,7 +1,7 @@
 import { loadCoreTranslations, loadEncounterSets } from "@/api/arkhamCards/api";
 import { CacheType } from "@/types/cache";
 import { Mapping } from "@/types/common";
-import { cache, createI18NCacheWriter } from "@/util/cache";
+import { createI18NCacheWriter } from "@/util/cache";
 import { delay } from "@/util/common";
 import { getCampaignMapping } from "./getCampaignsMapping";
 import { getScenarioMapping } from "./getScenarioMapping";

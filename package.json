@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsx ./src/index.ts"
+    "build": "ts-node ./src/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,8 @@
     "@types/node": "^22.5.4",
     "@types/ramda": "^0.30.2",
     "eslint": "^9.9.1",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "tslib": "^2.7.0",
     "tsx": "^4.19.0",
     "typescript": "^5.5.4"
