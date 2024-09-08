@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "node_modules/axios/index";
+import axios, { AxiosRequestConfig } from "axios";
 
 type ResponseType = 'json' | 'text';
 

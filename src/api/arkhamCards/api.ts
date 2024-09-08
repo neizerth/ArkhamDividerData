@@ -3,6 +3,9 @@ import { getWithPrefix } from "../request";
 import { IArkhamCards } from "@/types/arkhamCards";
 import { IIcoMoon } from "@/types/icomoon";
 import { Mapping } from "@/types/common";
+import { IGithub } from "@/types/github";
+import { prop } from "ramda";
+import { IPOEditor } from "@/types/i18n";
 
 const getGithubRaw = getWithPrefix(GITHUB_RAW_BASE_URL);
 const getGithubContents = getWithPrefix(GITHUB_CONTENTS_BASE_URL);
@@ -26,6 +29,31 @@ export const loadIconsPatch = async () => {
   return data;
 }
 
+export const loadCoreTranslations = async (language: string) => {
+  const { data } = await getGithubRaw<IPOEditor.Source>(`/assets/i18n/${language}.po.json`);
+  return data;
+}
+
+export const loadFolderContents = async (path: string) => {
+  const { data } = await getGithubContents<IGithub.Contents.Item[]>(path);
+  return data;
+}
+
+export const loadTranslationLanguages = async () => {
+  const data = await loadFolderContents('/assets/generated');
+  const prefix = 'allCampaigns_';
+  const languages = data
+    .map(prop('name'))
+    .filter(name => name.startsWith(prefix))
+    .map(name => name.replace(prefix, '').replace('.json', ''))
+    
+  return [
+    'en',
+    ...languages
+  ]
+}
+
+// translations
 
 export const loadСampaigns = withLanguagePostfix<IArkhamCards.JSON.FullCampaign[]>(
   (language: string) => `/assets/generated/allCampaigns${language}.json`

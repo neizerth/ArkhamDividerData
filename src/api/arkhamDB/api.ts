@@ -1,10 +1,12 @@
-import { ARKHAMDB_BASE_URL, ARKHAMDB_API_BASE_URL, ARKHAMDB_JSON_BASE_URL } from "@/config/api";
+import { ARKHAMDB_BASE_URL, ARKHAMDB_API_BASE_URL, ARKHAMDB_JSON_BASE_URL, ARKHAMDB_CONTENTS_BASE_URL } from "@/config/api";
 import { getWithPrefix } from "../request";
 import { IArkhamDB } from "@/types/arkhamDB";
+import { IGithub } from "@/types/github";
 
 const getAPIData = getWithPrefix(ARKHAMDB_API_BASE_URL);
 const getPageContents = getWithPrefix(ARKHAMDB_BASE_URL);
 const getGithubJSON = getWithPrefix(ARKHAMDB_JSON_BASE_URL);
+const getGithubContents = getWithPrefix(ARKHAMDB_CONTENTS_BASE_URL);
 
 export const loadPacks = async () => {
   const { data } = await getAPIData('/packs');
@@ -46,4 +48,16 @@ export const loadJSONEncounters = async () => {
 export const loadJSONPackEncounterCards = async ({ code, cycle_code }: IArkhamDB.HasCycleCode & IArkhamDB.HasCode) => {
   const { data } = await getGithubJSON(`/pack/${cycle_code}/${code}_encounter.json`);
   return data as IArkhamDB.JSON.EncounterCard[];
+}
+
+export const loadFolderContents = async (path: string) => {
+  const { data } = await getGithubContents<IGithub.Contents.Item[]>(path, {
+    responseType: 'text'
+  });
+  return data;
+}
+
+export const loadTranslationLanguages = async () => {
+  const data = await loadFolderContents('/translations');
+  return data.map(prop('name'));
 }

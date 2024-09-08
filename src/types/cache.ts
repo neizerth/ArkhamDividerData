@@ -9,4 +9,7 @@ export const enum CacheType {
 
   DATABASE_CAMPAIGNS = 'databaseCampaigns',
   DATABASE_ENCOUNTER_SETS = 'databaseEncounterSets',
+  LANGUAGES = 'languages',
+
+  COMMON_TRANSLATION = 'commonTranslation',
 }

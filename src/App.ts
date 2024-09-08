@@ -1,4 +1,6 @@
 import { cacheArkhamCards, cacheArkhamDB, cacheDatabase } from "./jobs";
+import { cacheLanguages } from "./jobs/cacheLanguages";
+import { cacheTranslations } from "./jobs/cacheTranslations/cacheTranslations";
 
 export class App {
   async run(type?: string) {
@@ -11,6 +13,10 @@ export class App {
         return await cacheArkhamDB();
       case 'arkham-cards':
         return await cacheArkhamCards();
+      case 'languages':
+        return await cacheLanguages();
+      case 'i18n':
+        return await cacheTranslations();
       case 'all':
         return await this.all();
       default:
@@ -21,5 +27,6 @@ export class App {
     await cacheArkhamCards();
     await cacheArkhamDB();
     await cacheDatabase();
+    await cacheLanguages();
   }
 }

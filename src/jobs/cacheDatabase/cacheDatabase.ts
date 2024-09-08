@@ -1,7 +1,7 @@
 import { 
   getCampaignsFromCache, 
   getCyclesFromCache, 
-  getDatabaseEncounterSets,
+  getDatabaseEncounterSetsFromCache,
   getPacksFromCache, 
 } from "@/components";
 
@@ -45,7 +45,7 @@ export const getCustomCampaigns = () => {
 export const getMainCampaigns = () => {
   const campaigns = getCampaignsFromCache();
   const cycles = getCyclesFromCache();
-  const encounterSets = getDatabaseEncounterSets();
+  const encounterSets = getDatabaseEncounterSetsFromCache();
 
   return cycles.filter(
     ({ code }) => !NO_MAIN_CYCLE_CODES.includes(code)

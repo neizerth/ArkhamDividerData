@@ -5,13 +5,12 @@ import { getMainCampaigns } from "./getMainCampaigns";
 import { prop } from "ramda";
 import { getSideScenarios } from "./getSideScenarios";
 
-export const getCampaignsCache = async () => {
-  const campaignsJSON = await loadСampaigns('en');
+export const getCampaignsCache = async (language = 'en') => {
+  const campaignsJSON = await loadСampaigns(language);
   const campaigns = getCampaigns(campaignsJSON);
 
   return withScenarios(campaigns);
 }
-
 
 export const withScenarios = (data: IArkhamCards.Parsed.ExtendedCampaign[]) => {
   const scenarios = data.map(prop('scenarios')).flat();
