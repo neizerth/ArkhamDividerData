@@ -38,6 +38,6 @@ export namespace IDatabase {
     arkhamdb_pack_code?: string;
     arkham_cards_campaigns: ArkhamCardsCampaign[]
     encounter_sets: string[]
-    arkham_cards_scenarios: string[]
+    arkham_cards_scenarios: IArkhamCards.Parsed.Scenario[]
   }
 }

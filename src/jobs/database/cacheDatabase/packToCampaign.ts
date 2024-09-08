@@ -1,20 +1,23 @@
 import { IArkhamCards } from "@/types/arkhamCards"
 import { IArkhamDB } from "@/types/arkhamDB"
 import { IDatabase } from "@/types/database"
-import { propEq } from "ramda"
+import { prop, propEq } from "ramda"
 import { getLinkedEncounterSets, getLinkedScenarios, toLinkedCampaign } from "./toLinkedCampaign"
+
+import campaignMapping from "@/data/arkhamDBPackMapping.json";
 
 export type IPackToCampaign = {
   campaigns: IArkhamCards.Parsed.Campaign[]
-  encounterSets: IDatabase.EncounterSet[]
   official: boolean
-  campaignType: IDatabase.CampaignType
 }
+
+const getCampaignIds = (code: string): string[] => campaignMapping
+  .filter(propEq(code, 'arkhamdb_pack_code'))
+  .map(prop('arkham_cards_id'));
 
 export const packToCampaign = ({ 
   campaigns, 
-  official,
-  campaignType
+  official
 }: IPackToCampaign) => 
   (pack: IArkhamDB.JSON.ExtendedPack): IDatabase.Campaign | boolean => {
     const {
@@ -22,7 +25,14 @@ export const packToCampaign = ({
       name,
     } = pack;
 
-    const linkedCampaigns = campaigns.filter(propEq(name, 'name'));
+    let linkedCampaigns = campaigns.filter(propEq(name, 'name'));
+    
+    if (linkedCampaigns.length === 0) {
+      const ids = getCampaignIds(code);
+      linkedCampaigns = campaigns.filter(
+        ({ id }) => ids.includes(id)
+      );
+    }
 
     if (linkedCampaigns.length === 0) {
       console.log(`campaign for pack ${pack.name} not found!`);

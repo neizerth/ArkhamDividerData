@@ -6,6 +6,7 @@ import { IDatabase } from "@/types/database";
 import { cache } from "@/util/cache";
 
 export const cacheDatabaseEncounterSets = () => {
+  console.log('caching database encounter sets...');
   const encounterSets = getEncounterSets();
 
   cache(CacheType.DATABASE_ENCOUNTER_SETS, encounterSets);

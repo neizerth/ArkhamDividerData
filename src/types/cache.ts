@@ -1,5 +1,4 @@
 export const enum CacheType {
-  SCENARIOS = 'scenarios',
   CAMPAIGNS = 'campaigns',
   ICONS_MAPPING = 'iconsMapping',
   CYCLES = 'cycles',

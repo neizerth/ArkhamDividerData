@@ -17,7 +17,7 @@ export namespace IArkhamCards {
       position: number
       version: number
       name: string
-      campaign_type: string,
+      campaign_type: CampaignType,
       scenarios: string[]
     }
     export type ScenarioStep = {
@@ -30,7 +30,7 @@ export namespace IArkhamCards {
       scenario_name: string;
       full_name: string;
       header: string;
-      side_scenario_type: string;
+      side_scenario_type: ScenarioType;
       setup: string[];
       icon: string;
       steps: ScenarioStep[]
@@ -55,14 +55,10 @@ export namespace IArkhamCards {
       position?: number
       version?: number
       name: string
-      campaign_type: string
+      campaign_type: CampaignType | ScenarioType,
 
       encounter_sets: string[];
       is_scenario: boolean;
-      scenarios: string[]
-    }
-
-    export type ExtendedCampaign = Omit<Campaign, 'scenarios'> & {
       scenarios: Scenario[]
     }
   }

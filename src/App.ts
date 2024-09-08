@@ -11,15 +11,15 @@ export class App {
         return await cacheArkhamDB();
       case 'arkham-cards':
         return await cacheArkhamCards();
+      case 'all':
+        return await this.all();
+      default:
+        return console.log(`${type} is not supported`);
     }
-    // await cacheDatabase();
-    // await cacheArkhamDB();
-    // await cacheArkhamCards();
-    
-    // const availableLanguages = 
-    // const campaignEn = 
-
-    // this.cache('encounterSet', getEncounterSetsCache);
-    // getEncounterSetsCache();
+  }
+  async all() {
+    await cacheArkhamCards();
+    await cacheArkhamDB();
+    await cacheDatabase();
   }
 }

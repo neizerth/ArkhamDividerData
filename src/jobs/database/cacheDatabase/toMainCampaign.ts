@@ -5,6 +5,9 @@ import { IDatabase } from "@/types/database";
 import { unique } from "@/util/common";
 import { prop, propEq } from "ramda";
 import { getLinkedEncounterSets, getLinkedScenarios, toLinkedCampaign } from "./toLinkedCampaign";
+import { replaceIcon } from "./replaceIcon";
+
+import campaignMapping from "@/data/arkhamDBCycleMapping.json";
 
 
 export type IMainCampaignOptions = {
@@ -12,30 +15,27 @@ export type IMainCampaignOptions = {
   encounterSets: IDatabase.EncounterSet[]
 }
 
-export type IGetCampaignEncounterSetsOptions = Omit<IMainCampaignOptions, 'campaigns'> & {
-  cycle: IArkhamDB.JSON.ExtendedCycle
-} 
-
-export const getCampaignEncounterSets = ({ cycle, encounterSets }: IGetCampaignEncounterSetsOptions): string[] => {
-  const changeCode = (code: string) => {
-    const encounterSet = encounterSets.find(withCode(code));
-    if (!encounterSet) {
-      console.log(`encounter code "${code}" not found`);
-    }
-    return encounterSet?.arkhamdb_code || code;
-  }
-
-  return cycle.encounter_codes.map(changeCode);
-}
-
 export type IGetLinkedCampaigns = {
   campaigns: IArkhamCards.Parsed.Campaign[],
   cycle: IArkhamDB.JSON.ExtendedCycle
 }
 
+export const getCampaignIds = (code: string): string[] =>
+  campaignMapping.filter(
+    propEq(code, 'arkhamdb_cycle_code')
+  )
+  .map(prop('arkham_cards_campaign_id'));
+
 export const toMainCampaign = ({ campaigns, encounterSets }: IMainCampaignOptions) => 
   (cycle: IArkhamDB.JSON.ExtendedCycle): IDatabase.Campaign => {
-    const linkedCampaigns = campaigns.filter(propEq(cycle.code, 'id'));
+    let linkedCampaigns = campaigns.filter(propEq(cycle.code, 'id'));
+    
+    if (linkedCampaigns.length === 0) {
+      const ids = getCampaignIds(cycle.code);
+      linkedCampaigns = campaigns.filter(
+        ({ id }) => ids.includes(id)
+      );
+    }
 
     const { 
       code,
@@ -58,10 +58,9 @@ export const toMainCampaign = ({ campaigns, encounterSets }: IMainCampaignOption
     if (linkedCampaigns.length === 0) {
       console.log(`Campaign ${cycle.code} not found`);
 
-      const campaignEncounterSets = getCampaignEncounterSets({
-        cycle,
-        encounterSets
-      });
+      const campaignEncounterSets = cycle.encounter_codes.map(
+        replaceIcon(encounterSets)
+      );
 
       return {
         ...cycleData,
