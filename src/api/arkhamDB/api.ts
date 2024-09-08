@@ -2,6 +2,7 @@ import { ARKHAMDB_BASE_URL, ARKHAMDB_API_BASE_URL, ARKHAMDB_JSON_BASE_URL, ARKHA
 import { getWithPrefix } from "../request";
 import { IArkhamDB } from "@/types/arkhamDB";
 import { IGithub } from "@/types/github";
+import { prop } from "ramda";
 
 const getAPIData = getWithPrefix(ARKHAMDB_API_BASE_URL);
 const getPageContents = getWithPrefix(ARKHAMDB_BASE_URL);
