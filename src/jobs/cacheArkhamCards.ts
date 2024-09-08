@@ -4,15 +4,16 @@ import { CacheType } from "@/types/cache";
 
 export const cacheArkhamCards = async () => {
   await cacheCampaigns();
-  await cacheEncounterSets();
-  await cacheIconMapping();
+  // await cacheEncounterSets();
+  // await cacheIconMapping();
 }
 
 export const cacheCampaigns = async () => {
   console.log('caching Arkham Cards campaigns...');
-  const campaigns = await getCampaignsCache();
+  const { campaigns, scenarios } = await getCampaignsCache();
 
   cache(CacheType.CAMPAIGNS, campaigns);
+  cache(CacheType.SCENARIOS, scenarios);
 }
 
 export const cacheIconMapping = async () => {

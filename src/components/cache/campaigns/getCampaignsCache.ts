@@ -1,43 +1,42 @@
 
 import { IArkhamCards } from "@/types/arkhamCards";
-import { unique } from "@/util/common";
 import { loadСampaigns } from "@/api/arkhamCards/api";
+import { getMainCampaigns } from "./getMainCampaigns";
+import { prop } from "ramda";
+import { getSideScenarios } from "./getSideScenarios";
 
 export const getCampaignsCache = async () => {
   const campaignsJSON = await loadСampaigns('en');
+  const campaigns = getCampaigns(campaignsJSON);
+
+  return withScenarios(campaigns);
+}
+
+export const withScenarios = (data: IArkhamCards.Parsed.ExtendedCampaign[]) => {
+  const scenarios = data.map(prop('scenarios')).flat();
   
-  // console.log(campaignsJSON);
-  return campaignsJSON.map(parseCampaign);
-}
-
-
-export const getStepEncounterSets = ({ steps }: IArkhamCards.JSON.Scenario) => {
-  const step = steps.find(({ type }) => type === 'encounter_sets');
-
-  return step?.encounter_sets || [];
-}
-
-export const parseCampaign = ({ campaign, scenarios }: IArkhamCards.JSON.FullCampaign): IArkhamCards.Parsed.Campaign => {
-  const { 
-    id,
-    position,
-    version,
-    name,
-    campaign_type 
-  } = campaign;
-  const encounterSets = scenarios.map(getStepEncounterSets).flat();
-  const uniqueEncounterSets = unique(encounterSets);
+  const campaigns: IArkhamCards.Parsed.Campaign[] = data
+    .map(({ scenarios, ...campaign }) => ({
+      ...campaign,
+      scenarios: scenarios.map(prop('id'))
+    }));
 
   return {
-    id,
-    position,
-    version,
-    name,
-    campaign_type,
-    encounter_sets: uniqueEncounterSets,
+    scenarios,
+    campaigns
   }
 }
 
+export const getCampaigns = (campaigns: IArkhamCards.JSON.FullCampaign[]) => {
+
+  const mainCampaigns = getMainCampaigns(campaigns);
+  const sideScenarios = getSideScenarios(campaigns);
+  
+  return [
+    ...mainCampaigns,
+    ...sideScenarios
+  ];
+}
 // export const isCoreCampaign = ({ campaign }: ICampaign) => campaign.id === 'core' && campaign.position === 0;
 
 // export const getCoreEntrounterSet = (campaigns: ICampaign[]) => campaigns.find(isCoreCampaign)?.encounter_sets || [];

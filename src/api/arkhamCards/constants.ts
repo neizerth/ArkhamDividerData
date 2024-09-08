@@ -1,0 +1,1 @@
+export const SIDE_ID = 'side';

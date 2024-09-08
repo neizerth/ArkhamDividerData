@@ -1,12 +1,12 @@
 import { cache } from "@/util/cache";
 import { getCyclesCache } from "@/components";
+import { CacheType } from "@/types/cache";
 
 export const cacheArkhamDB = async () => {
-  console.log('cacheing ArkhamDB data');
+  console.log('caching ArkhamDB data...');
   const { cycles, packs, encounterSets } = await getCyclesCache();
 
-  cache('cycles', cycles);
-  cache('packs', packs);
-  cache('encounterSets', encounterSets);
-
+  cache(CacheType.CYCLES, cycles);
+  cache(CacheType.PACKS, packs);
+  cache(CacheType.ENCOUNTERS, encounterSets);
 }

@@ -1,9 +1,16 @@
 import { loadPackCards } from "@/api/arkhamDB/api";
+import { withCode } from "@/api/arkhamDB/criteria";
+import { getCampaignType } from "@/api/arkhamDB/util";
 import { IArkhamDB } from "@/types/arkhamDB";
 import { delay, unique } from "@/util/common";
 import { identity, prop } from "ramda";
 
-export const linkPacksEncounterSets = async (packs: IArkhamDB.JSON.Pack[]) => {
+type ILinkPacksEncounterSets = {
+  packs: IArkhamDB.JSON.Pack[],
+  cycles: IArkhamDB.JSON.Cycle[]
+}
+
+export const linkPacksEncounterSets = async ({ packs, cycles }: ILinkPacksEncounterSets) => {
   const data = [] as IArkhamDB.JSON.ExtendedPack[];
   for (const pack of packs) {
     console.log(`gettting pack ${pack.cycle_code}/${pack.code}...`);
@@ -14,8 +21,12 @@ export const linkPacksEncounterSets = async (packs: IArkhamDB.JSON.Pack[]) => {
       continue;
     }
 
+    const cycle = cycles.find(withCode(pack.cycle_code)) as IArkhamDB.JSON.Cycle;
+    const campaignType = getCampaignType(cycle);
+
     data.push({
       ...pack,
+      campaign_type: campaignType,
       encounter_codes: codes
     });
   }

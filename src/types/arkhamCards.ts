@@ -1,9 +1,15 @@
 export namespace IArkhamCards {
-  export type CampaignType = 'campaign' | 'standalone';
 
-  export type Mapping = {
-    [string: string]: string
-  }
+  export enum ScenarioType {
+    STANDALONE = 'standalone',
+    SIDE = 'side_story',
+    CHALLENGE = 'challenge'
+  };
+
+  export enum CampaignType {
+    CAMPAIGN = 'campaign',
+    STANDALONE = 'standalone',
+  };
   
   export namespace JSON {
     export type Campaign = {
@@ -11,7 +17,7 @@ export namespace IArkhamCards {
       position: number
       version: number
       name: string
-      campaign_type: CampaignType,
+      campaign_type: string,
       scenarios: string[]
     }
     export type ScenarioStep = {
@@ -23,6 +29,8 @@ export namespace IArkhamCards {
       id: string;
       scenario_name: string;
       full_name: string;
+      header: string;
+      side_scenario_type: ScenarioType;
       setup: string[];
       icon: string;
       steps: ScenarioStep[]
@@ -33,8 +41,29 @@ export namespace IArkhamCards {
     }
   }
   export namespace Parsed {
-    export type Campaign = Omit<JSON.Campaign, 'scenarios'> & {
+    export type Scenario = {
+      id: string
+      campaign_id: string;
+      encounter_sets: string[]
+      scenario_name: string
+      full_name: string
+      header: string
+      icon: string
+    }
+    export type Campaign = {
+      id: string
+      position?: number
+      version?: number
+      name: string
+      campaign_type: CampaignType | ScenarioType,
+
       encounter_sets: string[];
+      is_scenario: boolean;
+      scenarios: string[]
+    }
+
+    export type ExtendedCampaign = Omit<Campaign, 'scenarios'> & {
+      scenarios: Scenario[]
     }
   }
 

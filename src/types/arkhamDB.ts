@@ -2,7 +2,7 @@ export namespace IArkhamDB {
   export type HasSets<T> = {
     sets: T[]
   }
-  export type HasReturnSet<T> = {
+  export type HasReturnSetCode<T> = {
     return_set_code?: T;
   }
 
@@ -34,9 +34,19 @@ export namespace IArkhamDB {
     pack_code: string
   }
 
-  export type HasEncounterCodes {
+  export type HasEncounterCodes = {
     encounter_codes: string[]
-  };
+  }
+
+  export type HasCampaignType = {
+    campaign_type: CampaignType
+  }
+
+  export enum CampaignType {
+    PARALLEL = 'parallel',
+    SIDE_STORIES = 'side_stories',
+    CAMPAIGN = 'campaign'
+  }
 
   export namespace API {
     export type Entity = HasCode & HasUrl & HasName;
@@ -56,26 +66,34 @@ export namespace IArkhamDB {
     }
   }
   export namespace Web {
-    export type Entity = HasCode & HasUrl & HasName;
+    export type Entity = HasUrl & HasName & HasCode;
 
     export type Cycle = Entity;
     export type Set = Entity;
 
     export type ExtendedCycle = Cycle & 
-      HasReturnSet<string> & 
+      HasReturnSetCode<string> & 
       HasSets<Set>;
   }
   export namespace JSON {
-    export type Entity = HasCode & HasName;
+    export type Entity = HasName & HasCode;
 
     export type Cycle = Entity & HasPosition & HasSize;
-    export type ExtendedCycle = Cycle & HasReturnSet<string> & HasEncounterCodes;
+    export type ExtendedCycle = Cycle & 
+      HasReturnSetCode<string> & 
+      HasEncounterCodes & 
+      HasCampaignType & {
+      pack_codes: string[];
+    }
 
-    export type Pack = Entity & HasPosition & HasSize & HasCycleCode & {
+    export type Pack = Entity & 
+      HasPosition & 
+      HasSize & 
+      HasCycleCode & {
       cgdb_id: number
       date_release: string
     }
-    export type ExtendedPack = Pack & HasEncounterCodes;
+    export type ExtendedPack = Pack & HasEncounterCodes & HasCampaignType;
 
     export type Encounter = Entity;
     export type ExtendedEncounter = Encounter & HasPackCode & HasCycleCode;

@@ -1,17 +1,26 @@
 import { loadJSONCycles, loadJSONEncounters, loadJSONPacks } from "@/api/arkhamDB/api";
 import { RETURN_CYCLE_CODE } from "@/api/arkhamDB/constants";
 import { withCode, withoutCode } from "@/api/arkhamDB/criteria";
-import { withReturnSetCode } from "@/api/arkhamDB/util";
+import { getCampaignType, withReturnSetCode } from "@/api/arkhamDB/util";
 import { IArkhamDB } from "@/types/arkhamDB";
 import { unique } from "@/util/common";
 import { linkPacksEncounterSets } from "./linkPacksEncounterSets";
+import { prop, propEq } from "ramda";
 
 export const getCyclesCache = async () => {
+  console.log('loading packs...');
   const packsJSON = await loadJSONPacks();
+
+  console.log('loading cycles...');
   const cyclesJSON = await loadJSONCycles();
+
+  console.log('loading encounters...');
   const encountersJSON = await loadJSONEncounters();
 
-  const packs = await linkPacksEncounterSets(packsJSON);
+  const packs = await linkPacksEncounterSets({
+    packs: packsJSON,
+    cycles: cyclesJSON
+  });
 
   const encounterSets = encountersJSON
     .map(withPackCode(packs));
@@ -31,19 +40,22 @@ export const getCyclesCache = async () => {
 export const withoutEmptyEncounters = ({ encounter_codes }: IArkhamDB.JSON.ExtendedCycle) => encounter_codes.length > 0;
 
 export const appendCycleData = (packs: IArkhamDB.JSON.ExtendedPack[]) => {
-  const returnPacks = packs.filter(withCode(RETURN_CYCLE_CODE));
+  const returnPacks = packs.filter(propEq(RETURN_CYCLE_CODE, 'cycle_code'));
   const applyReturnCode = withReturnSetCode(returnPacks);
 
   return (cycle: IArkhamDB.JSON.Cycle): IArkhamDB.JSON.ExtendedCycle => {
-    const cyclePacks = packs.filter(withCode(cycle.code));
+    const cyclePacks = packs.filter(propEq(cycle.code, 'cycle_code'));
+    const packCodes = cyclePacks.map(prop('code'));
     
     const codes = cyclePacks.reduce(
       (data, pack) => [...data, ...pack.encounter_codes], 
       [] as string[]
-    );
+    )
 
     return {
       ...applyReturnCode(cycle),
+      campaign_type: getCampaignType(cycle),
+      pack_codes: packCodes,
       encounter_codes: unique(codes)
     }
   }
