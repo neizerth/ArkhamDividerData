@@ -48,6 +48,8 @@ export namespace IArkhamDB {
     CAMPAIGN = 'campaign'
   }
 
+  export type EncounterSet = HasCode & HasSize;
+
   export namespace API {
     export type Entity = HasCode & HasUrl & HasName;
 
@@ -93,7 +95,14 @@ export namespace IArkhamDB {
       cgdb_id: number
       date_release: string
     }
-    export type ExtendedPack = Pack & HasEncounterCodes & HasCampaignType;
+
+    export type EncounterSet = HasCode & HasSize;
+
+    export type HasEncounterSets = {
+      encounter_sets: EncounterSet[];
+    }
+
+    export type ExtendedPack = Pack & HasEncounterSets & HasCampaignType;
 
     export type Encounter = Entity;
     export type ExtendedEncounter = Encounter & HasPackCode & HasCycleCode;

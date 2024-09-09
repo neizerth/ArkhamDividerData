@@ -2,8 +2,8 @@ import { loadPackCards } from "@/api/arkhamDB/api";
 import { withCode } from "@/api/arkhamDB/criteria";
 import { getCampaignType } from "@/api/arkhamDB/util";
 import { IArkhamDB } from "@/types/arkhamDB";
-import { delay, unique } from "@/util/common";
-import { identity, prop } from "ramda";
+import { delay } from "@/util/common";
+import { prop, propEq } from "ramda";
 
 type ILinkPacksEncounterSets = {
   packs: IArkhamDB.JSON.Pack[],
@@ -15,9 +15,9 @@ export const linkPacksEncounterSets = async ({ packs, cycles }: ILinkPacksEncoun
   for (const pack of packs) {
     console.log(`gettting pack ${pack.cycle_code}/${pack.code}...`);
     await delay(100);
-    const codes = await getPackEncounterCodes(pack);
+    const encounterSets = await getPackEncounterSets(pack);
     
-    if (codes.length === 0) {
+    if (encounterSets.length === 0) {
       continue;
     }
 
@@ -27,20 +27,36 @@ export const linkPacksEncounterSets = async ({ packs, cycles }: ILinkPacksEncoun
     data.push({
       ...pack,
       campaign_type: campaignType,
-      encounter_codes: codes
+      encounter_sets: encounterSets
     });
   }
 
   return data;
 }
 
-export const getPackEncounterCodes = async (pack: IArkhamDB.JSON.Pack) => {
+
+export const getPackEncounterSets = async (pack: IArkhamDB.JSON.Pack) => {
   const cards = await loadPackCards(pack);
-  const codes = cards
+  return cards
     .map(prop('encounter_code'))
-    .filter(identity);
+    .reduce((target, code) => {
+      if (!code) {
+        return target;
+      }
 
-  const uniqCodes = unique(codes) as string[];
+      const index = target.findIndex(propEq(code, 'code'));
+      if (index !== -1) {
+        const item = target[index];
 
-  return uniqCodes;
+        return target.with(index, {
+          ...item,
+          size: item.size + 1
+        });
+      }
+      target.push({
+        code,
+        size: 1
+      }) 
+      return [...target, ];
+    }, [] as IArkhamDB.JSON.EncounterSet[]);
 }

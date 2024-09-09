@@ -48,7 +48,10 @@ export const appendCycleData = (packs: IArkhamDB.JSON.ExtendedPack[]) => {
     const packCodes = cyclePacks.map(prop('code'));
     
     const codes = cyclePacks.reduce(
-      (data, pack) => [...data, ...pack.encounter_codes], 
+      (data, pack) => [
+        ...data, 
+        ...pack.encounter_sets.map(prop('code'))
+      ], 
       [] as string[]
     )
 
@@ -65,7 +68,7 @@ export const withPackCode = (packs: IArkhamDB.JSON.ExtendedPack[]) =>
   (encounter: IArkhamDB.JSON.Encounter): IArkhamDB.JSON.ExtendedEncounter => {
     
     const pack = packs.find(
-      ({ encounter_codes }) => encounter_codes.includes(encounter.code)
+      ({ encounter_sets }) => encounter_sets.some(propEq(encounter.code, 'code'))
     );
 
     const packCode = pack?.code as string;
