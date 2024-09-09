@@ -1,9 +1,9 @@
-import { getEncountersFromCache, getEncountersSetsFromCache, getIconMappingFromCache } from "@/components/cache";
-import { IArkhamDB } from "@/types/arkhamDB";
-import { CacheType } from "@/types/cache";
-import { Mapping } from "@/types/common";
-import { IDatabase } from "@/types/database";
-import { cache } from "@/util/cache";
+import { getEncountersFromCache, getEncountersSetsFromCache, getIconMappingFromCache } from "../../components/cache";
+import { IArkhamDB } from "../../types/arkhamDB";
+import { CacheType } from "../../types/cache";
+import { Mapping } from "../../types/common";
+import { IDatabase } from "../../types/database";
+import { cache } from "../../util/cache";
 
 export const cacheDatabaseEncounterSets = () => {
   console.log('caching database encounter sets...');

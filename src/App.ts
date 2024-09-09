@@ -1,9 +1,13 @@
-import { cacheArkhamCards, cacheArkhamDB, cacheDatabase } from "./jobs";
-import { build } from "@/jobs/build";
-import { buildFromCache } from "@/jobs/buildFromCache";
-import { cacheLanguages } from "@/jobs/cacheLanguages";
-import { cacheTranslations } from "@/jobs/cacheTranslations/cacheTranslations";
-import { createCache } from "@/jobs/createCache";
+import { 
+  cacheArkhamCards, 
+  cacheArkhamDB, 
+  cacheDatabase, 
+  build, 
+  buildFromCache, 
+  cacheLanguages, 
+  cacheTranslations, 
+  createCache 
+} from "./jobs";
 
 export class App {
   async run(type?: string) {

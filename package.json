@@ -10,7 +10,7 @@
     "build:start.rollup": "node ./build/index.js",
     "build:rollup": "npm run build:compile.rollup && npm run build:start.rollup",
     "build:compile.tsc": "tsc && tsc-alias",
-    "build:start.tsc": "node ./build/src/index.js",
+    "build:start.tsc": "node ./build/index.js",
     "build:tsc": "npm run build:compile.tsc && npm run build:start.tsc",
     "build": "npm run build:tsc"
   },

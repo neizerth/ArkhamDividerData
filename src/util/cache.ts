@@ -1,4 +1,4 @@
-import { CACHE_DIR } from "@/constants";
+import { CACHE_DIR } from "../config/app";
 import { createJSONReader, createJSONWriter } from "./fs";
 
 export const cache = createJSONWriter(CACHE_DIR);

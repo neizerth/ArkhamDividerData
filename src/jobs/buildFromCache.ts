@@ -1,7 +1,7 @@
-import { getAvailableLanguagesFromCache, getCyclesFromCache, getDatabaseCampaignsFromCache, getDatabaseEncounterSetsFromCache, getPacksFromCache, getScenariosFromCache } from "@/components/cache";
-import { CacheType } from "@/types/cache";
-import { buildSource } from "@/util/build";
-import { createI18NCacheReader } from "@/util/cache";
+import { getAvailableLanguagesFromCache, getCyclesFromCache, getDatabaseCampaignsFromCache, getDatabaseEncounterSetsFromCache, getPacksFromCache, getScenariosFromCache } from "../components/cache";
+import { CacheType } from "../types/cache";
+import { buildSource } from "../util/build";
+import { createI18NCacheReader } from "../util/cache";
 
 export const buildFromCache = async () => {
   buildCoreSources();

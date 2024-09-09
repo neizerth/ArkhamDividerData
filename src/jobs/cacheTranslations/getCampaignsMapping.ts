@@ -1,5 +1,5 @@
-import { IArkhamCards } from "@/types/arkhamCards";
-import { Mapping } from "@/types/common";
+import { IArkhamCards } from "../../types/arkhamCards";
+import { Mapping } from "../../types/common";
 import { propEq } from "ramda";
 
 type Campaign = IArkhamCards.Parsed.Campaign;

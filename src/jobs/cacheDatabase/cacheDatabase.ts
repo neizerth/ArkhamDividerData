@@ -1,14 +1,14 @@
-import { CacheType } from "@/types/cache";
-import { cache } from "@/util/cache";
+import { CacheType } from "../../types/cache";
+import { cache } from "../../util/cache";
 
-import { NO_MAIN_CYCLE_CODES, SPECIAL_CAMPAIGN_TYPES } from "@/api/arkhamDB/constants";
+import { NO_MAIN_CYCLE_CODES, SPECIAL_CAMPAIGN_TYPES } from "../../api/arkhamDB/constants";
 import { toMainCampaign } from "./toMainCampaign";
 import { cacheDatabaseEncounterSets } from "./cacheDatabaseEncounterSets";
 import { packToCampaign } from "./packToCampaign";
 import { identity, propEq } from "ramda";
 import { toCustomCampaign } from "./toCustomCampaigns";
-import { IDatabase } from "@/types/database";
-import { getCampaignsFromCache, getCyclesFromCache, getDatabaseEncounterSetsFromCache, getPacksFromCache } from "@/components/cache";
+import { IDatabase } from "../../types/database";
+import { getCampaignsFromCache, getCyclesFromCache, getDatabaseEncounterSetsFromCache, getPacksFromCache } from "../../components/cache";
 
 export const cacheDatabase = async () => {
   console.log('caching database...');

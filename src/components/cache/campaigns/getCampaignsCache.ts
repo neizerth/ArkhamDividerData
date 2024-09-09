@@ -1,6 +1,6 @@
 
-import { IArkhamCards } from "@/types/arkhamCards";
-import { loadСampaigns } from "@/api/arkhamCards/api";
+import { IArkhamCards } from "../../../types/arkhamCards";
+import { loadСampaigns } from "../../../api/arkhamCards/api";
 import { getMainCampaigns } from "./getMainCampaigns";
 import { prop } from "ramda";
 import { getSideScenarios } from "./getSideScenarios";
