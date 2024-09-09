@@ -8,7 +8,7 @@
     "dev": "tsx ./src/index.ts",
     "build:compile": "webpack --mode production",
     "build:start": "node ./build/app.js",
-    "build": "npm run deploy:compile && npm run deploy:start"
+    "build": "npm run build:compile && npm run build:start"
   },
   "keywords": [],
   "author": "",
