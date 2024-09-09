@@ -1,5 +1,5 @@
 import { CacheType } from "../../types/cache";
-import { cache, getIconMappingFromCache, getIconsFromCache } from "../../util/cache";
+import { cache } from "../../util/cache";
 
 import { NO_MAIN_CYCLE_CODES, SPECIAL_CAMPAIGN_TYPES } from "../../api/arkhamDB/constants";
 import { toMainCampaign } from "./toMainCampaign";
@@ -8,8 +8,8 @@ import { packToCampaign } from "./packToCampaign";
 import { identity, propEq } from "ramda";
 import { toCustomCampaign } from "./toCustomCampaigns";
 import { IDatabase } from "../../types/database";
-import { getCampaignsFromCache, getCyclesFromCache, getDatabaseEncounterSetsFromCache, getPacksFromCache } from "../../util/cache";
-import { createIconDB, IconDB } from "@/components/icons/IconDB";
+import { getCampaignsFromCache, getCyclesFromCache, getPacksFromCache } from "../../util/cache";
+import { createIconDB } from "@/components/icons/IconDB";
 
 export const cacheDatabase = async () => {
   console.log('caching database...');

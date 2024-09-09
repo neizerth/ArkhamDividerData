@@ -1,11 +1,13 @@
-import { GITHUB_CONTENTS_BASE_URL, GITHUB_RAW_BASE_URL } from "../../config/api";
-import { getWithPrefix } from "../request";
-import { IArkhamCards } from "../../types/arkhamCards";
-import { IIcoMoon } from "../../types/icomoon";
-import { Mapping } from "../../types/common";
-import { IGithub } from "../../types/github";
 import { prop } from "ramda";
-import { IPOEditor } from "../../types/i18n";
+
+import { GITHUB_CONTENTS_BASE_URL, GITHUB_RAW_BASE_URL } from "@/config/api";
+import { getWithPrefix } from "@/api/request";
+
+import { IArkhamCards } from "@/types/arkhamCards";
+import { IIcoMoon } from "@/types/icomoon";
+import { Mapping } from "@/types/common";
+import { IGithub } from "@/types/github";
+import { IPOEditor } from "@/types/i18n";
 
 const getGithubRaw = getWithPrefix(GITHUB_RAW_BASE_URL);
 const getGithubContents = getWithPrefix(GITHUB_CONTENTS_BASE_URL);
