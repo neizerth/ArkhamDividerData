@@ -1,4 +1,4 @@
-import { getEncountersFromCache, getEncountersSetsFromCache, getIconMappingFromCache, getPacksFromCache } from "@/util/cache";
+import { getEncountersFromCache, getEncountersSetsFromCache } from "@/util/cache";
 import { IArkhamDB } from "@/types/arkhamDB";
 import { CacheType } from "@/types/cache";
 import { IDatabase } from "@/types/database";

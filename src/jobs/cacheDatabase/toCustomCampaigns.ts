@@ -1,5 +1,5 @@
 
-import { propEq, propIs } from "ramda";
+import { propEq } from "ramda";
 
 import { RETURN_CYCLE_PREFIX } from "@/api/arkhamDB/constants";
 import { IArkhamCards } from "@/types/arkhamCards";
