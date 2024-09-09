@@ -5,13 +5,19 @@ import { prop, propEq } from "ramda"
 import { getLinkedEncounterSets, getLinkedScenarios, toLinkedCampaign } from "./toLinkedCampaign"
 
 import campaignMapping from "../../data/arkhamDBPackMapping.json";
+import { IIconDB } from "@/components/icons/IconDB"
 
 
 const getCampaignIds = (code: string): string[] => campaignMapping
   .filter(propEq(code, 'arkhamdb_pack_code'))
   .map(prop('arkham_cards_id'));
 
-export const packToCampaign = (campaigns: IArkhamCards.Parsed.Campaign[]) => 
+type IPackToCampaignOptions = {
+  campaigns: IArkhamCards.Parsed.Campaign[]
+  iconDB: IIconDB
+}
+
+export const packToCampaign = ({ campaigns, iconDB }: IPackToCampaignOptions) => 
   (pack: IArkhamDB.JSON.ExtendedPack): IDatabase.Campaign | boolean => {
     const {
       code,
@@ -31,6 +37,7 @@ export const packToCampaign = (campaigns: IArkhamCards.Parsed.Campaign[]) =>
       console.log(`campaign for pack ${pack.name} not found!`);
       return false;
     }
+    const icon = iconDB.getId(code);
 
     const arkhamCardsCampaigns = linkedCampaigns.map(toLinkedCampaign);
     const linkedEncounterSets = getLinkedEncounterSets(linkedCampaigns);
@@ -39,6 +46,7 @@ export const packToCampaign = (campaigns: IArkhamCards.Parsed.Campaign[]) =>
     
     return {
       id: code,
+      icon,
       name,
       is_custom: false,
       arkhamdb_pack_code: code,

@@ -6,13 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx ./src/index.ts",
-    "build:compile.rollup": "rollup --config rollup.config.mjs",
-    "build:start.rollup": "node ./build/index.js",
-    "build:rollup": "npm run build:compile.rollup && npm run build:start.rollup",
-    "build:compile.tsc": "tsc && tsc-alias",
-    "build:start.tsc": "node ./build/index.js",
-    "build:tsc": "npm run build:compile.tsc && npm run build:start.tsc",
-    "build": "npm run build:tsc"
+    "build:compile": "tsc && tsc-alias",
+    "build:start": "node ./build/index.js",
+    "build": "npm run build:compile && npm run build:start"
   },
   "keywords": [],
   "author": "",

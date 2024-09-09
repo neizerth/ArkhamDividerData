@@ -1,5 +1,5 @@
 import { CacheType } from "../../types/cache";
-import { cache } from "../../util/cache";
+import { cache, getIconMappingFromCache, getIconsFromCache } from "../../util/cache";
 
 import { NO_MAIN_CYCLE_CODES, SPECIAL_CAMPAIGN_TYPES } from "../../api/arkhamDB/constants";
 import { toMainCampaign } from "./toMainCampaign";
@@ -9,6 +9,7 @@ import { identity, propEq } from "ramda";
 import { toCustomCampaign } from "./toCustomCampaigns";
 import { IDatabase } from "../../types/database";
 import { getCampaignsFromCache, getCyclesFromCache, getDatabaseEncounterSetsFromCache, getPacksFromCache } from "../../util/cache";
+import { createIconDB, IconDB } from "@/components/icons/IconDB";
 
 export const cacheDatabase = async () => {
   console.log('caching database...');
@@ -31,34 +32,46 @@ export const cacheDatabaseCampaigns = () => {
 export const getCustomCampaigns = () => {
   const campaigns = getCampaignsFromCache();
   const cycles = getCyclesFromCache();
+
+  const iconDB = createIconDB();
   
   return campaigns
     .filter(propEq(true, 'is_custom'))
-    .map(toCustomCampaign(cycles));
+    .map(toCustomCampaign({
+      cycles,
+      iconDB
+    }));
 }
+
+
 
 export const getMainCampaigns = () => {
   const campaigns = getCampaignsFromCache();
   const cycles = getCyclesFromCache();
-  const encounterSets = getDatabaseEncounterSetsFromCache();
+  const iconDB = createIconDB();
 
   return cycles.filter(
     ({ code }) => !NO_MAIN_CYCLE_CODES.includes(code)
   )
   .map(toMainCampaign({
     campaigns,
-    encounterSets
+    iconDB
   }));
 }
 
 export const getOfficialPackCampaigns = (): IDatabase.Campaign[] => {
   const campaigns = getCampaignsFromCache();
-  const packs = getPacksFromCache(); 
+  const packs = getPacksFromCache();
+
+  const iconDB = createIconDB();
 
   const packCampaigns = packs.filter(
       ({ cycle_code }) => SPECIAL_CAMPAIGN_TYPES.includes(cycle_code)
     )
-    .map(packToCampaign(campaigns))
+    .map(packToCampaign({
+      campaigns,
+      iconDB
+    }))
     .filter(identity);
 
   return packCampaigns as IDatabase.Campaign[];

@@ -4,14 +4,14 @@ import { IArkhamDB } from "../../types/arkhamDB";
 import { IDatabase } from "../../types/database";
 import { prop, propEq } from "ramda";
 import { getLinkedEncounterSets, getLinkedScenarios, toLinkedCampaign } from "./toLinkedCampaign";
-import { replaceIcon } from "./replaceIcon";
 
 import campaignMapping from "../../data/arkhamDBCycleMapping.json";
+import { IIconDB } from "@/components/icons/IconDB";
 
 
 export type IMainCampaignOptions = {
   campaigns: IArkhamCards.Parsed.Campaign[],
-  encounterSets: IDatabase.EncounterSet[]
+  iconDB: IIconDB
 }
 
 export type IGetLinkedCampaigns = {
@@ -25,7 +25,7 @@ export const getCampaignIds = (code: string): string[] =>
   )
   .map(prop('arkham_cards_campaign_id'));
 
-export const toMainCampaign = ({ campaigns, encounterSets }: IMainCampaignOptions) => 
+export const toMainCampaign = ({ campaigns, iconDB }: IMainCampaignOptions) => 
   (cycle: IArkhamDB.JSON.ExtendedCycle): IDatabase.Campaign => {
     let linkedCampaigns = campaigns.filter(propEq(cycle.code, 'id'));
     
@@ -42,7 +42,10 @@ export const toMainCampaign = ({ campaigns, encounterSets }: IMainCampaignOption
       position,
       pack_codes,
       return_set_code,
+      encounter_codes
     } = cycle;
+
+    const icon = iconDB.getId(code);
 
     const cycleData = {
       id: code,
@@ -50,6 +53,7 @@ export const toMainCampaign = ({ campaigns, encounterSets }: IMainCampaignOption
       position,
       is_custom: false,
       packs: pack_codes,
+      icon,
       campaign_type: IDatabase.CampaignType.SIDE,
       return_set_code
     }
@@ -57,15 +61,11 @@ export const toMainCampaign = ({ campaigns, encounterSets }: IMainCampaignOption
     if (linkedCampaigns.length === 0) {
       console.log(`Campaign ${cycle.code} not found`);
 
-      const campaignEncounterSets = cycle.encounter_codes.map(
-        replaceIcon(encounterSets)
-      );
-
       return {
         ...cycleData,
         arkham_cards_campaigns: [],
         arkham_cards_scenarios: [],
-        encounter_sets: campaignEncounterSets,
+        encounter_sets: encounter_codes,
       };
     };
 

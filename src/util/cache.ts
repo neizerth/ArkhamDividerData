@@ -26,3 +26,5 @@ export const getAvailableLanguagesFromCache = () => getCache<string[]>(CacheType
 
 export const getDatabaseCampaignsFromCache = () => getCache<IDatabase.Campaign[]>(CacheType.DATABASE_CAMPAIGNS);
 export const getDatabaseEncounterSetsFromCache = () => getCache<IDatabase.EncounterSet[]>(CacheType.DATABASE_ENCOUNTER_SETS);
+
+export const getIconsFromCache = () => getCache<string[]>(CacheType.ICONS);

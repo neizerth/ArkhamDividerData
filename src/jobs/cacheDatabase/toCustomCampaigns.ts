@@ -4,6 +4,7 @@ import { IArkhamDB } from "../../types/arkhamDB";
 import { IDatabase } from "../../types/database";
 import { propEq } from "ramda";
 import { getLinkedEncounterSets, getLinkedScenarios, toLinkedCampaign } from "./toLinkedCampaign";
+import { IIconDB } from "@/components/icons/IconDB";
 
 export const getReturnToCode = (id: string, cycles: IArkhamDB.JSON.ExtendedCycle[]) => {
   const returnToCode = id.slice(0, RETURN_CYCLE_PREFIX.length);
@@ -15,7 +16,12 @@ export const getReturnToCode = (id: string, cycles: IArkhamDB.JSON.ExtendedCycle
   return cycles.find(propEq(returnToCode, 'code'))?.code;
 }
 
-export const toCustomCampaign = (cycles: IArkhamDB.JSON.ExtendedCycle[]) =>
+type IToCustomCampaign = {
+  cycles: IArkhamDB.JSON.ExtendedCycle[]
+  iconDB: IIconDB
+}
+
+export const toCustomCampaign = ({ cycles, iconDB }: IToCustomCampaign) =>
   (campaign: IArkhamCards.Parsed.Campaign): IDatabase.Campaign => {
     const {
       id,
@@ -24,6 +30,8 @@ export const toCustomCampaign = (cycles: IArkhamDB.JSON.ExtendedCycle[]) =>
       campaign_type,
       custom
     } = campaign;
+
+    // const changeIcon = replaceIcon(id);
 
     const returnSetCode = getReturnToCode(id, cycles);
     const linkedCampaigns = [campaign];
@@ -35,6 +43,7 @@ export const toCustomCampaign = (cycles: IArkhamDB.JSON.ExtendedCycle[]) =>
     return {
       id,
       name,
+      icon: iconDB.getId(id),
       position,
       is_custom: true,
       campaign_type,

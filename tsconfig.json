@@ -25,7 +25,12 @@
     "noFallthroughCasesInSwitch": true,
 
     "moduleResolution": "node",
-    "baseUrl": "./src",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
     "outDir": "./build",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

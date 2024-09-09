@@ -35,6 +35,7 @@ export namespace IDatabase {
     arkham_cards_campaigns: ArkhamCardsCampaign[]
     arkham_cards_scenarios: string[]
     encounter_sets: string[]
+    icon?: string
 
     position?: number
     packs?: string[]

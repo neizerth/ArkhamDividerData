@@ -1,6 +1,7 @@
 import { IArkhamCards } from "../../types/arkhamCards";
 import { getScenarioEncounterSets } from "./getScenarioEncounterSets";
 import { SIDE_ID } from "../../api/arkhamCards/constants";
+import { createIconDB } from "../icons/IconDB";
 
 export const getSideScenarios = (campaigns: IArkhamCards.JSON.FullCampaign[]): IArkhamCards.Parsed.ExtendedCampaign[] => {
   const sideCampaign = campaigns.find(
@@ -10,6 +11,8 @@ export const getSideScenarios = (campaigns: IArkhamCards.JSON.FullCampaign[]): I
   if (!sideCampaign) {
     return [];
   }
+
+  const iconDB = createIconDB();
 
   return sideCampaign.scenarios.map(scenario => {
     const { 
@@ -31,7 +34,7 @@ export const getSideScenarios = (campaigns: IArkhamCards.JSON.FullCampaign[]): I
       scenario_name,
       header,
       full_name,
-      icon
+      icon: iconDB.getId(icon)
     }
 
     return {

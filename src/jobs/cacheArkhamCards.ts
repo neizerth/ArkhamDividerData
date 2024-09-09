@@ -3,12 +3,22 @@ import { CacheType } from "../types/cache";
 import { getIconsMappingCache } from "../components/icons/getIconsMappingCache";
 import { getEncounterSetsCache } from "../components/encounterSets/getEncounterSetsCache";
 import { getCampaignsCache } from "../components/campaigns/getCampaignsCache";
+import { getIconsCache } from "../components/icons/getIconsCache";
 
 export const cacheArkhamCards = async () => {
   console.log('caching Arkham Cards...');
+  await cacheIcons();
+  await cacheIconMapping();
+  
   await cacheCampaigns();
   await cacheEncounterSets();
-  await cacheIconMapping();
+}
+
+export const cacheIcons = async () => {
+  console.log('caching Arkham Cards icons...');
+  const icons = await getIconsCache();
+
+  cache(CacheType.ICONS, icons);
 }
 
 export const cacheCampaigns = async () => {

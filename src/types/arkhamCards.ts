@@ -57,7 +57,7 @@ export namespace IArkhamCards {
       scenario_name: string
       full_name: string
       header: string
-      icon: string
+      icon?: string
     }
 
     export type Campaign = {
