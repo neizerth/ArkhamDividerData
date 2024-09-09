@@ -1,8 +1,8 @@
-import { loadPackCards } from "../../../api/arkhamDB/api";
-import { withCode } from "../../../api/arkhamDB/criteria";
-import { getCampaignType } from "../../../api/arkhamDB/util";
-import { IArkhamDB } from "../../../types/arkhamDB";
-import { delay, unique } from "../../../util/common";
+import { loadPackCards } from "../../api/arkhamDB/api";
+import { withCode } from "../../api/arkhamDB/criteria";
+import { getCampaignType } from "../../api/arkhamDB/util";
+import { IArkhamDB } from "../../types/arkhamDB";
+import { delay, unique } from "../../util/common";
 import { identity, prop } from "ramda";
 
 type ILinkPacksEncounterSets = {

@@ -5,8 +5,8 @@ import { createI18NCacheWriter } from "../../util/cache";
 import { delay } from "../../util/common";
 import { getCampaignMapping } from "./getCampaignsMapping";
 import { getScenarioMapping } from "./getScenarioMapping";
-import { getAvailableLanguagesFromCache, getCampaignsFromCache, getScenariosFromCache } from "../../components/cache";
-import { getCampaignsCache } from "../../components/cache/campaigns/getCampaignsCache";
+import { getAvailableLanguagesFromCache, getCampaignsFromCache, getScenariosFromCache } from "../../util/cache";
+import { getCampaignsCache } from "../../components/campaigns/getCampaignsCache";
 
 export const cacheTranslations = async () => {
   const languages = getAvailableLanguagesFromCache();
