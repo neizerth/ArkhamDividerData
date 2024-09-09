@@ -48,10 +48,14 @@ export const getPackEncounterSets = async (pack: IArkhamDB.JSON.Pack) => {
       if (index !== -1) {
         const item = target[index];
 
-        return target.with(index, {
-          ...item,
-          size: item.size + 1
-        });
+        return [
+          ...target.slice(0, index),
+          {
+            ...item,
+            size: item.size + 1
+          },
+          ...target.slice(index + 1)
+        ]
       }
       target.push({
         code,
