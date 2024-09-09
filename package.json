@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx ./src/index.ts",
+    "start": "tsx ./src/index.ts",
     "production": "ts-node -r tsconfig-paths/register  ./src/index.ts",
-    "build:compile": "tsc",
-    "build:start": "node -r ./tsconfig-paths-bootstrap.js ./build/index.js",
-    "build": "npm run production:compile && npm run production:start"
+    "deploy:compile": "tsc",
+    "deploy:start": "node -r ./tsconfig-paths-bootstrap.js ./build/index.js",
+    "deploy": "npm run deploy:compile && npm run deploy:start"
   },
   "keywords": [],
   "author": "",
