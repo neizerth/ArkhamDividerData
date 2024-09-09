@@ -10,7 +10,8 @@ export namespace IDatabase {
 
   export type EncounterSet = IArkhamDB.JSON.ExtendedEncounter & {
     arkhamdb_code?: string
-    icon: string
+    icon?: string
+    size?: number
   }
   
   export enum CampaignType {
@@ -42,5 +43,6 @@ export namespace IDatabase {
     return_set_code?: string
     arkhamdb_pack_code?: string;
     custom_content?: IArkhamCards.CustomContent
+    is_size_supported: boolean;
   }
 }

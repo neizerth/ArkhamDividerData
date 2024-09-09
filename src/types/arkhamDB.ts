@@ -86,6 +86,7 @@ export namespace IArkhamDB {
       HasEncounterCodes & 
       HasCampaignType & {
       pack_codes: string[];
+      is_size_supported: boolean
     }
 
     export type Pack = Entity & 
@@ -96,16 +97,19 @@ export namespace IArkhamDB {
       date_release: string
     }
 
-    export type EncounterSet = HasCode & HasSize;
+    export type PackEncounterSet = HasCode & HasSize & HasPackCode & HasCycleCode;
 
     export type HasEncounterSets = {
-      encounter_sets: EncounterSet[];
+      encounter_sets: PackEncounterSet[];
     }
 
     export type ExtendedPack = Pack & HasEncounterSets & HasCampaignType;
 
     export type Encounter = Entity;
-    export type ExtendedEncounter = Encounter & HasPackCode & HasCycleCode;
+    export type ExtendedEncounter = Encounter & 
+      Partial<HasPackCode> & 
+      Partial<HasCycleCode> & 
+      Partial<HasSize>;
 
     export type Card = HasName & HasPosition & HasPackCode;
 

@@ -45,6 +45,7 @@ export const toMainCampaign = ({ campaigns, iconDB }: IMainCampaignOptions) =>
       position,
       pack_codes,
       return_set_code,
+      is_size_supported,
       encounter_codes
     } = cycle;
 
@@ -52,6 +53,7 @@ export const toMainCampaign = ({ campaigns, iconDB }: IMainCampaignOptions) =>
 
     const cycleData = {
       id: code,
+      is_size_supported,
       name,
       position,
       is_custom: false,

@@ -12,6 +12,9 @@ export const getScenarioMapping = (baseScenarios: Scenario[], localScenarios: Sc
     if (!baseCampaign) {
       return target;
     }
+    if (baseCampaign.scenario_name === localScenario.scenario_name) {
+      return target;
+    }
     const {
       full_name,
       header,

@@ -1,9 +1,10 @@
-import { getEncountersFromCache, getEncountersSetsFromCache, getIconMappingFromCache } from "@/util/cache";
+import { getEncountersFromCache, getEncountersSetsFromCache, getIconMappingFromCache, getPacksFromCache } from "@/util/cache";
 import { IArkhamDB } from "@/types/arkhamDB";
 import { CacheType } from "@/types/cache";
-import { Mapping } from "@/types/common";
 import { IDatabase } from "@/types/database";
 import { cache } from "@/util/cache";
+import { createIconDB, IIconDB } from "@/components/icons/IconDB";
+import { Mapping } from "@/types/common";
 
 export const cacheDatabaseEncounterSets = () => {
   console.log('caching database encounter sets...');
@@ -12,49 +13,50 @@ export const cacheDatabaseEncounterSets = () => {
   cache(CacheType.DATABASE_ENCOUNTER_SETS, encounterSets);
 }
 
-type IEncounterSetEntries = [string, string][]
-
 export const getEncounterSets = () => {
   const arkhamDBEncounters = getEncountersFromCache();
+  // const campaigns = 
   const arkhamCardsEncounters = getEncountersSetsFromCache();
-  const iconMapping = getIconMappingFromCache();
+  const iconDB = createIconDB();
+
+  return linkEncounterSets({
+    arkhamDBEncounters,
+    arkhamCardsEncounters,
+    iconDB
+  })
   
-  const encounterSets: IEncounterSetEntries = Object.entries(arkhamCardsEncounters);
-
-  return arkhamDBEncounters.map(
-    linkArkhamCardsEncounterSet({
-      encounterSets,
-      iconMapping
-    })
-  );
 }
 
-type ILinkArkhamCardsEncounterSet = {
-  encounterSets: IEncounterSetEntries
-  iconMapping: Mapping
+type ILinkEncounterSet = {
+  arkhamDBEncounters: IArkhamDB.JSON.ExtendedEncounter[]
+  arkhamCardsEncounters: Mapping
+  iconDB: IIconDB
 }
 
-export const linkArkhamCardsEncounterSet = ({ encounterSets, iconMapping }: ILinkArkhamCardsEncounterSet) => 
-  (encounter: IArkhamDB.JSON.ExtendedEncounter): IDatabase.EncounterSet => {
-    const encounterSet = encounterSets.find(
-      ([_, name]) => name.toLowerCase() === encounter.name.toLowerCase()
+export const linkEncounterSets = ({ 
+  arkhamCardsEncounters, 
+  arkhamDBEncounters,
+  iconDB
+}: ILinkEncounterSet): IDatabase.EncounterSet[] => 
+  Object.entries(arkhamCardsEncounters)
+  .map((arkhamCardsEnrty) => {
+    const [arkhamCardsId, arkhamCardsName] = arkhamCardsEnrty;
+    const arkhamDBEncounter = arkhamDBEncounters.find(
+      ({ name }) => name.toLowerCase() === arkhamCardsName.toLowerCase()
     );
-    const { code } = encounter;
-    const encounterIcon = iconMapping[code] || code;
     
-    if (!encounterSet) {
-      console.log(`encounter code "${code}" not found`)
+    if (!arkhamDBEncounter) {
+      console.log(`arkhamDB encounter not found: ${arkhamCardsId}`);
       return {
-        ...encounter,
-        icon: encounterIcon
-      };
+        name: arkhamCardsName,
+        code: arkhamCardsId
+      }
     }
-
-    const [arkhamDBCode] = encounterSet;
-
+    const icon = iconDB.getId(arkhamDBEncounter.code) || iconDB.getId(arkhamCardsId);
     return {
-      ...encounter,
-      icon: iconMapping[arkhamDBCode] || encounterIcon,
-      arkhamdb_code: arkhamDBCode
-    };
-  }
+      ...arkhamDBEncounter,
+      code: arkhamCardsId,
+      arkhamdb_code: arkhamDBEncounter.code,
+      icon
+    }
+  })

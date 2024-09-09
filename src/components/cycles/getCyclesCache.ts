@@ -5,7 +5,7 @@ import { getCampaignType, withReturnSetCode } from "@/api/arkhamDB/util";
 import { IArkhamDB } from "@/types/arkhamDB";
 import { unique } from "@/util/common";
 import { linkPacksEncounterSets } from "./linkPacksEncounterSets";
-import { prop, propEq } from "ramda";
+import { identity, prop, propEq, propIs } from "ramda";
 
 export const getCyclesCache = async () => {
   console.log('loading packs...');
@@ -23,7 +23,8 @@ export const getCyclesCache = async () => {
   });
 
   const encounterSets = encountersJSON
-    .map(withPackCode(packs));
+    .map(withPack(packs))
+    .filter(identity);
 
   const cycles = cyclesJSON
     .filter(withoutCode(RETURN_CYCLE_CODE))
@@ -53,30 +54,47 @@ export const appendCycleData = (packs: IArkhamDB.JSON.ExtendedPack[]) => {
         ...pack.encounter_sets.map(prop('code'))
       ], 
       [] as string[]
-    )
+    );
+
+    const isSizeSupported = cyclePacks.every(propIs(Number, 'size'));
 
     return {
       ...applyReturnCode(cycle),
       campaign_type: getCampaignType(cycle),
       pack_codes: packCodes,
-      encounter_codes: unique(codes)
+      encounter_codes: unique(codes),
+      is_size_supported: isSizeSupported
     }
   }
 }
 
-export const withPackCode = (packs: IArkhamDB.JSON.ExtendedPack[]) => 
-  (encounter: IArkhamDB.JSON.Encounter): IArkhamDB.JSON.ExtendedEncounter => {
-    
-    const pack = packs.find(
-      ({ encounter_sets }) => encounter_sets.some(propEq(encounter.code, 'code'))
-    );
 
-    const packCode = pack?.code as string;
-    const cycleCode = pack?.cycle_code as string;
+export type Pack = IArkhamDB.JSON.ExtendedPack;
+export type PackEncounterSet = IArkhamDB.JSON.PackEncounterSet;
+export type ExtendedEncounter = IArkhamDB.JSON.ExtendedEncounter;
+export type Encounter = IArkhamDB.JSON.ExtendedEncounter;
+
+export const withPack = (packs: Pack[]) => {
+  const packEncounterSets = packs.map(prop('encounter_sets')).flat();
+
+  return (encounter: IArkhamDB.JSON.Encounter): ExtendedEncounter | false => {
+    
+    const packEncounterSet = packEncounterSets.find(propEq(encounter.code, 'code'));
+    
+    const size = packEncounterSet?.size
+    const packCode = packEncounterSet?.pack_code;
+    const cycleCode = packEncounterSet?.cycle_code
+
+    if (!packEncounterSet) {
+      console.log(`encounter set ${encounter.code} not found!`);
+    }
 
     return {
       ...encounter,
       pack_code: packCode,
-      cycle_code: cycleCode
+      cycle_code: cycleCode,
+      size
     };
   }
+
+}

@@ -16,8 +16,8 @@ import { toCustomCampaign } from "./toCustomCampaigns";
 
 export const cacheDatabase = async () => {
   console.log('caching database...');
-  cacheDatabaseEncounterSets();
   cacheDatabaseCampaigns();
+  cacheDatabaseEncounterSets();
 }
 
 export const cacheDatabaseCampaigns = () => {
@@ -45,8 +45,6 @@ export const getCustomCampaigns = () => {
       iconDB
     }));
 }
-
-
 
 export const getMainCampaigns = () => {
   const campaigns = getCampaignsFromCache();

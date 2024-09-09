@@ -58,9 +58,11 @@ export const getPackEncounterSets = async (pack: IArkhamDB.JSON.Pack) => {
         ]
       }
       target.push({
+        cycle_code: pack.cycle_code,
+        pack_code: pack.code,
         code,
         size: 1
       }) 
       return [...target, ];
-    }, [] as IArkhamDB.JSON.EncounterSet[]);
+    }, [] as IArkhamDB.JSON.PackEncounterSet[]);
 }

@@ -20,11 +20,13 @@ export const buildLanguageSource = (language: string) => {
   const getCache = createI18NCacheReader(language);
 
   const campaigns = getCache(CacheType.CAMPAIGNS);
+  const translatedCampaigns = getCache(CacheType.TRANSLATED_CAMPAIGNS);
   const common = getCache(CacheType.COMMON_TRANSLATION);
   const encounterSets = getCache(CacheType.ENCOUNTER_SETS);
   const scenarios = getCache(CacheType.SCENARIOS);
   
   const data = {
+    translatedCampaigns,
     campaigns,
     encounterSets,
     scenarios,

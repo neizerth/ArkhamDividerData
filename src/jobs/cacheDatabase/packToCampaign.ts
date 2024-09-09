@@ -22,6 +22,7 @@ export const packToCampaign = ({ campaigns, iconDB }: IPackToCampaignOptions) =>
     const {
       code,
       name,
+      size
     } = pack;
 
     let linkedCampaigns = campaigns.filter(propEq(name, 'name'));
@@ -43,9 +44,11 @@ export const packToCampaign = ({ campaigns, iconDB }: IPackToCampaignOptions) =>
     const linkedEncounterSets = getLinkedEncounterSets(linkedCampaigns);
     const scenarios = getLinkedScenarios(linkedCampaigns);
     const [linkedCampaign] = linkedCampaigns;
+    const isSizeSupported = Boolean(size);
     
     return {
       id: code,
+      is_size_supported: isSizeSupported,
       icon,
       name,
       is_custom: false,

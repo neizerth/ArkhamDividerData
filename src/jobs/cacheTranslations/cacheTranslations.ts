@@ -2,13 +2,14 @@ import { CacheType } from "@/types/cache";
 import { Mapping } from "@/types/common";
 
 import { loadCoreTranslations, loadEncounterSets } from "@/api/arkhamCards/api";
-import { createI18NCacheWriter } from "@/util/cache";
+import { createI18NCacheWriter, getEncountersSetsFromCache } from "@/util/cache";
 import { delay } from "@/util/common";
 import { getAvailableLanguagesFromCache, getCampaignsFromCache, getScenariosFromCache } from "@/util/cache";
 import { getCampaignsCache } from "@/components/campaigns/getCampaignsCache";
 
-import { getCampaignMapping } from "./getCampaignsMapping";
+import { getCampaignMapping, getTranslatedCampaigns } from "./campaignTranslation";
 import { getScenarioMapping } from "./getScenarioMapping";
+import { translateMapping } from "./translateMapping";
 
 export const cacheTranslations = async () => {
   const languages = getAvailableLanguagesFromCache();
@@ -40,20 +41,27 @@ export const cacheCampaignTranslation = async (language: string) => {
 
   const baseCampaigns = getCampaignsFromCache();
   const baseScenarios = getScenariosFromCache();
+
   const { campaigns, scenarios } = await getCampaignsCache(language);
 
   const campaignsMapping = getCampaignMapping(baseCampaigns, campaigns);
   const scenariosMapping = getScenarioMapping(baseScenarios, scenarios);
 
+  const translatedCampaigns = getTranslatedCampaigns(baseCampaigns, campaigns);
+
   const cache = createI18NCacheWriter(language);
 
+  cache(CacheType.TRANSLATED_CAMPAIGNS, translatedCampaigns);
   cache(CacheType.CAMPAIGNS, campaignsMapping);
   cache(CacheType.SCENARIOS, scenariosMapping);
 }
 
 export const cacheEncounterSetTranslation = async (language: string) => {
   console.log(`caching "${language}" encounter sets...`);
-  const encounterSets = await loadEncounterSets(language);
+  const mapping = await loadEncounterSets(language);
+  const baseMapping = getEncountersSetsFromCache();
+  
+  const encounterSets = translateMapping(baseMapping, mapping);
 
   const cache = createI18NCacheWriter(language);
   cache(CacheType.ENCOUNTER_SETS, encounterSets);

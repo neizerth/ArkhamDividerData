@@ -1,5 +1,5 @@
 
-import { propEq } from "ramda";
+import { propEq, propIs } from "ramda";
 
 import { RETURN_CYCLE_PREFIX } from "@/api/arkhamDB/constants";
 import { IArkhamCards } from "@/types/arkhamCards";
@@ -46,6 +46,7 @@ export const toCustomCampaign = ({ cycles, iconDB }: IToCustomCampaign) =>
 
     return {
       id,
+      is_size_supported: false,
       name,
       icon: iconDB.getId(id),
       position,
