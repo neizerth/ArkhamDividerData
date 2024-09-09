@@ -12,7 +12,7 @@
     "build:compile.tsc": "tsc && tsc-alias",
     "build:start.tsc": "node ./build/src/index.js",
     "build:tsc": "npm run build:compile.tsc && npm run build:start.tsc",
-    "build": "npm run build:compile && npm run build:start"
+    "build": "npm run build:tsc"
   },
   "keywords": [],
   "author": "",
