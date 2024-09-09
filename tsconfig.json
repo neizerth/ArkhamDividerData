@@ -27,7 +27,6 @@
 
     "moduleResolution": "node",
     "outDir": "./build",
-    "rootDir": "./src",
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
