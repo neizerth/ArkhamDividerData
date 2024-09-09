@@ -10,7 +10,10 @@ export default {
   },
   plugins: [
     json(),
-    typescript(),
-    typescriptPaths(),
+    typescript({
+    }),
+    typescriptPaths({
+      nonRelative: true,
+    }),
   ]
 };
