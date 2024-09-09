@@ -6,8 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx ./src/index.ts",
-    "build:compile": "rollup --config rollup.config.mjs",
-    "build:start": "node ./build/index.js",
+    "build:compile.rollup": "rollup --config rollup.config.mjs",
+    "build:start.rollup": "node ./build/index.js",
+    "build:rollup": "npm run build:compile.rollup && npm run build:start.rollup",
+    "build:compile.tsc": "tsc && tsc-alias",
+    "build:start.tsc": "node ./build/src/index.js",
+    "build:tsc": "npm run build:compile.tsc && npm run build:start.tsc",
     "build": "npm run build:compile && npm run build:start"
   },
   "keywords": [],
@@ -27,6 +31,7 @@
     "ramda": "^0.30.1",
     "rollup": "^4.21.2",
     "rollup-plugin-typescript-paths": "^1.5.0",
+    "tsc-alias": "^1.8.10",
     "tsconfig-paths": "^4.2.0",
     "tsconfig-paths-webpack-plugin": "^4.1.0",
     "tslib": "^2.7.0",
