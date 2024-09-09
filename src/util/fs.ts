@@ -1,5 +1,4 @@
 import fs from 'fs';
-// export const 
 
 export const createJSONWriter = <T = string>(dir: string) => (name: T, data: object) => {
 

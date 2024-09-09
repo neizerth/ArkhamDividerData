@@ -1,8 +1,9 @@
 
-import { IArkhamCards } from "../../types/arkhamCards";
-import { loadСampaigns } from "../../api/arkhamCards/api";
-import { getMainCampaigns } from "./getMainCampaigns";
 import { prop } from "ramda";
+import { IArkhamCards } from "@/types/arkhamCards";
+import { loadСampaigns } from "@/api/arkhamCards/api";
+
+import { getMainCampaigns } from "./getMainCampaigns";
 import { getSideScenarios } from "./getSideScenarios";
 
 export const getCampaignsCache = async (language = 'en') => {

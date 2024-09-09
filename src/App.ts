@@ -10,10 +10,10 @@ import {
 } from "./jobs";
 
 export class App {
-  async run(type?: string) {
+  async run(command?: string) {
     console.log('starting application');
 
-    switch (type) {
+    switch (command) {
       case 'database':
         return await cacheDatabase();
       case 'arkham-db':

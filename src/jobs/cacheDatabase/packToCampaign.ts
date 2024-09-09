@@ -1,10 +1,10 @@
-import { IArkhamCards } from "../../types/arkhamCards"
-import { IArkhamDB } from "../../types/arkhamDB"
-import { IDatabase } from "../../types/database"
+import { IArkhamCards } from "@/types/arkhamCards"
+import { IArkhamDB } from "@/types/arkhamDB"
+import { IDatabase } from "@/types/database"
 import { prop, propEq } from "ramda"
 import { getLinkedEncounterSets, getLinkedScenarios, toLinkedCampaign } from "./toLinkedCampaign"
 
-import campaignMapping from "../../data/arkhamDBPackMapping.json";
+import campaignMapping from "@/data/arkhamDBPackMapping.json";
 import { IIconDB } from "@/components/icons/IconDB"
 
 

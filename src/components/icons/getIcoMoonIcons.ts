@@ -1,5 +1,5 @@
-import { loadIcons } from '../../api/arkhamCards/api';
-import { IIcoMoon } from '../../types/icomoon'
+import { loadIcons } from '@/api/arkhamCards/api';
+import { IIcoMoon } from '@/types/icomoon'
 
 export const getIcoMoonIcons = async () => {
   const project = await loadIcons();

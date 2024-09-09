@@ -3,9 +3,9 @@ import {
   CORE_RETURN_CODE, 
   RETURN_CYCLE_PREFIX,
   SPECIAL_CAMPAIGN_TYPES,
-} from "../../api/arkhamDB/constants";
-import { withCode } from "../../api/arkhamDB/criteria";
-import { IArkhamDB } from "../../types/arkhamDB";
+} from "@/api/arkhamDB/constants";
+import { withCode } from "@/api/arkhamDB/criteria";
+import { IArkhamDB } from "@/types/arkhamDB";
 
 export const withReturnSetCode = (returnPacks: IArkhamDB.HasCode[]) => 
   <T extends IArkhamDB.HasCode>(cycle: T): T & IArkhamDB.HasReturnSetCode<string> => {

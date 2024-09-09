@@ -1,5 +1,5 @@
-import { IArkhamCards } from "../../types/arkhamCards"
-import { Mapping } from "../../types/common";
+import { IArkhamCards } from "@/types/arkhamCards"
+import { Mapping } from "@/types/common";
 
 type Scenario = IArkhamCards.Parsed.Scenario;
 

@@ -1,5 +1,5 @@
-import { IArkhamCards } from "../../types/arkhamCards";
-import { unique } from "../../util/common";
+import { IArkhamCards } from "@/types/arkhamCards";
+import { unique } from "@/util/common";
 import { prop } from "ramda";
 
 export const toLinkedCampaign = (campaign: IArkhamCards.Parsed.Campaign) => {

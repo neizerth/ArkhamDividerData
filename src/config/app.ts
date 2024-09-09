@@ -1,5 +1,5 @@
 import path from "path";
-import { ROOT_DIR } from "../constants";
+import { ROOT_DIR } from "@/constants";
 
 export const DIST_DIR = path.join(ROOT_DIR, 'dist');
 

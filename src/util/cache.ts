@@ -1,10 +1,10 @@
-import { IArkhamCards } from "../types/arkhamCards";
-import { IArkhamDB } from "../types/arkhamDB";
-import { CacheType } from "../types/cache";
-import { Mapping } from "../types/common";
-import { IDatabase } from "../types/database";
+import { IArkhamCards } from "@/types/arkhamCards";
+import { IArkhamDB } from "@/types/arkhamDB";
+import { CacheType } from "@/types/cache";
+import { Mapping } from "@/types/common";
+import { IDatabase } from "@/types/database";
 
-import { CACHE_DIR } from "../config/app";
+import { CACHE_DIR } from "@/config/app";
 import { createJSONReader, createJSONWriter } from "./fs";
 
 export const cache = createJSONWriter(CACHE_DIR);

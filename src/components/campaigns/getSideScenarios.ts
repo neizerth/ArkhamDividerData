@@ -1,7 +1,7 @@
-import { IArkhamCards } from "../../types/arkhamCards";
+import { IArkhamCards } from "@/types/arkhamCards";
 import { getScenarioEncounterSets } from "./getScenarioEncounterSets";
-import { SIDE_ID } from "../../api/arkhamCards/constants";
-import { createIconDB } from "../icons/IconDB";
+import { SIDE_ID } from "@/api/arkhamCards/constants";
+import { createIconDB } from "@/components/icons/IconDB";
 
 export const getSideScenarios = (campaigns: IArkhamCards.JSON.FullCampaign[]): IArkhamCards.Parsed.ExtendedCampaign[] => {
   const sideCampaign = campaigns.find(
