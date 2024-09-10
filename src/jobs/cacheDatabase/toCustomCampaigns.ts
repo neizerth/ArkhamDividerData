@@ -22,17 +22,18 @@ export const getReturnToCode = (id: string, cycles: IArkhamDB.JSON.ExtendedCycle
 
 type IToCustomCampaign = {
   cycles: IArkhamDB.JSON.ExtendedCycle[]
+  customPacks: IArkhamCards.JSON.ExtendedPack[]
   iconDB: IIconDB
 }
 
-export const toCustomCampaign = ({ cycles, iconDB }: IToCustomCampaign) =>
+export const toCustomCampaign = ({ cycles, customPacks, iconDB }: IToCustomCampaign) =>
   (campaign: IArkhamCards.Parsed.Campaign): IDatabase.Campaign => {
     const {
       id,
       name,
       position,
       campaign_type,
-      custom
+      custom,
     } = campaign;
 
     // const changeIcon = replaceIcon(id);
@@ -44,13 +45,16 @@ export const toCustomCampaign = ({ cycles, iconDB }: IToCustomCampaign) =>
     const arkhamCampaigns = linkedCampaigns.map(toLinkedCampaign);
     const encounterSets = getLinkedEncounterSets(linkedCampaigns);
 
+    const isCanonical = customPacks.find(propEq(id, 'code'))?.is_canonical
+
     return {
       id,
       is_size_supported: false,
       name,
       icon: iconDB.getId(id),
       position,
-      is_custom: true,
+      is_canonical: Boolean(isCanonical),
+      is_custom: Boolean(custom),
       campaign_type,
       return_set_code: returnSetCode,
       custom_content: custom,

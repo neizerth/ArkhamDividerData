@@ -25,7 +25,8 @@ export const getIconMappingFromCache = () => getCache<Mapping>(CacheType.ICONS_M
 export const getEncountersSetsFromCache = () => getCache<IArkhamCards.EncounterSet[]>(CacheType.ENCOUNTER_SETS);
 export const getCustomPacksFromCache = () => getCache<IArkhamCards.JSON.ExtendedPack[]>(CacheType.CUSTOM_PACKS);
 
-export const getAvailableLanguagesFromCache = () => getCache<string[]>(CacheType.LANGUAGES);
+export const getCampaignLanguagesFromCache = () => getCache<string[]>(CacheType.CAMPAIGN_LANGUAGES);
+export const getCoreLanguagesFromCache = () => getCache<string[]>(CacheType.CORE_LANGUAGES);
 
 // database
 export const getDatabaseCampaignsFromCache = () => getCache<IDatabase.Campaign[]>(CacheType.DATABASE_CAMPAIGNS);

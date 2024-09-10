@@ -52,6 +52,7 @@ export const packToCampaign = ({ campaigns, iconDB }: IPackToCampaignOptions) =>
       icon,
       name,
       is_custom: false,
+      is_canonical: true,
       arkhamdb_pack_code: code,
       campaign_type: linkedCampaign.campaign_type,
       encounter_sets: linkedEncounterSets,

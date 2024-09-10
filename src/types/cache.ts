@@ -15,7 +15,9 @@ export const enum CacheType {
 
   DATABASE_CAMPAIGNS = 'database.campaigns',
   DATABASE_ENCOUNTER_SETS = 'database.encounterSets',
-  LANGUAGES = 'languages',
+  
+  CAMPAIGN_LANGUAGES = 'languages.campaign',
+  CORE_LANGUAGES = 'languages.core',
 
   COMMON_TRANSLATION = 'commonTranslation',
   CORE = 'core',

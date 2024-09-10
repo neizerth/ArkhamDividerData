@@ -4,7 +4,7 @@ import { delay } from "@/util/common";
 import { identity, prop } from "ramda";
 import { toPackEncounterSet } from "./linkPacksEncounterSets";
 import { getCustomCampaignType } from "@/api/arkhamCards/util";
-import { IArkhamDB } from "@/types/arkhamDB";
+import { NON_CANONICAL_CODE } from "@/api/arkhamCards/constants";
 
 export const linkCustomPacksEncounterSets = async (packs: IArkhamCards.JSON.Pack[]) => {
   const data = [] as IArkhamCards.JSON.ExtendedPack[];
@@ -17,12 +17,14 @@ export const linkCustomPacksEncounterSets = async (packs: IArkhamCards.JSON.Pack
     }
 
     const campaignType = getCustomCampaignType(pack.cycle_code);
+    const isCanonical = pack.cycle_code !== NON_CANONICAL_CODE;
 
     data.push({
       ...pack,
       campaign_type: campaignType,
       encounter_sets: encounterSets,
-      is_custom: true
+      is_canonical: isCanonical,
+      is_custom: !isCanonical
     });
   }
 

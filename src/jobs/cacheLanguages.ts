@@ -1,10 +1,13 @@
-import { getLanguagesCache } from "@/components/languages/getLanguagesCache";
+import { getCampaignLanguagesCache } from "@/components/languages/getCampaignLanguagesCache";
+import { getCoreLanguagesCache } from "@/components/languages/getCoreLanguagesCache";
 import { CacheType } from "@/types/cache";
 import { cache } from "@/util/cache";
 
 export const cacheLanguages = async () => {
   console.log('caching languages...');
-  const languages = await getLanguagesCache();
+  const campaignLanguages = await getCampaignLanguagesCache();
+  const coreLanguages = await getCoreLanguagesCache();
   
-  cache(CacheType.LANGUAGES, languages);
+  cache(CacheType.CORE_LANGUAGES, coreLanguages);
+  cache(CacheType.CAMPAIGN_LANGUAGES, campaignLanguages);
 }

@@ -54,6 +54,7 @@ export const toMainCampaign = ({ campaigns, iconDB }: IMainCampaignOptions) =>
     const cycleData = {
       id: code,
       is_size_supported,
+      is_canonical: true,
       name,
       position,
       is_custom: false,

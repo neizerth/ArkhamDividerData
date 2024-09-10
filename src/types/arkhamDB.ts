@@ -103,7 +103,9 @@ export namespace IArkhamDB {
       encounter_sets: PackEncounterSet[];
     }
 
-    export type ExtendedPack = Pack & HasEncounterSets & HasCampaignType;
+    export type ExtendedPack = Pack & HasEncounterSets & HasCampaignType & {
+      is_custom: boolean
+    }
 
     export type Encounter = Entity;
     export type ExtendedEncounter = Encounter & 

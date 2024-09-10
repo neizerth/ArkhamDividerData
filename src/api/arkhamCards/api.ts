@@ -1,6 +1,6 @@
 import { prop } from "ramda";
 
-import { GITHUB_CONTENTS_BASE_URL, GITHUB_RAW_BASE_URL, GITHUB_DATA_RAW_BASE_URL, GITHUB_DATA_CONTENTS_BASE_URL } from "@/config/api";
+import { GITHUB_CONTENTS_BASE_URL, GITHUB_RAW_BASE_URL, GITHUB_DATA_RAW_BASE_URL } from "@/config/api";
 import { getWithPrefix } from "@/api/request";
 
 import { IArkhamCards } from "@/types/arkhamCards";
@@ -14,7 +14,7 @@ const getGithubRaw = getWithPrefix(GITHUB_RAW_BASE_URL);
 const getGithubContents = getWithPrefix(GITHUB_CONTENTS_BASE_URL);
 
 const getDataRaw = getWithPrefix(GITHUB_DATA_RAW_BASE_URL);
-const getDataContents = getWithPrefix(GITHUB_DATA_CONTENTS_BASE_URL);
+// const getDataContents = getWithPrefix(GITHUB_DATA_CONTENTS_BASE_URL);
 
 export const withLanguagePostfix = <T>(getUrl: (language: string) => string) => async (language: string) => {
   const postfix = language === 'en' ? '' : '_' + language;
@@ -45,7 +45,7 @@ export const loadFolderContents = async (path: string) => {
   return data;
 }
 
-export const loadTranslationLanguages = async () => {
+export const loadCampaignTranslationLanguages = async () => {
   const data = await loadFolderContents('/assets/generated');
   const prefix = 'allCampaigns_';
   const languages = data

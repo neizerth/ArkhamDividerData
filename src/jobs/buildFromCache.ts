@@ -1,31 +1,40 @@
-import { getAvailableLanguagesFromCache, getCyclesFromCache, getDatabaseCampaignsFromCache, getDatabaseEncounterSetsFromCache, getPacksFromCache, getScenariosFromCache } from "../util/cache";
+import { IBuild } from "@/types/build";
+import { getCoreLanguagesFromCache, getCustomPacksFromCache, getCyclesFromCache, getDatabaseCampaignsFromCache, getDatabaseEncounterSetsFromCache, getPacksFromCache, getScenariosFromCache } from "../util/cache";
 import { CacheType } from "@/types/cache";
 import { buildSource } from "@/util/build";
 import { createI18NCacheReader } from "@/util/cache";
+import { IDatabase } from "@/types/database";
+import { Mapping } from "@/types/common";
 
 export const buildFromCache = async () => {
-  buildCoreSources();
-  buildI18NSources();
+
+  const availableLanguages = buildI18NSources();
+  
+  buildCoreSources(availableLanguages);
 }
 
 export const buildI18NSources = () => {
   console.log('building i18n...');
-  const languages = getAvailableLanguagesFromCache();
+  const languages = getCoreLanguagesFromCache();
 
-  languages.forEach(buildLanguageSource);
+  return languages.filter(buildLanguageSource);
 }
 
 export const buildLanguageSource = (language: string) => {
   console.log(`building language source: ${language}...`);
   const getCache = createI18NCacheReader(language);
 
-  const campaigns = getCache(CacheType.CAMPAIGNS);
-  const translatedCampaigns = getCache(CacheType.TRANSLATED_CAMPAIGNS);
-  const common = getCache(CacheType.COMMON_TRANSLATION);
-  const encounterSets = getCache(CacheType.ENCOUNTER_SETS);
-  const scenarios = getCache(CacheType.SCENARIOS);
+  const translatedCampaigns = getCache<string[]>(CacheType.TRANSLATED_CAMPAIGNS);
+
+  if (translatedCampaigns.length === 0) {
+    return false;
+  }
+  const campaigns = getCache<Mapping>(CacheType.CAMPAIGNS);
+  const common = getCache<Mapping>(CacheType.COMMON_TRANSLATION);
+  const encounterSets = getCache<Mapping>(CacheType.ENCOUNTER_SETS);
+  const scenarios = getCache<Mapping>(CacheType.SCENARIOS);
   
-  const data = {
+  const data: IBuild.Translation = {
     translatedCampaigns,
     campaigns,
     encounterSets,
@@ -34,21 +43,26 @@ export const buildLanguageSource = (language: string) => {
   }
 
   buildSource(language, data);
+  return true;
 }
 
-export const buildCoreSources = () => {
+export const buildCoreSources = (languages: string[]) => {
   console.log('building core sources...');
-  const languages = getAvailableLanguagesFromCache();
   const campaigns = getDatabaseCampaignsFromCache();
-  const encounterSet = getDatabaseEncounterSetsFromCache();
+  const encounterSets = getDatabaseEncounterSetsFromCache();
   const scenarios = getScenariosFromCache();
-  const packs = getPacksFromCache();
+  
+  const packs: IDatabase.Pack[] = [
+    ...getPacksFromCache(),
+    ...getCustomPacksFromCache()
+  ]
+
   const cycles = getCyclesFromCache();
 
-  const data = {
+  const data: IBuild.Core = {
     languages,
     campaigns,
-    encounterSet,
+    encounterSets,
     scenarios,
     packs,
     cycles

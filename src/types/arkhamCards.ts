@@ -67,7 +67,8 @@ export namespace IArkhamCards {
     export type ExtendedPack = Pack & {
       encounter_sets: IArkhamDB.JSON.PackEncounterSet[]
       campaign_type: IArkhamDB.CampaignType
-      is_custom: true
+      is_custom: boolean
+      is_canonical?: boolean 
     }
   }
   export namespace Parsed {

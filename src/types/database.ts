@@ -14,6 +14,8 @@ export namespace IDatabase {
     size?: number
     is_custom: boolean
   }
+
+  export type Pack = IArkhamCards.JSON.ExtendedPack;
   
   export enum CampaignType {
     PARALLEL = 'parallel',

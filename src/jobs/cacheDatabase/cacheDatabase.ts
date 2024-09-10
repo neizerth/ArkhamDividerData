@@ -2,7 +2,7 @@
 import { identity, propEq } from "ramda";
 
 import { CacheType } from "@/types/cache";
-import { cache } from "@/util/cache";
+import { cache, getCustomPacksFromCache } from "@/util/cache";
 
 import { NO_MAIN_CYCLE_CODES, SPECIAL_CAMPAIGN_TYPES } from "@/api/arkhamDB/constants";
 import { IDatabase } from "@/types/database";
@@ -35,6 +35,7 @@ export const cacheDatabaseCampaigns = () => {
 export const getCustomCampaigns = () => {
   const campaigns = getCampaignsFromCache();
   const cycles = getCyclesFromCache();
+  const customPacks = getCustomPacksFromCache()
 
   const iconDB = createIconDB();
   
@@ -42,6 +43,7 @@ export const getCustomCampaigns = () => {
     .filter(propEq(true, 'is_custom'))
     .map(toCustomCampaign({
       cycles,
+      customPacks,
       iconDB
     }));
 }

@@ -19,6 +19,7 @@ export const linkPacksEncounterSets = async (packs: IArkhamDB.JSON.Pack[]) => {
 
     data.push({
       ...pack,
+      is_custom: false,
       campaign_type: campaignType,
       encounter_sets: encounterSets
     });
@@ -36,7 +37,10 @@ export const getPackEncounterSets = async (pack: IArkhamDB.JSON.Pack) => {
   return toPackEncounterSet(pack, codes)
 }
 
-export const toPackEncounterSet = (pack: IArkhamDB.HasCode & IArkhamDB.HasCycleCode, codes: string[]) => codes.reduce(
+export const toPackEncounterSet = (
+  pack: IArkhamDB.HasCode & IArkhamDB.HasCycleCode, 
+  codes: string[]
+) => codes.reduce(
   (target, code) => {
 
   const index = target.findIndex(propEq(code, 'code'));

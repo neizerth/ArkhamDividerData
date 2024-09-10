@@ -1,6 +1,11 @@
 import { prop } from "ramda";
 
-import { ARKHAMDB_BASE_URL, ARKHAMDB_API_BASE_URL, ARKHAMDB_JSON_BASE_URL, ARKHAMDB_CONTENTS_BASE_URL } from "../../config/api";
+import { 
+  ARKHAMDB_BASE_URL, 
+  ARKHAMDB_API_BASE_URL, 
+  ARKHAMDB_JSON_BASE_URL, 
+  ARKHAMDB_CONTENTS_BASE_URL
+} from "@/config/api";
 import { getWithPrefix } from "@/api/request";
 import { IArkhamDB } from "@/types/arkhamDB";
 import { IGithub } from "@/types/github";
@@ -48,15 +53,28 @@ export const loadJSONEncounters = async () => {
   return data as IArkhamDB.JSON.Encounter[];
 }
 
+export const loadJSONTranslationEncounters = async (language: string) => {
+  const { data } = await getGithubJSON(`translations/${language}/encounters.json`);
+  return data as IArkhamDB.JSON.Encounter[];
+}
+
+export const loadJSONTranslationPacks = async (language: string) => {
+  const { data } = await getGithubJSON(`translations/${language}/packs.json`);
+  return data as IArkhamDB.JSON.Pack[];
+}
+
+export const loadJSONTranslationCycles = async (language: string) => {
+  const { data } = await getGithubJSON(`translations/${language}/cycles.json`);
+  return data as IArkhamDB.JSON.Cycle[];
+}
+
 export const loadJSONPackEncounterCards = async ({ code, cycle_code }: IArkhamDB.HasCycleCode & IArkhamDB.HasCode) => {
   const { data } = await getGithubJSON(`/pack/${cycle_code}/${code}_encounter.json`);
   return data as IArkhamDB.JSON.EncounterCard[];
 }
 
 export const loadFolderContents = async (path: string) => {
-  const { data } = await getGithubContents<IGithub.Contents.Item[]>(path, {
-    responseType: 'text'
-  });
+  const { data } = await getGithubContents<IGithub.Contents.Item[]>(path);
   return data;
 }
 
