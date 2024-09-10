@@ -1,6 +1,9 @@
 export const enum CacheType {
   SCENARIOS = 'scenarios',
   CAMPAIGNS = 'campaigns',
+  
+  CUSTOM_PACKS = 'packs.custom',
+
   TRANSLATED_CAMPAIGNS = 'translated.campaigns',
 
   ICONS = 'icons',

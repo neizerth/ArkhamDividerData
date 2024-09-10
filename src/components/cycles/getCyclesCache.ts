@@ -17,10 +17,7 @@ export const getCyclesCache = async () => {
   console.log('loading encounters...');
   const encountersJSON = await loadJSONEncounters();
 
-  const packs = await linkPacksEncounterSets({
-    packs: packsJSON,
-    cycles: cyclesJSON
-  });
+  const packs = await linkPacksEncounterSets(packsJSON);
 
   const encounterSets = encountersJSON
     .map(withPack(packs))
@@ -60,7 +57,7 @@ export const appendCycleData = (packs: IArkhamDB.JSON.ExtendedPack[]) => {
 
     return {
       ...applyReturnCode(cycle),
-      campaign_type: getCampaignType(cycle),
+      campaign_type: getCampaignType(cycle.code),
       pack_codes: packCodes,
       encounter_codes: unique(codes),
       is_size_supported: isSizeSupported

@@ -1,6 +1,6 @@
 import { prop } from "ramda";
 
-import { GITHUB_CONTENTS_BASE_URL, GITHUB_RAW_BASE_URL } from "@/config/api";
+import { GITHUB_CONTENTS_BASE_URL, GITHUB_RAW_BASE_URL, GITHUB_DATA_RAW_BASE_URL, GITHUB_DATA_CONTENTS_BASE_URL } from "@/config/api";
 import { getWithPrefix } from "@/api/request";
 
 import { IArkhamCards } from "@/types/arkhamCards";
@@ -8,9 +8,13 @@ import { IIcoMoon } from "@/types/icomoon";
 import { Mapping } from "@/types/common";
 import { IGithub } from "@/types/github";
 import { IPOEditor } from "@/types/i18n";
+import { IArkhamDB } from "@/types/arkhamDB";
 
 const getGithubRaw = getWithPrefix(GITHUB_RAW_BASE_URL);
 const getGithubContents = getWithPrefix(GITHUB_CONTENTS_BASE_URL);
+
+const getDataRaw = getWithPrefix(GITHUB_DATA_RAW_BASE_URL);
+const getDataContents = getWithPrefix(GITHUB_DATA_CONTENTS_BASE_URL);
 
 export const withLanguagePostfix = <T>(getUrl: (language: string) => string) => async (language: string) => {
   const postfix = language === 'en' ? '' : '_' + language;
@@ -53,6 +57,21 @@ export const loadTranslationLanguages = async () => {
     'en',
     ...languages
   ]
+}
+
+export const loadJSONPacks = async () => {
+  const { data } = await getDataRaw('/packs/packs.json');
+  return data as IArkhamCards.JSON.Pack[];
+}
+
+export const loadJSONCycles = async () => {
+  const { data } = await getDataRaw('/packs/cycles.json');
+  return data as IArkhamCards.JSON.Cycle[];
+}
+
+export const loadJSONPackCards = async (code: string) => {
+  const { data } = await getDataRaw(`/cards/${code}.json`);
+  return data as IArkhamDB.JSON.EncounterCard[];
 }
 
 // translations

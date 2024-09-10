@@ -20,7 +20,7 @@ export const withReturnSetCode = (returnPacks: IArkhamDB.HasCode[]) =>
     };
   }
 
-export const getCampaignType = ({ code }: IArkhamDB.HasCode): IArkhamDB.CampaignType => {
+export const getCampaignType = (code: string): IArkhamDB.CampaignType => {
   if (SPECIAL_CAMPAIGN_TYPES.includes(code)) {
     return code as IArkhamDB.CampaignType;
   }

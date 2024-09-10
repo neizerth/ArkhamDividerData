@@ -4,7 +4,7 @@ import { CacheType } from "@/types/cache";
 import { IDatabase } from "@/types/database";
 import { cache } from "@/util/cache";
 import { createIconDB, IIconDB } from "@/components/icons/IconDB";
-import { Mapping } from "@/types/common";
+import { IArkhamCards } from "@/types/arkhamCards";
 
 export const cacheDatabaseEncounterSets = () => {
   console.log('caching database encounter sets...');
@@ -15,7 +15,6 @@ export const cacheDatabaseEncounterSets = () => {
 
 export const getEncounterSets = () => {
   const arkhamDBEncounters = getEncountersFromCache();
-  // const campaigns = 
   const arkhamCardsEncounters = getEncountersSetsFromCache();
   const iconDB = createIconDB();
 
@@ -29,7 +28,7 @@ export const getEncounterSets = () => {
 
 type ILinkEncounterSet = {
   arkhamDBEncounters: IArkhamDB.JSON.ExtendedEncounter[]
-  arkhamCardsEncounters: Mapping
+  arkhamCardsEncounters: IArkhamCards.EncounterSet[]
   iconDB: IIconDB
 }
 
@@ -38,25 +37,26 @@ export const linkEncounterSets = ({
   arkhamDBEncounters,
   iconDB
 }: ILinkEncounterSet): IDatabase.EncounterSet[] => 
-  Object.entries(arkhamCardsEncounters)
-  .map((arkhamCardsEnrty) => {
-    const [arkhamCardsId, arkhamCardsName] = arkhamCardsEnrty;
+  arkhamCardsEncounters
+  .map((arkhamCardsSet) => {
     const arkhamDBEncounter = arkhamDBEncounters.find(
-      ({ name }) => name.toLowerCase() === arkhamCardsName.toLowerCase()
+      ({ name }) => name.toLowerCase() === arkhamCardsSet.name.toLowerCase()
     );
+    const arkhamCardsIcon = iconDB.getId(arkhamCardsSet.code)
     
     if (!arkhamDBEncounter) {
-      console.log(`arkhamDB encounter not found: ${arkhamCardsId}`);
+      console.log(`arkhamDB encounter not found: ${arkhamCardsSet.code}`);
       return {
-        name: arkhamCardsName,
-        code: arkhamCardsId
+        ...arkhamCardsSet,
+        is_custom: true,
+        icon: arkhamCardsIcon
       }
     }
-    const icon = iconDB.getId(arkhamDBEncounter.code) || iconDB.getId(arkhamCardsId);
+    const icon = iconDB.getId(arkhamDBEncounter.code) || arkhamCardsIcon;
     return {
-      ...arkhamDBEncounter,
-      code: arkhamCardsId,
+      ...arkhamCardsSet,
       arkhamdb_code: arkhamDBEncounter.code,
-      icon
+      icon,
+      is_custom: false
     }
   })

@@ -4,14 +4,16 @@ import { getIconsMappingCache } from "@/components/icons/getIconsMappingCache";
 import { getEncounterSetsCache } from "@/components/encounterSets/getEncounterSetsCache";
 import { getCampaignsCache } from "@/components/campaigns/getCampaignsCache";
 import { getIconsCache } from "@/components/icons/getIconsCache";
+import { getCustomPacksCache } from "@/components/cycles/getCustomPacksCache";
 
 export const cacheArkhamCards = async () => {
   console.log('caching Arkham Cards...');
   await cacheIcons();
   await cacheIconMapping();
   
-  await cacheCampaigns();
+  await cacheCustomContent();
   await cacheEncounterSets();
+  await cacheCampaigns();
 }
 
 export const cacheIcons = async () => {
@@ -19,6 +21,13 @@ export const cacheIcons = async () => {
   const icons = await getIconsCache();
 
   cache(CacheType.ICONS, icons);
+}
+
+export const cacheCustomContent = async () => {
+  console.log('caching Arkham Cards custom content...');
+  const packs = await getCustomPacksCache();
+
+  cache(CacheType.CUSTOM_PACKS, packs);
 }
 
 export const cacheCampaigns = async () => {

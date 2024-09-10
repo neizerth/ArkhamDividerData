@@ -9,8 +9,11 @@ import { getSideScenarios } from "./getSideScenarios";
 export const getCampaignsCache = async (language = 'en') => {
   const campaignsJSON = await loadСampaigns(language);
   const campaigns = getCampaigns(campaignsJSON);
+  // const packs = 
 
-  return withScenarios(campaigns);
+  return {
+    ...withScenarios(campaigns)
+  };
 }
 
 export const withScenarios = (data: IArkhamCards.Parsed.ExtendedCampaign[]) => {

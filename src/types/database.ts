@@ -12,6 +12,7 @@ export namespace IDatabase {
     arkhamdb_code?: string
     icon?: string
     size?: number
+    is_custom: boolean
   }
   
   export enum CampaignType {
@@ -20,10 +21,6 @@ export namespace IDatabase {
     SIDE = 'side_story',
     CHALLENGE = 'challenge',
     CAMPAIGN = 'campaign'
-  }
-
-  export type ArkhamDBPack = {
-
   }
 
   // export type CampaignType = IArkhamCards.CampaignType | IArkhamCards.ScenarioType | Util.CampaignType
@@ -44,5 +41,6 @@ export namespace IDatabase {
     arkhamdb_pack_code?: string;
     custom_content?: IArkhamCards.CustomContent
     is_size_supported: boolean;
+    is_canonical: boolean
   }
 }

@@ -7,6 +7,7 @@ import { IGithub } from "@/types/github";
 
 const getAPIData = getWithPrefix(ARKHAMDB_API_BASE_URL);
 const getPageContents = getWithPrefix(ARKHAMDB_BASE_URL);
+
 const getGithubJSON = getWithPrefix(ARKHAMDB_JSON_BASE_URL);
 const getGithubContents = getWithPrefix(ARKHAMDB_CONTENTS_BASE_URL);
 

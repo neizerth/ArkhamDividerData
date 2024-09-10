@@ -1,3 +1,4 @@
+import { IArkhamDB } from "./arkhamDB";
 import { Mapping } from "./common"
 
 export namespace IArkhamCards {
@@ -18,7 +19,16 @@ export namespace IArkhamCards {
     download_link: Mapping
   }
 
+  export type EncounterSet = {
+    code: string;
+    name: string;
+    size?: number;
+  }
+
   export namespace JSON {
+    export type Cycle = IArkhamDB.JSON.Cycle & {
+      official: boolean;
+    }
     export type Campaign = {
       id: string
       position: number
@@ -47,6 +57,17 @@ export namespace IArkhamCards {
     export type FullCampaign = {
       campaign: Campaign
       scenarios: Scenario[]
+    }
+    export type Pack = {
+      code: string;
+      cycle_code: string;
+      name: string;
+      position: number;
+    }
+    export type ExtendedPack = Pack & {
+      encounter_sets: IArkhamDB.JSON.PackEncounterSet[]
+      campaign_type: IArkhamDB.CampaignType
+      is_custom: true
     }
   }
   export namespace Parsed {

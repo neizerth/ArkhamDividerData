@@ -10,6 +10,7 @@ import { getCampaignsCache } from "@/components/campaigns/getCampaignsCache";
 import { getCampaignMapping, getTranslatedCampaigns } from "./campaignTranslation";
 import { getScenarioMapping } from "./getScenarioMapping";
 import { translateMapping } from "./translateMapping";
+import { getEncounterSetsMapping } from "@/components/encounterSets/getEncounterSetsMapping";
 
 export const cacheTranslations = async () => {
   const languages = getAvailableLanguagesFromCache();
@@ -59,7 +60,8 @@ export const cacheCampaignTranslation = async (language: string) => {
 export const cacheEncounterSetTranslation = async (language: string) => {
   console.log(`caching "${language}" encounter sets...`);
   const mapping = await loadEncounterSets(language);
-  const baseMapping = getEncountersSetsFromCache();
+  const baseEncounters = getEncountersSetsFromCache();
+  const baseMapping = getEncounterSetsMapping(baseEncounters);
   
   const encounterSets = translateMapping(baseMapping, mapping);
 
