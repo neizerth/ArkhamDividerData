@@ -33,5 +33,4 @@ export const getCoreLanguagesFromCache = () => getCache<string[]>(CacheType.CORE
 export const getDatabaseCampaignsFromCache = () => getCache<IDatabase.Campaign[]>(CacheType.DATABASE_CAMPAIGNS);
 export const getDatabaseEncounterSetsFromCache = () => getCache<IDatabase.EncounterSet[]>(CacheType.DATABASE_ENCOUNTER_SETS);
 
-export const getIconNamessFromCache = () => getCache<string[]>(CacheType.ICONS_NAMES);
-export const getIconProjectFromCache = () => getCache<IIcoMoon.Project>(CacheType.ICONS_PROJECT);
+export const getIconProjectFromCache = () => getCache<IIcoMoon.Icon[]>(CacheType.ICONS_PROJECT);

@@ -12,7 +12,7 @@ export namespace IBuild {
     scenarios: IArkhamCards.Parsed.Scenario[]
     packs: IDatabase.Pack[]
     cycles: IArkhamDB.JSON.ExtendedCycle[]
-    icons: IIcoMoon.Project
+    icons: IIcoMoon.Icon[]
   }
   export type Translation = {
     translatedCampaigns: string[]
