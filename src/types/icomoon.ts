@@ -1,7 +1,9 @@
 export namespace IIcoMoon {
   export type Icon = {
-    name: string;
-    campaign: string;
+    icon: IconSetItem;
+    properties: {
+      name: string;
+    }
   }
   
   export type IconSetItem = {

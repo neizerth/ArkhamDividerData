@@ -1,6 +1,5 @@
 import { Mapping } from "@/types/common";
 import { getIconMappingFromCache, getIconProjectFromCache } from "@/util/cache";
-import { prop } from "ramda";
 
 export type IconDBOptions = {
   icons: string[]
@@ -50,7 +49,7 @@ export class IconDB<T = string | undefined> {
 export const createIconDB = () => {
   const iconMapping = getIconMappingFromCache();
   const project = getIconProjectFromCache();
-  const icons = project.map(prop('name'));
+  const icons = project.map(({ properties }) => properties.name);
 
   return new IconDB({
     iconMapping,
