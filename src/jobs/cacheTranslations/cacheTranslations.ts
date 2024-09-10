@@ -6,7 +6,7 @@ import { cacheCoreLanguageTranslation } from "./cacheCoreLanguageTranslation";
 
 
 export const cacheTranslations = async () => {
-  // await cacheCampaignTranslations();
+  await cacheCampaignTranslations();
   await cacheCoreLanguageTranslations();
 }
 

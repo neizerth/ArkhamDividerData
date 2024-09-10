@@ -9,7 +9,7 @@ import { Mapping } from "@/types/common";
 export const buildFromCache = async () => {
 
   const availableLanguages = buildI18NSources();
-  
+
   buildCoreSources(availableLanguages);
 }
 
@@ -29,6 +29,7 @@ export const buildLanguageSource = (language: string) => {
   if (translatedCampaigns.length === 0) {
     return false;
   }
+  
   const campaigns = getCache<Mapping>(CacheType.CAMPAIGNS);
   const common = getCache<Mapping>(CacheType.COMMON_TRANSLATION);
   const encounterSets = getCache<Mapping>(CacheType.ENCOUNTER_SETS);
