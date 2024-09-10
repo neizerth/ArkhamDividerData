@@ -6,8 +6,10 @@ export const enum CacheType {
 
   TRANSLATED_CAMPAIGNS = 'translated.campaigns',
 
-  ICONS = 'icons',
-  ICONS_MAPPING = 'iconsMapping',
+  ICONS_NAMES = 'icons.names',
+  ICONS_PROJECT = 'icons.project',
+  ICONS_MAPPING = 'icons.mapping',
+
   CYCLES = 'cycles',
   PACKS = 'packs',
   ENCOUNTERS = 'encounters',

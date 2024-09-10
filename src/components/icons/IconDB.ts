@@ -1,5 +1,5 @@
 import { Mapping } from "@/types/common";
-import { getIconMappingFromCache, getIconsFromCache } from "@/util/cache";
+import { getIconMappingFromCache, getIconNamessFromCache } from "@/util/cache";
 
 export type IconDBOptions = {
   icons: string[]
@@ -48,7 +48,7 @@ export class IconDB<T = string | undefined> {
 
 export const createIconDB = () => {
   const iconMapping = getIconMappingFromCache();
-  const icons = getIconsFromCache();
+  const icons = getIconNamessFromCache();
 
   return new IconDB({
     iconMapping,

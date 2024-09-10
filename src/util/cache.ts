@@ -6,6 +6,7 @@ import { IDatabase } from "@/types/database";
 
 import { CACHE_DIR } from "@/config/app";
 import { createJSONReader, createJSONWriter } from "./fs";
+import { IIcoMoon } from "@/types/icomoon";
 
 export const cache = createJSONWriter(CACHE_DIR);
 export const getCache = createJSONReader(CACHE_DIR);
@@ -32,4 +33,5 @@ export const getCoreLanguagesFromCache = () => getCache<string[]>(CacheType.CORE
 export const getDatabaseCampaignsFromCache = () => getCache<IDatabase.Campaign[]>(CacheType.DATABASE_CAMPAIGNS);
 export const getDatabaseEncounterSetsFromCache = () => getCache<IDatabase.EncounterSet[]>(CacheType.DATABASE_ENCOUNTER_SETS);
 
-export const getIconsFromCache = () => getCache<string[]>(CacheType.ICONS);
+export const getIconNamessFromCache = () => getCache<string[]>(CacheType.ICONS_NAMES);
+export const getIconProjectFromCache = () => getCache<IIcoMoon.Project>(CacheType.ICONS_PROJECT);

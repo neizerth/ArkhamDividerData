@@ -18,9 +18,10 @@ export const cacheArkhamCards = async () => {
 
 export const cacheIcons = async () => {
   console.log('caching Arkham Cards icons...');
-  const icons = await getIconsCache();
+  const { names, project } = await getIconsCache();
 
-  cache(CacheType.ICONS, icons);
+  cache(CacheType.ICONS_NAMES, names);
+  cache(CacheType.ICONS_PROJECT, project);
 }
 
 export const cacheCustomContent = async () => {

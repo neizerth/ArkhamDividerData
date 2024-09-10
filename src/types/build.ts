@@ -2,6 +2,7 @@ import { IArkhamCards } from "./arkhamCards"
 import { IArkhamDB } from "./arkhamDB"
 import { Mapping } from "./common"
 import { IDatabase } from "./database"
+import { IIcoMoon } from "./icomoon"
 
 export namespace IBuild {
   export type Core = {
@@ -11,6 +12,7 @@ export namespace IBuild {
     scenarios: IArkhamCards.Parsed.Scenario[]
     packs: IDatabase.Pack[]
     cycles: IArkhamDB.JSON.ExtendedCycle[]
+    icons: IIcoMoon.Project
   }
   export type Translation = {
     translatedCampaigns: string[]

@@ -1,5 +1,5 @@
 import { IBuild } from "@/types/build";
-import { getCoreLanguagesFromCache, getCustomPacksFromCache, getCyclesFromCache, getDatabaseCampaignsFromCache, getDatabaseEncounterSetsFromCache, getPacksFromCache, getScenariosFromCache } from "../util/cache";
+import { getCoreLanguagesFromCache, getCustomPacksFromCache, getCyclesFromCache, getDatabaseCampaignsFromCache, getDatabaseEncounterSetsFromCache, getIconProjectFromCache, getPacksFromCache, getScenariosFromCache } from "../util/cache";
 import { CacheType } from "@/types/cache";
 import { buildSource } from "@/util/build";
 import { createI18NCacheReader } from "@/util/cache";
@@ -52,6 +52,7 @@ export const buildCoreSources = (languages: string[]) => {
   const campaigns = getDatabaseCampaignsFromCache();
   const encounterSets = getDatabaseEncounterSetsFromCache();
   const scenarios = getScenariosFromCache();
+  const icons = getIconProjectFromCache();
   
   const packs: IDatabase.Pack[] = [
     ...getPacksFromCache(),
@@ -66,7 +67,8 @@ export const buildCoreSources = (languages: string[]) => {
     encounterSets,
     scenarios,
     packs,
-    cycles
+    cycles,
+    icons,
   };
 
   buildSource(CacheType.CORE, data);

@@ -6,9 +6,7 @@ export const getIcoMoonIcons = async () => {
   return getIconsInfo(project);
 }
 
-export const getIconsInfo = ({ iconSets }: IIcoMoon.Project): IIcoMoon.Icon[] => 
-  iconSets.map(mapIconSet)
-  .flat()
+export const getIconsInfo = ({ iconSets }: IIcoMoon.Project): IIcoMoon.Icon[] => iconSets.map(mapIconSet).flat()
 
 const addIconName = ({ metadata, selection }: IIcoMoon.IconSet) => {
   const campaign = metadata.name;
