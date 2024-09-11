@@ -4,15 +4,28 @@ import { getIconsMappingCache } from "@/components/icons/getIconsMappingCache";
 import { getEncounterSetsCache } from "@/components/encounterSets/getEncounterSetsCache";
 import { getCampaignsCache } from "@/components/campaigns/getCampaignsCache";
 import { getIconsCache } from "@/components/icons/getIconsCache";
-import { getCustomPacksCache } from "@/components/cycles/getCustomPacksCache";
+import { getCustomPacksCache } from "@/components/packs/getCustomPacksCache";
+import { delay } from "@/util/common";
+import { getCustomEncountersSetCache } from "@/components/encounterSets/getCustomEncounterSetsCache";
 
 export const cacheArkhamCards = async () => {
   console.log('caching Arkham Cards...');
-  await cacheIcons();
-  await cacheIconMapping();
   
-  await cacheCustomContent();
+  await cacheIcons();
+  await delay(200);
+
+  await cacheIconMapping();
+  await delay(200);
+  
+  await cacheCustomPacks();
+  await delay(200);
+  
   await cacheEncounterSets();
+  await delay(200);
+
+  await cacheCustomEncounterSets();
+  await delay(200);
+
   await cacheCampaigns();
 }
 
@@ -23,11 +36,18 @@ export const cacheIcons = async () => {
   cache(CacheType.ICONS_PROJECT, project);
 }
 
-export const cacheCustomContent = async () => {
-  console.log('caching Arkham Cards custom content...');
-  const packs = await getCustomPacksCache();
+export const cacheCustomPacks = async () => {
+  console.log('caching Arkham Cards custom packs...');
 
+  const packs = await getCustomPacksCache();
   cache(CacheType.CUSTOM_PACKS, packs);
+}
+
+export const cacheCustomEncounterSets = async () => {
+
+  console.log('caching Arkham Cards custom encounter sets...');
+  const customEncounterSets = await getCustomEncountersSetCache();
+  cache(CacheType.CUSTOM_ENCOUNTER_SETS, customEncounterSets);
 }
 
 export const cacheCampaigns = async () => {

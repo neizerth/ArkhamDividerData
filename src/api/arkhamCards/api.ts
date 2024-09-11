@@ -69,10 +69,17 @@ export const loadJSONCycles = async () => {
   return data as IArkhamCards.JSON.Cycle[];
 }
 
+
+export const loadJSONEncounterSets = async () => {
+  const { data } = await getDataRaw('/encounter_sets.json');
+  return data as IArkhamCards.EncounterSet[];
+}
+
 export const loadJSONPackCards = async (code: string) => {
   const { data } = await getDataRaw(`/cards/${code}.json`);
   return data as IArkhamDB.JSON.EncounterCard[];
 }
+
 
 // translations
 

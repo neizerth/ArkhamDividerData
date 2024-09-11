@@ -8,9 +8,8 @@ import { getSideScenarios } from "./getSideScenarios";
 
 export const getCampaignsCache = async (language = 'en') => {
   const campaignsJSON = await loadСampaigns(language);
-  const campaigns = getCampaigns(campaignsJSON);
-  // const packs = 
 
+  const campaigns = getCampaigns(campaignsJSON);
   return {
     ...withScenarios(campaigns)
   };

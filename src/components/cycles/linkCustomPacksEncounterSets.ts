@@ -37,6 +37,6 @@ const getCustomPackEncounterSets = async (pack: IArkhamCards.JSON.Pack) => {
   const codes = cards
     .map(prop('encounter_code'))
     .filter(identity) as string[];
-  
+
   return toPackEncounterSet(pack, codes);
 }

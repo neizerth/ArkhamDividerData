@@ -20,6 +20,8 @@ export namespace IArkhamCards {
   }
 
   export type EncounterSet = {
+    pack_code?: string;
+    cycle_code?: string;
     code: string;
     name: string;
     size?: number;
@@ -84,6 +86,8 @@ export namespace IArkhamCards {
 
     export type Campaign = {
       id: string
+      cycle_code?: string
+      pack_code?: string
       position?: number
       version?: number
       name: string

@@ -10,7 +10,12 @@ export const buildFromCache = async () => {
 
   const availableLanguages = buildI18NSources();
 
-  buildCoreSources(availableLanguages);
+  const languages = [
+    'en',
+    ...availableLanguages
+  ];
+  
+  buildCoreSources(languages);
 }
 
 export const buildI18NSources = () => {
@@ -47,7 +52,7 @@ export const buildLanguageSource = (language: string) => {
   return true;
 }
 
-export const buildCoreSources = (availabaleLanguages: string[]) => {
+export const buildCoreSources = (languages: string[]) => {
   console.log('building core sources...');
   const campaigns = getDatabaseCampaignsFromCache();
   const encounterSets = getDatabaseEncounterSetsFromCache();
@@ -60,10 +65,6 @@ export const buildCoreSources = (availabaleLanguages: string[]) => {
   ]
 
   const cycles = getCyclesFromCache();
-  const languages = [
-    'en',
-    ...availabaleLanguages
-  ]
 
   const data: IBuild.Core = {
     languages,

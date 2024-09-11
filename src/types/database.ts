@@ -30,11 +30,13 @@ export namespace IDatabase {
   export type Campaign = {
     id: string
     name: string
+    cycle_code?: string
     is_custom: boolean
     campaign_type: string
     arkham_cards_campaigns: ArkhamCardsCampaign[]
     arkham_cards_scenarios: string[]
     encounter_sets: string[]
+    extra_encounter_sets: string[]
     icon?: string
 
     position?: number

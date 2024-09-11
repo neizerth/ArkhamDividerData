@@ -3,6 +3,8 @@ export const enum CacheType {
   CAMPAIGNS = 'campaigns',
   
   CUSTOM_PACKS = 'packs.custom',
+  CUSTOM_CYCLES = 'cycles.custom',
+  CUSTOM_ENCOUNTER_SETS = 'encounterSets.custom',
 
   TRANSLATED_CAMPAIGNS = 'translated.campaigns',
 

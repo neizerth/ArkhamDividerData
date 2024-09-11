@@ -6,8 +6,8 @@ import { cacheTranslations } from "./cacheTranslations/cacheTranslations";
 
 export const createCache = async () => {
   console.log('starting cache creating...');
-  await cacheArkhamCards();
   await cacheArkhamDB();
+  await cacheArkhamCards();
   
   await cacheDatabase();
 

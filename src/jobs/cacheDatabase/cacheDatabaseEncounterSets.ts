@@ -6,6 +6,7 @@ import { cache } from "@/util/cache";
 import { createIconDB, IIconDB } from "@/components/icons/IconDB";
 import { IArkhamCards } from "@/types/arkhamCards";
 import { propEq } from "ramda";
+import { NON_CANONICAL_CODE } from "@/api/arkhamCards/constants";
 
 export const cacheDatabaseEncounterSets = () => {
   console.log('caching database encounter sets...');
@@ -50,12 +51,16 @@ export const linkEncounterSets = ({
     
     if (!arkhamDBEncounter) {
       console.log(`arkhamDB encounter not found: ${arkhamCardsSet.code}`);
-      const customPack = customPacks.find(propEq(arkhamCardsSet.code, 'code')) || {};
+      const customPack = customPacks.find(propEq(arkhamCardsSet.code, 'code'));
+      const isCanonical = arkhamCardsSet.cycle_code !== NON_CANONICAL_CODE;
+      const isCustom = Boolean(customPack);
+      const pack = customPack || {}
 
       return {
         ...arkhamCardsSet,
-        ...customPack,
-        is_custom: true,
+        ...pack,
+        is_custom: isCustom,
+        is_canonical: isCanonical,
         icon: arkhamCardsIcon
       }
     }
@@ -65,6 +70,7 @@ export const linkEncounterSets = ({
       ...arkhamCardsSet,
       arkhamdb_code: arkhamDBEncounter.code,
       icon,
-      is_custom: false
+      is_custom: false,
+      is_canonical: false
     }
   })

@@ -23,11 +23,13 @@ export const getEncountersFromCache = () => getCache<IArkhamDB.JSON.ExtendedEnco
 export const getCampaignsFromCache = () => getCache<IArkhamCards.Parsed.Campaign[]>(CacheType.CAMPAIGNS);
 export const getScenariosFromCache = () => getCache<IArkhamCards.Parsed.Scenario[]>(CacheType.SCENARIOS)
 export const getIconMappingFromCache = () => getCache<Mapping>(CacheType.ICONS_MAPPING);
-export const getEncountersSetsFromCache = () => getCache<IArkhamCards.EncounterSet[]>(CacheType.ENCOUNTER_SETS);
 export const getCustomPacksFromCache = () => getCache<IArkhamCards.JSON.ExtendedPack[]>(CacheType.CUSTOM_PACKS);
 
 export const getCampaignLanguagesFromCache = () => getCache<string[]>(CacheType.CAMPAIGN_LANGUAGES);
 export const getCoreLanguagesFromCache = () => getCache<string[]>(CacheType.CORE_LANGUAGES);
+
+export const getCustomEncountersSetFromCache = () => getCache<IArkhamCards.EncounterSet[]>(CacheType.CUSTOM_ENCOUNTER_SETS);
+export const getEncountersSetsFromCache = () => getCache<IArkhamCards.EncounterSet[]>(CacheType.ENCOUNTER_SETS);
 
 // database
 export const getDatabaseCampaignsFromCache = () => getCache<IDatabase.Campaign[]>(CacheType.DATABASE_CAMPAIGNS);

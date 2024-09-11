@@ -4,20 +4,22 @@ import { SIDE_ID } from "@/api/arkhamCards/constants";
 import { IArkhamCards } from "@/types/arkhamCards";
 import { unique } from "@/util/common";
 import { createIconDB, IIconDB } from "@/components/icons/IconDB";
-
 import { getScenarioEncounterSets } from "./getScenarioEncounterSets";
-
 
 export const getMainCampaigns = (campaigns: IArkhamCards.JSON.FullCampaign[]) => {
   const iconDB = createIconDB();
 
   return campaigns
     .filter(({ campaign }) => campaign.id !== SIDE_ID)
-    .map(parseMainCampaign(iconDB));
+    .map(parseMainCampaign({ iconDB }));
 }
 
 
-export const parseMainCampaign = (iconDB: IIconDB) => ({ campaign, scenarios }: IArkhamCards.JSON.FullCampaign): IArkhamCards.Parsed.ExtendedCampaign => {
+export const parseMainCampaign = ({ 
+  iconDB
+}: { 
+  iconDB: IIconDB
+}) => ({ campaign, scenarios }: IArkhamCards.JSON.FullCampaign): IArkhamCards.Parsed.ExtendedCampaign => {
   const { 
     id,
     position,
@@ -48,6 +50,7 @@ export const parseMainCampaign = (iconDB: IIconDB) => ({ campaign, scenarios }: 
 
   const encounterSets = campaignScenarios.map(prop('encounter_sets')).flat();
   const uniqueEncounterSets = unique(encounterSets);
+  const isCustom = Boolean(custom);
 
   return {
     id,
@@ -57,7 +60,8 @@ export const parseMainCampaign = (iconDB: IIconDB) => ({ campaign, scenarios }: 
     campaign_type,
     is_scenario: false,
     custom,
-    is_custom: Boolean(custom),
+    is_custom: isCustom,
+    // is_canonical: 
     encounter_sets: uniqueEncounterSets,
     scenarios: campaignScenarios
   }

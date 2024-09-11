@@ -1,8 +1,8 @@
 
-import { identity, propEq } from "ramda";
+import { identity, prop, propEq } from "ramda";
 
 import { CacheType } from "@/types/cache";
-import { cache, getCustomPacksFromCache } from "@/util/cache";
+import { cache, getCustomEncountersSetFromCache, getCustomPacksFromCache, getEncountersFromCache } from "@/util/cache";
 
 import { NO_MAIN_CYCLE_CODES, SPECIAL_CAMPAIGN_TYPES } from "@/api/arkhamDB/constants";
 import { IDatabase } from "@/types/database";
@@ -16,8 +16,8 @@ import { toCustomCampaign } from "./toCustomCampaigns";
 
 export const cacheDatabase = async () => {
   console.log('caching database...');
-  cacheDatabaseCampaigns();
   cacheDatabaseEncounterSets();
+  cacheDatabaseCampaigns();
 }
 
 export const cacheDatabaseCampaigns = () => {
@@ -33,14 +33,18 @@ export const cacheDatabaseCampaigns = () => {
 }
 
 export const getCustomCampaigns = () => {
+  console.log('caching database custom campaigns...');
+
   const campaigns = getCampaignsFromCache();
   const cycles = getCyclesFromCache();
-  const customPacks = getCustomPacksFromCache()
+  const customPacks = getCustomPacksFromCache();
+  const customEncounterSets = getCustomEncountersSetFromCache();
+  const customCodes = customEncounterSets.map(prop('code'));
 
   const iconDB = createIconDB();
   
   return campaigns
-    .filter(propEq(true, 'is_custom'))
+    .filter(({ is_custom, id }) => is_custom || customCodes.includes(id))
     .map(toCustomCampaign({
       cycles,
       customPacks,
@@ -49,8 +53,11 @@ export const getCustomCampaigns = () => {
 }
 
 export const getMainCampaigns = () => {
+  console.log('caching database main campaigns...');
+
   const campaigns = getCampaignsFromCache();
   const cycles = getCyclesFromCache();
+  const encounters = getEncountersFromCache();
   const iconDB = createIconDB();
 
   return cycles.filter(
@@ -58,13 +65,17 @@ export const getMainCampaigns = () => {
   )
   .map(toMainCampaign({
     campaigns,
+    encounters,
     iconDB
   }));
 }
 
 export const getOfficialPackCampaigns = (): IDatabase.Campaign[] => {
+  console.log('caching database official campaigns...');
+
   const campaigns = getCampaignsFromCache();
   const packs = getPacksFromCache();
+  const encounters = getEncountersFromCache();
 
   const iconDB = createIconDB();
 
@@ -73,6 +84,7 @@ export const getOfficialPackCampaigns = (): IDatabase.Campaign[] => {
     )
     .map(packToCampaign({
       campaigns,
+      encounters,
       iconDB
     }))
     .filter(identity);

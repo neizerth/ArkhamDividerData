@@ -1,6 +1,6 @@
 
 
-import { prop, propEq } from "ramda";
+import { difference, prop, propEq } from "ramda";
 
 import { IArkhamCards } from "@/types/arkhamCards";
 import { IArkhamDB } from "@/types/arkhamDB";
@@ -13,7 +13,8 @@ import { getLinkedEncounterSets, getLinkedScenarios, toLinkedCampaign } from "./
 
 
 export type IMainCampaignOptions = {
-  campaigns: IArkhamCards.Parsed.Campaign[],
+  campaigns: IArkhamCards.Parsed.Campaign[]
+  encounters: IArkhamDB.JSON.ExtendedEncounter[]
   iconDB: IIconDB
 }
 
@@ -28,7 +29,7 @@ export const getCampaignIds = (code: string): string[] =>
   )
   .map(prop('arkham_cards_campaign_id'));
 
-export const toMainCampaign = ({ campaigns, iconDB }: IMainCampaignOptions) => 
+export const toMainCampaign = ({ campaigns, encounters, iconDB }: IMainCampaignOptions) => 
   (cycle: IArkhamDB.JSON.ExtendedCycle): IDatabase.Campaign => {
     let linkedCampaigns = campaigns.filter(propEq(cycle.code, 'id'));
     
@@ -46,13 +47,14 @@ export const toMainCampaign = ({ campaigns, iconDB }: IMainCampaignOptions) =>
       pack_codes,
       return_set_code,
       is_size_supported,
-      encounter_codes
+      encounter_codes,
     } = cycle;
 
     const icon = iconDB.getId(code);
 
     const cycleData = {
       id: code,
+      cycle_code: code,
       is_size_supported,
       is_canonical: true,
       name,
@@ -64,6 +66,11 @@ export const toMainCampaign = ({ campaigns, iconDB }: IMainCampaignOptions) =>
       return_set_code
     }
 
+    const cycleEncounters = encounters.filter(
+      ({ cycle_code }) => code === cycle_code
+    )
+    .map(prop('code'));
+
     if (linkedCampaigns.length === 0) {
       console.log(`Campaign ${cycle.code} not found`);
 
@@ -71,7 +78,8 @@ export const toMainCampaign = ({ campaigns, iconDB }: IMainCampaignOptions) =>
         ...cycleData,
         arkham_cards_campaigns: [],
         arkham_cards_scenarios: [],
-        encounter_sets: encounter_codes,
+        encounter_sets: cycleEncounters,
+        extra_encounter_sets: difference(encounter_codes, cycleEncounters)
       };
     };
 
@@ -82,7 +90,8 @@ export const toMainCampaign = ({ campaigns, iconDB }: IMainCampaignOptions) =>
     return {
       ...cycleData,
       arkham_cards_campaigns: arkhamCardsCampaigns,
-      encounter_sets: linkedEncounterSets,
-      arkham_cards_scenarios: scenarios
+      encounter_sets: cycleEncounters,
+      arkham_cards_scenarios: scenarios,
+      extra_encounter_sets: difference(linkedEncounterSets, cycleEncounters)
     }
   }

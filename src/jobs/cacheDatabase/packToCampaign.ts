@@ -1,7 +1,7 @@
 import { IArkhamCards } from "@/types/arkhamCards"
 import { IArkhamDB } from "@/types/arkhamDB"
 import { IDatabase } from "@/types/database"
-import { prop, propEq } from "ramda"
+import { difference, prop, propEq } from "ramda"
 import { getLinkedEncounterSets, getLinkedScenarios, toLinkedCampaign } from "./toLinkedCampaign"
 
 import campaignMapping from "@/data/arkhamDBPackMapping.json";
@@ -14,14 +14,16 @@ const getCampaignIds = (code: string): string[] => campaignMapping
 
 type IPackToCampaignOptions = {
   campaigns: IArkhamCards.Parsed.Campaign[]
+  encounters: IArkhamDB.JSON.ExtendedEncounter[]
   iconDB: IIconDB
 }
 
-export const packToCampaign = ({ campaigns, iconDB }: IPackToCampaignOptions) => 
+export const packToCampaign = ({ campaigns, encounters, iconDB }: IPackToCampaignOptions) => 
   (pack: IArkhamDB.JSON.ExtendedPack): IDatabase.Campaign | boolean => {
     const {
       code,
       name,
+      cycle_code,
       size
     } = pack;
 
@@ -45,6 +47,10 @@ export const packToCampaign = ({ campaigns, iconDB }: IPackToCampaignOptions) =>
     const scenarios = getLinkedScenarios(linkedCampaigns);
     const [linkedCampaign] = linkedCampaigns;
     const isSizeSupported = Boolean(size);
+
+    const packEncounters = encounters
+      .filter(({ pack_code }) => pack_code === pack.code)
+      .map(prop('code'));
     
     return {
       id: code,
@@ -53,10 +59,12 @@ export const packToCampaign = ({ campaigns, iconDB }: IPackToCampaignOptions) =>
       name,
       is_custom: false,
       is_canonical: true,
-      arkhamdb_pack_code: code,
+      packs: [code],
+      cycle_code,
       campaign_type: linkedCampaign.campaign_type,
-      encounter_sets: linkedEncounterSets,
+      encounter_sets: packEncounters,
+      extra_encounter_sets: difference(linkedEncounterSets, packEncounters),
       arkham_cards_campaigns: arkhamCardsCampaigns,
-      arkham_cards_scenarios: scenarios
+      arkham_cards_scenarios: scenarios,
     }
   }

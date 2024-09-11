@@ -1,5 +1,5 @@
 import { loadJSONPacks } from "@/api/arkhamCards/api"
-import { linkCustomPacksEncounterSets } from "./linkCustomPacksEncounterSets";
+import { linkCustomPacksEncounterSets } from "../cycles/linkCustomPacksEncounterSets";
 import { IArkhamCards } from "@/types/arkhamCards";
 import { getCustomCampaignType } from "@/api/arkhamCards/util";
 import { NON_CANONICAL_CODE } from "@/api/arkhamCards/constants";

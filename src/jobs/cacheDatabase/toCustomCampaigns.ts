@@ -1,5 +1,5 @@
 
-import { propEq } from "ramda";
+import { difference, prop, propEq } from "ramda";
 
 import { RETURN_CYCLE_PREFIX } from "@/api/arkhamDB/constants";
 import { IArkhamCards } from "@/types/arkhamCards";
@@ -34,9 +34,17 @@ export const toCustomCampaign = ({ cycles, customPacks, iconDB }: IToCustomCampa
       position,
       campaign_type,
       custom,
+      pack_code,
+      cycle_code
     } = campaign;
 
-    // const changeIcon = replaceIcon(id);
+    const pack = customPacks.find(
+      ({ encounter_sets }) => encounter_sets.some(propEq(id, 'code'))
+    );
+
+    if (!pack) {
+      console.log(`pack for custom campaign ${id} not found!`);
+    }
 
     const returnSetCode = getReturnToCode(id, cycles);
     const linkedCampaigns = [campaign];
@@ -44,13 +52,18 @@ export const toCustomCampaign = ({ cycles, customPacks, iconDB }: IToCustomCampa
     const scenarios = getLinkedScenarios(linkedCampaigns);
     const arkhamCampaigns = linkedCampaigns.map(toLinkedCampaign);
     const encounterSets = getLinkedEncounterSets(linkedCampaigns);
+    const packSets = pack?.encounter_sets.map(prop('code')) || [];
 
-    const isCanonical = customPacks.find(propEq(id, 'code'))?.is_canonical
+    const isCanonical = pack?.is_canonical || false
+
+    const packs = pack_code ? [pack_code] : [];
 
     return {
       id,
       is_size_supported: false,
       name,
+      packs,
+      cycle_code,
       icon: iconDB.getId(id),
       position,
       is_canonical: Boolean(isCanonical),
@@ -58,7 +71,8 @@ export const toCustomCampaign = ({ cycles, customPacks, iconDB }: IToCustomCampa
       campaign_type,
       return_set_code: returnSetCode,
       custom_content: custom,
-      encounter_sets: encounterSets,
+      encounter_sets: packSets,
+      extra_encounter_sets: difference(encounterSets, packSets),
       arkham_cards_scenarios: scenarios,
       arkham_cards_campaigns: arkhamCampaigns
     }
