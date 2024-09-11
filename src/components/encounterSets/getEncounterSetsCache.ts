@@ -28,7 +28,8 @@ export const getEncounterSetsCache = async () => {
         }
       }
 
-      const { size, 
+      const { 
+        size, 
         cycle_code, 
         code: pack_code 
       } = packEncounterSet;
