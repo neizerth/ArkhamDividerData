@@ -5,7 +5,7 @@ import { difference, prop, propEq } from "ramda"
 import { getLinkedEncounterSets, getLinkedScenarios, toLinkedCampaign } from "./toLinkedCampaign"
 
 import campaignMapping from "@/data/arkhamDBPackMapping.json";
-import { IIconDB } from "@/components/icons/IconDB"
+import { IIconDB } from "@/components/arkhamCards/icons/IconDB"
 
 
 const getCampaignIds = (code: string): string[] => campaignMapping

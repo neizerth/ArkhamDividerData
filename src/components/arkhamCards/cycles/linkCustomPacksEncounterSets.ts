@@ -1,10 +1,12 @@
+
+import { identity, prop } from "ramda";
 import { loadJSONPackCards } from "@/api/arkhamCards/api";
 import { IArkhamCards } from "@/types/arkhamCards";
-import { delay } from "@/util/common";
-import { identity, prop } from "ramda";
-import { toPackEncounterSet } from "./linkPacksEncounterSets";
 import { getCustomCampaignType } from "@/api/arkhamCards/util";
 import { NON_CANONICAL_CODE } from "@/api/arkhamCards/constants";
+import { toPackEncounterSet } from "@/components/arkhamDB/cycles/linkPacksEncounterSets";
+
+import { delay } from "@/util/common";
 
 export const linkCustomPacksEncounterSets = async (packs: IArkhamCards.JSON.Pack[]) => {
   const data = [] as IArkhamCards.JSON.ExtendedPack[];

@@ -13,7 +13,6 @@ export const getCache = createJSONReader(CACHE_DIR);
 
 export const createI18NCacheWriter = (language: string) => createJSONWriter(CACHE_DIR + '/i18n/' + language);
 export const createI18NCacheReader = (language: string) => createJSONReader(CACHE_DIR + '/i18n/' + language);
-
 // ArkhamDB
 export const getCyclesFromCache = () => getCache<IArkhamDB.JSON.ExtendedCycle[]>(CacheType.CYCLES);
 export const getPacksFromCache = () => getCache<IArkhamDB.JSON.ExtendedPack[]>(CacheType.PACKS);

@@ -1,12 +1,12 @@
 import { cache } from "@/util/cache";
 import { CacheType } from "@/types/cache";
-import { getIconsMappingCache } from "@/components/icons/getIconsMappingCache";
-import { getEncounterSetsCache } from "@/components/encounterSets/getEncounterSetsCache";
-import { getCampaignsCache } from "@/components/campaigns/getCampaignsCache";
-import { getIconsCache } from "@/components/icons/getIconsCache";
-import { getCustomPacksCache } from "@/components/packs/getCustomPacksCache";
+import { getIconsMappingCache } from "@/components/arkhamCards/icons/getIconsMappingCache";
+import { getEncounterSetsCache } from "@/components/arkhamDB/encounterSets/getEncounterSetsCache";
+import { getCampaignsCache } from "@/components/arkhamCards/campaigns/getCampaignsCache";
+import { getIconsCache } from "@/components/arkhamCards/icons/getIconsCache";
 import { delay } from "@/util/common";
-import { getCustomEncountersSetCache } from "@/components/encounterSets/getCustomEncounterSetsCache";
+import { getCustomEncountersSetCache } from "@/components/arkhamCards/encounterSets/getCustomEncounterSetsCache";
+import { getCustomPacksCache } from "@/components/arkhamCards/packs/getCustomPacksCache";
 
 export const cacheArkhamCards = async () => {
   console.log('caching Arkham Cards...');

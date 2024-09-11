@@ -3,7 +3,7 @@ import { IArkhamDB } from "@/types/arkhamDB";
 import { CacheType } from "@/types/cache";
 import { IDatabase } from "@/types/database";
 import { cache } from "@/util/cache";
-import { createIconDB, IIconDB } from "@/components/icons/IconDB";
+import { createIconDB, IIconDB } from "@/components/arkhamCards/icons/IconDB";
 import { IArkhamCards } from "@/types/arkhamCards";
 import { propEq } from "ramda";
 import { NON_CANONICAL_CODE } from "@/api/arkhamCards/constants";

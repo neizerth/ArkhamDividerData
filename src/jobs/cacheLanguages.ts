@@ -1,5 +1,5 @@
-import { getCampaignLanguagesCache } from "@/components/languages/getCampaignLanguagesCache";
-import { getCoreLanguagesCache } from "@/components/languages/getCoreLanguagesCache";
+import { getCampaignLanguagesCache } from "@/components/arkhamCards/languages/getCampaignLanguagesCache";
+import { getCoreLanguagesCache } from "@/components/arkhamDB/languages/getCoreLanguagesCache";
 import { CacheType } from "@/types/cache";
 import { cache } from "@/util/cache";
 

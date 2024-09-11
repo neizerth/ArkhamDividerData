@@ -5,7 +5,7 @@ import { RETURN_CYCLE_PREFIX } from "@/api/arkhamDB/constants";
 import { IArkhamCards } from "@/types/arkhamCards";
 import { IArkhamDB } from "@/types/arkhamDB";
 import { IDatabase } from "@/types/database";
-import { IIconDB } from "@/components/icons/IconDB";
+import { IIconDB } from "@/components/arkhamCards/icons/IconDB";
 
 import { getLinkedEncounterSets, getLinkedScenarios, toLinkedCampaign } from "./toLinkedCampaign";
 

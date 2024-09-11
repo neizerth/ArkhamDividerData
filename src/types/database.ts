@@ -1,5 +1,4 @@
 import { IArkhamCards } from "./arkhamCards"
-import { IArkhamDB } from "./arkhamDB"
 
 export namespace IDatabase {
   export type ArkhamCardsCampaign = {
@@ -8,11 +7,20 @@ export namespace IDatabase {
     version?: number
   }
 
-  export type EncounterSet = IArkhamDB.JSON.ExtendedEncounter & {
-    arkhamdb_code?: string
+  export enum EncounterSetSource {
+    ARKHAMDB = 'adb',
+    ARKHAM_CARDS = 'arkham-cards'
+  }
+
+  export type EncounterSet = {
+    code?: string;
+    name?: string; 
+    pack_code?: string
+    cycle_code?: string
+    source: EncounterSetSource,
     icon?: string
     size?: number
-    is_custom: boolean
+    is_custom?: boolean
   }
 
   export type Pack = IArkhamCards.JSON.ExtendedPack;
@@ -25,8 +33,10 @@ export namespace IDatabase {
     CAMPAIGN = 'campaign'
   }
 
-  // export type CampaignType = IArkhamCards.CampaignType | IArkhamCards.ScenarioType | Util.CampaignType
+  export type Cycle = {
 
+  }
+  
   export type Campaign = {
     id: string
     name: string

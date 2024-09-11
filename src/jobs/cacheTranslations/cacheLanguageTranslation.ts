@@ -1,10 +1,10 @@
-import { getCampaignsCache } from "@/components/campaigns/getCampaignsCache";
+import { getCampaignsCache } from "@/components/arkhamCards/campaigns/getCampaignsCache";
 import { createI18NCacheWriter, getCampaignsFromCache, getEncountersSetsFromCache, getScenariosFromCache } from "@/util/cache";
 import { getCampaignMapping, getTranslatedCampaigns } from "./campaignTranslation";
 import { getScenarioMapping } from "./getScenarioMapping";
 import { CacheType } from "@/types/cache";
 import { loadCoreTranslations, loadEncounterSets } from "@/api/arkhamCards/api";
-import { getEncounterSetsMapping } from "@/components/encounterSets/getEncounterSetsMapping";
+import { getEncounterSetsMapping } from "@/components/arkhamDB/encounterSets/getEncounterSetsMapping";
 import { translateMapping } from "./translateMapping";
 import { Mapping } from "@/types/common";
 import { delay } from "@/util/common";

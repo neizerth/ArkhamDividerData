@@ -3,7 +3,7 @@ import { prop } from "ramda";
 import { SIDE_ID } from "@/api/arkhamCards/constants";
 import { IArkhamCards } from "@/types/arkhamCards";
 import { unique } from "@/util/common";
-import { createIconDB, IIconDB } from "@/components/icons/IconDB";
+import { createIconDB, IIconDB } from "@/components/arkhamCards/icons/IconDB";
 import { getScenarioEncounterSets } from "./getScenarioEncounterSets";
 
 export const getMainCampaigns = (campaigns: IArkhamCards.JSON.FullCampaign[]) => {
