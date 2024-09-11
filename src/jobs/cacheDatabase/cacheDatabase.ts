@@ -1,5 +1,5 @@
 
-import { identity, prop, propEq } from "ramda";
+import { identity, prop } from "ramda";
 
 import { CacheType } from "@/types/cache";
 import { cache, getCustomEncountersSetFromCache, getCustomPacksFromCache, getEncountersFromCache } from "@/util/cache";
