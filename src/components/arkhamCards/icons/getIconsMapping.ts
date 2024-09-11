@@ -1,7 +1,7 @@
 import { loadIconsPatch } from "@/api/arkhamCards/api";
 import { Mapping } from "@/types/common";
 
-export const getIconsMappingCache = async () => {
+export const getIconsMapping = async () => {
   const contents = await loadIconsPatch();
 
   return parsePatchContents(contents);

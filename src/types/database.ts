@@ -7,17 +7,11 @@ export namespace IDatabase {
     version?: number
   }
 
-  export enum EncounterSetSource {
-    ARKHAMDB = 'adb',
-    ARKHAM_CARDS = 'arkham-cards'
-  }
-
   export type EncounterSet = {
     code?: string;
     name?: string; 
     pack_code?: string
     cycle_code?: string
-    source: EncounterSetSource,
     icon?: string
     size?: number
     is_custom?: boolean
@@ -33,10 +27,6 @@ export namespace IDatabase {
     CAMPAIGN = 'campaign'
   }
 
-  export type Cycle = {
-
-  }
-  
   export type Campaign = {
     id: string
     name: string

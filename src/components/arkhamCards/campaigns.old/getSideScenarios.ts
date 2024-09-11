@@ -34,7 +34,7 @@ export const getSideScenarios = (campaigns: IArkhamCards.JSON.FullCampaign[]): I
       scenario_name,
       header,
       full_name,
-      icon: iconDB.getId(icon)
+      icon: iconDB.getIcon(icon)
     }
 
     return {

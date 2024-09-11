@@ -25,9 +25,9 @@ export class IconDB<T = string | undefined> {
     this.iconMapping = iconMapping;
     this.returnId = returnId;
     
-    this.getId = this.getId.bind(this);
+    this.getIcon = this.getIcon.bind(this);
   }
-  getId(id: string, defaultValue?: string): T {
+  getIcon(id: string, defaultValue?: string): T {
     if (!id) {
       return undefined as T;
     }

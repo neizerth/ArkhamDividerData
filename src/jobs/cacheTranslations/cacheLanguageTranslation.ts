@@ -1,4 +1,4 @@
-import { getCampaignsCache } from "@/components/arkhamCards/campaigns/getCampaignsCache";
+import { getCampaignsCache } from "@/components/arkhamCards/campaigns.old/getCampaignsCache";
 import { createI18NCacheWriter, getCampaignsFromCache, getEncountersSetsFromCache, getScenariosFromCache } from "@/util/cache";
 import { getCampaignMapping, getTranslatedCampaigns } from "./campaignTranslation";
 import { getScenarioMapping } from "./getScenarioMapping";

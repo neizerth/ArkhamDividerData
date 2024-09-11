@@ -25,3 +25,40 @@ export const enum CacheType {
   COMMON_TRANSLATION = 'commonTranslation',
   CORE = 'core',
 }
+
+export namespace ICache {
+  export enum Source {
+    ARKHAMDB = 'adb',
+    ARKHAM_CARDS = 'arkham-cards'
+  }
+
+  export type Cycle = {
+    code: string;
+    name: string;
+    position: number;
+    source: Source;
+    size?: number;
+    is_canonical: boolean;
+    is_official: boolean;
+  }
+
+  export type Pack = {
+    code: string;
+    name: string; 
+    cycle_code: string
+    source: Source
+    is_canonical: boolean
+    is_official: boolean
+    date_release?: string
+    cgdb_id?: number
+  }
+
+  export type EncounterSet = {
+    name: string;
+    code: string;
+  }
+
+  export type Adventure = {
+    
+  }
+}
