@@ -4,7 +4,7 @@ import { difference, prop, propEq } from "ramda";
 
 import { IArkhamCards } from "@/types/arkhamCards";
 import { IArkhamDB } from "@/types/arkhamDB";
-import { IDatabase } from "@/types/database";
+import { IDatabase } from "@/types/database.old";
 
 import campaignMapping from "@/data/arkhamDBCycleMapping.json";
 import { IIconDB } from "@/components/arkhamCards/icons/IconDB";

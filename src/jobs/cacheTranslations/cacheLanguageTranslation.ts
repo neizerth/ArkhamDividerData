@@ -1,5 +1,5 @@
 import { getCampaignsCache } from "@/components/arkhamCards/campaigns.old/getCampaignsCache";
-import { createI18NCacheWriter, getCampaignsFromCache, getEncountersSetsFromCache, getScenariosFromCache } from "@/util/cache";
+import { createI18NCacheWriter, getCampaigns, getEncountersSetsFromCache, getScenariosFromCache } from "@/util/cache";
 import { getCampaignMapping, getTranslatedCampaigns } from "./campaignTranslation";
 import { getScenarioMapping } from "./getScenarioMapping";
 import { CacheType } from "@/types/cache";
@@ -24,7 +24,7 @@ export const cacheLanguageTranslation = async (language: string) => {
 export const cacheCampaignTranslation = async (language: string) => {
   console.log(`caching "${language}" campaign...`);
 
-  const baseCampaigns = getCampaignsFromCache();
+  const baseCampaigns = getCampaigns();
   const baseScenarios = getScenariosFromCache();
 
   const { campaigns, scenarios } = await getCampaignsCache(language);

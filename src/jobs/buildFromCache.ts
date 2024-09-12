@@ -3,7 +3,7 @@ import { getCoreLanguagesFromCache, getCustomPacksFromCache, getCyclesFromCache,
 import { CacheType } from "@/types/cache";
 import { buildSource } from "@/util/build";
 import { createI18NCacheReader } from "@/util/cache";
-import { IDatabase } from "@/types/database";
+import { IDatabase } from "@/types/database.old";
 import { Mapping } from "@/types/common";
 
 export const buildFromCache = async () => {

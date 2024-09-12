@@ -1,25 +1,13 @@
-import { IArkhamCards } from "./arkhamCards"
+import { Mapping } from "./common";
 
 export namespace IDatabase {
-  export type ArkhamCardsCampaign = {
-    code: string
-    position?: number
-    version?: number
-  }
-
-  export type EncounterSet = {
-    code?: string;
-    name?: string; 
-    pack_code?: string
-    cycle_code?: string
-    icon?: string
-    size?: number
-    is_custom?: boolean
-  }
-
-  export type Pack = IArkhamCards.JSON.ExtendedPack;
   
-  export enum CampaignType {
+  export type CustomContent = {
+    creator: string;
+    download_link: Mapping
+  }
+
+  export enum StoryType {
     PARALLEL = 'parallel',
     STANDALONE = 'standalone',
     SIDE = 'side_story',
@@ -27,24 +15,34 @@ export namespace IDatabase {
     CAMPAIGN = 'campaign'
   }
 
-  export type Campaign = {
+  export type EncounterSet = {
+    name: string;
+    code: string;
+
+    icon?: string;
+    pack_code?: string;
+    cycle_code?: string;
+    synonyms: string[];
+    size?: number;
+    is_canonical: boolean;
+    is_official: boolean;
+  }
+  
+  export type Story = {
     id: string
     name: string
-    cycle_code?: string
-    is_custom: boolean
-    campaign_type: string
-    arkham_cards_campaigns: ArkhamCardsCampaign[]
-    arkham_cards_scenarios: string[]
+    cycle_code: string
+    pack_codes: string[]
+    type: StoryType
+    icon?: string
     encounter_sets: string[]
     extra_encounter_sets: string[]
-    icon?: string
-
-    position?: number
-    packs?: string[]
-    return_set_code?: string
-    arkhamdb_pack_code?: string;
-    custom_content?: IArkhamCards.CustomContent
-    is_size_supported: boolean;
+    is_size_supported: boolean
     is_canonical: boolean
+    is_official: boolean
+    campaign_type: string
+    arkham_cards_scenarios: string[]
+    return_set_code?: string
+    custom_content?: CustomContent
   }
 }

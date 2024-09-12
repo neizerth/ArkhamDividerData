@@ -1,7 +1,7 @@
 import { IArkhamCards } from "./arkhamCards"
 import { IArkhamDB } from "./arkhamDB"
 import { Mapping } from "./common"
-import { IDatabase } from "./database"
+import { IDatabase } from "./database.old"
 import { IIcoMoon } from "./icomoon"
 
 export namespace IBuild {

@@ -6,7 +6,7 @@ export const createJSONWriter = <T = string>(dir: string) => (name: T, data: obj
     fs.mkdirSync(dir, { recursive: true });
   }
 
-  const contents = JSON.stringify(data);
+  const contents = JSON.stringify(data, null, 2);
 
   const filename = dir + '/' + name + '.json';
 

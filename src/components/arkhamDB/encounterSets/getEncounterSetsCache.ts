@@ -1,6 +1,6 @@
 import { loadEncounterSets } from "@/api/arkhamCards/api";
 import { IArkhamCards } from "@/types/arkhamCards";
-import { IDatabase } from "@/types/database";
+import { IDatabase } from "@/types/database.old";
 import { getCustomPacksFromCache, getPacksFromCache } from "@/util/cache";
 import { prop, propEq } from "ramda";
 

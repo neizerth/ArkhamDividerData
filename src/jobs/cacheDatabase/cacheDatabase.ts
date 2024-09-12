@@ -5,8 +5,8 @@ import { CacheType } from "@/types/cache";
 import { cache, getCustomEncountersSetFromCache, getCustomPacksFromCache, getEncountersFromCache } from "@/util/cache";
 
 import { NO_MAIN_CYCLE_CODES, SPECIAL_CAMPAIGN_TYPES } from "@/api/arkhamDB/constants";
-import { IDatabase } from "@/types/database";
-import { getCampaignsFromCache, getCyclesFromCache, getPacksFromCache } from "@/util/cache";
+import { IDatabase } from "@/types/database.old";
+import { getCampaigns, getCyclesFromCache, getPacksFromCache } from "@/util/cache";
 import { createIconDB } from "@/components/arkhamCards/icons/IconDB";
 
 import { toMainCampaign } from "./toMainCampaign";
@@ -35,7 +35,7 @@ export const cacheDatabaseCampaigns = () => {
 export const getCustomCampaigns = () => {
   console.log('caching database custom campaigns...');
 
-  const campaigns = getCampaignsFromCache();
+  const campaigns = getCampaigns();
   const cycles = getCyclesFromCache();
   const customPacks = getCustomPacksFromCache();
   const customEncounterSets = getCustomEncountersSetFromCache();
@@ -55,7 +55,7 @@ export const getCustomCampaigns = () => {
 export const getMainCampaigns = () => {
   console.log('caching database main campaigns...');
 
-  const campaigns = getCampaignsFromCache();
+  const campaigns = getCampaigns();
   const cycles = getCyclesFromCache();
   const encounters = getEncountersFromCache();
   const iconDB = createIconDB();
@@ -73,7 +73,7 @@ export const getMainCampaigns = () => {
 export const getOfficialPackCampaigns = (): IDatabase.Campaign[] => {
   console.log('caching database official campaigns...');
 
-  const campaigns = getCampaignsFromCache();
+  const campaigns = getCampaigns();
   const packs = getPacksFromCache();
   const encounters = getEncountersFromCache();
 

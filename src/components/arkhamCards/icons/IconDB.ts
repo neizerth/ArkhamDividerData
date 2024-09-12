@@ -1,5 +1,5 @@
 import { Mapping } from "@/types/common";
-import { getIconMappingFromCache, getIconProjectFromCache } from "@/util/cache";
+import * as Cache from "@/util/cache";
 
 export type IconDBOptions = {
   icons: string[]
@@ -27,9 +27,18 @@ export class IconDB<T = string | undefined> {
     
     this.getIcon = this.getIcon.bind(this);
   }
+  getIconOf(ids: string[], defaultValue?: string) {
+    for (const id of ids) {
+      const icon = this.getIcon(id, defaultValue);
+      if (icon) {
+        return icon;
+      }
+    }
+    return defaultValue;
+  }
   getIcon(id: string, defaultValue?: string): T {
     if (!id) {
-      return undefined as T;
+      return defaultValue as T;
     }
     if (this.icons.includes(id)) {
       return id as T;
@@ -40,15 +49,15 @@ export class IconDB<T = string | undefined> {
       return icon as T;
     }
     
-    console.log(`encounter code "${id}" not found`);
+    console.log(`iconDB: encounter code "${id}" not found`);
     const returnId = this.returnId ? id : defaultValue;
     return returnId as T;
   }
 }
 
 export const createIconDB = () => {
-  const iconMapping = getIconMappingFromCache();
-  const project = getIconProjectFromCache();
+  const iconMapping = Cache.getIconMapping();
+  const project = Cache.getIconProject();
   const icons = project.map(({ properties }) => properties.name);
 
   return new IconDB({

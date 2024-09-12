@@ -1,12 +1,12 @@
 import { 
   cacheArkhamCards, 
   cacheArkhamDB, 
-  cacheDatabase, 
   build, 
   buildFromCache, 
   cacheLanguages, 
   cacheTranslations, 
-  createCache 
+  createCache, 
+  createDatabaseCache
 } from "./jobs";
 
 export class App {
@@ -15,7 +15,7 @@ export class App {
 
     switch (command) {
       case 'database':
-        return await cacheDatabase();
+        return await createDatabaseCache();
       case 'arkham-db':
         return await cacheArkhamDB();
       case 'arkham-cards':

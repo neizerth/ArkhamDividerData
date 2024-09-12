@@ -40,5 +40,33 @@ const getCustomPackEncounterSets = async (pack: IArkhamCards.JSON.Pack) => {
     .map(prop('encounter_code'))
     .filter(identity) as string[];
 
-  return toPackEncounterSet(pack, codes);
+  return getPackSize(pack, codes);
 }
+
+export const toPackEncounterSet = (
+  pack: IArkhamDB.HasCode & IArkhamDB.HasCycleCode, 
+  codes: string[]
+) => codes.reduce(
+  (target, code) => {
+
+  const index = target.findIndex(propEq(code, 'code'));
+  if (index !== -1) {
+    const item = target[index];
+
+    return [
+      ...target.slice(0, index),
+      {
+        ...item,
+        size: item.size + 1
+      },
+      ...target.slice(index + 1)
+    ]
+  }
+  target.push({
+    cycle_code: pack.cycle_code,
+    pack_code: pack.code,
+    code,
+    size: 1
+  }) 
+  return [...target, ];
+}, [] as IArkhamDB.JSON.PackEncounterSet[]);

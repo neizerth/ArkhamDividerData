@@ -28,9 +28,9 @@ export const loadAllCards = async (encounters: boolean) => {
   return data as IArkhamDB.API.Card[];
 }
 
-export const loadPackCards = async ({ code }: IArkhamDB.HasCode) => {
+export const loadPackCards = async (code: string) => {
   const { data } = await getAPIData(`/cards/${code}`);
-  return data as IArkhamDB.API.Card[];
+  return (data || []) as IArkhamDB.API.Card[];
 }
 
 export const loadSearchPageContents = async () => {

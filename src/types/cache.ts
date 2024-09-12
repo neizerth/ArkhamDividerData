@@ -1,23 +1,31 @@
 export const enum CacheType {
   SCENARIOS = 'scenarios',
+  STANDALONE_SCENARIOS = 'standaloneScenarios',
   CAMPAIGNS = 'campaigns',
+
+  ENCOUNTER_SETS = 'encounterSets',
+  SCENARIO_ENCOUNTER_SETS = 'encounterSets.scenario',
+  PACK_ENCOUNTER_SETS = 'encounterSets.pack',
+
+  ICONS_PROJECT = 'icons.project',
+  ICONS_MAPPING = 'icons.mapping',
   
   CUSTOM_PACKS = 'packs.custom',
   CUSTOM_CYCLES = 'cycles.custom',
+
+  CYCLES = 'cycles',
+  PACKS = 'packs',
+
   CUSTOM_ENCOUNTER_SETS = 'encounterSets.custom',
 
   TRANSLATED_CAMPAIGNS = 'translated.campaigns',
 
-  ICONS_PROJECT = 'icons.project',
-  ICONS_MAPPING = 'icons.mapping',
-
-  CYCLES = 'cycles',
-  PACKS = 'packs',
   ENCOUNTERS = 'encounters',
-  ENCOUNTER_SETS = 'encounterSets',
 
   DATABASE_CAMPAIGNS = 'database.campaigns',
   DATABASE_ENCOUNTER_SETS = 'database.encounterSets',
+
+  DATABASE_STORIES = 'database.stories',
   
   CAMPAIGN_LANGUAGES = 'languages.campaign',
   CORE_LANGUAGES = 'languages.core',
@@ -42,23 +50,45 @@ export namespace ICache {
     is_official: boolean;
   }
 
+  export type StandaloneScenario = {
+    scenario_id: string
+    arkham_cards_campaign_id: string
+    type: string
+  }
+
   export type Pack = {
     code: string;
     name: string; 
     cycle_code: string
     source: Source
-    is_canonical: boolean
-    is_official: boolean
     date_release?: string
     cgdb_id?: number
+    position: number;
+    is_canonical: boolean;
+    is_official: boolean;
+  }
+
+  export type PackEncounterSet = {
+    cycle_code: string;
+    pack_code: string;
+    encounter_set_code: string
+    source: Source
+    size?: number;
+  }
+
+  export type ScenarioEncounterSet = {
+    scenario_id: string;
+    cycle_code: string;
+    pack_code: string;
+    encounter_set_code: string
+    is_extra: boolean
+    is_canonical: boolean
+    is_official: boolean
   }
 
   export type EncounterSet = {
-    name: string;
-    code: string;
-  }
-
-  export type Adventure = {
-    
+    name: string
+    code: string
+    synonyms: string[]
   }
 }

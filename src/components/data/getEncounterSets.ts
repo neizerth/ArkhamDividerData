@@ -1,19 +1,90 @@
 import * as ArkhamDB from '@/components/arkhamDB';
 import * as ArkhamCards from '@/components/arkhamCards' 
-import { groupBy, isNotNil, mergeAll, prop, values } from 'ramda';
-
+import { groupBy, prop, propEq, toPairs } from 'ramda';
+import { whereSynonyms } from '@/util/criteria';
 
 export const getEncounterSets = async () => {
-  const data = [];
   console.log('loading Arkham Cards encounter sets...');
-  data.push(...await ArkhamCards.getEncounterSets());
+  const arkhamCardsEncounters = await ArkhamCards.getEncounterSets();
 
   console.log('loading ArkhamDB encounter sets...');
-  data.push(...await ArkhamDB.getEncounterSets());
+  const arkhamDBEncounters = await ArkhamDB.getEncounterSets();
 
-  const groups = groupBy(prop('code'), data);
+  const specialGroups = toPairs(
+    groupBy(
+      prop('name'), 
+      arkhamDBEncounters
+    )
+  )
+  .map(([name, group = []]) => {
+    return {
+      name,
+      group
+    }
+  })
+  .filter(({ group }) => {
+    return group.length > 1;
+  })
+  
 
-  return values(groups)
-    .filter(isNotNil)
-    .map(mergeAll);
+  const specialNames = specialGroups.map(prop('name'));
+
+  console.log(`found special groups: ${specialNames.join(', ')}...`);
+  
+  const prepareText = (text: string) => text.trim().toLowerCase();
+
+  const matches = arkhamDBEncounters.map(encounter => {
+    const specialGroup = specialGroups.find(
+      propEq(encounter.name, 'name')
+    );
+    if (specialGroup) {
+      const synonyms = [
+        ...encounter.synonyms,
+        ...specialGroup.group
+          .map(prop('code'))
+          .filter(code => code !== encounter.code)
+      ];
+      
+      return {
+        ...encounter,
+        synonyms
+      };
+    }
+
+    const arkhamCardsEncounter = arkhamCardsEncounters.find(
+      ({ name }) => prepareText(encounter.name) === prepareText(name)
+    );
+
+    if (!arkhamCardsEncounter) {
+      console.log(`Arkham Cards encounter not found: ${encounter.code}`);
+
+      return encounter;
+    }
+    
+    if (encounter.code === arkhamCardsEncounter.code) {
+      return encounter;
+    }
+
+    console.log(`found encounter code difference: ${encounter.code}/${arkhamCardsEncounter.code}}`)
+
+    return {
+      ...encounter,
+      synonyms: [
+        ...encounter.synonyms,
+        arkhamCardsEncounter.code
+      ]
+    }
+  });
+  
+  const restArkhamCards = arkhamCardsEncounters.filter(({ code }) => {
+    if (specialNames.includes(code)) {
+      return false;
+    }
+    return !arkhamDBEncounters.some(whereSynonyms(code));
+  });
+
+  return [
+    ...matches,
+    ...restArkhamCards
+  ]
 }

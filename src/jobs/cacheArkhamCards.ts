@@ -1,6 +1,6 @@
 import { cache } from "@/util/cache";
 import { CacheType } from "@/types/cache";
-import { getIconsMapping } from "@/components/arkhamCards/icons/getIconsMappingCache";
+import { getIconsMapping } from "@/components/arkhamCards/icons/getIconsMapping";
 import { getEncounterSetsCache } from "@/components/arkhamDB/encounterSets/getEncounterSetsCache";
 import { getCampaignsCache } from "@/components/arkhamCards/campaigns.old/getCampaignsCache";
 import { getIconsCache } from "@/components/arkhamCards/icons/getIconsCache";

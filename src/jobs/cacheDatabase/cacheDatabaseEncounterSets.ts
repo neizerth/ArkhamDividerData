@@ -1,7 +1,7 @@
 import { getCustomPacksFromCache, getEncountersFromCache, getEncountersSetsFromCache } from "@/util/cache";
 import { IArkhamDB } from "@/types/arkhamDB";
 import { CacheType } from "@/types/cache";
-import { IDatabase } from "@/types/database";
+import { IDatabase } from "@/types/database.old";
 import { cache } from "@/util/cache";
 import { createIconDB, IIconDB } from "@/components/arkhamCards/icons/IconDB";
 import { IArkhamCards } from "@/types/arkhamCards";
