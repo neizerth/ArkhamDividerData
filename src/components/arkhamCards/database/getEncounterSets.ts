@@ -4,6 +4,7 @@ import { whereSynonyms } from "@/util/criteria";
 import { groupBy, isNotNil, prop, propEq, values } from "ramda";
 import { createIconDB } from "../icons/IconDB";
 import { toSynonyms } from "@/util/common";
+import { showError } from "@/util/console";
 
 export const getEncounterSets = (): IDatabase.EncounterSet[] => {
   const scenarioEncounters = Cache.getScenarioEncounterSets();
@@ -17,8 +18,8 @@ export const getEncounterSets = (): IDatabase.EncounterSet[] => {
 
   const databaseEncounters = mainScenarioEncounters.map(({
     cycle_code,
-    pack_code,
     encounter_set_code,
+    pack_code,
     is_canonical,
     is_official
   }): IDatabase.EncounterSet => {
@@ -37,7 +38,7 @@ export const getEncounterSets = (): IDatabase.EncounterSet[] => {
     const encounter = encounters.find(whereSynonyms(encounter_set_code));
 
     if (!encounter) {
-      console.log(`encounter not found: ${encounter_set_code}`);
+      showError(`encounter not found: ${encounter_set_code}`);
       return {
         ...encounterData,
         name: encounter_set_code,

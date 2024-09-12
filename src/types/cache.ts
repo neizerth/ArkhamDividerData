@@ -9,6 +9,11 @@ export const enum CacheType {
 
   ICONS_PROJECT = 'icons.project',
   ICONS_MAPPING = 'icons.mapping',
+
+  DATABASE_CAMPAIGNS = 'database.campaigns',
+  DATABASE_ENCOUNTER_SETS = 'database.encounterSets',
+
+  DATABASE_STORIES = 'database.stories',
   
   CUSTOM_PACKS = 'packs.custom',
   CUSTOM_CYCLES = 'cycles.custom',
@@ -21,11 +26,6 @@ export const enum CacheType {
   TRANSLATED_CAMPAIGNS = 'translated.campaigns',
 
   ENCOUNTERS = 'encounters',
-
-  DATABASE_CAMPAIGNS = 'database.campaigns',
-  DATABASE_ENCOUNTER_SETS = 'database.encounterSets',
-
-  DATABASE_STORIES = 'database.stories',
   
   CAMPAIGN_LANGUAGES = 'languages.campaign',
   CORE_LANGUAGES = 'languages.core',
@@ -77,6 +77,7 @@ export namespace ICache {
   }
 
   export type ScenarioEncounterSet = {
+    campaign_id: string;
     scenario_id: string;
     cycle_code: string;
     pack_code: string;
@@ -84,6 +85,19 @@ export namespace ICache {
     is_extra: boolean
     is_canonical: boolean
     is_official: boolean
+  }
+
+  export type ScenarioPack = {
+    campaign_id: string;
+    scenario_id: string;
+    pack_code: string;
+    cycle_code: string;
+  }
+
+  export type CampaignPack = {
+    campaign_id: string;
+    pack_code: string;
+    cycle_code: string;
   }
 
   export type EncounterSet = {

@@ -2,7 +2,7 @@ import { loadJSONTranslationCycles, loadJSONTranslationEncounters, loadJSONTrans
 import { IArkhamDB } from "@/types/arkhamDB";
 import { CacheType } from "@/types/cache";
 import { Mapping } from "@/types/common";
-import { createI18NCacheWriter, getCyclesFromCache, getDatabaseCampaignsFromCache, getEncountersSetsFromCache, getPacksFromCache } from "@/util/cache";
+import { createI18NCacheWriter, getCycles, getDatabaseCampaignsFromCache, getEncountersSetsFromCache, getPacksFromCache } from "@/util/cache";
 import { delay } from "@/util/common";
 import { prop, propEq } from "ramda";
 
@@ -31,7 +31,7 @@ export const cacheCampaignsTranslations = async (language: string) => {
   console.log('loading cycles...');
 
   const cycles = await loadJSONTranslationCycles(language);
-  const baseCycles = getCyclesFromCache();
+  const baseCycles = getCycles();
   const cyclesMapping = getCoreTranslationsMapping(baseCycles, cycles);
 
   await delay(200);

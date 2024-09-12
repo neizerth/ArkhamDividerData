@@ -1,6 +1,7 @@
 import { IDatabase } from '@/types/database';
 import * as ArkhamCards from '@/components/arkhamCards/database'
 import * as ArkhamDB from '@/components/arkhamDB/database';
+import { groupBy, isNotNil, mergeAll, prop, values } from 'ramda';
 
 /*
   pack_code and cycle_code linking to encounter sets
@@ -15,5 +16,8 @@ export const getEncounterSets = (): IDatabase.EncounterSet[] => {
   console.log('caching Arkham Cards database encounter sets...');
   data.push(...ArkhamCards.getEncounterSets());
 
-  return data;
+  const groups = groupBy(prop('code'), data);
+
+  const groupValues = values(groups).filter(isNotNil);
+  return groupValues.map(mergeAll) as IDatabase.EncounterSet[];
 }

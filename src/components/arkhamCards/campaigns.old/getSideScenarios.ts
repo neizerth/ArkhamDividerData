@@ -1,11 +1,11 @@
 import { IArkhamCards } from "@/types/arkhamCards";
 import { getScenarioEncounterSets } from "./getScenarioEncounterSets";
-import { SIDE_ID } from "@/api/arkhamCards/constants";
+import { SIDE_STORIES_CODE } from "@/api/arkhamCards/constants";
 import { createIconDB } from "@/components/arkhamCards/icons/IconDB";
 
 export const getSideScenarios = (campaigns: IArkhamCards.JSON.FullCampaign[]): IArkhamCards.Parsed.ExtendedCampaign[] => {
   const sideCampaign = campaigns.find(
-    ({ campaign }) => campaign.id === SIDE_ID
+    ({ campaign }) => campaign.id === SIDE_STORIES_CODE
   );
 
   if (!sideCampaign) {

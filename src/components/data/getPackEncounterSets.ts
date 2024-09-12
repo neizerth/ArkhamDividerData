@@ -1,4 +1,5 @@
 import * as ArkhamDB from '@/components/arkhamDB';
+import * as ArkhamCards from '@/components/arkhamCards';
 import { ICache } from '@/types/cache';
 
 /*
@@ -10,6 +11,9 @@ export const getPackEncounterSets = async (): Promise<ICache.PackEncounterSet[]>
 
   console.log('loading ArkhamDB pack encounter sets...');
   data.push(...await ArkhamDB.getPackEncounterSets());
+
+  console.log('loading Arkham Cards pack encounter sets...');
+  data.push(...await ArkhamCards.getPackEncounterSets());
   
   return data;
 }

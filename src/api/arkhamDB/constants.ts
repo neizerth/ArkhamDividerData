@@ -12,6 +12,7 @@ export const PROMOTIONAL_CODE = 'promotional';
 export const DEFAULT_CAMPAIGN_TYPE = 'campaign';
 
 export const SPECIAL_CAMPAIGN_TYPES = [
+  RETURN_CYCLE_CODE,
   SIDE_STORY_CODE,
   PARALLEL_CODE
 ];

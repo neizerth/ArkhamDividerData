@@ -8,6 +8,7 @@ import { getCampaignType, withReturnSetCode } from "@/api/arkhamDB/util";
 import { IArkhamDB } from "@/types/arkhamDB";
 import { unique } from "@/util/common";
 import { linkPacksEncounterSets } from "./linkPacksEncounterSets";
+import { showError } from "@/util/console";
 
 export const getCyclesCache = async () => {
   console.log('loading packs...');
@@ -85,7 +86,7 @@ export const withPack = (packs: Pack[]) => {
     const cycleCode = packEncounterSet?.cycle_code
 
     if (!packEncounterSet) {
-      console.log(`encounter set ${encounter.code} not found!`);
+      showError(`encounter set ${encounter.code} not found!`);
     }
 
     return {

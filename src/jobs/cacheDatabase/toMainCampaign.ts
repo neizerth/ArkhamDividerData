@@ -6,7 +6,7 @@ import { IArkhamCards } from "@/types/arkhamCards";
 import { IArkhamDB } from "@/types/arkhamDB";
 import { IDatabase } from "@/types/database.old";
 
-import campaignMapping from "@/data/arkhamDBCycleMapping.json";
+import campaignMapping from "@/data/arkhamCards/cycles.json";
 import { IIconDB } from "@/components/arkhamCards/icons/IconDB";
 
 import { getLinkedEncounterSets, getLinkedScenarios, toLinkedCampaign } from "./toLinkedCampaign";

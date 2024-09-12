@@ -28,10 +28,17 @@ export const createCache = async () => {
 }
 
 export const createDatabaseCache = () => {
+  console.log('caching scenario campaigns sets...');
+  cache(CacheType.SCENARIO_CAMPAIGNS, Data.getScenarioPacks());
+  // console.log('caching scenario encounter sets...');
+  // cache(CacheType.SCENARIO_ENCOUNTER_SETS, Data.getScenarioEncounterSets());
+
+  return;
   console.log('caching database encounter sets...');
   cache(CacheType.DATABASE_ENCOUNTER_SETS, Database.getEncounterSets());
 
-  
+  console.log('caching database stories...');
+  cache(CacheType.DATABASE_STORIES, Database.getStories());
 }
 
 export const createEntityCache = async () => {
@@ -65,10 +72,6 @@ export const createEntityCache = async () => {
   await delay(200);
   console.log('caching pack encounter sets...');
   cache(CacheType.PACK_ENCOUNTER_SETS, await Data.getPackEncounterSets());
-
-  await delay(200);
-  console.log('caching scenario encounter sets...');
-  cache(CacheType.SCENARIO_ENCOUNTER_SETS, await Data.getScenarioEncounterSets());
 
   await delay(200);
   console.log('caching IcoMoon icons...');

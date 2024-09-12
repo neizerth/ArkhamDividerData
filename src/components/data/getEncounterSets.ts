@@ -2,6 +2,7 @@ import * as ArkhamDB from '@/components/arkhamDB';
 import * as ArkhamCards from '@/components/arkhamCards' 
 import { groupBy, prop, propEq, toPairs } from 'ramda';
 import { whereSynonyms } from '@/util/criteria';
+import { showError } from '@/util/console';
 
 export const getEncounterSets = async () => {
   console.log('loading Arkham Cards encounter sets...');
@@ -56,7 +57,7 @@ export const getEncounterSets = async () => {
     );
 
     if (!arkhamCardsEncounter) {
-      console.log(`Arkham Cards encounter not found: ${encounter.code}`);
+      showError(`Arkham Cards encounter not found: ${encounter.code}`);
 
       return encounter;
     }
@@ -65,7 +66,7 @@ export const getEncounterSets = async () => {
       return encounter;
     }
 
-    console.log(`found encounter code difference: ${encounter.code}/${arkhamCardsEncounter.code}}`)
+    console.log(`found encounter code difference: ${encounter.code}/${arkhamCardsEncounter.code}`)
 
     return {
       ...encounter,

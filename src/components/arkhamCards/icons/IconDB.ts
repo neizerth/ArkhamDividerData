@@ -1,5 +1,6 @@
 import { Mapping } from "@/types/common";
 import * as Cache from "@/util/cache";
+import { showError } from "@/util/console";
 
 export type IconDBOptions = {
   icons: string[]
@@ -49,7 +50,7 @@ export class IconDB<T = string | undefined> {
       return icon as T;
     }
     
-    console.log(`iconDB: encounter code "${id}" not found`);
+    showError(`icon for encounter code "${id}" not found`);
     const returnId = this.returnId ? id : defaultValue;
     return returnId as T;
   }

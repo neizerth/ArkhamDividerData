@@ -1,12 +1,12 @@
 import * as API from '@/api/arkhamCards/api';
 import { ICache } from '@/types/cache';
 import { SingleValue } from '@/types/common';
-import { getCyclesFromCache } from '@/util/cache';
+import { getCycles } from '@/util/cache';
 import { propEq } from 'ramda';
 
 export const getPacks = async (): Promise<ICache.Pack[]> => {
   const packs = await API.loadJSONPacks();
-  const cycles = getCyclesFromCache();
+  const cycles = getCycles();
   
   return packs.map(({ 
     code, 

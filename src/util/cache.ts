@@ -14,7 +14,6 @@ export const getCache = createJSONReader(CACHE_DIR);
 export const createI18NCacheWriter = (language: string) => createJSONWriter(CACHE_DIR + '/i18n/' + language);
 export const createI18NCacheReader = (language: string) => createJSONReader(CACHE_DIR + '/i18n/' + language);
 // ArkhamDB
-export const getCyclesFromCache = () => getCache<ICache.Cycle[]>(CacheType.CYCLES);
 export const getPacksFromCache = () => getCache<ICache.Pack[]>(CacheType.PACKS);
 export const getEncountersFromCache = () => getCache<IArkhamDB.JSON.ExtendedEncounter[]>(CacheType.ENCOUNTERS);
 
@@ -38,6 +37,7 @@ export const getDatabaseEncounterSetsFromCache = () => getCache<IDatabase.Encoun
 export const getIconProjectFromCache = () => getCache<IIcoMoon.Icon[]>(CacheType.ICONS_PROJECT);
 
 
+export const getCycles = () => getCache<ICache.Cycle[]>(CacheType.CYCLES);
 export const getPacks = () => getCache<ICache.Pack[]>(CacheType.PACKS);
 export const getEncounterSets = () => getCache<ICache.EncounterSet[]>(CacheType.ENCOUNTER_SETS);
 export const getScenarioEncounterSets = () => getCache<ICache.ScenarioEncounterSet[]>(CacheType.SCENARIO_ENCOUNTER_SETS);

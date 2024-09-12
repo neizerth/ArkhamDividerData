@@ -1,0 +1,15 @@
+{
+  "without_size_support": [
+
+  ],
+  "arkham_db_mapping": [
+    {
+      "pack_code": "blbe",
+      "scenario_id": "blob_that_ate_everything_else"
+    },
+    {
+      "pack_code": "zcos",
+      "scenario_id": "the_colour_out_of_space"
+    }
+  ]
+}

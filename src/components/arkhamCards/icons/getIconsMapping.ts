@@ -7,7 +7,7 @@ export const getIconsMapping = async () => {
   return parsePatchContents(contents);
 }
 
-export const PATCH_EXPRESSION = /(\s*case '(.*)':\s*\n)+\s*return this\.[^(]+\('(.*)'/gm;
+export const PATCH_EXPRESSION = /(\s*case '(.*)':.*\n)+\s*return this\.[^(]+\('(.*)'/gm;
 export const PATCH_ENCOUNTER_SET_EXPRESSION = /(case '(.*)':)/gm;
 
 export const parsePatchContents = (patchContents: string): Mapping => {

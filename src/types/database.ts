@@ -27,22 +27,36 @@ export namespace IDatabase {
     is_canonical: boolean;
     is_official: boolean;
   }
+
+  export type Scenario = {
+    id: string
+    campaign_id: string;
+    encounter_sets: string[]
+    scenario_name: string
+    full_name: string
+    header: string
+    icon?: string
+  }
   
   export type Story = {
-    id: string
     name: string
-    cycle_code: string
+    code: string
+    campaigns: string[]
     pack_codes: string[]
-    type: StoryType
+    // cycle_code: string
+    // pack_codes: string[]
+    type: string;
     icon?: string
     encounter_sets: string[]
     extra_encounter_sets: string[]
     is_size_supported: boolean
+    
+    // scenarios: string[]
+    // campaigns: string[]
+    return_to_code?: string
+    custom_content?: CustomContent
+
     is_canonical: boolean
     is_official: boolean
-    campaign_type: string
-    arkham_cards_scenarios: string[]
-    return_set_code?: string
-    custom_content?: CustomContent
   }
 }
