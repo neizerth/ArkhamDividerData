@@ -28,7 +28,6 @@ export const getCoreLanguagesFromCache = () => getCache<string[]>(CacheType.CORE
 
 export const getCustomEncountersSetFromCache = () => getCache<IArkhamCards.EncounterSet[]>(CacheType.CUSTOM_ENCOUNTER_SETS);
 export const getEncountersSetsFromCache = () => getCache<IArkhamCards.EncounterSet[]>(CacheType.ENCOUNTER_SETS);
-export const getStandaloneScenariosFromCache = () => getCache<IArkhamCards.JSON.StandaloneScenario[]>(CacheType.STANDALONE_SCENARIOS);
 
 // database
 export const getDatabaseCampaignsFromCache = () => getCache<IDatabase.Campaign[]>(CacheType.DATABASE_CAMPAIGNS);
@@ -46,3 +45,6 @@ export const getPackEncounterSets = () => getCache<ICache.PackEncounterSet[]>(Ca
 export const getDatabaseEncounterSets = () => getCache<IDatabase.EncounterSet[]>(CacheType.DATABASE_ENCOUNTER_SETS);
 export const getIconMapping = () => getCache<Mapping>(CacheType.ICONS_MAPPING);
 export const getIconProject = () => getCache<IIcoMoon.Icon[]>(CacheType.ICONS_PROJECT);
+export const getStandaloneScenarios = () => getCache<IArkhamCards.JSON.StandaloneScenario[]>(CacheType.STANDALONE_SCENARIOS);
+export const getSideScenarios = () => getCache<ICache.SideScenario[]>(CacheType.SIDE_SCENARIOS);
+export const getCampaignLinks = () => getCache<ICache.CampaignLink[]>(CacheType.CAMPAIGN_LINKS);

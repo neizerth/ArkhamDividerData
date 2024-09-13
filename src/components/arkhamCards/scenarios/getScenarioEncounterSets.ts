@@ -2,7 +2,6 @@ import { ICache } from '@/types/cache';
 import { getCampaignEncounterSets } from './encounterSets/getCampaignEncounterSets';
 import { getSideEncounterSets } from './encounterSets/getSideEncounterSets';
 
-
 export const getScenarioEncounterSets = (): ICache.ScenarioEncounterSet[] => {
   const data = [];
 

@@ -2,7 +2,7 @@
 import { IDatabase } from "@/types/database";
 import { getCycleStories } from "./stories/getCycleStories";
 import { getSideStories } from "./stories/getSideStories";
-import { getCustomCampaignStories } from "./stories/getCustomCampaignStories";
+import { getPackCampaignStories } from "./stories/getPackCampaignStories";
 
 export const getStories = (): IDatabase.Story[] => {
   const data = [];
@@ -13,8 +13,8 @@ export const getStories = (): IDatabase.Story[] => {
   console.log('caching side stories...')
   data.push(...getSideStories());
 
-  console.log('caching custom campaign stories...')
-  data.push(...getCustomCampaignStories());
+  console.log('caching pack campaign stories...')
+  data.push(...getPackCampaignStories());
 
   return data;
 }

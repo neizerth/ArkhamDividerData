@@ -56,7 +56,7 @@ export namespace IDatabase {
     return_to_code?: string
     custom_content?: CustomContent
 
-    is_canonical: boolean
-    is_official: boolean
+    is_canonical?: boolean
+    is_official?: boolean
   }
 }

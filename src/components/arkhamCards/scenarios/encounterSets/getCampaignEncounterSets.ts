@@ -18,54 +18,31 @@ export const getCampaignEncounterSets = (): ICache.ScenarioEncounterSet[] => {
     .filter(({ campaign }) => campaign.id !== SIDE_STORIES_CODE);
     
   const packs = Cache.getPacks();
-
-  const findPack = ({ id, name }: IFindPack) => {
-    const packByCode = packs.find(propEq(id, 'code'));
-    if (packByCode) {
-      return packByCode;
-    }
-    showWarning(`packs not found: ${id}`);
-    const cyclePack = packs.find(propEq(id, 'cycle_code'));
-
-    if (cyclePack) {
-      showSuccess('found packs in cycles!');
-      return cyclePack;
-    }
-
-    showWarning(`cycle packs not found: ${id}`);
-
-    const campaignMatch = cyclesMapping.find(propEq(id, 'campaign_id'));
-
-    if (campaignMatch) {
-      showSuccess('found in mapping!');
-
-      return packs.find(propEq(campaignMatch.pack_code, 'code'));
-    }
-
-    const packByName = packs.find(propEq(name, 'name'));
-    
-    if (packByName) {
-      showSuccess('found by name!');
-      return packByName;
-    }
-
-    return;
-  }
+  const campaignLinks = Cache.getCampaignLinks();
+  
 
   const packEncounters = fullCampaigns.map(({ campaign, scenarios }) => {
-    const campaignPack = findPack(campaign);
+    const link = campaignLinks
+      .find(
+        propEq(campaign.id, 'campaign_id')
+      );
     
-    if (!campaignPack) {
+    if (!link) {
+      showError(`link not found: ${campaign.id}`);
+      return [];
+    }
+
+    const pack = packs.find(propEq(link.pack_code, 'code'));
+    
+    if (!pack) {
       showError(`pack not found: ${campaign.id}`);
-      return false;
+      return [];
     }
 
     const {
       code,
       cycle_code,
-      is_canonical,
-      is_official
-    } = campaignPack;
+    } = pack;
 
     const packScenarioEncounters = scenarios.map(scenario => {
       
@@ -77,23 +54,19 @@ export const getCampaignEncounterSets = (): ICache.ScenarioEncounterSet[] => {
       const getIsExtra = (code: string) => encounterSets.some(encounter => {
         return encounter.encounter_set_code === code && 
           encounter.cycle_code !== cycle_code;
-      })
+      });
 
       const scenarioData = {
         cycle_code,
         pack_code: code,
         campaign_id: campaign.id,
         scenario_id: scenario.id,
-        is_canonical,
-        is_official
       }
       
       return scenarioEncounters.map(encounter_set_code => ({
         ...scenarioData,
         encounter_set_code,
         is_extra: getIsExtra(encounter_set_code),
-        is_canonical,
-        is_official
       }))
     })
 

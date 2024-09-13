@@ -1,20 +1,15 @@
 import { ICache } from '@/types/cache';
 import * as Cache from '@/util/cache';
-import { arkham_db_mapping as packsMapping } from '@/data/arkhamCards/packs.json';
-
-import { showError, showSuccess, showWarning } from '@/util/console';
-
 import { isNotNil, prop, propEq } from 'ramda';
-import { SIDE_STORIES_CODE } from '@/api/arkhamCards/constants';
+import { getSideCampaign } from '../getSideCampaign';
 
 export const getSideEncounterSets = (): ICache.ScenarioEncounterSet[] => {
   const packEncounterSets = Cache.getPackEncounterSets();
-  const encounterSets = Cache.getDatabaseEncounterSets();
 
-  const fullCampaigns = Cache.getCampaigns();
   const packs = Cache.getPacks();
+  const sideScenarios = Cache.getSideScenarios();
 
-  const sideCampaign = fullCampaigns.find(({ campaign }) => campaign.id === SIDE_STORIES_CODE)
+  const sideCampaign = getSideCampaign();
 
   if (!sideCampaign) {
     return [];
@@ -22,70 +17,17 @@ export const getSideEncounterSets = (): ICache.ScenarioEncounterSet[] => {
 
   const { scenarios, campaign } = sideCampaign;
 
-  const findPack = ({ id, scenario_name }: {
-    id: string,
-    scenario_name: string
-  }) => {
-    const packByCode = packs.find(propEq(id, 'code'));
-
-    if (packByCode) {
-      return packByCode;
-    }
-
-    showWarning(`pack not found by code ${id}`);
-
-    const encounterSet = encounterSets.find(
-      encounter => encounter.pack_code && 
-        encounter.code === id
-    )
-
-    if (encounterSet) {
-      const pack = packs.find(propEq(encounterSet.pack_code, 'code'));
-      if (pack) {
-        showSuccess('found in encounter sets!');
-        return pack;
-      }
-      showWarning(`pack not found by encounter code`);
-    }
-
-    const packByName = packs.find(
-      pack => pack.name.toLowerCase() === scenario_name.toLowerCase()
-    )
-
-    if (packByName) {
-      return packByName;
-    }
-
-    const packMatch = packsMapping.find(propEq(id, 'scenario_id'));
-
-    if (packMatch) {
-      showSuccess('found in mapping!');
-      const packCode = packMatch.pack_code;
-
-      return packs.find(propEq(packCode, 'code'));
-    }
-
-    if (packByName) {
-      return packByName;
-    }
-
-    return;
-  }
-
   const packEncounters = scenarios.map(scenario => {
-    const pack = findPack(scenario);
+    const link = sideScenarios.find(propEq(scenario.id, 'scenario_id'));
     
-    if (!pack) {
-      showError(`pack not found: ${scenario.id}`);
+    if (!link) {
       return;
     }
 
     const {
       cycle_code,
-      code,
-      is_canonical,
-      is_official
-    } = pack;
+      pack_code,
+    } = link;
 
     const scenarioEncounters = scenario.steps
       .map(prop('encounter_sets'))
@@ -99,23 +41,19 @@ export const getSideEncounterSets = (): ICache.ScenarioEncounterSet[] => {
 
     const scenarioData = {
       cycle_code,
-      pack_code: code,
+      pack_code,
       campaign_id: campaign.id,
       scenario_id: scenario.id,
-      is_canonical,
-      is_official
     }
     
     return scenarioEncounters.map(encounter_set_code => ({
       ...scenarioData,
       encounter_set_code,
       is_extra: getIsExtra(encounter_set_code),
-      is_canonical,
-      is_official
     }))
-  });
+  })
+  .flat()
+  .filter(isNotNil);
 
-  const encounters = packEncounters.flat().filter(isNotNil);
-
-  return encounters as ICache.ScenarioEncounterSet[];
+  return packEncounters as ICache.ScenarioEncounterSet[];
 }

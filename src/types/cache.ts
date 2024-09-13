@@ -5,6 +5,9 @@ export const enum CacheType {
 
   ENCOUNTER_SETS = 'encounterSets',
   SCENARIO_ENCOUNTER_SETS = 'encounterSets.scenario',
+  SIDE_SCENARIOS = 'side.scenario',
+  CAMPAIGN_LINKS = 'links.campaign',
+
   PACK_ENCOUNTER_SETS = 'encounterSets.pack',
 
   ICONS_PROJECT = 'icons.project',
@@ -36,7 +39,7 @@ export const enum CacheType {
 
 export namespace ICache {
   export enum Source {
-    ARKHAMDB = 'adb',
+    ARKHAMDB = 'arkham-db',
     ARKHAM_CARDS = 'arkham-cards'
   }
 
@@ -83,21 +86,19 @@ export namespace ICache {
     pack_code: string;
     encounter_set_code: string
     is_extra: boolean
-    is_canonical: boolean
-    is_official: boolean
   }
 
-  export type ScenarioPack = {
+  export type SideScenario = {
     campaign_id: string;
     scenario_id: string;
-    pack_code: string;
-    cycle_code: string;
+    pack_code?: string;
+    cycle_code?: string;
   }
 
-  export type CampaignPack = {
+  export type CampaignLink = {
     campaign_id: string;
-    pack_code: string;
-    cycle_code: string;
+    pack_code?: string;
+    cycle_code?: string;
   }
 
   export type EncounterSet = {

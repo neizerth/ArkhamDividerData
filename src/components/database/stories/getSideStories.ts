@@ -1,28 +1,22 @@
-import { CUSTOM_SCENARIO_CODE, NON_CANONICAL_CODE, SIDE_STORIES_CODE } from "@/api/arkhamCards/constants";
-import { SPECIAL_CAMPAIGN_TYPES } from "@/api/arkhamDB/constants";
 import { createIconDB } from "@/components/arkhamCards/icons/IconDB";
 import { IDatabase } from "@/types/database";
 import * as Cache from '@/util/cache';
 import { showError, showSuccess, showWarning } from "@/util/console";
 import { without_size_support } from '@/data/arkhamCards/packs.json'
 
-import { isNotNil, propEq } from "ramda";
-
-const SIDE_CODES = [
-  ...SPECIAL_CAMPAIGN_TYPES,
-  NON_CANONICAL_CODE,
-  CUSTOM_SCENARIO_CODE
-];
+import { isNotNil, prop, propEq } from "ramda";
+import { getSideCampaign } from "@/components/arkhamCards/scenarios/getSideCampaign";
+import { SingleValue } from "@/types/common";
 
 const withoutSizeSupport = without_size_support as string[];
 
 export const getSideStories = (): IDatabase.Story[] => {
   const packs = Cache.getPacks();
-  const fullCampaigns = Cache.getCampaigns();
-  const encounterSets = Cache.getDatabaseEncounterSets();
   const scenarioEncounterSets = Cache.getScenarioEncounterSets();
-  const sideCampaign = fullCampaigns.find(({ campaign }) => campaign.id === SIDE_STORIES_CODE)
-  
+  const sideScenarios = Cache.getSideScenarios();
+
+  const sideCampaign = getSideCampaign();
+
   if (!sideCampaign) {
     showError('side campaign not found');
     return [];
@@ -32,53 +26,44 @@ export const getSideStories = (): IDatabase.Story[] => {
 
   const iconDB = createIconDB();
 
-  const findPack = (code: string) => {
-    const packByCode = packs.find(
-      propEq(code, 'code')
-    );
-
-    if (packByCode) {
-      return packByCode;
-    }
-
-    showWarning(`pack not found by code: ${code}`);
-
-    const encounterSet = encounterSets.find(encounter => 
-      encounter.pack_code && 
-      encounter.code === code
-    );
-
-    if (encounterSet) {
-      showSuccess('found in encounters!');
-      const pack = packs.find(propEq(encounterSet.pack_code, 'code'));
-
-      if (pack) {
-        return pack;
-      }
-      showWarning(`encounter set pack not found: ${code}`);
-    }
-
-    
-
-    return;
-  }
-
   return scenarios
     .map(scenario => {
-    
-      const pack = findPack(scenario.id);
-
-      if (!pack) {
-        showError(`pack scenario not found: ${scenario.id}`)
+      const link = sideScenarios.find(propEq(scenario.id, 'scenario_id'));
+      
+      if (!link) {
+        showError(`link not found: ${scenario.id}`);
         return;
       }
 
+      const { pack_code } = link;
+
+      const pack = packs.find(propEq(pack_code, 'code'));
+
+      if (!pack) {
+        showError(`pack scenario not found: ${scenario.id}`)
+      }
+      
+      const scenarioEncounters = scenarioEncounterSets.filter(
+        propEq(pack_code, 'pack_code')
+      );
+
+      const requiredEncounters = scenarioEncounters.filter(
+        propEq(false, 'is_extra')
+      )
+      .map(prop('encounter_set_code'));
+
+      const extraEncounters = scenarioEncounters.filter(
+        propEq(true, 'is_extra')
+      )
+      .map(prop('encounter_set_code'));
+
+      const name = pack?.name || scenario.scenario_name;
+      
       const {
         is_official,
         is_canonical,
-        code,
-        name
-      } = pack;
+        code = scenario.id,
+      } = pack || {} as SingleValue<typeof packs>;
 
       const isSizeSupported = is_official && 
         is_canonical && 
@@ -86,19 +71,21 @@ export const getSideStories = (): IDatabase.Story[] => {
 
       const icon = iconDB.getIcon(code);
       const type = scenario.side_scenario_type || IDatabase.StoryType.SIDE;
+      const packCodes = pack ? [pack.code] : [];
 
       return {
         name,
         code,
         icon,
         type,
-        pack_codes: [code],
+        pack_codes: packCodes,
         campaigns: [campaign.id],
-        is_size_supported: isSizeSupported,
+        custom_content: scenario.custom,
+        is_size_supported: Boolean(isSizeSupported),
         is_canonical,
         is_official,
-        encounter_sets: [],
-        extra_encounter_sets: []
+        encounter_sets: requiredEncounters,
+        extra_encounter_sets: extraEncounters
       }
     })
     .filter(isNotNil)

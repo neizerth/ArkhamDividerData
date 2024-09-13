@@ -28,12 +28,15 @@ export const createCache = async () => {
 }
 
 export const createDatabaseCache = () => {
-  console.log('caching scenario campaigns sets...');
-  cache(CacheType.SCENARIO_CAMPAIGNS, Data.getScenarioPacks());
-  // console.log('caching scenario encounter sets...');
-  // cache(CacheType.SCENARIO_ENCOUNTER_SETS, Data.getScenarioEncounterSets());
+  console.log('caching side scenarios...');
+  cache(CacheType.SIDE_SCENARIOS, Data.getSideScenarios());
 
-  return;
+  console.log('caching campaign links...');
+  cache(CacheType.CAMPAIGN_LINKS, Data.getCampaignLinks());
+
+  console.log('caching scenario encounter sets...');
+  cache(CacheType.SCENARIO_ENCOUNTER_SETS, Data.getScenarioEncounterSets());
+
   console.log('caching database encounter sets...');
   cache(CacheType.DATABASE_ENCOUNTER_SETS, Database.getEncounterSets());
 
