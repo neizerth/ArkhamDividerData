@@ -15,16 +15,6 @@ export const createCache = async () => {
   console.log('caching database...');
   await createDatabaseCache();
   await delay(200);
-
-  // console.log(CacheType.)
-
-  // await cacheArkhamDB();
-  // await cacheArkhamCards();
-  
-  // await cacheDatabase();
-
-  // await cacheLanguages();
-  // await cacheTranslations();
 }
 
 export const createDatabaseCache = () => {

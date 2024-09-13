@@ -14,7 +14,7 @@ const CAMPAIGN_CODES = [
   ArkhamDB.RETURN_CYCLE_CODE
 ]
 
-export const getPackCampaignStories = (): IDatabase.Story[] => {
+export const getSpecialStories = (): IDatabase.Story[] => {
   const packs = Cache.getPacks();
   const encounterSets = Cache.getDatabaseEncounterSets();
   const campaignLinks = Cache.getCampaignLinks();
@@ -25,12 +25,16 @@ export const getPackCampaignStories = (): IDatabase.Story[] => {
   const sidePackCodes = sideScenarios.map(prop('pack_code'));
 
   const getReturnToCode = (code: string) => {
-    const returnToCode = code.slice(0, 2);
-    if (returnToCode !== ArkhamDB.RETURN_CYCLE_PREFIX) {
+    const prefix =  ArkhamDB.RETURN_CYCLE_PREFIX;
+
+    const returnToCode = code.slice(0, prefix.length);
+
+    if (returnToCode !== prefix) {
       return;
     }
     
-    const pack = packs.find(propEq(returnToCode, 'code'));
+    const returnCode = code.slice(prefix.length);
+    const pack = packs.find(propEq(returnCode, 'cycle_code'));
 
     return pack?.code;
   }

@@ -2,7 +2,7 @@ import { loadJSONTranslationCycles, loadJSONTranslationEncounters, loadJSONTrans
 import { IArkhamDB } from "@/types/arkhamDB";
 import { CacheType } from "@/types/cache";
 import { Mapping } from "@/types/common";
-import { createI18NCacheWriter, getCycles, getDatabaseCampaignsFromCache, getEncountersSetsFromCache, getPacksFromCache } from "@/util/cache";
+import * as Cache from "@/util/cache";
 import { delay } from "@/util/common";
 import { prop, propEq } from "ramda";
 
@@ -17,11 +17,11 @@ export const cacheCoreLanguageTranslation = async (language: string) => {
 export const cacheEncounterSetTranslations = async (language: string) => {
   console.log(`caching "${language}" encounter sets...`);
   const encounters = await loadJSONTranslationEncounters(language);
-  const baseEncounters = getEncountersSetsFromCache();
+  const baseEncounters = Cache.getEncounterSets();
 
   const mapping = getCoreTranslationsMapping(baseEncounters, encounters);
   
-  const cache = createI18NCacheWriter(language);
+  const cache = Cache.createI18NCacheWriter(language);
 
   cache(CacheType.ENCOUNTER_SETS, mapping);
 }
@@ -31,7 +31,7 @@ export const cacheCampaignsTranslations = async (language: string) => {
   console.log('loading cycles...');
 
   const cycles = await loadJSONTranslationCycles(language);
-  const baseCycles = getCycles();
+  const baseCycles = Cache.getCycles();
   const cyclesMapping = getCoreTranslationsMapping(baseCycles, cycles);
 
   await delay(200);
@@ -39,7 +39,7 @@ export const cacheCampaignsTranslations = async (language: string) => {
   console.log('loading packs...');
 
   const packs = await loadJSONTranslationPacks(language);
-  const basePacks = getPacksFromCache();
+  const basePacks = Cache.getPacksFromCache();
   const packsMapping = getCoreTranslationsMapping(basePacks, packs);
 
   const mapping = {
@@ -47,7 +47,7 @@ export const cacheCampaignsTranslations = async (language: string) => {
     ...packsMapping
   }
 
-  const campaigns = await getDatabaseCampaignsFromCache();
+  const campaigns = await Cache.getDatabaseCampaigns();
   
   const translatedCampaigns = campaigns
     .filter(({ name }) => {

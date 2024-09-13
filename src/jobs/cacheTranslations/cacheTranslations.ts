@@ -1,6 +1,5 @@
-import { getCoreLanguagesFromCache } from "@/util/cache";
+import * as Cache from "@/util/cache";
 import { delay } from "@/util/common";
-import { getCampaignLanguagesFromCache } from "@/util/cache";
 import { cacheLanguageTranslation } from "./cacheLanguageTranslation";
 import { cacheCoreLanguageTranslation } from "./cacheCoreLanguageTranslation";
 
@@ -12,7 +11,7 @@ export const cacheTranslations = async () => {
 
 export const cacheCampaignTranslations = async () => {
   console.log('caching campaign translations...');
-  const campaignLanguages = getCampaignLanguagesFromCache();
+  const campaignLanguages = Cache.getCampaignLanguages();
   for (const lang of campaignLanguages) {
     if (lang === 'en') {
       continue;
@@ -24,8 +23,8 @@ export const cacheCampaignTranslations = async () => {
 
 export const cacheCoreLanguageTranslations = async () => {
   console.log('caching core translations...');
-  const campaignLanguages = getCampaignLanguagesFromCache();
-  const coreLanguages = getCoreLanguagesFromCache();
+  const campaignLanguages = Cache.getCampaignLanguages();
+  const coreLanguages = Cache.getCoreLanguages();
   const languages = coreLanguages.filter(lang => !campaignLanguages.includes(lang));
 
   for (const lang of languages) {

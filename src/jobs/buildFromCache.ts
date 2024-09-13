@@ -1,9 +1,8 @@
 import { IBuild } from "@/types/build";
-import { getCoreLanguagesFromCache, getCustomPacksFromCache, getCycles, getDatabaseCampaignsFromCache, getDatabaseEncounterSetsFromCache, getIconProjectFromCache, getPacksFromCache, getScenariosFromCache } from "../util/cache";
+import * as Cache from "../util/cache";
 import { CacheType } from "@/types/cache";
 import { buildSource } from "@/util/build";
 import { createI18NCacheReader } from "@/util/cache";
-import { IDatabase } from "@/types/database.old";
 import { Mapping } from "@/types/common";
 
 export const buildFromCache = async () => {
@@ -20,7 +19,7 @@ export const buildFromCache = async () => {
 
 export const buildI18NSources = () => {
   console.log('building i18n...');
-  const languages = getCoreLanguagesFromCache();
+  const languages = Cache.getCoreLanguages();
 
   return languages.filter(buildLanguageSource);
 }
@@ -54,21 +53,17 @@ export const buildLanguageSource = (language: string) => {
 
 export const buildCoreSources = (languages: string[]) => {
   console.log('building core sources...');
-  const campaigns = getDatabaseCampaignsFromCache();
-  const encounterSets = getDatabaseEncounterSetsFromCache();
-  const scenarios = getScenariosFromCache();
-  const icons = getIconProjectFromCache();
+  const stories = Cache.getStories();
+  const encounterSets = Cache.getDatabaseEncounterSets();
+  const scenarios = Cache.getScenarios();
+  const icons = Cache.getIconProject();
   
-  const packs: IDatabase.Pack[] = [
-    ...getPacksFromCache(),
-    ...getCustomPacksFromCache()
-  ]
-
-  const cycles = getCycles();
+  const packs= Cache.getPacks();
+  const cycles = Cache.getCycles();
 
   const data: IBuild.Core = {
     languages,
-    campaigns,
+    stories,
     encounterSets,
     scenarios,
     packs,

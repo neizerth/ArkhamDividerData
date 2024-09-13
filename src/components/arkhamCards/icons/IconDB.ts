@@ -39,8 +39,11 @@ export class IconDB<T = string | undefined> {
   }
   getIcon(id: string, defaultValue?: string): T {
     if (!id) {
+      showError(`icon for encounter code "${id}" not found`);
+
       return defaultValue as T;
     }
+
     if (this.icons.includes(id)) {
       return id as T;
     }
@@ -51,6 +54,7 @@ export class IconDB<T = string | undefined> {
     }
     
     showError(`icon for encounter code "${id}" not found`);
+    
     const returnId = this.returnId ? id : defaultValue;
     return returnId as T;
   }

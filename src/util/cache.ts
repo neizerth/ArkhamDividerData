@@ -2,7 +2,7 @@ import { IArkhamCards } from "@/types/arkhamCards";
 import { IArkhamDB } from "@/types/arkhamDB";
 import { CacheType, ICache } from "@/types/cache";
 import { Mapping } from "@/types/common";
-import { IDatabase } from "@/types/database.old";
+import { IDatabase } from "@/types/database";
 
 import { CACHE_DIR } from "@/config/app";
 import { createJSONReader, createJSONWriter } from "./fs";
@@ -19,22 +19,18 @@ export const getEncountersFromCache = () => getCache<IArkhamDB.JSON.ExtendedEnco
 
 // Arkham Cards
 export const getCampaigns = () => getCache<IArkhamCards.JSON.FullCampaign[]>(CacheType.CAMPAIGNS);
-export const getScenariosFromCache = () => getCache<IArkhamCards.Parsed.Scenario[]>(CacheType.SCENARIOS)
+export const getScenarios = () => getCache<IArkhamCards.Parsed.Scenario[]>(CacheType.SCENARIOS)
 export const getIconMappingFromCache = () => getCache<Mapping>(CacheType.ICONS_MAPPING);
 export const getCustomPacksFromCache = () => getCache<IArkhamCards.JSON.ExtendedPack[]>(CacheType.CUSTOM_PACKS);
 
-export const getCampaignLanguagesFromCache = () => getCache<string[]>(CacheType.CAMPAIGN_LANGUAGES);
-export const getCoreLanguagesFromCache = () => getCache<string[]>(CacheType.CORE_LANGUAGES);
+export const getCampaignLanguages = () => getCache<string[]>(CacheType.CAMPAIGN_LANGUAGES);
+export const getCoreLanguages = () => getCache<string[]>(CacheType.CORE_LANGUAGES);
 
 export const getCustomEncountersSetFromCache = () => getCache<IArkhamCards.EncounterSet[]>(CacheType.CUSTOM_ENCOUNTER_SETS);
 export const getEncountersSetsFromCache = () => getCache<IArkhamCards.EncounterSet[]>(CacheType.ENCOUNTER_SETS);
 
 // database
-export const getDatabaseCampaignsFromCache = () => getCache<IDatabase.Campaign[]>(CacheType.DATABASE_CAMPAIGNS);
-export const getDatabaseEncounterSetsFromCache = () => getCache<IDatabase.EncounterSet[]>(CacheType.DATABASE_ENCOUNTER_SETS);
-
-export const getIconProjectFromCache = () => getCache<IIcoMoon.Icon[]>(CacheType.ICONS_PROJECT);
-
+export const getDatabaseCampaigns = () => getCache<IDatabase.Campaign[]>(CacheType.DATABASE_CAMPAIGNS);
 
 export const getCycles = () => getCache<ICache.Cycle[]>(CacheType.CYCLES);
 export const getPacks = () => getCache<ICache.Pack[]>(CacheType.PACKS);
@@ -48,3 +44,5 @@ export const getIconProject = () => getCache<IIcoMoon.Icon[]>(CacheType.ICONS_PR
 export const getStandaloneScenarios = () => getCache<IArkhamCards.JSON.StandaloneScenario[]>(CacheType.STANDALONE_SCENARIOS);
 export const getSideScenarios = () => getCache<ICache.SideScenario[]>(CacheType.SIDE_SCENARIOS);
 export const getCampaignLinks = () => getCache<ICache.CampaignLink[]>(CacheType.CAMPAIGN_LINKS);
+
+export const getStories = () => getCache<IDatabase.Story[]>(CacheType.DATABASE_STORIES);
