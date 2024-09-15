@@ -31,7 +31,7 @@ export const groupStoryScenarios = ({
   return groupStoryScenariosByNumber({
     scenarios: headerGroups,
     iconDB
-  });
+  })
 }
 
 export const removePartText = (text: string) => text.replace(/, Part .*$/, '');
@@ -59,7 +59,7 @@ export const getGroupEncounters = (scenarios: IDatabase.StoryScenario[]) => {
 
 export const groupStoryScenariosByNumber = ({ scenarios, iconDB }: IGroupComposer): IDatabase.StoryScenario[] => {
   const groups = groupBy(
-    ({ number = 0 }) => number.toString(),
+    ({ number = 0, campaign_id }) => `${campaign_id}_${number}`,
     scenarios
   );
 
@@ -71,10 +71,18 @@ export const groupStoryScenariosByNumber = ({ scenarios, iconDB }: IGroupCompose
         return first;
       }
 
+      const haveParts = scenarios.every(scenario => scenario.part_number);
+
+      if (!haveParts) {
+        return scenarios;
+      }
+
       const {
         full_name,
         scenario_name,
         header,
+        number,
+        number_text = ''
       } = first;
 
       const group = omit(
@@ -87,6 +95,12 @@ export const groupStoryScenariosByNumber = ({ scenarios, iconDB }: IGroupCompose
         first
       )
 
+      const changeGroupText = (text: string) => {
+        const romanText = number ? romanize(number) : '';
+        return removePartText(text)
+          .replace(number_text, romanText)
+          .replace(/(Scenario )(.*):/, '$1' +romanText+':')
+      }
       const id = first.id.replace(PART_NUMBER_EXPRESSION, '');
       const icon = iconDB.getIcon(id) || first.icon;
 
@@ -95,12 +109,13 @@ export const groupStoryScenariosByNumber = ({ scenarios, iconDB }: IGroupCompose
         ...getGroupEncounters(scenarios),
         id,
         icon,
-        full_name: removePartText(full_name),
-        scenario_name: removePartText(scenario_name),
-        header: removePartText(header),
+        full_name: changeGroupText(full_name),
+        scenario_name: changeGroupText(scenario_name),
+        header: changeGroupText(header),
         scenarios
       }
     })
+    .flat();
 }
 
 export const groupStoryScenariosByHeader = ({ scenarios }: IGroupComposer): IDatabase.StoryScenario[] => {
@@ -113,6 +128,9 @@ export const groupStoryScenariosByHeader = ({ scenarios }: IGroupComposer): IDat
     .filter(isNotNil)
     .map((group) => {
       const [first, ...scenarios] = group;
+      if (!first.header) {
+        return group;
+      }
       if (group.length === 1) {
         return first;
       }
@@ -127,7 +145,8 @@ export const groupStoryScenariosByHeader = ({ scenarios }: IGroupComposer): IDat
         ...getGroupEncounters(scenarios),
         scenarios,
       }
-    });
+    })
+    .flat();
 }
 
 const isRoman = (text: string) => {
@@ -157,6 +176,9 @@ export const getScenarioPartNumber = ({ id }: IDatabase.StoryScenario): Partial<
 
 export const getScenarioNumber = (scenario: IDatabase.StoryScenario): Partial<IDatabase.StoryScenario> => {
   const { header } = scenario;
+  if (!header.includes('Scenario')) {
+    return {};
+  }
   const numberText = header.replace('Scenario ', '').trim();
   const scenarioNumber = numberText.replace(/[^MDCLXVI]+/, '')
 

@@ -33,7 +33,7 @@ export const createStoryScenarioHandler = ({
       scenario_name,
       full_name,
       header,
-      icon: iconDB.getIconOf([icon, id]),
+      icon: iconDB.getIconOf([id, icon]),
     }
     
     if (!includeEncounters) {
@@ -43,7 +43,10 @@ export const createStoryScenarioHandler = ({
     const encounters = uniqBy(
       prop('encounter_set_code'),
       scenarioEncounters
-        .filter(propEq(id, 'scenario_id'))
+        .filter(
+          ({ scenario_id, campaign_id }) => scenario_id === id && 
+            campaign_id === campaignId
+      )
     );
     
     const requiredEncounters = encounters
