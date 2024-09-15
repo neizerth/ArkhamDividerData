@@ -1,15 +1,9 @@
 import { ICache } from '@/types/cache';
 import * as Cache from '@/util/cache';
-import { arkham_db_mapping as cyclesMapping } from '@/data/arkhamCards/cycles.json';
-import { showError, showWarning, showSuccess } from '@/util/console';
+import { showError } from '@/util/console';
 
 import { isNotNil, prop, propEq } from 'ramda';
 import { SIDE_STORIES_CODE } from '@/api/arkhamCards/constants';
-
-export type IFindPack = {
-  id: string
-  name: string
-};
 
 export const getCampaignEncounterSets = (): ICache.ScenarioEncounterSet[] => {
   const encounterSets = Cache.getPackEncounterSets();

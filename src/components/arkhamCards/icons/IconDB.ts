@@ -9,10 +9,11 @@ export type IconDBOptions = {
 }
 
 export type IIconDB<T = string | undefined> = {
-  getId(id: string, defaultValue?: string): T
+  getIcon(id: string, defaultValue?: string): T
+  getIconOf(ids: (string | undefined)[], defaultValue?: string): T
 }
 
-export class IconDB<T = string | undefined> {
+export class IconDB<T = string | undefined> implements IIconDB<T> {
   icons: string[];
   iconMapping: Mapping
   returnId: boolean
@@ -28,19 +29,17 @@ export class IconDB<T = string | undefined> {
     
     this.getIcon = this.getIcon.bind(this);
   }
-  getIconOf(ids: string[], defaultValue?: string) {
+  getIconOf(ids: (string | undefined)[], defaultValue?: string): T {
     for (const id of ids) {
       const icon = this.getIcon(id, defaultValue);
       if (icon) {
         return icon;
       }
     }
-    return defaultValue;
+    return defaultValue as T;
   }
-  getIcon(id: string, defaultValue?: string): T {
+  getIcon(id?: string, defaultValue?: string): T {
     if (!id) {
-      showError(`icon for encounter code "${id}" not found`);
-
       return defaultValue as T;
     }
 

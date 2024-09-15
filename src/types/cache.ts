@@ -89,8 +89,8 @@ export namespace ICache {
   }
 
   export type SideScenario = {
-    campaign_id: string;
-    scenario_id: string;
+    campaign_id?: string;
+    scenario_id?: string;
     pack_code?: string;
     cycle_code?: string;
   }

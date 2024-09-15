@@ -30,7 +30,7 @@ export const getCustomEncountersSetFromCache = () => getCache<IArkhamCards.Encou
 export const getEncountersSetsFromCache = () => getCache<IArkhamCards.EncounterSet[]>(CacheType.ENCOUNTER_SETS);
 
 // database
-export const getDatabaseCampaigns = () => getCache<IDatabase.Campaign[]>(CacheType.DATABASE_CAMPAIGNS);
+// export const getDatabaseCampaigns = () => getCache<IDatabase.Campaign[]>(CacheType.DATABASE_CAMPAIGNS);
 
 export const getCycles = () => getCache<ICache.Cycle[]>(CacheType.CYCLES);
 export const getPacks = () => getCache<ICache.Pack[]>(CacheType.PACKS);

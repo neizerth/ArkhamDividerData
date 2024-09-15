@@ -5,10 +5,12 @@ import { groupBy, isNotNil, prop, propEq, values } from "ramda";
 import { createIconDB } from "../icons/IconDB";
 import { toSynonyms } from "@/util/common";
 import { showError } from "@/util/console";
+import { ICache } from "@/types/cache";
 
 export const getEncounterSets = (): IDatabase.EncounterSet[] => {
   const scenarioEncounters = Cache.getScenarioEncounterSets();
   const encounters = Cache.getEncounterSets();
+  const packs = Cache.getPacks();
 
   const mainScenarioEncounters = scenarioEncounters.filter(
     propEq(false, 'is_extra')
@@ -20,11 +22,14 @@ export const getEncounterSets = (): IDatabase.EncounterSet[] => {
     cycle_code,
     encounter_set_code,
     pack_code,
-    is_canonical,
-    is_official
   }): IDatabase.EncounterSet => {
     
     const icon = iconDB.getIcon(encounter_set_code);
+
+    const {
+      is_canonical,
+      is_official
+    } = packs.find(propEq(pack_code, 'code')) || {} as ICache.Pack;
 
     const encounterData = {
       code: encounter_set_code,

@@ -1,4 +1,6 @@
 import * as API from '@/api/arkhamDB/api';
+import { IArkhamCards } from '@/types/arkhamCards';
+import { IArkhamDB } from '@/types/arkhamDB';
 import { ICache } from '@/types/cache';
 import * as Cache from '@/util/cache';
 import { delay } from '@/util/common';
@@ -28,20 +30,24 @@ const getEncounterSets = async (pack: ICache.Pack) => {
 
   const cards = await API.loadPackCards(code);
 
-  const codes = cards
-    .map(prop('encounter_code'))
-    .filter(isNotNil);
+  const encounters = cards.filter(
+    ({ encounter_code }) => Boolean(encounter_code)
+  ) as IArkhamDB.JSON.EncounterCard[];
 
-  const groups = groupBy(identity, codes);
+  const groups = groupBy(prop('encounter_code'), encounters);
 
   return toPairs(groups)
-    .map(([encounter_set_code, group = []]) => {
+    .map(([encounter_set_code, cards = []]) => {
+      const size = cards.reduce(
+        (total, { quantity }) => total + quantity,
+        0
+      )
       return {
         pack_code: code,
         cycle_code,
         source: ICache.Source.ARKHAMDB,
         encounter_set_code,
-        size: group.length
+        size
       }
     });
 }

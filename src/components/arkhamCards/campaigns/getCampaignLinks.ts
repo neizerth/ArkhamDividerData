@@ -4,15 +4,16 @@ import * as Cache from '@/util/cache';
 import { showError } from '@/util/console';
 import { prop, propEq } from 'ramda';
 import { arkham_db_mapping as packsMapping } from '@/data/arkhamCards/cycles.json';
+import { IArkhamCards } from '@/types/arkhamCards';
+
 
 export const getCampaignLinks = (): ICache.CampaignLink[] => {
 
   const packs = Cache.getPacks(); 
+  const campaigns = Cache.getCampaigns()
+  .filter(({ campaign }) => campaign.id !== SIDE_STORIES_CODE);
 
-  const findPacks = ({ id, name }: {
-    id: string
-    name: string
-  }) => {
+  const findCampaignPacks = ({ id, name }: IArkhamCards.JSON.Campaign) => {
     const packsByCode = packs.filter(propEq(id, 'code'));
     if (packsByCode.length > 0) {
       return packsByCode;
@@ -40,12 +41,9 @@ export const getCampaignLinks = (): ICache.CampaignLink[] => {
     return [] as ICache.Pack[];
   }
 
-  const campaigns = Cache.getCampaigns()
-    .filter(({ campaign }) => campaign.id !== SIDE_STORIES_CODE);
-
   return campaigns
     .map(({ campaign }) => {
-      const packs = findPacks(campaign);
+      const packs = findCampaignPacks(campaign);
 
       if (packs.length === 0) {
         showError(`pack for campaign not found: ${campaign.id}`);

@@ -1,10 +1,14 @@
-import { loadJSONTranslationCycles, loadJSONTranslationEncounters, loadJSONTranslationPacks } from "@/api/arkhamDB/api";
-import { IArkhamDB } from "@/types/arkhamDB";
+import * as ArkhamDB from "@/api/arkhamDB/api";
 import { CacheType } from "@/types/cache";
 import { Mapping } from "@/types/common";
 import * as Cache from "@/util/cache";
 import { delay } from "@/util/common";
 import { prop, propEq } from "ramda";
+
+type MappingItem = {
+  code: string;
+  name: string;
+};
 
 export const cacheCoreLanguageTranslation = async (language: string) => {
   await cacheEncounterSetTranslations(language);
@@ -16,7 +20,7 @@ export const cacheCoreLanguageTranslation = async (language: string) => {
 
 export const cacheEncounterSetTranslations = async (language: string) => {
   console.log(`caching "${language}" encounter sets...`);
-  const encounters = await loadJSONTranslationEncounters(language);
+  const encounters = await ArkhamDB.loadJSONTranslationEncounters(language);
   const baseEncounters = Cache.getEncounterSets();
 
   const mapping = getCoreTranslationsMapping(baseEncounters, encounters);
@@ -30,7 +34,7 @@ export const cacheCampaignsTranslations = async (language: string) => {
   console.log(`caching "${language}" campaigns...`);
   console.log('loading cycles...');
 
-  const cycles = await loadJSONTranslationCycles(language);
+  const cycles = await ArkhamDB.loadJSONTranslationCycles(language);
   const baseCycles = Cache.getCycles();
   const cyclesMapping = getCoreTranslationsMapping(baseCycles, cycles);
 
@@ -55,13 +59,12 @@ export const cacheCampaignsTranslations = async (language: string) => {
     })
     .map(prop('id'));
 
-  const cache = createI18NCacheWriter(language);
+  const cache = Cache.createI18NCacheWriter(language);
 
   cache(CacheType.CAMPAIGNS, mapping);
   cache(CacheType.TRANSLATED_CAMPAIGNS, translatedCampaigns);
 }
 
-type MappingItem = IArkhamDB.HasCode & IArkhamDB.HasName;
 
 export const getCoreTranslationsMapping = (source: MappingItem[], translations: MappingItem[]): Mapping => 
   translations.reduce((target, { name, code }) => {

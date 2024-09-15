@@ -1,5 +1,6 @@
 import * as Data from '@/components/data';
 import * as Database from '@/components/database'
+import * as Validation from '@/components/validation'
 ;
 import { CacheType } from '@/types/cache';
 import { cache } from '@/util/cache';
@@ -15,11 +16,14 @@ export const createCache = async () => {
   console.log('caching database...');
   await createDatabaseCache();
   await delay(200);
+
+  // console.log('caching translations...');
+  // await createTranslationsCache();
+  // await delay(200);
 }
 
-export const createDatabaseCache = () => {
-  console.log('caching side scenarios...');
-  cache(CacheType.SIDE_SCENARIOS, Data.getSideScenarios());
+
+export const createDatabaseCache = async () => {
 
   console.log('caching campaign links...');
   cache(CacheType.CAMPAIGN_LINKS, Data.getCampaignLinks());
@@ -30,8 +34,13 @@ export const createDatabaseCache = () => {
   console.log('caching database encounter sets...');
   cache(CacheType.DATABASE_ENCOUNTER_SETS, Database.getEncounterSets());
 
+  console.log('caching side scenarios...');
+  cache(CacheType.SIDE_SCENARIOS, Data.getSideScenarios());
+
   console.log('caching database stories...');
   cache(CacheType.DATABASE_STORIES, Database.getStories());
+
+  Validation.checkStories();
 }
 
 export const createEntityCache = async () => {

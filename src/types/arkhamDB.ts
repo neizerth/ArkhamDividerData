@@ -119,6 +119,7 @@ export namespace IArkhamDB {
       faction_code: string
       encounter_position: number
       encounter_code: string
+      quantity: number
     }
   }
 }

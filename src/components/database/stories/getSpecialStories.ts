@@ -5,7 +5,10 @@ import { SingleValue } from "@/types/common";
 import { IDatabase } from "@/types/database";
 import * as Cache from '@/util/cache';
 import { showError, showWarning } from "@/util/console";
-import { isNotNil, prop, propEq } from "ramda";
+import { isNotNil, prop, propEq, uniqBy } from "ramda";
+import { createStoryScenarioHandler } from "./getStoryScenario";
+import { createStoryCampaignHandler } from "./getStoryCampaign";
+import { groupStoryScenarios } from "./groupStoryScenarios";
 
 const CAMPAIGN_CODES = [
   ArkhamCards.CUSTOM_CAMPAIGN_CODE,
@@ -21,6 +24,15 @@ export const getSpecialStories = (): IDatabase.Story[] => {
   const fullCampaigns = Cache.getCampaigns();
   const iconDB = createIconDB();
   const sideScenarios = Cache.getSideScenarios();
+  const scenarioEncounterSets = Cache.getScenarioEncounterSets();
+
+  const storyHandlerData = {
+    iconDB,
+    scenarioEncounters: scenarioEncounterSets
+  };
+
+  const getStoryScenario = createStoryScenarioHandler(storyHandlerData)
+  const getStoryCampaign = createStoryCampaignHandler(storyHandlerData);
 
   const sidePackCodes = sideScenarios.map(prop('pack_code'));
 
@@ -73,6 +85,20 @@ export const getSpecialStories = (): IDatabase.Story[] => {
         ({ campaign }) => campaignIds.includes(campaign.id) 
       );
 
+      const packEncounters = uniqBy(
+        prop('encounter_set_code'), 
+        scenarioEncounterSets
+          .filter(propEq(code, 'pack_code'))
+      )
+
+      const requiredEncounters = packEncounters
+        .filter(propEq(false, 'is_extra'))
+        .map(prop('encounter_set_code'))
+
+      const extraEncounters = packEncounters
+        .filter(propEq(true, 'is_extra'))
+        .map(prop('encounter_set_code'))
+
       if (campaigns.length === 0) {
         showError(`campaigns not found: ${code}`);
       }
@@ -88,15 +114,36 @@ export const getSpecialStories = (): IDatabase.Story[] => {
       const isSizeSupported = is_official && is_canonical;
       const type = campaign_type || IDatabase.StoryType.CAMPAIGN;
 
+      const cycleCode = links[0].cycle_code;
+
+      const storyCampaigns = campaigns.map(fullCampaign => getStoryCampaign({
+        fullCampaign,
+        cycle_code: cycleCode
+      }));
+
+      const storyScenarios = groupStoryScenarios({
+        iconDB,
+        scenarios: campaigns.map(
+          ({ campaign, scenarios }) => scenarios.map(
+            scenario => getStoryScenario({
+              campaignId: campaign.id,
+              scenario
+            }))
+          )
+          .flat()
+      });
+
       const story = {
         name,
         icon,
         code,
-        campaigns: campaignIds,
-        pack_codes: [code],
+        campaigns: storyCampaigns,
+        scenarios: storyScenarios,
+        cycle_code: cycleCode,
+        pack_code: code,
         type,
-        encounter_sets: [],
-        extra_encounter_sets: [],
+        encounter_sets: requiredEncounters,
+        extra_encounter_sets: extraEncounters,
         custom_content: custom,
         return_to_code: getReturnToCode(code),
         is_size_supported: isSizeSupported,

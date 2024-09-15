@@ -13,3 +13,5 @@ export const toSynonyms = ({
 }) => {
   return [code, ...synonyms];
 }
+
+export const onlyWords = (text: string) => text.replace(/[^\w ]/g, '');

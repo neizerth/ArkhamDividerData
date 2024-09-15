@@ -26,3 +26,13 @@ export const whereSynonyms = (searchCode: string) => ({
 }) => {
   return code === searchCode || synonyms.includes(searchCode);
 }
+
+export const withEncounters = ({
+  encounter_sets = [],
+  extra_encounter_sets = []
+}: {
+  encounter_sets?: string[]
+  extra_encounter_sets?: string[]
+}) => {
+  return encounter_sets.length > 0 || extra_encounter_sets.length > 0
+}

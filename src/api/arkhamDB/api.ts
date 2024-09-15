@@ -80,5 +80,10 @@ export const loadFolderContents = async (path: string) => {
 
 export const loadTranslationLanguages = async () => {
   const data = await loadFolderContents('/translations');
-  return data.map(prop('name'));
+  const languages = data.map(prop('name'));
+
+  return [
+    'en',
+    ...languages
+  ];
 }

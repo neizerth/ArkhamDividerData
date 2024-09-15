@@ -11,6 +11,7 @@ export namespace IDatabase {
     PARALLEL = 'parallel',
     STANDALONE = 'standalone',
     SIDE = 'side_story',
+    SIDE_CAMPAIGN = 'side_campaign',
     CHALLENGE = 'challenge',
     CAMPAIGN = 'campaign'
   }
@@ -28,31 +29,47 @@ export namespace IDatabase {
     is_official: boolean;
   }
 
-  export type Scenario = {
+  export type StoryScenario = {
     id: string
-    campaign_id: string;
-    encounter_sets: string[]
+    campaign_id: string
     scenario_name: string
     full_name: string
     header: string
+    number?: number
+    number_text?: string
+    part_text?: string
+    part_number?: number
     icon?: string
+    scenarios?: StoryScenario[]
+    encounter_sets?: string[]
+    extra_encounter_sets?: string[]
+  }
+
+  export type StoryCampaign = {
+    id: string
+    icon?: string
+    name: string
+    scenarios: string[]
+    encounter_sets?: string[]
+    extra_encounter_sets?: string[]
   }
   
   export type Story = {
     name: string
     code: string
-    campaigns: string[]
-    pack_codes: string[]
-    // cycle_code: string
-    // pack_codes: string[]
+    campaign_id?: string
+    scenario?: StoryScenario
+    scenarios: StoryScenario[]
+    campaigns?: StoryCampaign[]
+    cycle_code?: string
+    pack_code?: string
+    pack_codes?: string[]
     type: string;
     icon?: string
     encounter_sets: string[]
     extra_encounter_sets: string[]
     is_size_supported: boolean
     
-    // scenarios: string[]
-    // campaigns: string[]
     return_to_code?: string
     custom_content?: CustomContent
 

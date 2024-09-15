@@ -7,6 +7,9 @@ import { isNotNil, prop, propEq, uniq } from "ramda";
 
 import * as ArkhamDBConstants from "@/api/arkhamDB/constants";
 import * as ArkhamCardsConstants from "@/api/arkhamCards/constants";
+import { createStoryScenarioHandler } from "./getStoryScenario";
+import { createStoryCampaignHandler } from "./getStoryCampaign";
+import { groupStoryScenarios } from "./groupStoryScenarios";
 
 
 const CAMPAIGN_SKIP_CYCLE_CODES = [
@@ -22,6 +25,14 @@ export const getCycleStories = (): IDatabase.Story[] => {
   const scenarioEncounterSets = Cache.getScenarioEncounterSets();
   const packEncounters = Cache.getPackEncounterSets();
   const iconDB = createIconDB();
+
+  const storyHandlerData = {
+    iconDB,
+    scenarioEncounters: scenarioEncounterSets
+  };
+
+  const getStoryScenario = createStoryScenarioHandler(storyHandlerData);
+  const getCampaignScenario = createStoryCampaignHandler(storyHandlerData);
 
   return cycles.filter(({
     is_official,
@@ -65,6 +76,7 @@ export const getCycleStories = (): IDatabase.Story[] => {
 
     const requiredEncounters = [];
     const extraEncounters = [];
+    const storyScenarios = [];
 
     if (campaigns.length === 0) {
       showError(`campaigns not found: ${code}`);
@@ -79,6 +91,21 @@ export const getCycleStories = (): IDatabase.Story[] => {
       );
     }
     else {
+      const scenarios = campaigns
+        .map(
+          ({ campaign, scenarios }) => scenarios.map(scenario => 
+            getStoryScenario({
+              campaignId: campaign.id, 
+              scenario
+            })
+          )
+        )
+        .flat()
+
+      storyScenarios.push(
+        ...scenarios
+      );
+
       const toEncounterCode = prop('encounter_set_code');
 
       const filterEncounters = (required: boolean) => uniq(
@@ -115,9 +142,17 @@ export const getCycleStories = (): IDatabase.Story[] => {
     const isSizeSupported = is_official && !withoutSizeSupport.includes(code);
 
     const type = fullCampaign?.campaign.campaign_type || IDatabase.StoryType.CAMPAIGN;
-    const custom_content = fullCampaign?.campaign.custom;
 
     const icon = iconDB.getIcon(code);
+
+    const packCodes = cyclePacks.map(prop('code'));
+
+    const storyCampaigns = campaigns.map(
+      fullCampaign => getCampaignScenario({
+        fullCampaign,
+        cycle_code: code,
+      })
+    );
 
     // const returnPackCodes = returnPacks.filter()
 
@@ -129,9 +164,13 @@ export const getCycleStories = (): IDatabase.Story[] => {
       cycle_code: code,
       is_canonical,
       is_official,
-      custom_content,
-      campaigns: campaignsIds,
-      pack_codes: cyclePacks.map(prop('code')),
+      custom_content: fullCampaign?.campaign.custom,
+      campaigns: storyCampaigns,
+      scenarios: groupStoryScenarios({
+        scenarios: storyScenarios,
+        iconDB
+      }),
+      pack_codes: packCodes,
       is_size_supported: isSizeSupported,
       encounter_sets: requiredEncounters,
       extra_encounter_sets: extraEncounters
