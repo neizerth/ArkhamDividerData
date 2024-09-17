@@ -47,6 +47,7 @@ Arkham Cards повторяет структуру хранения данных
 - Id иконки в шрифте Arkham Cards не всегда совпадает с кодом набора контактов. Используется mapping после парсинга https://github.com/zzorba/ArkhamCards/blob/master/src/icons/EncounterIcon.tsx
 - Иногда иконки вообще нет
 - В Arkham Cards у сценариев могут быть неверные иконки
+- Замены в компоненте могут указывать на несуществующие иконки
 
 ### Story
 

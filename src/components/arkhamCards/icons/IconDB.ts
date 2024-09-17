@@ -39,14 +39,28 @@ export class IconDB<T = string | undefined> implements IIconDB<T> {
   }
   getIconOf(ids: (string | undefined)[], defaultValue?: string): T {
     for (const id of ids) {
-      const icon = this.getIcon(id, defaultValue);
+      const icon = this.getSingle(id, defaultValue);
       if (icon) {
-        return icon;
+        return this.postCheck(icon as string);
       }
     }
     return defaultValue as T;
   }
   getIcon(id?: string, defaultValue?: string): T {
+    const icon = this.getSingle(id);
+    if (!icon) {
+      return defaultValue as T;
+    }
+    return this.postCheck(icon as string, defaultValue) as T; 
+  }
+  postCheck(id: string, defaultValue?: string): T {
+    if (!this.icons.includes(id)) {
+      return defaultValue as T;
+    }
+    return id as T;
+  }
+
+  getSingle(id?: string, defaultValue?: string): T {
     if (!id) {
       return defaultValue as T;
     }
