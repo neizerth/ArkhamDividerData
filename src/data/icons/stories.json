@@ -1,10 +1,10 @@
 [
   {
-    "scenario_id": "blob_that_ate_everything",
+    "code": "blob",
     "icon": "blob_set"
   },
   {
-    "scenario_id": "blob_that_ate_everything_else",
+    "code": "blbe",
     "icon": "blbe_set"
   }
 ]

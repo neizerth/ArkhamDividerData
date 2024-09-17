@@ -1,4 +1,3 @@
-import icomoonCLI from 'icomoon-cli';
 import { IBuild } from "@/types/build";
 import * as Cache from "../util/cache";
 import { CacheType } from "@/types/cache";

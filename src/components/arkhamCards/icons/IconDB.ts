@@ -52,7 +52,7 @@ export class IconDB<T = string | undefined> implements IIconDB<T> {
     }
 
     if (this.type === IconDBType.STORY) {
-      const icon = storyIcons.find(propEq(id, 'scenario_id'))?.icon;
+      const icon = storyIcons.find(propEq(id, 'code'))?.icon;
       if (icon) {
         return icon as T;
       }
@@ -81,6 +81,7 @@ export const createIconDB = (type?: IconDBType) => {
 
   return new IconDB({
     iconMapping,
-    icons
+    icons,
+    type
   });
 }
