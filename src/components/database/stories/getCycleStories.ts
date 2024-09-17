@@ -54,9 +54,9 @@ export const getCycleStories = (): IDatabase.Story[] => {
   })
   .map(({
     code,
-    name,
     is_canonical,
-    is_official
+    is_official,
+    ...cycle
   }) => {
     const cycleEncounters = scenarioEncounterSets.filter(
       propEq(code, 'cycle_code')
@@ -155,10 +155,18 @@ export const getCycleStories = (): IDatabase.Story[] => {
       })
     );
 
-    // const returnPackCodes = returnPacks.filter()
+    // const name = campaigns.length
+
+    const campaignData = campaigns.length === 1 ? {
+      name: campaigns[0].campaign.name,
+      campaign_id: campaigns[0].campaign.id
+    } : {
+      name: cycle.name,
+      campaigns
+    }
 
     return {
-      name,
+      ...campaignData,
       code,
       icon,
       type,

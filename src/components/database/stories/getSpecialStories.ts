@@ -40,19 +40,41 @@ export const getSpecialStories = (): IDatabase.Story[] => {
   const sidePackCodes = sideScenarios.map(prop('pack_code'));
 
   const getReturnToCode = (code: string) => {
-    const prefix =  ArkhamDB.RETURN_CYCLE_PREFIX;
+    if (code === ArkhamDB.CORE_RETURN_CODE) {
+      return ArkhamDB.CORE_CYCLE_CODE;
+    }
+    const prefix = ArkhamDB.RETURN_CYCLE_PREFIX;
+
+    const returnToCode = code.slice(0, prefix.length);
+
+    if (returnToCode !== prefix) {
+      return getCustomReturnToCode(code);
+    }
+    
+    const returnCode = code.slice(prefix.length);
+    const pack = packs.find(propEq(returnCode, 'cycle_code'));
+
+    if(pack) {
+      return pack.code;
+    }
+    
+    return getCustomReturnToCode(code);
+  }
+
+  const getCustomReturnToCode = (code: string) => {
+    const prefix = ArkhamCards.CUSTOM_RETURN_CYCLE_PREFIX;
 
     const returnToCode = code.slice(0, prefix.length);
 
     if (returnToCode !== prefix) {
       return;
     }
-    
+
     const returnCode = code.slice(prefix.length);
     const pack = packs.find(propEq(returnCode, 'cycle_code'));
 
     return pack?.code;
-  }
+  } 
 
   return packs
     .filter(({ cycle_code, code }) => {

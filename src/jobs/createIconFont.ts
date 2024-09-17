@@ -39,7 +39,7 @@ export const createAssets = async () => {
     inputDir: ICONS_CACHE_DIR,
     outputDir: FONTS_DIR,
     fontTypes: [
-      FontAssetType.WOFF, 
+      FontAssetType.WOFF,
       FontAssetType.WOFF2
     ],
     assetTypes: [
@@ -58,9 +58,9 @@ export const cacheIconsInfo = async () => {
   const info = readJSON<Mapping<number>>('icons');
 
   const data = toPairs(info)
-    .map(([icon, value]) => ({
+    .map(([icon, code]) => ({
       icon,
-      value
+      code
     }))
 
   Cache.cache(CacheType.ICONS_INFO, data);
