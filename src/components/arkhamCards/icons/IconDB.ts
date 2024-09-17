@@ -41,7 +41,10 @@ export class IconDB<T = string | undefined> implements IIconDB<T> {
     for (const id of ids) {
       const icon = this.getSingle(id, defaultValue);
       if (icon) {
-        return this.postCheck(icon as string);
+        const check = this.postCheck(icon as string);
+        if (check) {
+          return icon;
+        }
       }
     }
     return defaultValue as T;
