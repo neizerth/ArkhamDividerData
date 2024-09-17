@@ -59,7 +59,7 @@ export namespace IDatabase {
     code: string
     campaign_id?: string
     scenario?: StoryScenario
-    scenarios: StoryScenario[]
+    scenarios?: StoryScenario[]
     campaigns?: StoryCampaign[]
     cycle_code?: string
     pack_code?: string

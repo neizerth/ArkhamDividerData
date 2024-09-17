@@ -8,7 +8,7 @@ import { FONTS_DIR, ICONS_CACHE_DIR, ICONS_EXTRA_DIR } from '@/config/app';
 import { IIcoMoon } from '@/types/icomoon';
 import * as Cache from '@/util/cache';
 import { createJSONReader, createWriter } from '@/util/fs';
-import { isNotNil, omit, toPairs } from 'ramda';
+import { omit, toPairs } from 'ramda';
 import { CacheType } from '@/types/cache';
 import { Mapping } from '@/types/common';
 

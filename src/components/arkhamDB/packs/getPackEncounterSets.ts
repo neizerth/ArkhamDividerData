@@ -1,10 +1,9 @@
 import * as API from '@/api/arkhamDB/api';
-import { IArkhamCards } from '@/types/arkhamCards';
 import { IArkhamDB } from '@/types/arkhamDB';
 import { ICache } from '@/types/cache';
 import * as Cache from '@/util/cache';
 import { delay } from '@/util/common';
-import { groupBy, identity, isNotNil, prop, toPairs, propEq } from 'ramda';
+import { groupBy, prop, toPairs, propEq } from 'ramda';
 
 export const getPackEncounterSets = async (): Promise<ICache.PackEncounterSet[]> => {
   const packs = Cache.getPacks();

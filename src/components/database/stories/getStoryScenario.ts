@@ -2,7 +2,6 @@ import { IIconDB } from "@/components/arkhamCards/icons/IconDB";
 import { IArkhamCards } from "@/types/arkhamCards";
 import { ICache } from "@/types/cache";
 import { IDatabase } from "@/types/database";
-import { showWarning } from "@/util/console";
 import { prop, propEq, uniqBy } from "ramda";
 
 export const createStoryScenarioHandler = ({

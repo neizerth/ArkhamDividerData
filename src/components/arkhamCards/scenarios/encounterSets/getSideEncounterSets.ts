@@ -2,7 +2,7 @@ import { ICache } from '@/types/cache';
 import * as Cache from '@/util/cache';
 import { isNotNil, prop, propEq } from 'ramda';
 import { getSideCampaign } from '../getSideCampaign';
-import { showError, showWarning } from '@/util/console';
+import { showWarning } from '@/util/console';
 import { IArkhamCards } from '@/types/arkhamCards';
 
 export const getSideEncounterSets = (): ICache.ScenarioEncounterSet[] => {

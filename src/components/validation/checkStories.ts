@@ -1,9 +1,9 @@
-import { SIDE_STORIES_CODE } from '@/api/arkhamCards/constants';
-import * as Cache from '@/util/cache';
+// import { SIDE_STORIES_CODE } from '@/api/arkhamCards/constants';
+// import * as Cache from '@/util/cache';
 
 export const checkStories = () => {
-  const stories = Cache.getStories();
-  const fullCampaigns = Cache.getCampaigns();
+  // const stories = Cache.getStories();
+  // const fullCampaigns = Cache.getCampaigns();
 
   // const withoutCampaigns = stories
   //   .filter(({ campaigns }) => {

@@ -4,7 +4,6 @@ import * as Cache from '@/util/cache';
 import { toSynonyms } from '@/util/common';
 import { showError } from '@/util/console';
 import { whereSynonyms } from '@/util/criteria';
-import { prop } from 'ramda';
 
 export const getEncounterSets = (): IDatabase.EncounterSet[] => {
   const encounterSets = Cache.getEncounterSets();

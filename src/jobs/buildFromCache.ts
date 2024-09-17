@@ -4,25 +4,11 @@ import { CacheType } from "@/types/cache";
 import { buildSource } from "@/util/build";
 import { createI18NCacheReader } from "@/util/cache";
 import { Mapping } from "@/types/common";
-import { DIST_DIR } from '@/config/app';
 
 export const buildFromCache = async () => {
   const languages = buildI18NSources();
 
   buildCoreSources(languages);
-}
-
-export const buildIconFont = async () => {
-  const selectionPath = Cache.getFilename('icomoon.project.json');
-
-  return new Promise(resolve => {
-    icomoonCLI({
-      selectionPath,
-      outputPath: DIST_DIR,
-      forceOverride: true,
-      whenFinished: resolve
-    })
-  })
 }
 
 export const buildI18NSources = () => {

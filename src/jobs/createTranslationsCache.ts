@@ -2,7 +2,6 @@ import { delay } from "@/util/common";
 import * as Cache from '@/util/cache';
 import * as Translations from '@/components/translations'
 import { CacheType } from "@/types/cache";
-import { difference } from "ramda";
 
 export const createTranslationsCache = async () => {
   console.log('caching translations...');
