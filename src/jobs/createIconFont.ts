@@ -1,14 +1,13 @@
-import svgtofont, { IconInfo } from 'svgtofont';
-
 import path from 'node:path';
+import { FontAssetType, generateFonts, OtherAssetType } from 'fantasticon';
 import sax from 'sax';
 import fs from 'fs';
 
 import { FONTS_DIR, ICONS_CACHE_DIR, ICONS_EXTRA_DIR } from '@/config/app';
 import { IIcoMoon } from '@/types/icomoon';
 import * as Cache from '@/util/cache';
-import { createJSONReader, createWriter } from '@/util/fs';
-import { omit, toPairs } from 'ramda';
+import { createJSONReader, createWriter, mkDir } from '@/util/fs';
+import { toPairs } from 'ramda';
 import { CacheType } from '@/types/cache';
 import { Mapping } from '@/types/common';
 
@@ -33,30 +32,35 @@ export const copyExtraIcons = async () => {
 }
 
 export const createAssets = async () => {
-  const options = {
-    src: ICONS_CACHE_DIR,
-    dist: FONTS_DIR,
-    fontName: 'icons',
-    css: false,
-    generateInfoData: true
-  };
+  mkDir(FONTS_DIR);
 
-  await svgtofont(options);
+  await generateFonts({
+    name: 'icons',
+    inputDir: ICONS_CACHE_DIR,
+    outputDir: FONTS_DIR,
+    fontTypes: [
+      FontAssetType.WOFF, 
+      FontAssetType.WOFF2
+    ],
+    assetTypes: [
+      OtherAssetType.JSON
+    ]
+  });
 
   await cacheIconsInfo();
 
-  const infoFilename = path.resolve(FONTS_DIR + '/info.json');
+  const infoFilename = path.resolve(FONTS_DIR + '/icons.json');
   fs.unlinkSync(infoFilename);
 }
 
 export const cacheIconsInfo = async () => {
   const readJSON = createJSONReader(FONTS_DIR);
-  const info = readJSON<Mapping<IconInfo>>('info');
+  const info = readJSON<Mapping<number>>('icons');
 
   const data = toPairs(info)
-    .map(([icon, item]) => ({
+    .map(([icon, value]) => ({
       icon,
-      ...omit(['prefix', 'className'], item)
+      value
     }))
 
   Cache.cache(CacheType.ICONS_INFO, data);

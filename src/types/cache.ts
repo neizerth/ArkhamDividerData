@@ -43,8 +43,7 @@ export namespace ICache {
 
   export type IconInfo = {
     icon: string
-    encodedCode: string
-    unicode: string
+    code: number
   }
 
   export enum Source {

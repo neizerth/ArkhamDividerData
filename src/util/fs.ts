@@ -69,3 +69,5 @@ export const createFilenameResolver = (dir: string, extension: string) =>
     path.join(dir + '/' + name + '.' + extension);
 
 export const createJSONResolver = (dir: string) => createFilenameResolver(dir, 'json');
+
+export const mkDir = (dir: string) => !fs.existsSync(dir) && fs.mkdirSync(dir); 
