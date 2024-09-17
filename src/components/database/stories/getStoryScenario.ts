@@ -28,10 +28,6 @@ export const createStoryScenarioHandler = ({
       header,
       icon,
     } = scenario;
-
-    if (!icon) {
-      showWarning(`no icon for scenario ${id}`);
-    }
     
     const data = {
       id,

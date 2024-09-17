@@ -8,6 +8,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx ./src/index.ts",
+    "serve": "http-server ./dist",
     "build:compile": "tsc && tsc-alias",
     "build:start": "node ./build/index.js",
     "build": "npm run build:compile && npm run build:start",
@@ -27,6 +28,7 @@
     "babel-loader": "^9.1.3",
     "dotenv": "^16.4.5",
     "eslint": "^9.9.1",
+    "http-server": "^14.1.1",
     "ramda": "^0.30.1",
     "rollup-plugin-typescript-paths": "^1.5.0",
     "tsc-alias": "^1.8.10",
