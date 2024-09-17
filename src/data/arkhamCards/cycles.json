@@ -1,0 +1,23 @@
+{
+  "without_size_support": [
+    "fhv"
+  ],
+  "arkham_db_mapping": [
+    {
+      "campaign_id": "tskc",
+      "pack_code": "tsk"
+    },
+    {
+      "campaign_id": "tdea",
+      "pack_code": "tde"
+    },
+    {
+      "campaign_id": "tdeb",
+      "pack_code": "tde"
+    },
+    {
+      "campaign_id": "rttic",
+      "pack_code": "zrttic"
+    }
+  ]
+}

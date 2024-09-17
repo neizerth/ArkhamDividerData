@@ -1,31 +1,28 @@
 import { IBuild } from "@/types/build";
-import { getCoreLanguagesFromCache, getCustomPacksFromCache, getCyclesFromCache, getDatabaseCampaignsFromCache, getDatabaseEncounterSetsFromCache, getIconProjectFromCache, getPacksFromCache, getScenariosFromCache } from "../util/cache";
+import * as Cache from "../util/cache";
 import { CacheType } from "@/types/cache";
 import { buildSource } from "@/util/build";
 import { createI18NCacheReader } from "@/util/cache";
-import { IDatabase } from "@/types/database";
 import { Mapping } from "@/types/common";
 
 export const buildFromCache = async () => {
+  const languages = buildI18NSources();
 
-  const availableLanguages = buildI18NSources();
-
-  const languages = [
-    'en',
-    ...availableLanguages
-  ];
-  
   buildCoreSources(languages);
 }
 
 export const buildI18NSources = () => {
   console.log('building i18n...');
-  const languages = getCoreLanguagesFromCache();
+  const languages = Cache.getCampaignLanguages();
 
   return languages.filter(buildLanguageSource);
 }
 
 export const buildLanguageSource = (language: string) => {
+  if (language === 'en') {
+    return false;
+  }
+
   console.log(`building language source: ${language}...`);
   const getCache = createI18NCacheReader(language);
 
@@ -35,13 +32,15 @@ export const buildLanguageSource = (language: string) => {
     return false;
   }
 
+  const translatedScenarios = getCache<string[]>(CacheType.TRANSLATED_SCENARIOS);
   const campaigns = getCache<Mapping>(CacheType.CAMPAIGNS);
+  const scenarios = getCache<Mapping>(CacheType.SCENARIOS);
   const common = getCache<Mapping>(CacheType.COMMON_TRANSLATION);
   const encounterSets = getCache<Mapping>(CacheType.ENCOUNTER_SETS);
-  const scenarios = getCache<Mapping>(CacheType.SCENARIOS);
   
   const data: IBuild.Translation = {
     translatedCampaigns,
+    translatedScenarios,
     campaigns,
     encounterSets,
     scenarios,
@@ -54,23 +53,17 @@ export const buildLanguageSource = (language: string) => {
 
 export const buildCoreSources = (languages: string[]) => {
   console.log('building core sources...');
-  const campaigns = getDatabaseCampaignsFromCache();
-  const encounterSets = getDatabaseEncounterSetsFromCache();
-  const scenarios = getScenariosFromCache();
-  const icons = getIconProjectFromCache();
+  const stories = Cache.getStories();
+  const encounterSets = Cache.getDatabaseEncounterSets();
+  const icons = Cache.getIconInfo();
   
-  const packs: IDatabase.Pack[] = [
-    ...getPacksFromCache(),
-    ...getCustomPacksFromCache()
-  ]
-
-  const cycles = getCyclesFromCache();
+  const packs= Cache.getPacks();
+  const cycles = Cache.getCycles();
 
   const data: IBuild.Core = {
     languages,
-    campaigns,
+    stories,
     encounterSets,
-    scenarios,
     packs,
     cycles,
     icons,

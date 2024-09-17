@@ -28,9 +28,9 @@ export const loadAllCards = async (encounters: boolean) => {
   return data as IArkhamDB.API.Card[];
 }
 
-export const loadPackCards = async ({ code }: IArkhamDB.HasCode) => {
+export const loadPackCards = async (code: string) => {
   const { data } = await getAPIData(`/cards/${code}`);
-  return data as IArkhamDB.API.Card[];
+  return (data || []) as IArkhamDB.API.Card[];
 }
 
 export const loadSearchPageContents = async () => {
@@ -80,5 +80,10 @@ export const loadFolderContents = async (path: string) => {
 
 export const loadTranslationLanguages = async () => {
   const data = await loadFolderContents('/translations');
-  return data.map(prop('name'));
+  const languages = data.map(prop('name'));
+
+  return [
+    'en',
+    ...languages
+  ];
 }

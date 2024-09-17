@@ -1,12 +1,9 @@
 import { 
-  cacheArkhamCards, 
-  cacheArkhamDB, 
-  cacheDatabase, 
-  build, 
   buildFromCache, 
-  cacheLanguages, 
-  cacheTranslations, 
-  createCache 
+  createCache, 
+  createDatabaseCache,
+  createTranslationsCache,
+  createIconFont
 } from "./jobs";
 
 export class App {
@@ -14,22 +11,20 @@ export class App {
     console.log('starting application');
 
     switch (command) {
+      case 'translations':
+        return await createTranslationsCache();
       case 'database':
-        return await cacheDatabase();
-      case 'arkham-db':
-        return await cacheArkhamDB();
-      case 'arkham-cards':
-        return await cacheArkhamCards();
-      case 'languages':
-        return await cacheLanguages();
-      case 'i18n':
-        return await cacheTranslations();
+        return await createDatabaseCache();
       case 'create-cache':
         return await createCache();
-      case 'build-from-cache':
+      case 'font':
+        return await createIconFont();
+      case 'build':
         return await buildFromCache();
-      default:
-        return await build();
     }
+
+    await createCache();
+    await createIconFont();
+    await buildFromCache();
   }
 }

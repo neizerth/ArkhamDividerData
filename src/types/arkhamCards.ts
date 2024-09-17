@@ -45,6 +45,11 @@ export namespace IArkhamCards {
       type: string;
       encounter_sets?: string[]
     }
+    export type StandaloneScenario = {
+      type: string
+      campaignId: string
+      scenarioId: string
+    }
     export type Scenario = {
       id: string;
       scenario_name: string;

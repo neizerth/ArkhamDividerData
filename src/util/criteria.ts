@@ -8,6 +8,31 @@ export const hasPropEquals = <T>(prop: keyof T) => <V>(value: V) => (item: T) =>
 
 export const hasPropNotEquals = <T>(prop: keyof T) => <V>(value: V) => (item: T) => item[prop] !== value;
 
-export const whereIn = <T, P extends keyof T>(prop: P, data: T[P][]) => (item: T) => data.includes(item[prop])
+export const isCustom = ({ 
+  is_canonical, 
+  is_official 
+}: {
+  is_canonical: boolean 
+  is_official: boolean
+}) =>
+  !is_canonical || !is_official; 
 
-export const whereNotIn = <T, P extends keyof T>(prop: P, data: T[P][]) => (item: T) => !data.includes(item[prop]);
+export const whereSynonyms = (searchCode: string) => ({
+  synonyms,
+  code
+}: {
+  code: string
+  synonyms: string[]
+}) => {
+  return code === searchCode || synonyms.includes(searchCode);
+}
+
+export const withEncounters = ({
+  encounter_sets = [],
+  extra_encounter_sets = []
+}: {
+  encounter_sets?: string[]
+  extra_encounter_sets?: string[]
+}) => {
+  return encounter_sets.length > 0 || extra_encounter_sets.length > 0
+}

@@ -1,50 +1,79 @@
-import { IArkhamCards } from "./arkhamCards"
-import { IArkhamDB } from "./arkhamDB"
+import { Mapping } from "./common";
 
 export namespace IDatabase {
-  export type ArkhamCardsCampaign = {
-    code: string
-    position?: number
-    version?: number
-  }
-
-  export type EncounterSet = IArkhamDB.JSON.ExtendedEncounter & {
-    arkhamdb_code?: string
-    icon?: string
-    size?: number
-    is_custom: boolean
-  }
-
-  export type Pack = IArkhamCards.JSON.ExtendedPack;
   
-  export enum CampaignType {
+  export type CustomContent = {
+    creator: string;
+    download_link: Mapping
+  }
+
+  export enum StoryType {
     PARALLEL = 'parallel',
     STANDALONE = 'standalone',
     SIDE = 'side_story',
+    SIDE_CAMPAIGN = 'side_campaign',
     CHALLENGE = 'challenge',
     CAMPAIGN = 'campaign'
   }
 
-  // export type CampaignType = IArkhamCards.CampaignType | IArkhamCards.ScenarioType | Util.CampaignType
+  export type EncounterSet = {
+    name: string;
+    code: string;
 
-  export type Campaign = {
+    icon?: string;
+    pack_code?: string;
+    cycle_code?: string;
+    synonyms: string[];
+    size?: number;
+    is_canonical: boolean;
+    is_official: boolean;
+  }
+
+  export type StoryScenario = {
     id: string
+    campaign_id: string
+    scenario_name: string
+    full_name: string
+    header: string
+    number?: number
+    number_text?: string
+    part_text?: string
+    part_number?: number
+    icon?: string
+    scenarios?: StoryScenario[]
+    encounter_sets?: string[]
+    extra_encounter_sets?: string[]
+  }
+
+  export type StoryCampaign = {
+    id: string
+    icon?: string
     name: string
+    scenarios: string[]
+    encounter_sets?: string[]
+    extra_encounter_sets?: string[]
+  }
+  
+  export type Story = {
+    name: string
+    code: string
+    campaign_id?: string
+    scenario?: StoryScenario
+    scenarios?: StoryScenario[]
+    campaigns?: StoryCampaign[]
     cycle_code?: string
-    is_custom: boolean
-    campaign_type: string
-    arkham_cards_campaigns: ArkhamCardsCampaign[]
-    arkham_cards_scenarios: string[]
+    pack_code?: string
+    pack_codes?: string[]
+    type: string;
+    icon?: string
     encounter_sets: string[]
     extra_encounter_sets: string[]
-    icon?: string
+    is_size_supported: boolean
+    
+    return_to_code?: string
+    custom_content?: CustomContent
 
-    position?: number
-    packs?: string[]
-    return_set_code?: string
-    arkhamdb_pack_code?: string;
-    custom_content?: IArkhamCards.CustomContent
-    is_size_supported: boolean;
-    is_canonical: boolean
+    is_canonical?: boolean
+    is_official?: boolean
   }
 }

@@ -69,6 +69,11 @@ export const loadJSONCycles = async () => {
   return data as IArkhamCards.JSON.Cycle[];
 }
 
+export const loadJSONStandaloneScenarios = async () => {
+  const { data } = await getGithubRaw('/assets/generated/standaloneScenarios.json');
+  return data as IArkhamCards.JSON.StandaloneScenario[];
+}
+
 
 export const loadJSONEncounterSets = async () => {
   const { data } = await getDataRaw('/encounter_sets.json');

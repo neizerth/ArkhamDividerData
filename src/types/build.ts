@@ -1,21 +1,19 @@
-import { IArkhamCards } from "./arkhamCards"
-import { IArkhamDB } from "./arkhamDB"
+import { ICache } from "./cache"
 import { Mapping } from "./common"
 import { IDatabase } from "./database"
-import { IIcoMoon } from "./icomoon"
 
 export namespace IBuild {
   export type Core = {
     languages: string[]
-    campaigns: IDatabase.Campaign[]
+    stories: IDatabase.Story[]
     encounterSets: IDatabase.EncounterSet[]
-    scenarios: IArkhamCards.Parsed.Scenario[]
-    packs: IDatabase.Pack[]
-    cycles: IArkhamDB.JSON.ExtendedCycle[]
-    icons: IIcoMoon.Icon[]
+    packs: ICache.Pack[]
+    cycles: ICache.Cycle[]
+    icons: ICache.IconInfo[]
   }
   export type Translation = {
-    translatedCampaigns: string[]
+    translatedCampaigns: string[],
+    translatedScenarios: string[],
     campaigns: Mapping;
     scenarios: Mapping;
     encounterSets: Mapping;
