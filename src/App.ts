@@ -1,9 +1,9 @@
 import { 
-  build, 
   buildFromCache, 
   createCache, 
   createDatabaseCache,
-  createTranslationsCache
+  createTranslationsCache,
+  createIconFont
 } from "./jobs";
 
 export class App {
@@ -11,16 +11,20 @@ export class App {
     console.log('starting application');
 
     switch (command) {
-      case 'i18n':
+      case 'translations':
         return await createTranslationsCache();
       case 'database':
         return await createDatabaseCache();
       case 'create-cache':
         return await createCache();
-      case 'build-from-cache':
+      case 'font':
+        return await createIconFont();
+      case 'build':
         return await buildFromCache();
-      default:
-        return await build();
     }
+
+    await createCache();
+    await createIconFont();
+    await buildFromCache();
   }
 }

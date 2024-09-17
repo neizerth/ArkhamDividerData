@@ -8,6 +8,7 @@ import { isNotNil, prop, propEq } from "ramda";
 import { getSideCampaign } from "@/components/arkhamCards/scenarios/getSideCampaign";
 import { SingleValue } from "@/types/common";
 import { createStoryScenarioHandler } from "./getStoryScenario";
+import { IconDBType } from "@/types/icons";
 
 export const getSideScenarioStories = (): IDatabase.Story[] => {
   const packs = Cache.getPacks();
@@ -25,9 +26,9 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
     return [];
   }
 
-  const { scenarios, campaign } = sideCampaign;
+  const { scenarios } = sideCampaign;
 
-  const iconDB = createIconDB();
+  const iconDB = createIconDB(IconDBType.STORY);
   
   const getStoryScenario = createStoryScenarioHandler({
     iconDB,

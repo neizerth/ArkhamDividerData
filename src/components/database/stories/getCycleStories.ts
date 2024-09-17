@@ -10,6 +10,7 @@ import * as ArkhamCardsConstants from "@/api/arkhamCards/constants";
 import { createStoryScenarioHandler } from "./getStoryScenario";
 import { createStoryCampaignHandler } from "./getStoryCampaign";
 import { groupStoryScenarios } from "./groupStoryScenarios";
+import { IconDBType } from "@/types/icons";
 
 
 const CAMPAIGN_SKIP_CYCLE_CODES = [
@@ -24,7 +25,7 @@ export const getCycleStories = (): IDatabase.Story[] => {
   const encounterSets = Cache.getDatabaseEncounterSets();
   const scenarioEncounterSets = Cache.getScenarioEncounterSets();
   const packEncounters = Cache.getPackEncounterSets();
-  const iconDB = createIconDB();
+  const iconDB = createIconDB(IconDBType.STORY);
 
   const storyHandlerData = {
     iconDB,

@@ -6,6 +6,8 @@ import { CacheType } from '@/types/cache';
 import { cache } from '@/util/cache';
 import { delay } from '@/util/common';
 
+import { createTranslationsCache } from './createTranslationsCache';
+
 export const createCache = async () => {
   console.log('starting cache creating...');
 
@@ -17,9 +19,9 @@ export const createCache = async () => {
   await createDatabaseCache();
   await delay(200);
 
-  // console.log('caching translations...');
-  // await createTranslationsCache();
-  // await delay(200);
+  console.log('caching translations...');
+  await createTranslationsCache();
+  await delay(200);
 }
 
 
@@ -77,7 +79,7 @@ export const createEntityCache = async () => {
 
   await delay(200);
   console.log('caching IcoMoon icons...');
-  cache(CacheType.ICONS_PROJECT, await Data.getIcoMoonIcons());
+  cache(CacheType.ICONS, await Data.getIcoMoonIcons());
 
   await delay(200);
   console.log('caching icons mapping...');

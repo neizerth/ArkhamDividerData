@@ -2,6 +2,7 @@ import { IIconDB } from "@/components/arkhamCards/icons/IconDB";
 import { IArkhamCards } from "@/types/arkhamCards";
 import { ICache } from "@/types/cache";
 import { IDatabase } from "@/types/database";
+import { showWarning } from "@/util/console";
 import { prop, propEq, uniqBy } from "ramda";
 
 export const createStoryScenarioHandler = ({
@@ -27,13 +28,18 @@ export const createStoryScenarioHandler = ({
       header,
       icon,
     } = scenario;
+
+    if (!icon) {
+      showWarning(`no icon for scenario ${id}`);
+    }
+    
     const data = {
       id,
       campaign_id: campaignId,
       scenario_name,
       full_name,
       header,
-      icon: iconDB.getIconOf([id, icon]),
+      icon: iconDB.getIconOf([icon, id]),
     }
     
     if (!includeEncounters) {

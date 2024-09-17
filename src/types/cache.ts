@@ -10,7 +10,8 @@ export const enum CacheType {
 
   PACK_ENCOUNTER_SETS = 'encounterSets.pack',
 
-  ICONS_PROJECT = 'icons.project',
+  ICONS = 'icons.project',
+  ICONS_INFO = 'icons.info',
   ICONS_MAPPING = 'icons.mapping',
 
   DATABASE_CAMPAIGNS = 'database.campaigns',
@@ -27,6 +28,7 @@ export const enum CacheType {
   CUSTOM_ENCOUNTER_SETS = 'encounterSets.custom',
 
   TRANSLATED_CAMPAIGNS = 'translated.campaigns',
+  TRANSLATED_SCENARIOS = 'translated.scenarios',
 
   ENCOUNTERS = 'encounters',
   
@@ -38,6 +40,13 @@ export const enum CacheType {
 }
 
 export namespace ICache {
+
+  export type IconInfo = {
+    icon: string
+    encodedCode: string
+    unicode: string
+  }
+
   export enum Source {
     ARKHAMDB = 'arkham-db',
     ARKHAM_CARDS = 'arkham-cards'

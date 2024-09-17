@@ -26,12 +26,12 @@ export const groupStoryScenarios = ({
       scenarios: extendedScenarios,
       iconDB
     })
-    .filter(withEncounters);
 
   return groupStoryScenariosByNumber({
     scenarios: headerGroups,
     iconDB
   })
+  .filter(withEncounters);
 }
 
 export const removePartText = (text: string) => text.replace(/, Part .*$/, '');

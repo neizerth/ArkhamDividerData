@@ -9,6 +9,7 @@ import { SingleValue } from "@/types/common";
 import { SIDE_STORY_CODE } from "@/api/arkhamDB/constants";
 import { createStoryScenarioHandler } from "./getStoryScenario";
 import { groupStoryScenarios } from "./groupStoryScenarios";
+import { IconDBType } from "@/types/icons";
 
 export const getSideCampaignStories = (): IDatabase.Story[] => {
   const packs = Cache.getPacks();
@@ -20,7 +21,8 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
     .filter(propEq(false, 'is_size_supported'))
     .map(prop('pack_code'));
 
-  const iconDB = createIconDB();
+  const iconDB = createIconDB(IconDBType.STORY);
+  
   const getStoryScenario = createStoryScenarioHandler({
     iconDB,
     scenarioEncounters: scenarioEncounterSets

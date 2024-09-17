@@ -1,9 +1,7 @@
-import * as Cache from './@/util/cache';
+import * as ArkhamCards from '@/components/arkhamCards/translations';
 
-export const getStoryTranslations = () => {
-  const languages = Cache.getCampaignLanguages();
-
-  
+export const getCampaignStoryTranslations = async (language: string) => {
+  return await ArkhamCards.getCampaignTranslations(language);
 }
 
-export const
+// export const

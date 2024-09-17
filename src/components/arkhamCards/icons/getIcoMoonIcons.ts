@@ -8,8 +8,9 @@ export const getIcoMoonIcons = async () => {
 
 export const getIconsInfo = ({ iconSets }: IIcoMoon.Project): IIcoMoon.Icon[] => iconSets.map(mapIconSet).flat()
 
-const addIconName = ({ selection }: IIcoMoon.IconSet) => {
+const addIconName = ({ selection, metadata }: IIcoMoon.IconSet) => {
   const iconMap = new Map<number, string>();
+  const iconSetName = metadata.name;
   selection.forEach((item) => iconMap.set(item.id, item.name));
 
   return (icon: IIcoMoon.IconSetItem): IIcoMoon.Icon => {
@@ -23,6 +24,7 @@ const addIconName = ({ selection }: IIcoMoon.IconSet) => {
     return {
       properties: {
         name,
+        iconSetName,
       },
       icon,
     }

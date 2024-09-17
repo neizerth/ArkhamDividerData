@@ -9,6 +9,7 @@ import { isNotNil, prop, propEq, uniqBy } from "ramda";
 import { createStoryScenarioHandler } from "./getStoryScenario";
 import { createStoryCampaignHandler } from "./getStoryCampaign";
 import { groupStoryScenarios } from "./groupStoryScenarios";
+import { IconDBType } from "@/types/icons";
 
 const CAMPAIGN_CODES = [
   ArkhamCards.CUSTOM_CAMPAIGN_CODE,
@@ -22,7 +23,9 @@ export const getSpecialStories = (): IDatabase.Story[] => {
   const encounterSets = Cache.getDatabaseEncounterSets();
   const campaignLinks = Cache.getCampaignLinks();
   const fullCampaigns = Cache.getCampaigns();
-  const iconDB = createIconDB();
+  
+  const iconDB = createIconDB(IconDBType.STORY);
+
   const sideScenarios = Cache.getSideScenarios();
   const scenarioEncounterSets = Cache.getScenarioEncounterSets();
 

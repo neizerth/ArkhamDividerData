@@ -1,11 +1,16 @@
 import { Mapping } from "@/types/common";
+import { IconDBType } from "@/types/icons";
 import * as Cache from "@/util/cache";
 import { showError } from "@/util/console";
+
+import storyIcons from '@/data/icons/stories.json';
+import { propEq } from "ramda";
 
 export type IconDBOptions = {
   icons: string[]
   iconMapping: Mapping
   returnId?: boolean
+  type?: IconDBType
 }
 
 export type IIconDB<T = string | undefined> = {
@@ -17,15 +22,18 @@ export class IconDB<T = string | undefined> implements IIconDB<T> {
   icons: string[];
   iconMapping: Mapping
   returnId: boolean
+  type: IconDBType;
 
   constructor({ 
     icons, 
     iconMapping, 
-    returnId = false
+    returnId = false,
+    type = IconDBType.COMMON
   }: IconDBOptions) {
     this.icons = icons;
     this.iconMapping = iconMapping;
     this.returnId = returnId;
+    this.type = type;
     
     this.getIcon = this.getIcon.bind(this);
   }
@@ -41,6 +49,13 @@ export class IconDB<T = string | undefined> implements IIconDB<T> {
   getIcon(id?: string, defaultValue?: string): T {
     if (!id) {
       return defaultValue as T;
+    }
+
+    if (this.type === IconDBType.STORY) {
+      const icon = storyIcons.find(propEq(id, 'scenario_id'))?.icon;
+      if (icon) {
+        return icon as T;
+      }
     }
 
     if (this.icons.includes(id)) {
@@ -59,9 +74,9 @@ export class IconDB<T = string | undefined> implements IIconDB<T> {
   }
 }
 
-export const createIconDB = () => {
+export const createIconDB = (type?: IconDBType) => {
   const iconMapping = Cache.getIconMapping();
-  const project = Cache.getIconProject();
+  const project = Cache.getIcons();
   const icons = project.map(({ properties }) => properties.name);
 
   return new IconDB({
