@@ -4,6 +4,8 @@ import * as Cache from "@/util/cache";
 import { showError } from "@/util/console";
 
 import storyIcons from '@/data/icons/stories.json';
+import temporaryIcons from '@/data/icons/temporary.json';
+
 import { propEq } from "ramda";
 
 export type IconDBOptions = {
@@ -13,12 +15,12 @@ export type IconDBOptions = {
   type?: IconDBType
 }
 
-export type IIconDB<T = string | undefined> = {
-  getIcon(id: string, defaultValue?: string): T
-  getIconOf(ids: (string | undefined)[], defaultValue?: string): T
+export type IIconDB = {
+  getIcon(id: string, defaultValue?: string): string | undefined
+  getIconOf(ids: (string | undefined)[], defaultValue?: string): string | undefined
 }
 
-export class IconDB<T = string | undefined> implements IIconDB<T> {
+export class IconDB implements IIconDB {
   icons: string[];
   iconMapping: Mapping
   returnId: boolean
@@ -37,57 +39,46 @@ export class IconDB<T = string | undefined> implements IIconDB<T> {
     
     this.getIcon = this.getIcon.bind(this);
   }
-  getIconOf(ids: (string | undefined)[], defaultValue?: string): T {
+  getIconOf(ids: (string | undefined)[], defaultValue?: string): string | undefined {
     for (const id of ids) {
-      const icon = this.getSingle(id, defaultValue);
+      const icon = this.getIcon(id, defaultValue);
       if (icon) {
-        const check = this.postCheck(icon as string);
-        if (check) {
-          return icon;
-        }
+        return icon;
       }
     }
-    return defaultValue as T;
-  }
-  getIcon(id?: string, defaultValue?: string): T {
-    const icon = this.getSingle(id);
-    if (!icon) {
-      return defaultValue as T;
-    }
-    return this.postCheck(icon as string, defaultValue) as T; 
-  }
-  postCheck(id: string, defaultValue?: string): T {
-    if (!this.icons.includes(id)) {
-      return defaultValue as T;
-    }
-    return id as T;
+    return defaultValue;
   }
 
-  getSingle(id?: string, defaultValue?: string): T {
+  getIcon(id?: string, defaultValue?: string): string | undefined {
     if (!id) {
-      return defaultValue as T;
+      return defaultValue;
     }
 
     if (this.type === IconDBType.STORY) {
       const icon = storyIcons.find(propEq(id, 'code'))?.icon;
       if (icon) {
-        return icon as T;
+        return icon;
       }
     }
 
     if (this.icons.includes(id)) {
-      return id as T;
+      return id;
     }
     
     const icon = this.iconMapping[id];
     if (icon) {
-      return icon as T;
+      return icon;
+    }
+
+    const temporaryIcon = temporaryIcons.find(propEq(id, 'code'))?.icon;
+    if (temporaryIcon) {
+      return temporaryIcon;
     }
     
     showError(`icon for encounter code "${id}" not found`);
     
     const returnId = this.returnId ? id : defaultValue;
-    return returnId as T;
+    return returnId;
   }
 }
 

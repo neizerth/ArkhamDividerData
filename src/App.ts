@@ -15,7 +15,7 @@ export class App {
         return await createTranslationsCache();
       case 'database':
         return await createDatabaseCache();
-      case 'create-cache':
+      case 'cache':
         return await createCache();
       case 'font':
         return await createIconFont();
