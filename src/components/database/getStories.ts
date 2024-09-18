@@ -1,11 +1,14 @@
 
+import * as Cache from '@/util/cache';
 import { IDatabase } from "@/types/database";
 import { getCycleStories } from "./stories/getCycleStories";
 import { getSideScenarioStories } from "./stories/getSideScenarioStories";
 import { getSpecialStories } from "./stories/getSpecialStories";
 import { getSideCampaignStories } from "./stories/getSideCampaignsStories";
+import { prop, uniqBy, without } from "ramda";
 
 export const getStories = (): IDatabase.Story[] => {
+  const encounters = Cache.getEncounterSets();
   const data = [];
 
   console.log('caching cycle stories...');
@@ -20,6 +23,5 @@ export const getStories = (): IDatabase.Story[] => {
   console.log('caching special stories...');
   data.push(...getSpecialStories());
 
-  return data;
+  return uniqBy(prop('code'), data);
 }
-

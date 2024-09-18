@@ -1,9 +1,9 @@
 {
   "name": "arkham-divider-data",
-  "version": "1.0.10",
+  "version": "1.0.16",
   "description": "",
   "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "types": "build/types.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx ./src/index.ts",

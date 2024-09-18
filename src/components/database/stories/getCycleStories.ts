@@ -56,6 +56,7 @@ export const getCycleStories = (): IDatabase.Story[] => {
     code,
     is_canonical,
     is_official,
+    position,
     ...cycle
   }) => {
     const cycleEncounters = scenarioEncounterSets.filter(
@@ -165,6 +166,11 @@ export const getCycleStories = (): IDatabase.Story[] => {
       campaigns
     }
 
+    const storyScenariosGroup = groupStoryScenarios({
+      scenarios: storyScenarios,
+      iconDB
+    });
+
     return {
       ...campaignData,
       code,
@@ -173,12 +179,10 @@ export const getCycleStories = (): IDatabase.Story[] => {
       cycle_code: code,
       is_canonical,
       is_official,
+      position,
       custom_content: fullCampaign?.campaign.custom,
       campaigns: storyCampaigns,
-      scenarios: groupStoryScenarios({
-        scenarios: storyScenarios,
-        iconDB
-      }),
+      scenarios: storyScenariosGroup,
       pack_codes: packCodes,
       is_size_supported: isSizeSupported,
       encounter_sets: requiredEncounters,

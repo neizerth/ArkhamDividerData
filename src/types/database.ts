@@ -57,6 +57,7 @@ export namespace IDatabase {
   export type Story = {
     name: string
     code: string
+    position?: number
     campaign_id?: string
     scenario?: StoryScenario
     scenarios?: StoryScenario[]
@@ -66,6 +67,7 @@ export namespace IDatabase {
     pack_codes?: string[]
     type: string;
     icon?: string
+    scenario_encounter_sets: string[]
     encounter_sets: string[]
     extra_encounter_sets: string[]
     is_size_supported: boolean

@@ -61,13 +61,13 @@ export class IconDB implements IIconDB {
       }
     }
 
-    if (this.icons.includes(id)) {
-      return id;
-    }
-    
     const icon = this.iconMapping[id];
     if (icon) {
       return icon;
+    }
+
+    if (this.icons.includes(id)) {
+      return id;
     }
 
     const temporaryIcon = temporaryIcons.find(propEq(id, 'code'))?.icon;

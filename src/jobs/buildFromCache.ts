@@ -20,7 +20,7 @@ export const buildI18NSources = () => {
 
 export const buildLanguageSource = (language: string) => {
   if (language === 'en') {
-    return false;
+    return true;
   }
 
   console.log(`building language source: ${language}...`);
