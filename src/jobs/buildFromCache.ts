@@ -26,24 +26,31 @@ export const buildLanguageSource = (language: string) => {
   console.log(`building language source: ${language}...`);
   const getCache = createI18NCacheReader(language);
 
-  const translatedCampaigns = getCache<string[]>(CacheType.TRANSLATED_CAMPAIGNS);
 
-  if (translatedCampaigns.length === 0) {
+  const translatedStories = getCache<string[]>(CacheType.TRANSLATED_STORIES);
+
+  if (translatedStories.length === 0) {
     return false;
   }
 
+  const translatedCampaigns = getCache<string[]>(CacheType.TRANSLATED_CAMPAIGNS);
   const translatedScenarios = getCache<string[]>(CacheType.TRANSLATED_SCENARIOS);
+
   const campaigns = getCache<Mapping>(CacheType.CAMPAIGNS);
   const scenarios = getCache<Mapping>(CacheType.SCENARIOS);
   const common = getCache<Mapping>(CacheType.COMMON_TRANSLATION);
   const encounterSets = getCache<Mapping>(CacheType.ENCOUNTER_SETS);
+
+  const stories = getCache<Mapping>(CacheType.DATABASE_STORIES);
   
   const data: IBuild.Translation = {
     translatedCampaigns,
     translatedScenarios,
+    translatedStories,
     campaigns,
     encounterSets,
     scenarios,
+    stories,
     common
   }
 

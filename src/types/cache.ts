@@ -29,6 +29,7 @@ export const enum CacheType {
 
   TRANSLATED_CAMPAIGNS = 'translated.campaigns',
   TRANSLATED_SCENARIOS = 'translated.scenarios',
+  TRANSLATED_STORIES = 'translated.stories',
 
   ENCOUNTERS = 'encounters',
   

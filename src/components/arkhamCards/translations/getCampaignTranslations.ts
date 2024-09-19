@@ -74,9 +74,9 @@ export const getFullCampaignTranslations = (campaigns: FullCampaigns) => {
 
     if (isTranslated) {
       target.translated.campaigns.push(id);
-    }
 
-    target.campaigns[baseCampaign.campaign.name] = name;
+      target.campaigns[baseCampaign.campaign.name] = name;
+    }
 
     const { scenarios, translated } = getScenarioTranslations(localCampaign, baseCampaign)
 

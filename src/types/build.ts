@@ -14,8 +14,10 @@ export namespace IBuild {
   export type Translation = {
     translatedCampaigns: string[],
     translatedScenarios: string[],
+    translatedStories: string[],
     campaigns: Mapping;
     scenarios: Mapping;
+    stories: Mapping;
     encounterSets: Mapping;
     common: Mapping
   }
