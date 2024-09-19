@@ -11,6 +11,7 @@ import { createStoryScenarioHandler } from "./getStoryScenario";
 import { createStoryCampaignHandler } from "./getStoryCampaign";
 import { groupStoryScenarios } from "./groupStoryScenarios";
 import { IconDBType } from "@/types/icons";
+import { getStoryScenarioEncounters } from "./getStoryScenarioEncounters";
 
 
 const CAMPAIGN_SKIP_CYCLE_CODES = [
@@ -171,6 +172,12 @@ export const getCycleStories = (): IDatabase.Story[] => {
       iconDB
     });
 
+    // const storyScenarioEncounters = storyScenarios.
+    const storyScenarioEncounters = getStoryScenarioEncounters({
+      encounterSets,
+      scenarios: storyScenarios
+    });
+
     return {
       ...campaignData,
       code,
@@ -180,6 +187,7 @@ export const getCycleStories = (): IDatabase.Story[] => {
       is_canonical,
       is_official,
       position,
+      scenario_encounter_sets: storyScenarioEncounters,
       custom_content: fullCampaign?.campaign.custom,
       campaigns: storyCampaigns,
       scenarios: storyScenariosGroup,

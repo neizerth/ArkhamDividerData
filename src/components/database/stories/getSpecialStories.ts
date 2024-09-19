@@ -10,6 +10,7 @@ import { createStoryScenarioHandler } from "./getStoryScenario";
 import { createStoryCampaignHandler } from "./getStoryCampaign";
 import { groupStoryScenarios } from "./groupStoryScenarios";
 import { IconDBType } from "@/types/icons";
+import { getStoryScenarioEncounters } from "./getStoryScenarioEncounters";
 
 const CAMPAIGN_CODES = [
   ArkhamCards.CUSTOM_CAMPAIGN_CODE,
@@ -146,16 +147,23 @@ export const getSpecialStories = (): IDatabase.Story[] => {
         cycle_code: cycleCode
       }));
 
-      const storyScenarios = groupStoryScenarios({
+      const storyScenarios = campaigns.map(
+        ({ campaign, scenarios }) => scenarios.map(
+          scenario => getStoryScenario({
+            campaignId: campaign.id,
+            scenario
+          }))
+        )
+        .flat();
+
+      const storyScenarioGroups = groupStoryScenarios({
         iconDB,
-        scenarios: campaigns.map(
-          ({ campaign, scenarios }) => scenarios.map(
-            scenario => getStoryScenario({
-              campaignId: campaign.id,
-              scenario
-            }))
-          )
-          .flat()
+        scenarios: storyScenarios
+      });
+
+      const storyScenarioEncounters = getStoryScenarioEncounters({
+        encounterSets,
+        scenarios: storyScenarios
       });
 
       const story = {
@@ -163,13 +171,14 @@ export const getSpecialStories = (): IDatabase.Story[] => {
         icon,
         code,
         campaigns: storyCampaigns,
-        scenarios: storyScenarios,
+        scenarios: storyScenarioGroups,
         cycle_code: cycleCode,
         pack_code: code,
         type,
         encounter_sets: requiredEncounters,
         extra_encounter_sets: extraEncounters,
         custom_content: custom,
+        scenario_encounter_sets: storyScenarioEncounters,
         return_to_code: getReturnToCode(code),
         is_size_supported: isSizeSupported,
         is_canonical,

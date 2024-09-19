@@ -9,10 +9,12 @@ import { getSideCampaign } from "@/components/arkhamCards/scenarios/getSideCampa
 import { SingleValue } from "@/types/common";
 import { createStoryScenarioHandler } from "./getStoryScenario";
 import { IconDBType } from "@/types/icons";
+import { getStoryScenarioEncounters } from "./getStoryScenarioEncounters";
 
 export const getSideScenarioStories = (): IDatabase.Story[] => {
   const packs = Cache.getPacks();
   const scenarioEncounterSets = Cache.getScenarioEncounterSets();
+  const encounterSets = Cache.getDatabaseEncounterSets();
   const sideScenarios = Cache.getSideScenarios();
   const sideCampaign = getSideCampaign();
 
@@ -84,6 +86,11 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
         includeEncounters: false
       });
 
+      const storyScenarioEncounters = getStoryScenarioEncounters({
+        encounterSets,
+        scenarios: [storyScenario]
+      });
+
       return {
         name,
         code,
@@ -96,6 +103,7 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
         is_size_supported: Boolean(isSizeSupported),
         is_canonical,
         is_official,
+        scenario_encounter_sets: storyScenarioEncounters,
         encounter_sets: requiredEncounters,
         extra_encounter_sets: extraEncounters
       }

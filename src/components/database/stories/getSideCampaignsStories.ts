@@ -10,10 +10,12 @@ import { SIDE_STORY_CODE } from "@/api/arkhamDB/constants";
 import { createStoryScenarioHandler } from "./getStoryScenario";
 import { groupStoryScenarios } from "./groupStoryScenarios";
 import { IconDBType } from "@/types/icons";
+import { getStoryScenarioEncounters } from "./getStoryScenarioEncounters";
 
 export const getSideCampaignStories = (): IDatabase.Story[] => {
   const packs = Cache.getPacks();
   const scenarioEncounterSets = Cache.getScenarioEncounterSets();
+  const encounterSets = Cache.getDatabaseEncounterSets();
   const sideScenarios = Cache.getSideScenarios();
   const fullCampaigns = Cache.getCampaigns(); 
 
@@ -77,16 +79,23 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
       const icon = iconDB.getIcon(code);
       const type = IDatabase.StoryType.SIDE_CAMPAIGN;
 
-      const storyScenarios = groupStoryScenarios({
+      const storyScenarios = scenarios
+        .map(
+          scenario => getStoryScenario({
+            campaignId: campaign.id,
+            scenario
+          })
+        );
+
+      const storyScenarioGroups = groupStoryScenarios({
         iconDB,
-        scenarios: scenarios
-          .map(
-            scenario => getStoryScenario({
-              campaignId: campaign.id,
-              scenario
-            })
-          ),
+        scenarios: storyScenarios
       })
+
+      const storyScenarioEncounters = getStoryScenarioEncounters({
+        encounterSets,
+        scenarios: storyScenarios
+      });
 
       return {
         name,
@@ -96,11 +105,12 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
         cycle_code: pack?.cycle_code,
         pack_code: pack?.code,
         campaign_id: campaign.id,
-        scenarios: storyScenarios,
+        scenarios: storyScenarioGroups,
         custom_content: campaign.custom,
         is_size_supported: Boolean(isSizeSupported),
         is_canonical,
         is_official,
+        scenario_encounter_sets: storyScenarioEncounters,
         encounter_sets: requiredEncounters,
         extra_encounter_sets: extraEncounters
       }
