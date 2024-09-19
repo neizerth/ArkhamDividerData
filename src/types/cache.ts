@@ -81,12 +81,18 @@ export namespace ICache {
     is_official: boolean;
   }
 
+  export type EncounterSetType = {
+    type: string;
+    size: number;
+  }
+
   export type PackEncounterSet = {
     cycle_code: string;
     pack_code: string;
     encounter_set_code: string
     source: Source
     size?: number;
+    types?: EncounterSetType[]
   }
 
   export type ScenarioEncounterSet = {

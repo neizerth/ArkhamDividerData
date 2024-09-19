@@ -16,6 +16,11 @@ export namespace IDatabase {
     CAMPAIGN = 'campaign'
   }
 
+  export type EncounterSetType = {
+    type: string;
+    size: number;
+  }
+
   export type EncounterSet = {
     name: string;
     code: string;
@@ -25,6 +30,7 @@ export namespace IDatabase {
     cycle_code?: string;
     synonyms: string[];
     size?: number;
+    types?: EncounterSetType[]
     is_canonical: boolean;
     is_official: boolean;
   }

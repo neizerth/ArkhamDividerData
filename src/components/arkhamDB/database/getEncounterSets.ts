@@ -14,6 +14,7 @@ export const getEncounterSets = (): IDatabase.EncounterSet[] => {
     cycle_code,
     pack_code,
     encounter_set_code,
+    types,
     size
   }): IDatabase.EncounterSet => {
     const encounter = {
@@ -21,6 +22,7 @@ export const getEncounterSets = (): IDatabase.EncounterSet[] => {
       cycle_code,
       pack_code,
       size,
+      types,
       is_canonical: true,
       is_official: true,
       synonyms: []

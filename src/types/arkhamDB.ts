@@ -117,6 +117,7 @@ export namespace IArkhamDB {
 
     export type EncounterCard = Card & {
       faction_code: string
+      type_code: string;
       encounter_position: number
       encounter_code: string
       quantity: number

@@ -23,6 +23,7 @@ export const getPackEncounterSets = async (): Promise<ICache.PackEncounterSet[]>
 const getEncounterSets = async (pack: ICache.Pack): Promise<ICache.PackEncounterSet[]> => {
   console.log(`loading pack ${pack.code} cards...`);
   const cards = await ArkhamCards.loadJSONPackCards(pack.code);
+
   const codes = cards
     .map(prop('encounter_code'))
     .filter(isNotNil);

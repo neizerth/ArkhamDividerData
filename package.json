@@ -1,6 +1,6 @@
 {
   "name": "arkham-divider-data",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "",
   "main": "build/index.js",
   "types": "build/types.d.ts",
