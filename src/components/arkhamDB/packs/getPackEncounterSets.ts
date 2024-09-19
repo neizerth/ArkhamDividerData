@@ -1,7 +1,6 @@
 import * as API from '@/api/arkhamDB/api';
 import { IArkhamDB } from '@/types/arkhamDB';
 import { ICache } from '@/types/cache';
-import { Mapping } from '@/types/common';
 import * as Cache from '@/util/cache';
 import { delay } from '@/util/common';
 import { groupBy, prop, toPairs, propEq, uniq, isNotNil } from 'ramda';

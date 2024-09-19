@@ -3,7 +3,7 @@ import * as Cache from '@/util/cache';
 import * as Translations from '@/components/translations'
 import { CacheType } from "@/types/cache";
 import { Mapping } from "@/types/common";
-import { fromPairs, isNotNil, prop, toPairs } from "ramda";
+import { fromPairs, isNotNil, toPairs } from "ramda";
 import { showWarning } from "@/util/console";
 
 export const createTranslationsCache = async () => {
