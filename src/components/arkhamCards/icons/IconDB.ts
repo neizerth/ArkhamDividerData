@@ -5,6 +5,7 @@ import { showError } from "@/util/console";
 
 import storyIcons from '@/data/icons/stories.json';
 import temporaryIcons from '@/data/icons/temporary.json';
+import specialIcons from '@/data/icons/special.json';
 
 import { propEq } from "ramda";
 
@@ -52,6 +53,10 @@ export class IconDB implements IIconDB {
   getIcon(id?: string, defaultValue?: string): string | undefined {
     if (!id) {
       return defaultValue;
+    }
+
+    if (specialIcons.includes(id)) {
+      return id;
     }
 
     if (this.type === IconDBType.STORY) {

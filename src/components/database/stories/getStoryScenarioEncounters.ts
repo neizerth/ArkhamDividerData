@@ -1,5 +1,5 @@
 import { IDatabase } from "@/types/database"
-import { isNotNil } from "ramda"
+import { isNotNil, propEq, uniq } from "ramda"
 
 export const getStoryScenarioEncounters = ({
   encounterSets,
@@ -9,9 +9,14 @@ export const getStoryScenarioEncounters = ({
   scenarios: IDatabase.StoryScenario[]
 }) => {
 
-  return scenarios.map(({ icon }) => {
+  const encounters = scenarios.map(({ icon, id }) => {
+    if (!icon) {
+      return encounterSets.find(propEq(id, 'code'))?.code;
+    }
     return encounterSets
       .find(encounter => encounter.icon === icon)?.code
   })
   .filter(isNotNil);
+
+  return uniq(encounters);
 }

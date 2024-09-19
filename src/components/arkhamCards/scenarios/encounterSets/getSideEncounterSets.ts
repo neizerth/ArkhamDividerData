@@ -4,6 +4,7 @@ import { isNotNil, prop, propEq } from 'ramda';
 import { getSideCampaign } from '../getSideCampaign';
 import { showWarning } from '@/util/console';
 import { IArkhamCards } from '@/types/arkhamCards';
+import { onlyWords } from '@/util/common';
 
 export const getSideEncounterSets = (): ICache.ScenarioEncounterSet[] => {
   const sideCampaign = getSideCampaign();
@@ -40,6 +41,15 @@ export const getSideEncounterSets = (): ICache.ScenarioEncounterSet[] => {
       return packs.find(propEq(packByEncounterSet.pack_code, 'code'));
     }
 
+    const packByWords = packs.find(
+      pack => onlyWords(pack.name).toLowerCase() === 
+        onlyWords(scenario_name).toLowerCase()
+    )
+
+    if (packByWords) {
+      return packByWords;
+    }
+
     return;
     // sideScenarios.find(propEq(scenario.id, 'scenario_id'))
   }
@@ -63,10 +73,12 @@ export const getSideEncounterSets = (): ICache.ScenarioEncounterSet[] => {
         .filter(isNotNil)
         .flat();
 
-      const getIsExtra = (code: string) => Boolean(pack) && packEncounterSets.some(encounter => {
+      const getIsExtraFromEncounters = (code: string) => packEncounterSets.some(encounter => {
         return encounter.encounter_set_code === code && 
-          encounter.cycle_code !== cycleCode;
-      })
+          encounter.pack_code !== packCode;
+      });
+
+      const getIsExtra = (code: string) => Boolean(pack) && getIsExtraFromEncounters(code);
 
       const scenarioData = {
         cycle_code: packCode,

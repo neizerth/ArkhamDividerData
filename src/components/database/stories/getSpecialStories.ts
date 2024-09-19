@@ -156,13 +156,13 @@ export const getSpecialStories = (): IDatabase.Story[] => {
         )
         .flat();
 
-      const storyScenarioGroups = groupStoryScenarios({
-        iconDB,
+      const storyScenarioEncounters = getStoryScenarioEncounters({
+        encounterSets,
         scenarios: storyScenarios
       });
 
-      const storyScenarioEncounters = getStoryScenarioEncounters({
-        encounterSets,
+      const storyScenarioGroups = groupStoryScenarios({
+        iconDB,
         scenarios: storyScenarios
       });
 
