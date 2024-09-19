@@ -7,9 +7,11 @@ import { FONTS_DIR, ICONS_CACHE_DIR, ICONS_EXTRA_DIR } from '@/config/app';
 import { IIcoMoon } from '@/types/icomoon';
 import * as Cache from '@/util/cache';
 import { createJSONReader, createWriter, mkDir } from '@/util/fs';
-import { toPairs } from 'ramda';
+import { isNotNil, toPairs } from 'ramda';
 import { CacheType } from '@/types/cache';
 import { Mapping } from '@/types/common';
+
+const ICON_SIZE = 1024;
 
 // @ts-ignore
 sax.MAX_BUFFER_LENGTH = Infinity;
@@ -43,8 +45,7 @@ export const createAssets = async () => {
       FontAssetType.WOFF2
     ],
     assetTypes: [
-      OtherAssetType.JSON,
-      OtherAssetType.HTML
+      OtherAssetType.JSON
     ]
   });
 
@@ -57,12 +58,31 @@ export const createAssets = async () => {
 export const cacheIconsInfo = async () => {
   const readJSON = createJSONReader(FONTS_DIR);
   const info = readJSON<Mapping<number>>('icons');
+  const icons = Cache.getIcons();
 
   const data = toPairs(info)
-    .map(([icon, code]) => ({
-      icon,
-      code
-    }))
+    .map(([icon, code]) => {
+      const dbIcon = icons.find(
+        ({ properties }) => properties.name === icon
+      )
+
+      if (!dbIcon) {
+        return {
+          icon,
+          code
+        }
+      }
+
+      const { width = ICON_SIZE } = dbIcon.icon;
+      const ratio = width / ICON_SIZE;
+
+      return {
+        icon,
+        ratio,
+        code
+      }
+    })
+    .filter(isNotNil);
 
   Cache.cache(CacheType.ICONS_INFO, data);
 }
@@ -85,9 +105,8 @@ export const extractIcons = async () => {
 }
 
 export const getIconContents = ({ icon }: IIcoMoon.Icon) => {
-  const size = 1024;
-  const height = size;
-  const { width = size } = icon;
+  const height = ICON_SIZE;
+  const { width = ICON_SIZE } = icon;
   const viewBox = `0 0 ${width} ${height}`;
 
   const paths = icon.paths

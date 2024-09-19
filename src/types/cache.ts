@@ -43,6 +43,7 @@ export namespace ICache {
 
   export type IconInfo = {
     icon: string
+    ratio?: number
     code: number
   }
 
