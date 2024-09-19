@@ -17,7 +17,7 @@ export const getCycles = async (): Promise<ICache.Cycle[]> => {
       name,
       position,
       source: ICache.Source.ARKHAM_CARDS,
-      is_official: official,
+      is_official: official || code === NON_CANONICAL_CODE,
       is_canonical: official && code !== NON_CANONICAL_CODE
     }
   })

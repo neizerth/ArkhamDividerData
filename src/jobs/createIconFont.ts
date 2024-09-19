@@ -43,7 +43,8 @@ export const createAssets = async () => {
       FontAssetType.WOFF2
     ],
     assetTypes: [
-      OtherAssetType.JSON
+      OtherAssetType.JSON,
+      OtherAssetType.HTML
     ]
   });
 

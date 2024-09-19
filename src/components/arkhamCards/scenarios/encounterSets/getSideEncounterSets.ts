@@ -14,6 +14,7 @@ export const getSideEncounterSets = (): ICache.ScenarioEncounterSet[] => {
 
   const standaloneScenarios = Cache.getStandaloneScenarios()
     .map(prop('scenarioId'));
+    
   const packEncounterSets = Cache.getPackEncounterSets();
   const packs = Cache.getPacks();
 
@@ -32,6 +33,13 @@ export const getSideEncounterSets = (): ICache.ScenarioEncounterSet[] => {
     if (packByName) {
       return packByName;
     }
+
+    const packByEncounterSet = packEncounterSets.find(propEq(id, 'encounter_set_code'));
+    
+    if (packByEncounterSet) {
+      return packs.find(propEq(packByEncounterSet.pack_code, 'code'));
+    }
+
     return;
     // sideScenarios.find(propEq(scenario.id, 'scenario_id'))
   }

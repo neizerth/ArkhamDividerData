@@ -11,6 +11,7 @@ import { onlyWords } from '@/util/common';
 export const getSideScenarios = (): ICache.SideScenario[] => {
   const packs = Cache.getPacks();
   const encounterSets = Cache.getDatabaseEncounterSets();
+  const packEncounterSets = Cache.getPackEncounterSets();
   const fullCampaigns = Cache.getCampaigns();
   
   const standaloneScenarios = Cache.getStandaloneScenarios()
@@ -53,6 +54,12 @@ export const getSideScenarios = (): ICache.SideScenario[] => {
 
     if (packByWords) {
       return packByWords;
+    }
+
+    const packByEncounterSet = packEncounterSets.find(propEq(id, 'encounter_set_code'));
+    
+    if (packByEncounterSet) {
+      return packs.find(propEq(packByEncounterSet.pack_code, 'code'));
     }
 
     return;
