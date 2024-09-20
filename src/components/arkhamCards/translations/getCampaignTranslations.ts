@@ -24,8 +24,6 @@ export const getScenarioTranslations = (localCampaign: FullCampaign, baseCampaig
     const {
       id,
       scenario_name,
-      full_name,
-      header
     } = baseScenario;
 
     const isTranslated = localScenario.scenario_name && 
@@ -35,11 +33,20 @@ export const getScenarioTranslations = (localCampaign: FullCampaign, baseCampaig
       translated.push(id);
     }
 
+    const includeTranslation = (key: keyof typeof localScenario) => {
+      if (baseScenario[key] === localScenario[key]) {
+        return {}
+      }
+      return {
+        [baseScenario[key] as string]: localScenario[key] as string
+      }
+    }
+
     return {
       ...target,
-      [scenario_name]: localScenario.scenario_name,
-      [full_name]: localScenario.full_name,
-      [header]: localScenario.header
+      ...includeTranslation('scenario_name'),
+      ...includeTranslation('full_name'),
+      ...includeTranslation('header'),
     };
   }, {} as Mapping);
 

@@ -22,6 +22,21 @@ export const createTranslationsCache = async () => {
   await createStoryTranslationsCache();
 }
 
+export const toI18Next = (text: string) => text
+  .replace(/\$\{ /g, '{{')
+  .replace(/ }/g, '}}')
+  .replace(/[\[\]]/g, '')
+
+export const toBundle = (mapping: Mapping) => {
+  return toPairs(mapping)
+    .reduce((target, [sourceKey, sourceValue]) => {
+      const key = toI18Next(sourceKey);
+      const value = toI18Next(sourceValue);
+      target[key] = value;
+      return target;
+    }, {} as Mapping)
+} 
+
 export const createEncounterSetTranslationsCache = async () => {
   const languages = Cache.getCampaignLanguages();
   for (const language of languages) {
@@ -51,7 +66,7 @@ export const createCommonTranslationsCache = async () => {
     console.log(`caching "${language}" common translations...`);
     const mapping = await Translations.getCommonTranslations(language);
 
-    cache(CacheType.COMMON_TRANSLATION, mapping);
+    cache(CacheType.COMMON_TRANSLATION, toBundle(mapping));
   }
 }
 
@@ -88,8 +103,8 @@ export const createStoryTranslationsCache = async () => {
     cache(CacheType.DATABASE_STORIES, stories.translation);
     cache(CacheType.TRANSLATED_STORIES, stories.translated);
     
-    cache(CacheType.CAMPAIGNS, campaigns);
-    cache(CacheType.SCENARIOS, scenarios);
+    cache(CacheType.CAMPAIGNS, toBundle(campaigns));
+    cache(CacheType.SCENARIOS, toBundle(scenarios));
     cache(CacheType.TRANSLATED_CAMPAIGNS, translated.campaigns);
     cache(CacheType.TRANSLATED_SCENARIOS, translated.scenarios);
   }
