@@ -4,11 +4,16 @@ import { ICache } from '@/types/cache';
 import * as Cache from '@/util/cache';
 import { delay, createPropTranslator } from '@/util/common';
 import { showError } from '@/util/console';
-import { isNotNil, propEq } from 'ramda';
+import { isNotNil, prop, propEq, uniq } from 'ramda';
 
 export const getInvestigatorTranslations = async (language: string) => {
   const packs = Cache.getPacks();
   const languages = Cache.getCoreLanguages();
+
+  const packInvestigators = Cache.getPackInvestigators();
+  const packCodes = uniq(packInvestigators.map(
+    prop('pack_code')
+  ));
 
   if (!languages.includes(language)) {
     return {};
@@ -20,6 +25,9 @@ export const getInvestigatorTranslations = async (language: string) => {
   const data = {};
 
   for (const pack of arkhamDBPacks) {
+    if (!packCodes.includes(pack.code)) {
+      continue;
+    }
     await delay(200);
     Object.assign(data, await getInvestigators(pack, language));
   }
