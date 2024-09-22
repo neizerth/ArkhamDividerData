@@ -15,6 +15,10 @@ export const createCache = async () => {
   await createEntityCache();
   await delay(200);
 
+  console.log('caching icons...');
+  await createIconsCache();
+  await delay(200);
+
   console.log('caching database...');
   await createDatabaseCache();
   await delay(200);
@@ -43,6 +47,16 @@ export const createDatabaseCache = async () => {
   cache(CacheType.DATABASE_STORIES, Database.getStories());
 
   Validation.checkStories();
+}
+
+export const createIconsCache = async () => {
+  await delay(200);
+  console.log('caching IcoMoon icons...');
+  cache(CacheType.ICONS, await Data.getIcoMoonIcons());
+
+  await delay(200);
+  console.log('caching icons mapping...');
+  cache(CacheType.ICONS_MAPPING, await Data.getIconsMapping());
 }
 
 export const createEntityCache = async () => {
@@ -76,12 +90,4 @@ export const createEntityCache = async () => {
   await delay(200);
   console.log('caching pack encounter sets...');
   cache(CacheType.PACK_ENCOUNTER_SETS, await Data.getPackEncounterSets());
-
-  await delay(200);
-  console.log('caching IcoMoon icons...');
-  cache(CacheType.ICONS, await Data.getIcoMoonIcons());
-
-  await delay(200);
-  console.log('caching icons mapping...');
-  cache(CacheType.ICONS_MAPPING, await Data.getIconsMapping());
 }

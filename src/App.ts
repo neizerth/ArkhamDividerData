@@ -3,7 +3,8 @@ import {
   createCache, 
   createDatabaseCache,
   createTranslationsCache,
-  createIconFont
+  createIconFont,
+  createIconsCache
 } from "./jobs";
 
 export class App {
@@ -17,6 +18,8 @@ export class App {
         return await createDatabaseCache();
       case 'cache':
         return await createCache();
+      case 'icons':
+        return await createIconsCache();
       case 'font':
         return await createIconFont();
       case 'build':
