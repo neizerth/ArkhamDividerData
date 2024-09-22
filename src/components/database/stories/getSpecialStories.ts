@@ -24,6 +24,7 @@ export const getSpecialStories = (): IDatabase.Story[] => {
   const encounterSets = Cache.getDatabaseEncounterSets();
   const campaignLinks = Cache.getCampaignLinks();
   const fullCampaigns = Cache.getCampaigns();
+  const packInvestigators = Cache.getPackInvestigators();
   
   const iconDB = createIconDB(IconDBType.STORY);
 
@@ -166,6 +167,10 @@ export const getSpecialStories = (): IDatabase.Story[] => {
         scenarios: storyScenarios
       });
 
+      const investigators = packInvestigators.filter(
+        propEq(code, 'pack_code')
+      );
+
       const story = {
         name,
         icon,
@@ -175,6 +180,7 @@ export const getSpecialStories = (): IDatabase.Story[] => {
         cycle_code: cycleCode,
         pack_code: code,
         type,
+        investigators,
         encounter_sets: requiredEncounters,
         extra_encounter_sets: extraEncounters,
         custom_content: custom,

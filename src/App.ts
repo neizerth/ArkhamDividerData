@@ -4,7 +4,7 @@ import {
   createDatabaseCache,
   createTranslationsCache,
   createIconFont,
-  createIconsCache
+  createIconsCache,
 } from "./jobs";
 
 export class App {

@@ -26,6 +26,8 @@ export const getCycleStories = (): IDatabase.Story[] => {
   const encounterSets = Cache.getDatabaseEncounterSets();
   const scenarioEncounterSets = Cache.getScenarioEncounterSets();
   const packEncounters = Cache.getPackEncounterSets();
+  const packInvestigators = Cache.getPackInvestigators();
+
   const iconDB = createIconDB(IconDBType.STORY);
 
   const storyHandlerData = {
@@ -178,6 +180,10 @@ export const getCycleStories = (): IDatabase.Story[] => {
       scenarios: storyScenarios
     });
 
+    const investigators = packInvestigators.filter(
+      ({ pack_code }) => packCodes.includes(pack_code)
+    );
+
     return {
       ...campaignData,
       code,
@@ -187,6 +193,7 @@ export const getCycleStories = (): IDatabase.Story[] => {
       is_canonical,
       is_official,
       position,
+      investigators,
       scenario_encounter_sets: storyScenarioEncounters,
       custom_content: fullCampaign?.campaign.custom,
       campaigns: storyCampaigns,

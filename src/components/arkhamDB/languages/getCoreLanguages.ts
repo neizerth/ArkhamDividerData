@@ -1,5 +1,5 @@
-import { loadTranslationLanguages } from "@/api/arkhamDB/api";
+import * as ArkhamDB from "@/api/arkhamDB/api";
 
 export const getCoreLanguages = async () => {
-  return await loadTranslationLanguages();
+  return await ArkhamDB.loadTranslationLanguages();
 } 

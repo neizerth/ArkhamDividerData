@@ -1,3 +1,4 @@
+import { ICache } from "./cache";
 import { Mapping } from "./common";
 
 export namespace IDatabase {
@@ -73,6 +74,7 @@ export namespace IDatabase {
     pack_codes?: string[]
     type: string;
     icon?: string
+    investigators: ICache.PackInvestigator[]
     scenario_encounter_sets: string[]
     encounter_sets: string[]
     extra_encounter_sets: string[]

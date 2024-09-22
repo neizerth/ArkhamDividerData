@@ -17,6 +17,7 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
   const encounterSets = Cache.getDatabaseEncounterSets();
   const sideScenarios = Cache.getSideScenarios();
   const sideCampaign = getSideCampaign();
+  const packInvestigators = Cache.getPackInvestigators();
 
   const withoutSizeSupport = packsData
     .filter(propEq(false, 'is_size_supported'))
@@ -91,11 +92,17 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
         scenarios: [storyScenario]
       });
 
+      const investigators = pack ? 
+        packInvestigators.filter(
+          propEq(pack.code, 'pack_code')
+        ) : [];
+
       return {
         name,
         code,
         icon,
         type,
+        investigators,
         pack_code: pack?.code,
         cycle_code: pack?.cycle_code,
         scenario: storyScenario,

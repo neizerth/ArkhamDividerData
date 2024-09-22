@@ -40,6 +40,7 @@ export const buildLanguageSource = (language: string) => {
   const scenarios = getCache<Mapping>(CacheType.SCENARIOS);
   const common = getCache<Mapping>(CacheType.COMMON_TRANSLATION);
   const encounterSets = getCache<Mapping>(CacheType.ENCOUNTER_SETS);
+  const investigators = getCache<Mapping>(CacheType.INVESTIGATORS);
 
   const stories = getCache<Mapping>(CacheType.DATABASE_STORIES);
   
@@ -51,6 +52,7 @@ export const buildLanguageSource = (language: string) => {
     encounterSets,
     scenarios,
     stories,
+    investigators,
     common
   }
 

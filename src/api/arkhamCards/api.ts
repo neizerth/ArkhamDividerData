@@ -82,9 +82,13 @@ export const loadJSONEncounterSets = async () => {
 
 export const loadJSONPackCards = async (code: string) => {
   const { data } = await getDataRaw(`/cards/${code}.json`);
-  return data as IArkhamDB.JSON.EncounterCard[];
+  return data as IArkhamDB.JSON.Card[];
 }
 
+export const loadLocalJSONPackCards = async (code: string, language: string) => {
+  const { data } = await getDataRaw(`/i18n/${language}/cards/${code}.json`);
+  return data as IArkhamDB.JSON.Card[];
+}
 
 // translations
 

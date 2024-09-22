@@ -1,7 +1,7 @@
 import { createIconDB } from "@/components/arkhamCards/icons/IconDB";
 import { IDatabase } from "@/types/database";
 import * as Cache from '@/util/cache';
-import { showError } from "@/util/console";
+import { showError, showWarning } from "@/util/console";
 import packsData from '@/data/arkhamCards/packs.json'
 
 import { isNotNil, prop, propEq } from "ramda";
@@ -17,7 +17,8 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
   const scenarioEncounterSets = Cache.getScenarioEncounterSets();
   const encounterSets = Cache.getDatabaseEncounterSets();
   const sideScenarios = Cache.getSideScenarios();
-  const fullCampaigns = Cache.getCampaigns(); 
+  const fullCampaigns = Cache.getCampaigns();
+  const packInvestigators = Cache.getPackInvestigators();
 
   const withoutSizeSupport = packsData
     .filter(propEq(false, 'is_size_supported'))
@@ -49,6 +50,10 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
       }
 
       const pack = packs.find(propEq(link.pack_code, 'code'));
+
+      if (!pack) {
+        showWarning(`pack not found: ${link.pack_code}`);
+      }
       
       const scenarioEncounters = scenarioEncounterSets.filter(
         propEq(campaign.id, 'campaign_id')
@@ -97,11 +102,17 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
         scenarios: storyScenarios
       });
 
+      const investigators = pack ? 
+        packInvestigators.filter(
+          propEq(pack.code, 'pack_code')
+        ) : [];
+
       return {
         name,
         code,
         icon,
         type,
+        investigators,
         cycle_code: pack?.cycle_code,
         pack_code: pack?.code,
         campaign_id: campaign.id,

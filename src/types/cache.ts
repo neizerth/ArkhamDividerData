@@ -9,6 +9,9 @@ export const enum CacheType {
   CAMPAIGN_LINKS = 'links.campaign',
 
   PACK_ENCOUNTER_SETS = 'encounterSets.pack',
+  PACK_INVESTIGATORS = 'investigators.pack',
+
+  INVESTIGATORS = 'investigators',
 
   ICONS = 'icons.project',
   ICONS_INFO = 'icons.info',
@@ -93,6 +96,19 @@ export namespace ICache {
     source: Source
     size?: number;
     types?: EncounterSetType[]
+  }
+
+  export type PackInvestigator = {
+    code: string
+    cycle_code: string
+    pack_code: string
+    faction_code: string;
+    name: string
+    real_name?: string
+    subname?: string
+    traits?: string
+    real_traits?: string
+    flavor?: string
   }
 
   export type ScenarioEncounterSet = {

@@ -1,5 +1,3 @@
-export const unique = <T>(data: T[]): T[] => Array.from(new Set(data));
-
 export const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export const toSynonyms = ({
@@ -13,3 +11,23 @@ export const toSynonyms = ({
 }
 
 export const onlyWords = (text: string) => text.replace(/[^\w ]/g, '');
+
+export const createPropTranslator = <K extends keyof T, T extends { [index: string]: string }>(source: T, translation: T) => 
+  (props: K[]) => {
+    const mappings = props.map(prop => {
+      if (!source[prop]) {
+        return {}
+      }
+      if (!translation[prop]) {
+        return {}
+      }
+      if (source[prop] === translation[prop]) {
+        return {}
+      }
+      return {
+        [source[prop]]: translation[prop]
+      }
+    });
+
+    return Object.assign({}, ...mappings);
+  }

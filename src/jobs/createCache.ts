@@ -90,4 +90,8 @@ export const createEntityCache = async () => {
   await delay(200);
   console.log('caching pack encounter sets...');
   cache(CacheType.PACK_ENCOUNTER_SETS, await Data.getPackEncounterSets());
+
+  await delay(200);
+  console.log('caching pack investigators sets...');
+  cache(CacheType.PACK_INVESTIGATORS, await Data.getPackInvestigators());
 }

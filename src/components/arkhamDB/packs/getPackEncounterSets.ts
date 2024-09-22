@@ -27,11 +27,11 @@ const getEncounterSets = async (pack: ICache.Pack) => {
     cycle_code
   } = pack;
 
-  const cards = await API.loadPackCards(code);
+  const cards = await API.loadPackCards(code) as IArkhamDB.JSON.EncounterCard[];
 
   const encounters = cards.filter(
     ({ encounter_code }) => Boolean(encounter_code)
-  ) as IArkhamDB.JSON.EncounterCard[];
+  );
 
   const groups = groupBy(prop('encounter_code'), encounters);
 

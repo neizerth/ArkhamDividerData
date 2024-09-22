@@ -10,6 +10,10 @@ import { getWithPrefix } from "@/api/request";
 import { IArkhamDB } from "@/types/arkhamDB";
 import { IGithub } from "@/types/github";
 
+const createLocalAPIData = (language: string) => getWithPrefix(
+  ARKHAMDB_API_BASE_URL.replace('https://', `https://${language}.`)
+);
+
 const getAPIData = getWithPrefix(ARKHAMDB_API_BASE_URL);
 const getPageContents = getWithPrefix(ARKHAMDB_BASE_URL);
 
@@ -28,9 +32,16 @@ export const loadAllCards = async (encounters: boolean) => {
   return data as IArkhamDB.API.Card[];
 }
 
+export const loadLocalPackCards = async (code: string, language: string) => {
+  const getLocalAPIData = createLocalAPIData(language);
+
+  const { data } = await getLocalAPIData(`/cards/${code}`);
+  return (data || []) as IArkhamDB.API.Card[];
+}
+
 export const loadPackCards = async (code: string) => {
   const { data } = await getAPIData(`/cards/${code}`);
-  return (data || []) as IArkhamDB.API.Card[];
+  return (data || []) as (IArkhamDB.API.Card | IArkhamDB.JSON.EncounterCard)[];
 }
 
 export const loadSearchPageContents = async () => {

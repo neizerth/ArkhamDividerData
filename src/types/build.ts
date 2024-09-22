@@ -12,13 +12,14 @@ export namespace IBuild {
     icons: ICache.IconInfo[]
   }
   export type Translation = {
-    translatedCampaigns: string[],
-    translatedScenarios: string[],
-    translatedStories: string[],
-    campaigns: Mapping;
-    scenarios: Mapping;
-    stories: Mapping;
-    encounterSets: Mapping;
+    translatedCampaigns: string[]
+    translatedScenarios: string[]
+    translatedStories: string[]
+    campaigns: Mapping
+    scenarios: Mapping
+    stories: Mapping
+    encounterSets: Mapping
+    investigators: Mapping
     common: Mapping
   }
 }
