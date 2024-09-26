@@ -1,28 +1,71 @@
 import { IIcoMoon } from "@/types/icomoon";
 import getBounds from 'svg-path-bounds'
 import { SVGPathData } from 'svg-pathdata';
+import { preservePaths } from '@/data/icons/transformation.json'
+import { DEFAULT_ICON_SIZE } from "@/config/icons";
 
-export const getIconContents = async ({ icon }: IIcoMoon.Icon) => {
+export const getIconContents = async (item: IIcoMoon.Icon) => {
 
-  const rect = getSVGBoundingRect(icon); 
+  const preserve = preservePaths.includes(item.properties.name);
+  
+  const {
+    width,
+    height,
+    paths
+  } = preserve ? getDefaultIcon(item) : getTransformedIcon(item)
 
-  const { 
-    size
-  } = rect;
-
-  const pathContents = icon.paths
-    .map(d => `<path d="${translatePath(d, rect)}"/>`)
+  const pathContents = paths
+    .map(d => `<path d="${d}"/>`)
     .join('');
 
-  const viewBox = `0 0 ${size} ${size}`
+  const viewBox = `0 0 ${width} ${height}`
 
   const xmlns = 'http://www.w3.org/2000/svg';
 
-  const svg = `<svg xmlns="${xmlns}" viewBox="${viewBox}" width="${size}" height="${size}">${pathContents}</svg>`;
-  return svg;
+  return `<svg xmlns="${xmlns}" viewBox="${viewBox}" width="${width}" height="${height}">${pathContents}</svg>`;
 }
 
-export const translatePath = (path: string, rect: ISVGBoundingRect) => {
+
+export const getTransformedIcon = ({ icon }: IIcoMoon.Icon) => {
+
+  const rect = getSVGBoundingRect(icon); 
+  const { size } = rect;
+  const paths = icon.paths.map(path => 
+    translatePath({
+      path,
+      rect
+    })
+  )
+
+  return {
+    width: size,
+    height: size,
+    paths
+  }
+}
+
+export const getDefaultIcon = ({ icon }: IIcoMoon.Icon) => {
+  const height = DEFAULT_ICON_SIZE;
+  const { 
+    width = DEFAULT_ICON_SIZE, 
+    paths 
+  } = icon;
+
+  return {
+    width,
+    height,
+    paths
+  }
+}
+
+export const translatePath = ({
+  path,
+  rect
+}: {
+  path: string
+  rect: ISVGBoundingRect
+}) => {
+
   const { 
     top, 
     left,
