@@ -39,6 +39,7 @@ export const createAssets = async () => {
     name: 'icons',
     inputDir: ICONS_CACHE_DIR,
     outputDir: FONTS_DIR,
+    normalize: true,
     fontTypes: [
       FontAssetType.WOFF,
       FontAssetType.WOFF2
@@ -96,7 +97,7 @@ export const extractIcons = async () => {
 
   for (const icon of icons) {
     const { name } = icon.properties;
-    const contents = getIconContents(icon);
+    const contents = await getIconContents(icon);
 
     writeSVG(name, contents);
   }
