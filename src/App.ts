@@ -5,6 +5,7 @@ import {
   createTranslationsCache,
   createIconFont,
   createIconsCache,
+  downloadRepos,
 } from "./jobs";
 
 export class App {
@@ -20,12 +21,15 @@ export class App {
         return await createCache();
       case 'icons':
         return await createIconsCache();
+      case 'download':
+        return await downloadRepos();
       case 'font':
         return await createIconFont();
       case 'build':
         return await buildFromCache();
     }
 
+    await downloadRepos();
     await createCache();
     await createIconFont();
     await buildFromCache();

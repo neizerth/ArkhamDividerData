@@ -71,3 +71,5 @@ export const createFilenameResolver = (dir: string, extension: string) =>
 export const createJSONResolver = (dir: string) => createFilenameResolver(dir, 'json');
 
 export const mkDir = (dir: string) => !fs.existsSync(dir) && fs.mkdirSync(dir); 
+
+export const rmDir = (dir: string) => fs.existsSync(dir) && fs.rmSync(dir, { recursive: true }); 

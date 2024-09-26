@@ -1,20 +1,23 @@
-import { prop } from "ramda";
-
-import { GITHUB_CONTENTS_BASE_URL, GITHUB_RAW_BASE_URL, GITHUB_DATA_RAW_BASE_URL } from "@/config/api";
-import { getWithPrefix } from "@/api/request";
+import * as C from "@/config/api";
+// import { getWithPrefix } from "@/api/request";
+import { getWithPrefix, getContents } from "../fileRepo";
 
 import { IArkhamCards } from "@/types/arkhamCards";
 import { IIcoMoon } from "@/types/icomoon";
 import { Mapping } from "@/types/common";
-import { IGithub } from "@/types/github";
 import { IPOEditor } from "@/types/i18n";
 import { IArkhamDB } from "@/types/arkhamDB";
 
-const getGithubRaw = getWithPrefix(GITHUB_RAW_BASE_URL);
-const getGithubContents = getWithPrefix(GITHUB_CONTENTS_BASE_URL);
+// URL versions
+// const getGithubRaw = getWithPrefix(GITHUB_RAW_BASE_URL);
+// const getGithubContents = getWithPrefix(GITHUB_CONTENTS_BASE_URL);
+// const getDataRaw = getWithPrefix(GITHUB_DATA_RAW_BASE_URL);
 
-const getDataRaw = getWithPrefix(GITHUB_DATA_RAW_BASE_URL);
-// const getDataContents = getWithPrefix(GITHUB_DATA_CONTENTS_BASE_URL);
+const getGithubRaw = getWithPrefix(C.ARKHAM_CARDS_CONTENTS_FOLDER_NAME);
+const getDataRaw = getWithPrefix(C.ARKHAM_CARDS_DATA_FOLDER_NAME);
+
+const getGithubContents = getContents(C.ARKHAM_CARDS_CONTENTS_FOLDER_NAME);
+
 
 export const withLanguagePostfix = <T>(getUrl: (language: string) => string) => async (language: string) => {
   const postfix = language === 'en' ? '' : '_' + language;
@@ -41,7 +44,7 @@ export const loadCoreTranslations = async (language: string) => {
 }
 
 export const loadFolderContents = async (path: string) => {
-  const { data } = await getGithubContents<IGithub.Contents.Item[]>(path);
+  const { data } = await getGithubContents(path);
   return data;
 }
 
@@ -49,7 +52,6 @@ export const loadCampaignTranslationLanguages = async () => {
   const data = await loadFolderContents('/assets/generated');
   const prefix = 'allCampaigns_';
   const languages = data
-    .map(prop('name'))
     .filter(name => name.startsWith(prefix))
     .map(name => name.replace(prefix, '').replace('.json', ''))
     
@@ -60,34 +62,34 @@ export const loadCampaignTranslationLanguages = async () => {
 }
 
 export const loadJSONPacks = async () => {
-  const { data } = await getDataRaw('/packs/packs.json');
-  return data as IArkhamCards.JSON.Pack[];
+  const { data } = await getDataRaw<IArkhamCards.JSON.Pack[]>('/packs/packs.json');
+  return data
 }
 
 export const loadJSONCycles = async () => {
-  const { data } = await getDataRaw('/packs/cycles.json');
-  return data as IArkhamCards.JSON.Cycle[];
+  const { data } = await getDataRaw<IArkhamCards.JSON.Cycle[]>('/packs/cycles.json');
+  return data;
 }
 
 export const loadJSONStandaloneScenarios = async () => {
-  const { data } = await getGithubRaw('/assets/generated/standaloneScenarios.json');
-  return data as IArkhamCards.JSON.StandaloneScenario[];
+  const { data } = await getGithubRaw<IArkhamCards.JSON.StandaloneScenario[]>('/assets/generated/standaloneScenarios.json');
+  return data;
 }
 
 
 export const loadJSONEncounterSets = async () => {
-  const { data } = await getDataRaw('/encounter_sets.json');
-  return data as IArkhamCards.EncounterSet[];
+  const { data } = await getDataRaw<IArkhamCards.EncounterSet[]>('/encounter_sets.json');
+  return data;
 }
 
 export const loadJSONPackCards = async (code: string) => {
-  const { data } = await getDataRaw(`/cards/${code}.json`);
-  return data as IArkhamDB.JSON.Card[];
+  const { data } = await getDataRaw<IArkhamDB.JSON.Card[]>(`/cards/${code}.json`);
+  return data;
 }
 
 export const loadLocalJSONPackCards = async (code: string, language: string) => {
-  const { data } = await getDataRaw(`/i18n/${language}/cards/${code}.json`);
-  return data as IArkhamDB.JSON.Card[];
+  const { data } = await getDataRaw<IArkhamDB.JSON.Card[]>(`/i18n/${language}/cards/${code}.json`);
+  return data;
 }
 
 // translations

@@ -1,4 +1,3 @@
-import { delay } from "@/util/common";
 import * as Cache from '@/util/cache';
 import * as Translations from '@/components/translations'
 import { CacheType } from "@/types/cache";
@@ -8,19 +7,15 @@ import { createStoryTranslationsCache } from "./translations/createStoryTranslat
 export const createTranslationsCache = async () => {
   console.log('caching translations...');
 
-  await delay(200);
   console.log('caching core translations...');
   await createCommonTranslationsCache();
 
-  await delay(200);
   console.log('caching encounter set translations...');
   await createEncounterSetTranslationsCache();
   
-  await delay(200);
   console.log('caching story translations...');
   await createStoryTranslationsCache();
 
-  await delay(200);
   console.log('caching investigator translations...');
   await createInvestigatorTranslationsCache();
 }
@@ -31,7 +26,6 @@ export const createEncounterSetTranslationsCache = async () => {
     if (language === 'en') {
       continue;
     }
-    await delay(200);
     const cache = Cache.createI18NCacheWriter(language);
 
     console.log(`caching "${language}" encounter set translations...`);
@@ -48,7 +42,6 @@ export const createCommonTranslationsCache = async () => {
     if (language === 'en') {
       continue;
     }
-    await delay(200);
     const cache = Cache.createI18NCacheWriter(language);
 
     console.log(`caching "${language}" common translations...`);
@@ -65,7 +58,6 @@ export const createInvestigatorTranslationsCache = async () => {
     if (language === 'en') {
       continue;
     }
-    await delay(200);
     const cache = Cache.createI18NCacheWriter(language);
 
     console.log(`caching "${language}" investigators...`);

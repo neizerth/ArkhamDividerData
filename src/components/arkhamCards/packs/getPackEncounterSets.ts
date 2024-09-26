@@ -2,7 +2,6 @@ import * as ArkhamCards from '@/api/arkhamCards/api';
 import * as Cache from '@/util/cache'
 import { ICache } from "@/types/cache"
 import { isNotNil, prop, propEq } from 'ramda';
-import { delay } from '@/util/common';
 import { IArkhamDB } from '@/types/arkhamDB';
 
 export const getPackEncounterSets = async (): Promise<ICache.PackEncounterSet[]> => {
@@ -14,7 +13,6 @@ export const getPackEncounterSets = async (): Promise<ICache.PackEncounterSet[]>
 
   const data = [];
   for (const pack of arkhamDBPacks) {
-    await delay(200);
     data.push(...await getEncounterSets(pack))
   }
 
@@ -22,7 +20,7 @@ export const getPackEncounterSets = async (): Promise<ICache.PackEncounterSet[]>
 }
 
 const getEncounterSets = async (pack: ICache.Pack): Promise<ICache.PackEncounterSet[]> => {
-  console.log(`loading pack ${pack.code} cards...`);
+  console.log(`loading pack ${pack.cycle_code}/${pack.code} cards...`);
   const cards = await ArkhamCards.loadJSONPackCards(pack.code) as IArkhamDB.JSON.EncounterCard[]
 
   const codes = cards

@@ -4,14 +4,13 @@ import sax from 'sax';
 import fs from 'fs';
 
 import { FONTS_DIR, ICONS_CACHE_DIR, ICONS_EXTRA_DIR } from '@/config/app';
-import { IIcoMoon } from '@/types/icomoon';
 import * as Cache from '@/util/cache';
 import { createJSONReader, createWriter, mkDir } from '@/util/fs';
 import { isNotNil, toPairs } from 'ramda';
 import { CacheType } from '@/types/cache';
 import { Mapping } from '@/types/common';
-
-const ICON_SIZE = 1024;
+import { DEFAULT_ICON_SIZE } from '@/config/icons';
+import { getIconContents } from './font/getIconContents';
 
 // @ts-ignore
 sax.MAX_BUFFER_LENGTH = Infinity;
@@ -73,8 +72,8 @@ export const cacheIconsInfo = async () => {
         }
       }
 
-      const { width = ICON_SIZE } = dbIcon.icon;
-      const ratio = width / ICON_SIZE;
+      const { width = DEFAULT_ICON_SIZE } = dbIcon.icon;
+      const ratio = width / DEFAULT_ICON_SIZE;
 
       return {
         icon,
@@ -95,23 +94,11 @@ export const extractIcons = async () => {
     extension: 'svg'
   })
 
-  icons.forEach(icon => {
+  for (const icon of icons) {
     const { name } = icon.properties;
     const contents = getIconContents(icon);
 
     writeSVG(name, contents);
-  });
+  }
   // const
-}
-
-export const getIconContents = ({ icon }: IIcoMoon.Icon) => {
-  const height = ICON_SIZE;
-  const { width = ICON_SIZE } = icon;
-  const viewBox = `0 0 ${width} ${height}`;
-
-  const paths = icon.paths
-    .map(d => `<path d="${d}"/>`)
-    .join('');
-
-  return `<svg viewBox="${viewBox}">${paths}</svg>`;
 }

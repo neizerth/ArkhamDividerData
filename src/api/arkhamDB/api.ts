@@ -1,47 +1,25 @@
-import { prop } from "ramda";
-
-import { 
-  ARKHAMDB_BASE_URL, 
-  ARKHAMDB_API_BASE_URL, 
-  ARKHAMDB_JSON_BASE_URL, 
-  ARKHAMDB_CONTENTS_BASE_URL
-} from "@/config/api";
-import { getWithPrefix } from "@/api/request";
+import * as C from "@/config/api";
+import * as R from "@/api/request";
+import * as F from "@/api/fileRepo";
 import { IArkhamDB } from "@/types/arkhamDB";
-import { IGithub } from "@/types/github";
 
-const createLocalAPIData = (language: string) => getWithPrefix(
-  ARKHAMDB_API_BASE_URL.replace('https://', `https://${language}.`)
-);
+const getAPIData = R.getWithPrefix(C.ARKHAMDB_API_BASE_URL);
+const getPageContents = R.getWithPrefix(C.ARKHAMDB_BASE_URL);
 
-const getAPIData = getWithPrefix(ARKHAMDB_API_BASE_URL);
-const getPageContents = getWithPrefix(ARKHAMDB_BASE_URL);
-
-const getGithubJSON = getWithPrefix(ARKHAMDB_JSON_BASE_URL);
-const getGithubContents = getWithPrefix(ARKHAMDB_CONTENTS_BASE_URL);
+const getGithubJSON = F.getWithPrefix(C.ARKHAMDB_DATA_FOLDER_NAME);
+const getGithubContents = F.getContents(C.ARKHAMDB_DATA_FOLDER_NAME);
 
 export const loadPacks = async () => {
   const { data } = await getAPIData('/packs');
   return data as IArkhamDB.API.Pack[];
 }
 
-export const loadAllCards = async (encounters: boolean) => {
-  const qs = encounters ? 'encounter=true' : '';
-
-  const { data } = await getAPIData(`/cards?${qs}`);
-  return data as IArkhamDB.API.Card[];
-}
-
-export const loadLocalPackCards = async (code: string, language: string) => {
-  const getLocalAPIData = createLocalAPIData(language);
-
-  const { data } = await getLocalAPIData(`/cards/${code}`);
-  return (data || []) as IArkhamDB.API.Card[];
-}
-
-export const loadPackCards = async (code: string) => {
-  const { data } = await getAPIData(`/cards/${code}`);
-  return (data || []) as (IArkhamDB.API.Card | IArkhamDB.JSON.EncounterCard)[];
+export const loadLocalPackCards = async (cycleCode: string, code: string, language: string) => {
+  const url = `translations/${language}/pack/${cycleCode}/${code}.json`;
+  const { data } = await getGithubJSON<IArkhamDB.API.Card[]>(url, {
+    defaultData: []
+  });
+  return data;
 }
 
 export const loadSearchPageContents = async () => {
@@ -50,48 +28,56 @@ export const loadSearchPageContents = async () => {
 }
 
 export const loadJSONCycles = async () => {
-  const { data } = await getGithubJSON('/cycles.json');
-  return data as IArkhamDB.JSON.Cycle[];
+  const { data } = await getGithubJSON<IArkhamDB.JSON.Cycle[]>('/cycles.json');
+  return data;
 }
 
 export const loadJSONPacks = async () => {
-  const { data } = await getGithubJSON('/packs.json');
-  return data as IArkhamDB.JSON.Pack[];
+  const { data } = await getGithubJSON<IArkhamDB.JSON.Pack[]>('/packs.json');
+  return data;
 }
 
 export const loadJSONEncounters = async () => {
-  const { data } = await getGithubJSON('/encounters.json');
-  return data as IArkhamDB.JSON.Encounter[];
+  const { data } = await getGithubJSON<IArkhamDB.JSON.Encounter[]>('/encounters.json');
+  return data;
 }
 
 export const loadJSONTranslationEncounters = async (language: string) => {
-  const { data } = await getGithubJSON(`translations/${language}/encounters.json`);
-  return data as IArkhamDB.JSON.Encounter[];
+  const { data } = await getGithubJSON<IArkhamDB.JSON.Encounter[]>(`translations/${language}/encounters.json`);
+  return data;
 }
 
 export const loadJSONTranslationPacks = async (language: string) => {
-  const { data } = await getGithubJSON(`translations/${language}/packs.json`);
-  return data as IArkhamDB.JSON.Pack[];
+  const { data } = await getGithubJSON<IArkhamDB.JSON.Pack[]>(`translations/${language}/packs.json`);
+  return data;
 }
 
 export const loadJSONTranslationCycles = async (language: string) => {
-  const { data } = await getGithubJSON(`translations/${language}/cycles.json`);
-  return data as IArkhamDB.JSON.Cycle[];
+  const { data } = await getGithubJSON<IArkhamDB.JSON.Cycle[]>(`translations/${language}/cycles.json`);
+  return data;
 }
 
-export const loadJSONPackEncounterCards = async ({ code, cycle_code }: IArkhamDB.HasCycleCode & IArkhamDB.HasCode) => {
-  const { data } = await getGithubJSON(`/pack/${cycle_code}/${code}_encounter.json`);
-  return data as IArkhamDB.JSON.EncounterCard[];
+export const loadJSONPackEncounterCards = async (cycleCode: string, code: string) => {
+  const { data } = await getGithubJSON<IArkhamDB.JSON.EncounterCard[]>(`/pack/${cycleCode}/${code}_encounter.json`, {
+    defaultData: []
+  });
+  return data
+}
+
+export const loadJSONPackCards = async (cycleCode: string, code: string) => {
+  const { data } = await getGithubJSON<IArkhamDB.JSON.Card[]>(`/pack/${cycleCode}/${code}.json`, {
+    defaultData: []
+  });
+  return data
 }
 
 export const loadFolderContents = async (path: string) => {
-  const { data } = await getGithubContents<IGithub.Contents.Item[]>(path);
+  const { data } = await getGithubContents(path);
   return data;
 }
 
 export const loadTranslationLanguages = async () => {
-  const data = await loadFolderContents('/translations');
-  const languages = data.map(prop('name'));
+  const languages = await loadFolderContents('/translations');
 
   return [
     'en',
