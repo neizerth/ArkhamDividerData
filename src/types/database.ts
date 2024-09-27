@@ -36,6 +36,15 @@ export namespace IDatabase {
     is_official: boolean;
   }
 
+  export type ScenarioEncounterSetGroup = {
+    id: string;
+    type: string
+    title?: string
+    aside?: boolean
+    encounter_sets: string[]
+    is_default: boolean;
+  }
+
   export type StoryScenario = {
     id: string
     campaign_id: string
@@ -50,6 +59,7 @@ export namespace IDatabase {
     scenarios?: StoryScenario[]
     encounter_sets?: string[]
     extra_encounter_sets?: string[]
+    encounter_set_groups?: ScenarioEncounterSetGroup[];
   }
 
   export type StoryCampaign = {

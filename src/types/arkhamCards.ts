@@ -41,9 +41,11 @@ export namespace IArkhamCards {
       custom?: CustomContent;
     }
     export type ScenarioStep = {
-      id: string;
-      type: string;
+      id: string
+      type: string
+      title?: string
       encounter_sets?: string[]
+      aside?: boolean
     }
     export type StandaloneScenario = {
       type: string

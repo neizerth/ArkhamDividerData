@@ -26,6 +26,7 @@ export const createStoryScenarioHandler = ({
       full_name,
       header,
       icon,
+      steps
     } = scenario;
     
     const data = {
@@ -56,16 +57,34 @@ export const createStoryScenarioHandler = ({
       )
       .map(prop('encounter_set_code'));
 
-      const extraEncounters = encounters
+    const extraEncounters = encounters
       .filter(
         propEq(true, 'is_extra')
       )
       .map(prop('encounter_set_code'));
 
+    const encounterSetGroups = steps
+      .filter(propEq('encounter_sets', 'type'))
+      .map(({
+        id,
+        title,
+        aside,
+        type,
+        encounter_sets = []
+      }): IDatabase.ScenarioEncounterSetGroup => ({
+        id,
+        title,
+        type,
+        aside,
+        is_default: Boolean(id === 'gather_encounter_sets'),
+        encounter_sets
+      }))
+
     return {
       ...data,
       encounter_sets: requiredEncounters,
-      extra_encounter_sets: extraEncounters
+      extra_encounter_sets: extraEncounters,
+      encounter_set_groups: encounterSetGroups
     }
   }
 }
