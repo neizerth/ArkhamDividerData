@@ -6,7 +6,7 @@ import fs from 'fs';
 import { FONTS_DIR, ICONS_CACHE_DIR, ICONS_EXTRA_DIR } from '@/config/app';
 import * as Cache from '@/util/cache';
 import { createJSONReader, createWriter, mkDir } from '@/util/fs';
-import { isNotNil, toPairs } from 'ramda';
+import { isNotNil, prop, toPairs } from 'ramda';
 import { CacheType } from '@/types/cache';
 import { Mapping } from '@/types/common';
 import { DEFAULT_ICON_SIZE } from '@/config/icons';
@@ -89,6 +89,9 @@ export const cacheIconsInfo = async () => {
 
 export const extractIcons = async () => {
   const icons = Cache.getIcons();
+  const encounterIcons = Cache.getDatabaseEncounterSets()
+    .map(prop('icon'))
+    .filter(isNotNil)
 
   const writeSVG = createWriter({
     dir: ICONS_CACHE_DIR, 
@@ -97,7 +100,7 @@ export const extractIcons = async () => {
 
   for (const icon of icons) {
     const { name } = icon.properties;
-    const contents = await getIconContents(icon);
+    const contents = await getIconContents(icon, encounterIcons);
 
     writeSVG(name, contents);
   }
