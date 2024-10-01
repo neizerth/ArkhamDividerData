@@ -4,7 +4,7 @@ import * as Cache from '@/util/cache';
 import { showError } from "@/util/console";
 import packsData from '@/data/arkhamCards/packs.json'
 
-import { isNotNil, prop, propEq } from "ramda";
+import { isNotNil, prop, propEq, uniq } from "ramda";
 import { getSideCampaign } from "@/components/arkhamCards/scenarios/getSideCampaign";
 import { SingleValue } from "@/types/common";
 import { createStoryScenarioHandler } from "./getStoryScenario";
@@ -111,8 +111,8 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
         is_canonical,
         is_official,
         scenario_encounter_sets: storyScenarioEncounters,
-        encounter_sets: requiredEncounters,
-        extra_encounter_sets: extraEncounters
+        encounter_sets: uniq(requiredEncounters),
+        extra_encounter_sets: uniq(extraEncounters)
       }
     })
     .filter(isNotNil)
