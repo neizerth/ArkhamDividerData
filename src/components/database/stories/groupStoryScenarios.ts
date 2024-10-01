@@ -121,7 +121,7 @@ export const groupStoryScenariosByNumber = ({ scenarios, iconDB }: IGroupCompose
 
 export const groupStoryScenariosByHeader = ({ scenarios }: IGroupComposer): IDatabase.StoryScenario[] => {
   const groups = groupBy(
-    ({ header, id }) => header !== 'Scenario' ? header : id,
+    ({ header, id }) => header.includes('Scenario ') ? header : id,
     scenarios
   );
 
