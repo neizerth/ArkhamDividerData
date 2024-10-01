@@ -10,6 +10,8 @@ export const toSynonyms = ({
   return [code, ...synonyms];
 }
 
+export const isNumeric = (value: string): boolean => !isNaN(+value);
+
 export const onlyWords = (text: string) => text.replace(/[^\w ]/g, '');
 
 export const createPropTranslator = <K extends keyof T, T extends { [index: string]: string }>(source: T, translation: T) => 

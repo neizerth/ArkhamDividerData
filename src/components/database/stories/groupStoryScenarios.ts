@@ -1,5 +1,6 @@
 import { IIconDB } from "@/components/arkhamCards/icons/IconDB";
 import { IDatabase } from "@/types/database";
+import { isNumeric } from "@/util/common";
 import { withEncounters } from "@/util/criteria";
 import { groupBy, isNotNil, omit, prop, uniq, values } from "ramda";
 import { romanize } from "romans";
@@ -59,7 +60,7 @@ export const getGroupEncounters = (scenarios: IDatabase.StoryScenario[]) => {
 
 export const groupStoryScenariosByNumber = ({ scenarios, iconDB }: IGroupComposer): IDatabase.StoryScenario[] => {
   const groups = groupBy(
-    ({ number = 0, campaign_id }) => `${campaign_id}_${number}`,
+    ({ id, number, campaign_id }) => `${campaign_id}_${number || id}`,
     scenarios
   );
 
@@ -120,7 +121,7 @@ export const groupStoryScenariosByNumber = ({ scenarios, iconDB }: IGroupCompose
 
 export const groupStoryScenariosByHeader = ({ scenarios }: IGroupComposer): IDatabase.StoryScenario[] => {
   const groups = groupBy(
-    prop('header'),
+    ({ header, id }) => header !== 'Scenario' ? header : id,
     scenarios
   );
 
@@ -180,6 +181,11 @@ export const getScenarioNumber = (scenario: IDatabase.StoryScenario): Partial<ID
     return {};
   }
   const numberText = header.replace('Scenario ', '').trim();
+  
+  if (!numberText || !isNumeric(numberText)) {
+    return {}
+  }
+
   const scenarioNumber = numberText.replace(/[^MDCLXVI]+/, '')
 
   if (!isRoman(scenarioNumber)) {
