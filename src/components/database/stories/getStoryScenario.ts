@@ -3,6 +3,7 @@ import { IArkhamCards } from "@/types/arkhamCards";
 import { ICache } from "@/types/cache";
 import { IDatabase } from "@/types/database";
 import { prop, propEq, uniqBy } from "ramda";
+import { romanize } from "romans";
 
 export const createStoryScenarioHandler = ({
   iconDB,
@@ -76,8 +77,8 @@ export const createStoryScenarioHandler = ({
         title,
         type,
         aside,
-        is_default: /^gather_encounter_sets(_v\d+)?$/.test(id),
-        encounter_sets
+        encounter_sets,
+        ...getStepSetup(id)
       }))
 
     return {
@@ -86,5 +87,34 @@ export const createStoryScenarioHandler = ({
       extra_encounter_sets: extraEncounters,
       encounter_set_groups: encounterSetGroups
     }
+  }
+}
+
+export const getStepSetup = (id: string) => {
+  const versionRe = /_v(\d+)?$/;
+  const versionMatch = id.match(versionRe);
+  const isDefault = id.startsWith('gather_encounter_sets')
+  
+  const defaultData = {
+    is_default: isDefault,
+    version_number: 1,
+    version_text: 'I'
+  }
+
+  if (!versionMatch) {
+    return defaultData;
+  }
+
+  if (!versionMatch[1]) {
+    return defaultData;
+  }
+
+  const version = +versionMatch[1];
+  const versionText = romanize(version);
+  
+  return {
+    is_default: isDefault,
+    version_number: version,
+    version_text: versionText
   }
 }

@@ -41,6 +41,8 @@ export namespace IDatabase {
     type: string
     title?: string
     aside?: boolean
+    version_number?: number
+    version_text?: string
     encounter_sets: string[]
     is_default: boolean
   }

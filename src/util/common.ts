@@ -31,3 +31,10 @@ export const createPropTranslator = <K extends keyof T, T extends { [index: stri
 
     return Object.assign({}, ...mappings);
   }
+
+export const definedIf = <T>(getValue: () => T, getCondition: () => boolean) => {
+  if (getCondition()) {
+    return getValue();
+  }
+  return;
+}
