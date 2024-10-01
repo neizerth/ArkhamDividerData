@@ -83,8 +83,7 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
 
       const storyScenario = getStoryScenario({
         campaignId: sideCampaign.campaign.id, 
-        scenario, 
-        includeEncounters: false
+        scenario,
       });
 
       const storyScenarioEncounters = getStoryScenarioEncounters({
