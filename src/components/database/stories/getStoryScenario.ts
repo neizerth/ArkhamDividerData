@@ -76,7 +76,7 @@ export const createStoryScenarioHandler = ({
         title,
         type,
         aside,
-        is_default: Boolean(id === 'gather_encounter_sets'),
+        is_default: /^gather_encounter_sets(_v\d+)?$/.test(id),
         encounter_sets
       }))
 
