@@ -24,5 +24,8 @@
     "ae_level_3",
     "ae_level_4",
     "ae_level_5"
+  ],
+  "preserveWidth": [
+    "naomis_crew"
   ]
 }
