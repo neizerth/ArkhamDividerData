@@ -30,10 +30,11 @@ export const getTransformedIcon = ({ icon }: IIcoMoon.Icon) => {
 
   const rect = getSVGBoundingRect(icon); 
   const { size } = rect;
+
   const paths = icon.paths.map(path => 
     translatePath({
       path,
-      rect
+      rect,
     })
   )
 
@@ -60,10 +61,14 @@ export const getDefaultIcon = ({ icon }: IIcoMoon.Icon) => {
 
 export const translatePath = ({
   path,
-  rect
+  rect,
+  translateX = true,
+  translateY = true
 }: {
   path: string
   rect: ISVGBoundingRect
+  translateX?: boolean
+  translateY?: boolean
 }) => {
 
   const { 
@@ -73,9 +78,10 @@ export const translatePath = ({
     height,
     size
   } = rect;
+
   const pathData = new SVGPathData(path);
-  const dX = -left + (size - width) / 2;
-  const dY = -top + (size - height) / 2;
+  const dX = translateX ? -left + (size - width) / 2 : 0;
+  const dY = translateY ? -top + (size - height) / 2 : 0;
   pathData.translate(dX, dY);
 
   return pathData.encode();

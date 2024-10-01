@@ -42,7 +42,7 @@ export namespace IDatabase {
     title?: string
     aside?: boolean
     encounter_sets: string[]
-    is_default: boolean;
+    is_default: boolean
   }
 
   export type StoryScenario = {
