@@ -1,6 +1,5 @@
 import { IIcoMoon } from "@/types/icomoon";
 import getBounds from 'svg-path-bounds'
-import { SVGPathData } from 'svg-pathdata';
 import { preservePaths, preserveWidth } from '@/data/icons/transformation.json'
 import { DEFAULT_ICON_SIZE } from "@/config/icons";
 
@@ -14,7 +13,7 @@ export const getIconContents = async (item: IIcoMoon.Icon, encounterIcons: strin
     width,
     height,
     paths
-  } = preserve ? getDefaultIcon(item) : getTransformedIcon(item, isEncounter)
+  } = preserve ? getDefaultIcon(item) : await getTransformedIcon(item, isEncounter)
 
   const pathContents = paths
     .map(d => `<path d="${d}"/>`)
@@ -28,7 +27,7 @@ export const getIconContents = async (item: IIcoMoon.Icon, encounterIcons: strin
 }
 
 
-export const getTransformedIcon = (
+export const getTransformedIcon = async (
   { icon, properties }: IIcoMoon.Icon,
   isEncounter = false
 ) => {
@@ -37,13 +36,17 @@ export const getTransformedIcon = (
   const { size, width } = rect;
   const preserveIconWidth = isEncounter || preserveWidth.includes(properties.name);
 
-  const paths = icon.paths.map(path => 
-    translatePath({
+  const paths = [];
+
+  for (const path of icon.paths) {
+    const item = await translatePath({
       path,
       rect,
       translateX: !preserveIconWidth
     })
-  )
+
+    paths.push(item);
+  }
 
   return {
     width: preserveIconWidth ? width : size,
@@ -66,7 +69,7 @@ export const getDefaultIcon = ({ icon }: IIcoMoon.Icon) => {
   }
 }
 
-export const translatePath = ({
+export const translatePath = async ({
   path,
   rect,
   translateX = true,
@@ -77,7 +80,7 @@ export const translatePath = ({
   translateX?: boolean
   translateY?: boolean
 }) => {
-
+  const { SVGPathData } = await import('svg-pathdata');
   const { 
     top, 
     left,

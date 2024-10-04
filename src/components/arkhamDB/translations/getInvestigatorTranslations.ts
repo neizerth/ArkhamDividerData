@@ -1,9 +1,7 @@
 import * as ArkhamDB from '@/api/arkhamDB/api';
-import { IArkhamDB } from '@/types/arkhamDB';
 import { ICache } from '@/types/cache';
 import * as Cache from '@/util/cache';
 import { createPropTranslator } from '@/util/common';
-import { showError } from '@/util/console';
 import { isNotNil, prop, propEq, uniq } from 'ramda';
 
 export const getInvestigatorTranslations = async (language: string) => {
