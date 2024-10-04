@@ -2,7 +2,7 @@ import * as ArkhamCards from '@/api/arkhamCards/api';
 import { IArkhamDB } from '@/types/arkhamDB';
 import { ICache } from '@/types/cache';
 import * as Cache from '@/util/cache';
-import { delay, createPropTranslator } from '@/util/common';
+import { createPropTranslator } from '@/util/common';
 import { isNotNil, prop, propEq, uniq } from 'ramda';
 
 export const getInvestigatorTranslations = async (language: string) => {
@@ -22,7 +22,6 @@ export const getInvestigatorTranslations = async (language: string) => {
     if (!packCodes.includes(pack.code)) {
       continue;
     }
-    await delay(200);
     Object.assign(data, await getInvestigators(pack, language));
   }
 

@@ -2,6 +2,7 @@ import { Mapping, SingleValue } from "@/types/common";
 import * as Cache from "@/util/cache";
 import { getCampaigns } from "@/components/arkhamCards/campaigns/getCampaigns"
 import { propEq } from "ramda";
+import { IArkhamCards } from "@/types/arkhamCards";
 
 type FullCampaigns = ReturnType<typeof Cache.getCampaigns>;
 type FullCampaign = SingleValue<FullCampaigns>;
@@ -10,6 +11,31 @@ export const getCampaignTranslations = async (language: string) => {
   const campaigns = await getCampaigns(language);
 
   return getFullCampaignTranslations(campaigns);
+}
+
+export const includeScenarioStepsTranslation = (
+  baseScenario: IArkhamCards.JSON.Scenario, 
+  localScenario: IArkhamCards.JSON.Scenario
+) => {
+  return localScenario.steps.reduce((target, { title }, index) => {
+    if (!title) {
+      return target;
+    }
+    const baseStep = baseScenario.steps[index];
+
+    if (!baseStep.title) {
+      return target;
+    }
+
+    if (baseStep.title === title) {
+      return target;
+    }
+
+    return {
+      ...target,
+      [baseStep.title]: title
+    }
+  }, {} as Mapping)
 }
 
 export const getScenarioTranslations = (localCampaign: FullCampaign, baseCampaign: FullCampaign) => {
@@ -32,7 +58,7 @@ export const getScenarioTranslations = (localCampaign: FullCampaign, baseCampaig
     if (isTranslated) {
       translated.push(id);
     }
-
+    
     const includeTranslation = (key: keyof typeof localScenario) => {
       if (baseScenario[key] === localScenario[key]) {
         return {}
@@ -47,6 +73,7 @@ export const getScenarioTranslations = (localCampaign: FullCampaign, baseCampaig
       ...includeTranslation('scenario_name'),
       ...includeTranslation('full_name'),
       ...includeTranslation('header'),
+      ...includeScenarioStepsTranslation(baseScenario, localScenario)
     };
   }, {} as Mapping);
 

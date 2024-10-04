@@ -4,14 +4,13 @@ import sax from 'sax';
 import fs from 'fs';
 
 import { FONTS_DIR, ICONS_CACHE_DIR, ICONS_EXTRA_DIR } from '@/config/app';
-import { IIcoMoon } from '@/types/icomoon';
 import * as Cache from '@/util/cache';
 import { createJSONReader, createWriter, mkDir } from '@/util/fs';
-import { isNotNil, toPairs } from 'ramda';
+import { isNotNil, prop, toPairs } from 'ramda';
 import { CacheType } from '@/types/cache';
 import { Mapping } from '@/types/common';
-
-const ICON_SIZE = 1024;
+import { DEFAULT_ICON_SIZE } from '@/config/icons';
+import { getIconContents } from './font/getIconContents';
 
 // @ts-ignore
 sax.MAX_BUFFER_LENGTH = Infinity;
@@ -40,6 +39,7 @@ export const createAssets = async () => {
     name: 'icons',
     inputDir: ICONS_CACHE_DIR,
     outputDir: FONTS_DIR,
+    normalize: true,
     fontTypes: [
       FontAssetType.WOFF,
       FontAssetType.WOFF2
@@ -73,8 +73,8 @@ export const cacheIconsInfo = async () => {
         }
       }
 
-      const { width = ICON_SIZE } = dbIcon.icon;
-      const ratio = width / ICON_SIZE;
+      const { width = DEFAULT_ICON_SIZE } = dbIcon.icon;
+      const ratio = width / DEFAULT_ICON_SIZE;
 
       return {
         icon,
@@ -89,29 +89,20 @@ export const cacheIconsInfo = async () => {
 
 export const extractIcons = async () => {
   const icons = Cache.getIcons();
+  const encounterIcons = Cache.getDatabaseEncounterSets()
+    .map(prop('icon'))
+    .filter(isNotNil)
 
   const writeSVG = createWriter({
     dir: ICONS_CACHE_DIR, 
     extension: 'svg'
   })
 
-  icons.forEach(icon => {
+  for (const icon of icons) {
     const { name } = icon.properties;
-    const contents = getIconContents(icon);
+    const contents = await getIconContents(icon, encounterIcons);
 
     writeSVG(name, contents);
-  });
+  }
   // const
-}
-
-export const getIconContents = ({ icon }: IIcoMoon.Icon) => {
-  const height = ICON_SIZE;
-  const { width = ICON_SIZE } = icon;
-  const viewBox = `0 0 ${width} ${height}`;
-
-  const paths = icon.paths
-    .map(d => `<path d="${d}"/>`)
-    .join('');
-
-  return `<svg viewBox="${viewBox}">${paths}</svg>`;
 }

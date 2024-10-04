@@ -4,7 +4,7 @@ import { CacheType } from '@/types/cache';
 import { Mapping } from '@/types/common';
 import { toTranslationBundle } from './toTranslationBundle';
 import { fromPairs, isNotNil, toPairs } from 'ramda';
-import { delay, onlyWords } from '@/util/common';
+import { onlyWords } from '@/util/common';
 import { showWarning } from '@/util/console';
 
 export const createStoryTranslationsCache = async () => {
@@ -13,7 +13,6 @@ export const createStoryTranslationsCache = async () => {
     if (language === 'en') {
       continue;
     }
-    await delay(200);
     const cache = Cache.createI18NCacheWriter(language);
     const getCache = Cache.createI18NCacheReader(language);
 

@@ -2,7 +2,6 @@ import * as API from '@/api/arkhamDB/api';
 import { IArkhamDB } from '@/types/arkhamDB';
 import { ICache } from '@/types/cache';
 import * as Cache from '@/util/cache';
-import { delay } from '@/util/common';
 import { propEq } from 'ramda';
 
 export const getPackInvestigators = async (): Promise<ICache.PackInvestigator[]> => {
@@ -13,7 +12,6 @@ export const getPackInvestigators = async (): Promise<ICache.PackInvestigator[]>
 
   const data = [];
   for (const pack of arkhamDBPacks) {
-    await delay(200);
     data.push(...await getInvestigators(pack))
   }
 
@@ -21,13 +19,13 @@ export const getPackInvestigators = async (): Promise<ICache.PackInvestigator[]>
 }
 
 const getInvestigators = async (pack: ICache.Pack) => {
-  console.log(`loading pack ${pack.code} cards...`);
+  console.log(`loading pack ${pack.cycle_code}/${pack.code} cards...`);
   const {
     code,
     cycle_code
   } = pack;
 
-  const cards = await API.loadPackCards(code);
+  const cards = await API.loadJSONPackCards(cycle_code, code);
 
   const investigators = cards.filter(
     propEq('investigator', 'type_code')
