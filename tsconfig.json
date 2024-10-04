@@ -1,38 +1,22 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "CommonJS",
-    "lib": ["ESNext"],
-    "allowJs": true,
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
     "skipLibCheck": true,
-    "removeComments": false,
+    "target": "ESNext",
+    // "allowImportingTsExtensions": true,
+    // "noEmit": true,
     "resolveJsonModule": true,
-    "declaration": true,
-    
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictPropertyInitialization": true,
-    "noImplicitThis": true,
-                      
-    "noUnusedLocals": true, 
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-
-    "moduleResolution": "node",
-    "baseUrl": "./",
+    "esModuleInterop": true,
     "paths": {
       "@/*": [
         "./src/*"
       ]
     },
-    "outDir": "./build",
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "inlineSourceMap": true,
-    "inlineSources": true
+    "outDir": "./build"
   },
-  "include": ["src/**/*"],
+  "exclude": [ "node_modules" ],
+  "include": [
+    "./src/**/*"
+  ],
 }

@@ -3,6 +3,8 @@ import getBounds from 'svg-path-bounds'
 import { preservePaths, preserveWidth } from '@/data/icons/transformation.json'
 import { DEFAULT_ICON_SIZE } from "@/config/icons";
 
+import { SVGPathData } from 'svg-pathdata';
+
 export const getIconContents = async (item: IIcoMoon.Icon, encounterIcons: string[]) => {
   const icon = item.properties.name;
   const preserve = preservePaths.includes(icon);
@@ -80,7 +82,6 @@ export const translatePath = async ({
   translateX?: boolean
   translateY?: boolean
 }) => {
-  const { SVGPathData } = await import('svg-pathdata');
   const { 
     top, 
     left,
