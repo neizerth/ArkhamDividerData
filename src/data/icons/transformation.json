@@ -25,5 +25,7 @@
     "ae_level_4",
     "ae_level_5"
   ],
-  "preserveWidth": []
+  "preserveWidth": [
+    "facebook"
+  ]
 }

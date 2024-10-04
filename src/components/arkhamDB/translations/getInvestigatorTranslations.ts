@@ -44,26 +44,24 @@ export const getInvestigators = async (pack: ICache.Pack, language: string) => {
   );
 
   const cards = await ArkhamDB.loadLocalPackCards(pack.cycle_code, pack.code, language);
-  
-  const investigators = cards.filter(
-    propEq('investigator', 'type_code')
-  ) as IArkhamDB.API.Investigator[];
 
-  const mappings = investigators
-    .map(investigator => {
-      const { code } = investigator;
-      const localInvestigator = {
-        cycle_code,
-        ...investigator,
-      }
+  const mappings = cards
+    .map(card => {
+      const { code } = card;
+
       const baseInvestigator = baseInvestigators.find(
         propEq(code, 'code')
       );
 
       if (!baseInvestigator) {
-        showError(`investigator ${code} not found`)
         return;
       }
+
+      const localInvestigator = {
+        cycle_code,
+        ...card,
+      }
+
       const translateProps = createPropTranslator(
         baseInvestigator, 
         localInvestigator
