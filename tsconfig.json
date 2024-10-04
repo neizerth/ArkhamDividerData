@@ -1,16 +1,21 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": [
-    "@tsconfig/node20/tsconfig.json",
-    "@tsconfig/strictest/tsconfig.json",
-  ],
   "compilerOptions": {
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
+    "skipLibCheck": true,
+    "target": "ESNext",
+    // "allowImportingTsExtensions": true,
+    // "noEmit": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "paths": {
       "@/*": [
         "./src/*"
       ]
     },
+    "outDir": "./build"
   },
+  "exclude": [ "node_modules" ],
   "include": [
     "./src/**/*"
   ],
