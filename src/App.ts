@@ -8,7 +8,7 @@ import {
   downloadRepos,
 } from "./jobs";
 
-import * as app from './config/app'
+import * as app from '@/config/app'
 
 export class App {
   async run(command?: string) {

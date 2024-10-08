@@ -1,9 +1,6 @@
 {
   "compilerOptions": {
-    "moduleResolution": "NodeNext",
-    "module": "NodeNext",
     "skipLibCheck": true,
-    "target": "ESNext",
     // "allowImportingTsExtensions": true,
     // "noEmit": true,
     "resolveJsonModule": true,
