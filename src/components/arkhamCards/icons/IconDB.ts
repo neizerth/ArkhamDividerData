@@ -79,6 +79,10 @@ export class IconDB implements IIconDB {
     if (temporaryIcon) {
       return temporaryIcon;
     }
+
+    if (id[0] !== 'z') {
+      return this.getIcon('z' + id, defaultValue);
+    }
     
     showError(`icon for encounter code "${id}" not found`);
     
