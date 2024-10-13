@@ -3,7 +3,7 @@ import * as Translations from '@/components/translations'
 import { CacheType } from '@/types/cache';
 import { Mapping } from '@/types/common';
 import { toTranslationBundle } from './toTranslationBundle';
-import { fromPairs, isNotNil, toPairs } from 'ramda';
+import { fromPairs, isNotNil, toPairs, uniq } from 'ramda';
 import { onlyWords } from '@/util/common';
 import { showWarning } from '@/util/console';
 
@@ -41,8 +41,8 @@ export const createStoryTranslationsCache = async () => {
     
     cache(CacheType.CAMPAIGNS, toTranslationBundle(campaigns));
     cache(CacheType.SCENARIOS, toTranslationBundle(scenarios));
-    cache(CacheType.TRANSLATED_CAMPAIGNS, translated.campaigns);
-    cache(CacheType.TRANSLATED_SCENARIOS, translated.scenarios);
+    cache(CacheType.TRANSLATED_CAMPAIGNS, uniq(translated.campaigns));
+    cache(CacheType.TRANSLATED_SCENARIOS, uniq(translated.scenarios));
   }
 }
 
