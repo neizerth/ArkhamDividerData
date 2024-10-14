@@ -124,6 +124,7 @@ export const getSVGBoundingRect = ({ paths }: IIcoMoon.IconSetItem): ISVGBoundin
     right: -Infinity,
     bottom: -Infinity
   });
+  
   const width = viewBox.right - viewBox.left;
   const height = viewBox.bottom - viewBox.top;
   const size = Math.max(width, height);
