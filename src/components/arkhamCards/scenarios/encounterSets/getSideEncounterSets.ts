@@ -73,10 +73,11 @@ export const getSideEncounterSets = (): ICache.ScenarioEncounterSet[] => {
         .filter(isNotNil)
         .flat();
 
-      const getIsExtraFromEncounters = (code: string) => packEncounterSets.some(encounter => {
-        return encounter.encounter_set_code === code && 
-          encounter.pack_code !== packCode;
-      });
+      const getIsExtraFromEncounters = (code: string) => packEncounterSets.some(
+        encounter => {
+          return encounter.encounter_set_code === code && 
+            encounter.pack_code !== packCode;
+        });
 
       const getIsExtra = (code: string) => Boolean(pack) && getIsExtraFromEncounters(code);
 

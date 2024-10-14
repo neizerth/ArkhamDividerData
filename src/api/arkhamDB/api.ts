@@ -58,7 +58,8 @@ export const loadJSONTranslationCycles = async (language: string) => {
 }
 
 export const loadJSONPackEncounterCards = async (cycleCode: string, code: string) => {
-  const { data } = await getGithubJSON<IArkhamDB.JSON.EncounterCard[]>(`/pack/${cycleCode}/${code}_encounter.json`, {
+  const cycle = cycleCode === 'side_stories' ? 'side' : cycleCode;
+  const { data } = await getGithubJSON<IArkhamDB.JSON.EncounterCard[]>(`/pack/${cycle}/${code}_encounter.json`, {
     defaultData: []
   });
   return data
