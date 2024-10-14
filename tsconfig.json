@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
-    "skipLibCheck": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "declaration": true,
+    // "skipLibCheck": true,
+    "moduleResolution": "Node",
     // "allowImportingTsExtensions": true,
+    "emitDeclarationOnly": true,
     // "noEmit": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,

@@ -49,6 +49,7 @@ export namespace ICache {
     icon: string
     ratio?: number
     code: number
+    iconSet?: string
   }
 
   export enum Source {

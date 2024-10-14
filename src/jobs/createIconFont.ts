@@ -75,10 +75,12 @@ export const cacheIconsInfo = async () => {
 
       const { width = DEFAULT_ICON_SIZE } = dbIcon.icon;
       const ratio = width / DEFAULT_ICON_SIZE;
+      const iconSet = dbIcon.properties.iconSetName;
 
       return {
         icon,
         ratio,
+        iconSet,
         code
       }
     })
