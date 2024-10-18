@@ -23,16 +23,25 @@ export const createStoryCampaignHandler = ({
       campaign,
       scenarios,
     } = fullCampaign;
+    
     const {
       id,
       name,
 
     } = campaign;
 
+    const iconList = [];
+
+    if (id === 'core') {
+      iconList.push(campaign.id);
+    }
+
+    iconList.push(cycle_code);
+
     const data = {
       id,
       name,
-      icon: iconDB.getIconOf([id, cycle_code]),
+      icon: iconDB.getIconOf(iconList),
       scenarios: scenarios.map(prop('id'))
     }
     

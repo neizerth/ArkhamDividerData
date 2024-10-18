@@ -30,13 +30,20 @@ export const createStoryScenarioHandler = ({
       steps
     } = scenario;
     
+    const iconList = [];
+
+    if (id === 'core') {
+      iconList.push(campaignId);
+    }
+    iconList.push(icon, id);
+
     const data = {
       id,
       campaign_id: campaignId,
       scenario_name,
       full_name,
       header,
-      icon: iconDB.getIconOf([icon, id]),
+      icon: iconDB.getIconOf(iconList),
     }
     
     if (!includeEncounters) {
