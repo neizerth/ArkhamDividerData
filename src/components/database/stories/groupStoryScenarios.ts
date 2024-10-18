@@ -180,7 +180,7 @@ export const getScenarioNumber = (scenario: IDatabase.StoryScenario): Partial<ID
   if (!header.includes('Scenario')) {
     return {};
   }
-  const numberText = header.replace('Scenario ', '').trim();
+  const numberText = header.replace('Scenario', '').trim();
   
   if (!numberText) {
     return {}
