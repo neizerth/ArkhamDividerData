@@ -5,7 +5,7 @@ import fs from 'fs';
 
 import { FONTS_DIR, ICONS_CACHE_DIR, ICONS_EXTRA_DIR } from '@/config/app';
 import * as Cache from '@/util/cache';
-import { createJSONReader, createWriter, mkDir } from '@/util/fs';
+import { createExistsChecker, createJSONReader, createWriter, mkDir } from '@/util/fs';
 import { isNotNil, prop, toPairs } from 'ramda';
 import { CacheType } from '@/types/cache';
 import { Mapping } from '@/types/common';
@@ -95,16 +95,26 @@ export const extractIcons = async () => {
     .map(prop('icon'))
     .filter(isNotNil)
 
-  const writeSVG = createWriter({
+  const options = {
     dir: ICONS_CACHE_DIR, 
     extension: 'svg'
-  })
+  }
+  const writeSVG = createWriter(options)
+
+  const exists = createExistsChecker(options);
 
   for (const icon of icons) {
-    const { name } = icon.properties;
+    const { name, iconSetName } = icon.properties;
     const contents = await getIconContents(icon, encounterIcons);
 
-    writeSVG(name, contents);
+    if (!exists(name)) {
+      writeSVG(name, contents);
+      continue;
+    }
+    const iconSetId = iconSetName.toLowerCase().replace(/\W/g, '');
+    const uniqueName = `${iconSetId}-${name}`;
+
+    writeSVG(uniqueName, contents);
   }
   // const
 }

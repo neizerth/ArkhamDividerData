@@ -1,6 +1,17 @@
 import fs from 'fs';
 import path from 'path';
 
+export const createExistsChecker = ({
+  dir,
+  extension = '',
+}: {
+  dir: string,
+  extension?: string
+}) => {
+  const getFilename = createFilenameResolver(dir, extension);
+  return (name: string) => fs.existsSync(getFilename(name));
+}
+
 export const createWriter = <T = string, D = string>({
   dir,
   extension = '',
