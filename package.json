@@ -8,9 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsx ./src/index.ts",
     "serve": "http-server ./dist --cors",
-    "build:compile": "tsc && tsc-alias",
-    "build:start": "node -r tsconfig-paths/register ./build/index.js",
-    "build": "npm run build:compile && npm run build:start",
+    "build": "tsc && tsc-alias",
     "publish-package": "npm run build:compile && npm publish"
   },
   "keywords": [],
