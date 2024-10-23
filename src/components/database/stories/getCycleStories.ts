@@ -181,7 +181,8 @@ export const getCycleStories = (): IDatabase.Story[] => {
     });
 
     const investigators = packInvestigators.filter(
-      ({ pack_code }) => packCodes.includes(pack_code)
+      ({ pack_code, cycle_code }) => 
+        packCodes.includes(pack_code) || cycle_code === code
     );
 
     return {
