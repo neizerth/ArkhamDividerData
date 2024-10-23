@@ -52,6 +52,7 @@ export namespace IDatabase {
     campaign_id: string
     scenario_name: string
     full_name: string
+    type?: string
     header: string
     number?: number
     number_text?: string

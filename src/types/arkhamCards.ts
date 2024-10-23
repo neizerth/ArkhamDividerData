@@ -59,8 +59,9 @@ export namespace IArkhamCards {
       header: string;
       custom?: CustomContent;
       side_scenario_type: ScenarioType;
-      setup: string[];
-      icon: string;
+      setup: string[]
+      icon: string
+      type?: string
       steps: ScenarioStep[]
     }
     export type FullCampaign = {

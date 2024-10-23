@@ -9,7 +9,10 @@ export const getStoryScenarioEncounters = ({
   scenarios: IDatabase.StoryScenario[]
 }) => {
 
-  const encounters = scenarios.map(({ icon, id }) => {
+  const encounters = scenarios.map(({ icon, id, type }) => {
+    if (type === 'interlude') {
+      return;
+    }
     if (!icon) {
       return encounterSets.find(propEq(id, 'code'))?.code;
     }

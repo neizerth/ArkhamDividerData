@@ -27,7 +27,8 @@ export const createStoryScenarioHandler = ({
       full_name,
       header,
       icon,
-      steps
+      steps,
+      type
     } = scenario;
     
     const iconList = [];
@@ -39,6 +40,7 @@ export const createStoryScenarioHandler = ({
 
     const data = {
       id,
+      type,
       campaign_id: campaignId,
       scenario_name,
       full_name,
