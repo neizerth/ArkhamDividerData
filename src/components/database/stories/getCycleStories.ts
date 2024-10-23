@@ -180,10 +180,7 @@ export const getCycleStories = (): IDatabase.Story[] => {
       scenarios: storyScenarios
     });
 
-    const investigators = packInvestigators.filter(
-      ({ pack_code, cycle_code }) => 
-        packCodes.includes(pack_code) || cycle_code === code
-    );
+    const investigators = packInvestigators.filter(propEq(code, 'cycle_code'));
 
     return {
       ...campaignData,
