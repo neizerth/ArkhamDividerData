@@ -126,6 +126,18 @@ export const getCycleStories = (): IDatabase.Story[] => {
       extraEncounters.push(
         ...filterEncounters(false)
       );
+
+
+      const restEncounters = packEncounters.filter(
+          ({ cycle_code, encounter_set_code }) => cycle_code === code && 
+            !requiredEncounters.includes(encounter_set_code) &&
+            !extraEncounters.includes(encounter_set_code)
+        )
+        .map(toEncounterCode);
+
+      requiredEncounters.push(
+        ...restEncounters
+      )
     }
 
     const cyclePacks = packs.filter((pack) => {
