@@ -123,15 +123,18 @@ export namespace IArkhamDB {
       Partial<HasCycleCode> & 
       Partial<HasSize>;
 
-    export type Card = HasName & HasPosition & HasPackCode & {
-      type_code: string;
+    export type Card = HasCode & HasName & HasPosition & HasPackCode & {
+      type_code: string
+      encounter_code?: string
+      quantity: number
+      faction_code?: string
+      encounter_position?: number
     }
 
     export type EncounterCard = Card & {
+      encounter_code: string
       faction_code: string
       encounter_position: number
-      encounter_code: string
-      quantity: number
     }
   }
 }

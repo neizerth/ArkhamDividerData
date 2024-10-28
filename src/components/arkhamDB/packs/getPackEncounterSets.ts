@@ -25,7 +25,10 @@ const getEncounterSets = async (pack: ICache.Pack) => {
     cycle_code
   } = pack;
 
-  const cards = await API.loadJSONPackEncounterCards(cycle_code, code);
+  const encounterCards = await API.loadJSONPackEncounterCards(cycle_code, code);
+  const packCards = await API.loadJSONPackCards(cycle_code, code);
+
+  const cards = [...encounterCards, ...packCards];
 
   const encounters = cards.filter(
     ({ encounter_code }) => Boolean(encounter_code)
@@ -50,7 +53,7 @@ const getEncounterSets = async (pack: ICache.Pack) => {
     });
 }
 
-export const getEncounterSetTypes = (cards: IArkhamDB.JSON.EncounterCard[]) => {
+export const getEncounterSetTypes = (cards: IArkhamDB.JSON.Card[]) => {
   const types = uniq(
     cards
       .map(prop('type_code'))

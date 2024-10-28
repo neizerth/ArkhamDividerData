@@ -66,7 +66,8 @@ export const loadJSONPackEncounterCards = async (cycleCode: string, code: string
 }
 
 export const loadJSONPackCards = async (cycleCode: string, code: string) => {
-  const { data } = await getGithubJSON<IArkhamDB.JSON.Card[]>(`/pack/${cycleCode}/${code}.json`, {
+  const cycle = cycleCode === 'side_stories' ? 'side' : cycleCode;
+  const { data } = await getGithubJSON<IArkhamDB.JSON.Card[]>(`/pack/${cycle}/${code}.json`, {
     defaultData: []
   });
   return data
