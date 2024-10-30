@@ -1,6 +1,6 @@
 {
   "name": "arkham-divider-data",
-  "version": "1.0.27",
+  "version": "1.0.28",
   "description": "",
   "types": "build/types.d.ts",
   "module": "build/index.js",
@@ -9,7 +9,7 @@
     "start": "tsx ./src/index.ts",
     "serve": "http-server ./dist --cors",
     "build": "tsc && tsc-alias",
-    "publish-package": "npm run build && npm publish"
+    "publish": "npm run build && npm publish"
   },
   "keywords": [],
   "author": "",
