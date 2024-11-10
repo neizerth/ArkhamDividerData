@@ -1,5 +1,5 @@
 import * as ArkhamDB from '@/components/arkhamDB/translations';
-import * as ArkhamCards from '@/components/arkhamDB/translations';
+import * as ArkhamCards from '@/components/arkhamCards/translations';
 
 
 export const getInvestigatorTranslations = async (language: string) => {

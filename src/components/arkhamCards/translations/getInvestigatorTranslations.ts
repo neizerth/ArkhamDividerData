@@ -3,6 +3,7 @@ import { IArkhamDB } from '@/types/arkhamDB';
 import { ICache } from '@/types/cache';
 import * as Cache from '@/util/cache';
 import { createPropTranslator } from '@/util/common';
+import { showWarning } from '@/util/console';
 import { isNotNil, prop, propEq, uniq } from 'ramda';
 
 export const getInvestigatorTranslations = async (language: string) => {
@@ -18,11 +19,9 @@ export const getInvestigatorTranslations = async (language: string) => {
   );
   const data = {};
 
-  console.log('investigator pack codes', packCodes);
-
   for (const pack of arkhamCardsPacks) {
     if (!packCodes.includes(pack.code)) {
-      console.log(`no investigators in pack ${pack.code}, skip`);
+      showWarning(`no investigators in pack ${pack.code}, skip`);
       continue;
     }
     Object.assign(data, await getInvestigators(pack, language));
@@ -33,7 +32,7 @@ export const getInvestigatorTranslations = async (language: string) => {
 
 export const getInvestigators = async (pack: ICache.Pack, language: string) => {
   const { cycle_code } = pack;
-  console.log(`loading pack ${language}/${pack.code} cards...`);
+  console.log(`loading investigators pack ${language}/${pack.code} cards...`);
 
   const packInvestigators = Cache.getPackInvestigators();
   
@@ -52,6 +51,7 @@ export const getInvestigators = async (pack: ICache.Pack, language: string) => {
       ) as IArkhamDB.API.Investigator | undefined;
 
       if (!investigator) {
+        showWarning(`local investigator ${baseInvestigator.name}/${baseInvestigator.code} not found`);
         return;
       }
 
