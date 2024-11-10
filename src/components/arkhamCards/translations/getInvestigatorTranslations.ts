@@ -13,13 +13,16 @@ export const getInvestigatorTranslations = async (language: string) => {
     prop('pack_code')
   ));
 
-  const arkhamDBPacks = packs.filter(
+  const arkhamCardsPacks = packs.filter(
     propEq(ICache.Source.ARKHAM_CARDS, 'source')
   );
   const data = {};
 
-  for (const pack of arkhamDBPacks) {
+  console.log('investigator pack codes', packCodes);
+
+  for (const pack of arkhamCardsPacks) {
     if (!packCodes.includes(pack.code)) {
+      console.log(`no investigators in pack ${pack.code}, skip`);
       continue;
     }
     Object.assign(data, await getInvestigators(pack, language));
