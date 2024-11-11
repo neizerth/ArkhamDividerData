@@ -54,7 +54,8 @@ export namespace ICache {
 
   export enum Source {
     ARKHAMDB = 'arkham-db',
-    ARKHAM_CARDS = 'arkham-cards'
+    ARKHAM_CARDS = 'arkham-cards',
+    ARKHAM_DIVIDER = 'arkham-divider'
   }
 
   export type Cycle = {
