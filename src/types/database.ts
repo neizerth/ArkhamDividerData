@@ -5,7 +5,7 @@ export namespace IDatabase {
   
   export type CustomContent = {
     creator: string;
-    download_link: Mapping
+    download_link: Mapping<string>
   }
 
   export enum StoryType {
