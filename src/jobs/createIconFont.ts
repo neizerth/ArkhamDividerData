@@ -11,6 +11,7 @@ import { CacheType } from '@/types/cache';
 import { Mapping } from '@/types/common';
 import { DEFAULT_ICON_SIZE } from '@/config/icons';
 import { getIconContents } from './font/getIconContents';
+import { customContent } from '@/data/customContent';
 
 // @ts-ignore
 sax.MAX_BUFFER_LENGTH = Infinity;
@@ -30,6 +31,18 @@ export const copyExtraIcons = async () => {
     ICONS_CACHE_DIR,
     { recursive: true }
   );
+
+  const customDirs = Object.values(customContent)
+    .map(prop('iconsDir'))
+    .filter(isNotNil);
+  
+  for (const dir of customDirs) {
+    fs.cpSync(
+      dir, 
+      ICONS_CACHE_DIR,
+      { recursive: true }
+    );
+  }
 }
 
 export const createAssets = async () => {

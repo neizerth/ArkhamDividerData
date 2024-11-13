@@ -15,6 +15,7 @@ export type CustomStoryType =
   'parallel';
 
 export type CreateCustomContentOptions = {
+  iconsDir?: string
   scenarios?: Array<Omit<
       IDatabase.StoryScenario, 
       'header' | 
@@ -52,6 +53,7 @@ export type CreateCustomContentOptions = {
 export const createCustomContent = (options: CreateCustomContentOptions) => {
   const { 
     encounterSets = [],
+    iconsDir
   } = options;
   const { name, code, type } = options.story;
 
@@ -122,6 +124,7 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
   return {
     pack,
     encounterSets: encounters,
-    story
+    story,
+    iconsDir
   }
 }
