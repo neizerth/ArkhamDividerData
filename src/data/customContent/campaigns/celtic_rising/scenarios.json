@@ -1,0 +1,38 @@
+[
+  {
+    "id": "caorthannachs_song",
+    "scenario_name": "Caorthannach\"s Song",
+    "number_text": "I",
+    "number": 1
+  },
+  {
+    "id": "away_with_the_fairies",
+    "scenario_name": "Away With The Fairies",
+    "number_text": "II",
+    "number": 2
+  },
+  {
+    "id": "the_stephens_manor",
+    "scenario_name": "The Stephens Manor",
+    "number_text": "III",
+    "number": 3
+  },
+  {
+    "id": "flight_from_the_dullahan",
+    "scenario_name": "Flight From the Dullahan",
+    "number_text": "IV",
+    "number": 4
+  },
+  {
+    "id": "balor_rising",
+    "scenario_name": "Balor Rising",
+    "number_text": "V",
+    "number": 5
+  },
+  {
+    "id": "the_phantom_queen",
+    "scenario_name": "The Phantom Queen",
+    "number_text": "VI",
+    "number": 6
+  }
+]

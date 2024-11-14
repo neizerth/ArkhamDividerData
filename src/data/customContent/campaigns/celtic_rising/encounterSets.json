@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Frozen Winds",
+    "code": "frozen_winds"
+  },
+  {
+    "name": "Celtic Evils",
+    "code": "celtic_evils"
+  },
+  {
+    "name": "Pests",
+    "code": "pests"
+  },
+  {
+    "name": "Burnt Air",
+    "code": "burnt_air"
+  },
+  {
+    "name": "Angry Pixies",
+    "code": "angry_pixies"
+  },
+  {
+    "name": "Mischievous Fairies",
+    "code": "mischievous_fairies"
+  },
+  {
+    "name": "Roadside",
+    "code": "roadside"
+  },
+  {
+    "name": "Lock and Key",
+    "code": "lock_and_key"
+  },
+  {
+    "name": "Sealed Runes",
+    "code": "sealed_runes"
+  },
+  {
+    "name": "Beyond the Grave",
+    "code": "beyond_the_grave"
+  },
+  {
+    "name": "The Deep Woods",
+    "code": "the_deep_woods"
+  },
+  {
+    "name": "Waterside",
+    "code": "waterside"
+  },
+  {
+    "name": "Cave Path",
+    "code": "cave_path"
+  },
+  {
+    "name": "Balors Command",
+    "code": "balors_command"
+  },
+  {
+    "name": "Balors Might",
+    "code": "balors_might"
+  },
+  {
+    "name": "Berserker",
+    "code": "berserker"
+  },
+  {
+    "name": "Caorthannach",
+    "code": "caorthannach"
+  },
+  {
+    "name": "Abject Mania",
+    "code": "abject_mania"
+  },
+  {
+    "name": "Losing Hope",
+    "code": "losing_hope"
+  },
+  {
+    "name": "Morrigan's Will",
+    "code": "morrigans_will"
+  }
+]

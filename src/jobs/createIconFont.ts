@@ -6,11 +6,12 @@ import fs from 'fs';
 import { FONTS_DIR, ICONS_CACHE_DIR, ICONS_EXTRA_DIR } from '@/config/app';
 import * as Cache from '@/util/cache';
 import { createExistsChecker, createJSONReader, createWriter, mkDir } from '@/util/fs';
-import { isNotNil, prop, toPairs } from 'ramda';
+import { isNotNil, prop, propEq, toPairs } from 'ramda';
 import { CacheType } from '@/types/cache';
 import { Mapping } from '@/types/common';
 import { DEFAULT_ICON_SIZE } from '@/config/icons';
 import { getIconContents } from './font/getIconContents';
+import { getCustomContent } from '@/components/custom/getCustomContent';
 
 // @ts-ignore
 sax.MAX_BUFFER_LENGTH = Infinity;
@@ -30,6 +31,18 @@ export const copyExtraIcons = async () => {
     ICONS_CACHE_DIR,
     { recursive: true }
   );
+
+  const customDirs = getCustomContent()
+    .map(prop('iconsDir'))
+    .filter(isNotNil);
+  
+  for (const dir of customDirs) {
+    fs.cpSync(
+      dir, 
+      ICONS_CACHE_DIR,
+      { recursive: true }
+    );
+  }
 }
 
 export const createAssets = async () => {
@@ -45,7 +58,9 @@ export const createAssets = async () => {
       FontAssetType.WOFF2
     ],
     assetTypes: [
-      OtherAssetType.JSON
+      OtherAssetType.JSON,
+      // OtherAssetType.HTML,
+      // OtherAssetType.CSS
     ]
   });
 
@@ -60,27 +75,45 @@ export const cacheIconsInfo = async () => {
   const info = readJSON<Mapping<number>>('icons');
   const icons = Cache.getIcons();
 
+  const customIcons = getCustomContent()
+    .map(prop('icons'))
+    .filter(isNotNil)
+    .flat();
+
   const data = toPairs(info)
     .map(([icon, code]) => {
       const dbIcon = icons.find(
         ({ properties }) => properties.name === icon
       )
 
-      if (!dbIcon) {
+      if (dbIcon) {
+        const { width = DEFAULT_ICON_SIZE } = dbIcon.icon;
+        const ratio = width / DEFAULT_ICON_SIZE;
+        const iconSet = dbIcon.properties.iconSetName;
+
         return {
           icon,
+          ratio,
+          iconSet,
           code
         }
       }
 
-      const { width = DEFAULT_ICON_SIZE } = dbIcon.icon;
-      const ratio = width / DEFAULT_ICON_SIZE;
-      const iconSet = dbIcon.properties.iconSetName;
+      const customIcon = customIcons.find(propEq(icon, 'icon'));
 
+      if (customIcon) {
+        const { width, height } = customIcon;
+        const ratio = width / height;
+
+        return {
+          icon,
+          code,
+          ratio
+        }
+      }
+      
       return {
         icon,
-        ratio,
-        iconSet,
         code
       }
     })

@@ -4,6 +4,8 @@ import { CacheType } from "@/types/cache";
 import { buildSource } from "@/util/build";
 import { createI18NCacheReader } from "@/util/cache";
 import { Mapping } from "@/types/common";
+import { prop } from "ramda";
+import { getCustomContent } from "@/components/custom/getCustomContent";
 
 export const buildFromCache = async () => {
   const languages = buildI18NSources();
@@ -43,7 +45,6 @@ export const buildLanguageSource = (language: string) => {
   const investigators = getCache<Mapping>(CacheType.INVESTIGATORS);
 
   const stories = getCache<Mapping>(CacheType.DATABASE_STORIES);
-  
   const data: IBuild.Translation = {
     translatedCampaigns,
     translatedScenarios,
@@ -62,12 +63,35 @@ export const buildLanguageSource = (language: string) => {
 
 export const buildCoreSources = (languages: string[]) => {
   console.log('building core sources...');
-  const stories = Cache.getStories();
-  const encounterSets = Cache.getDatabaseEncounterSets();
+  const cachedStories = Cache.getStories();
+  const cachedEncounterSets = Cache.getDatabaseEncounterSets();
   const icons = Cache.getIconInfo();
   
-  const packs= Cache.getPacks();
+  const cachedPacks = Cache.getPacks();
   const cycles = Cache.getCycles();
+
+  const uniqueCustomContent = getCustomContent()
+
+  const customStories = uniqueCustomContent.map(prop('story'));
+  const customEncounterSets = uniqueCustomContent
+    .map(prop('encounterSets'))
+    .flat();
+  const customPacks = uniqueCustomContent.map(prop('pack'));
+
+  const stories = [
+    ...cachedStories,
+    ...customStories
+  ];
+
+  const encounterSets = [
+    ...cachedEncounterSets,
+    ...customEncounterSets
+  ];
+
+  const packs = [
+    ...cachedPacks,
+    ...customPacks
+  ]
 
   const data: IBuild.Core = {
     languages,
