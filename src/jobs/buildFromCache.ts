@@ -4,8 +4,8 @@ import { CacheType } from "@/types/cache";
 import { buildSource } from "@/util/build";
 import { createI18NCacheReader } from "@/util/cache";
 import { Mapping } from "@/types/common";
-import { customContent } from "@/data/customContent";
 import { prop } from "ramda";
+import { getCustomContent } from "@/components/custom/getCustomContent";
 
 export const buildFromCache = async () => {
   const languages = buildI18NSources();
@@ -70,10 +70,7 @@ export const buildCoreSources = (languages: string[]) => {
   const cachedPacks = Cache.getPacks();
   const cycles = Cache.getCycles();
 
-  const storyNames = cachedStories.map(prop('name'));
-
-  const uniqueCustomContent = Object.values(customContent)
-    .filter(({ story }) => !storyNames.includes(story.name));
+  const uniqueCustomContent = getCustomContent()
 
   const customStories = uniqueCustomContent.map(prop('story'));
   const customEncounterSets = uniqueCustomContent

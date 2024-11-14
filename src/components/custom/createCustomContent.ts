@@ -1,6 +1,7 @@
 import { IDatabase } from '@/types/database'
 import { ICache } from '@/types/cache';
 import { prop } from 'ramda';
+import path from 'path';
 
 export const CUSTOM_POSITION_OFFSET = 200;
 
@@ -15,7 +16,12 @@ export type CustomStoryType =
   'parallel';
 
 export type CreateCustomContentOptions = {
-  iconsDir?: string
+  dir?: string
+  icons?: Array<{
+    icon: string
+    width: number
+    height: number
+  }> 
   scenarios?: Array<Omit<
       IDatabase.StoryScenario, 
       'header' | 
@@ -53,8 +59,10 @@ export type CreateCustomContentOptions = {
 export const createCustomContent = (options: CreateCustomContentOptions) => {
   const { 
     encounterSets = [],
-    iconsDir
+    dir,
   } = options;
+
+  const iconsDir = dir && path.join(dir, 'icons'); 
   const { name, code, type } = options.story;
 
   const cycleCode = type.includes('campaign') ? 'zcam' : 'zsid';
@@ -83,6 +91,7 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
   const scenarios: IDatabase.StoryScenario[] = options.scenarios ? options.scenarios.map(
     scenario => ({
       ...scenario,
+      icon: `${code}-${scenario.id}`,
       campaign_id: code,
       full_name: scenario.full_name || scenario.scenario_name,
       header: scenario.header || scenario.scenario_name
@@ -104,7 +113,7 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
       encunterSet => ({
         ...encunterSet,
         ...packEncounterSetBase,
-        icon: encunterSet.icon || encunterSet.code,
+        icon: `${code}-${encunterSet.icon || encunterSet.code}`,
       })
     )
 
@@ -113,6 +122,8 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 
   const story: IDatabase.Story = {
     ...options.story,
+    icon: code,
+    scenarios,
     campaigns: options.story.campaigns || [campaign],
     is_size_supported: options.story.is_size_supported || false,
     encounter_sets: requiredEncounters,
@@ -121,10 +132,16 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
     investigators: options.story.investigators || []
   }
 
+  const icons = options.icons?.map(item => ({
+    ...item,
+    icon: `${code}-${item.icon}`
+  }));
+
   return {
     pack,
     encounterSets: encounters,
     story,
-    iconsDir
+    iconsDir,
+    icons
   }
 }
