@@ -134,7 +134,7 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 
   const icons = options.icons?.map(item => ({
     ...item,
-    icon: `${code}-${item.icon}`
+    icon: item.icon === code ? code : `${code}-${item.icon}`
   }));
 
   return {
