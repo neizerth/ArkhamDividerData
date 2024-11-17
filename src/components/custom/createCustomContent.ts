@@ -57,10 +57,7 @@ export type CreateCustomContentOptions = {
 }
 
 export const createCustomContent = (options: CreateCustomContentOptions) => {
-  const { 
-    encounterSets = [],
-    dir,
-  } = options;
+  const { dir } = options;
 
   const iconsDir = dir && path.join(dir, 'icons'); 
   const { name, code, type } = options.story;
@@ -109,13 +106,13 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
     icon: code
   }
 
-  const encounters: IDatabase.EncounterSet[] = encounterSets.map(
+  const encounters: IDatabase.EncounterSet[] = options.encounterSets?.map(
     encunterSet => ({
       ...encunterSet,
       ...packEncounterSetBase,
       icon: `${code}-${encunterSet.icon || encunterSet.code}`,
     })
-  );
+  ) || [];
 
   const scenarioEncounters: IDatabase.EncounterSet[] = scenarios.map(scenario => ({
     ...packEncounterSetBase,
@@ -127,16 +124,18 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
   const requiredEncounters = options.story.encounter_sets || 
     encounters.map(prop('code'));
 
+  const encounterSets = [
+    ...requiredEncounters,
+    ...campaignScenarios
+  ];
+
   const story: IDatabase.Story = {
     ...options.story,
     icon: code,
     scenarios,
     campaigns: options.story.campaigns || [campaign],
     is_size_supported: options.story.is_size_supported || false,
-    encounter_sets: [
-      ...requiredEncounters,
-      ...campaignScenarios
-    ],
+    encounter_sets: encounterSets,
     scenario_encounter_sets: options.story.scenario_encounter_sets || campaignScenarios,
     extra_encounter_sets: options.story.extra_encounter_sets || [],
     investigators: options.story.investigators || []
