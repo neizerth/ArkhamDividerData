@@ -1,6 +1,7 @@
 {
   "without_size_support": [
-    "fhv"
+    "fhv",
+    "tdc"
   ],
   "arkham_db_mapping": [
     {

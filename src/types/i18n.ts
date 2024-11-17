@@ -1,3 +1,5 @@
+import { Mapping } from "./common";
+
 export namespace IPOEditor {
   export type Translation = {
     msgid: string;
@@ -17,3 +19,9 @@ export namespace IPOEditor {
   }
 }
 
+export type StoryTranslation = {
+  common: Mapping
+  translations: Mapping
+}
+
+export type LanguageStoryTranslation = Mapping<StoryTranslation>;

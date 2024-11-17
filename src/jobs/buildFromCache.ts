@@ -6,6 +6,8 @@ import { createI18NCacheReader } from "@/util/cache";
 import { Mapping } from "@/types/common";
 import { prop } from "ramda";
 import { getCustomContent } from "@/components/custom/getCustomContent";
+import customTranslations from '@/data/translations';
+import { StoryTranslation } from "@/types/i18n";
 
 export const buildFromCache = async () => {
   const languages = buildI18NSources();
@@ -28,8 +30,16 @@ export const buildLanguageSource = (language: string) => {
   console.log(`building language source: ${language}...`);
   const getCache = createI18NCacheReader(language);
 
+  const translatedStoriesCache = getCache<string[]>(CacheType.TRANSLATED_STORIES);
 
-  const translatedStories = getCache<string[]>(CacheType.TRANSLATED_STORIES);
+  const custom = customTranslations[language];
+
+  const customTranslatedStories = custom ? Object.keys(custom.translations) : [];
+
+  const translatedStories = [
+    ...translatedStoriesCache,
+    ...customTranslatedStories
+  ]
 
   if (translatedStories.length === 0) {
     return false;
@@ -44,7 +54,14 @@ export const buildLanguageSource = (language: string) => {
   const encounterSets = getCache<Mapping>(CacheType.ENCOUNTER_SETS);
   const investigators = getCache<Mapping>(CacheType.INVESTIGATORS);
 
-  const stories = getCache<Mapping>(CacheType.DATABASE_STORIES);
+  const storiesCache = getCache<Mapping>(CacheType.DATABASE_STORIES);
+  const customStoriesTranslation = custom?.common || {};
+
+  const stories = {
+    ...storiesCache,
+    ...customStoriesTranslation
+  }
+
   const data: IBuild.Translation = {
     translatedCampaigns,
     translatedScenarios,
@@ -54,6 +71,7 @@ export const buildLanguageSource = (language: string) => {
     scenarios,
     stories,
     investigators,
+    custom: custom?.translations || {},
     common
   }
 

@@ -49,7 +49,7 @@ export const createReader = <T = string, D = string>({
   unserialize = f => f as D
 }: {
   dir: string,
-  extension: string,
+  extension?: string,
   unserialize?: (data: string) => D
 }) => {
   const getFilename = createFilenameResolver(dir, extension);
@@ -75,9 +75,11 @@ export const createJSONReader = (dir: string) => createReader({
   unserialize: JSON.parse
 });
 
-export const createFilenameResolver = (dir: string, extension: string) => 
-  (name: string) => 
-    path.join(dir + '/' + name + '.' + extension);
+export const createFilenameResolver = (dir: string, extension?: string) => 
+  (name: string) => {
+    const ext = extension ? '.' + extension : '';
+    return path.join(dir + '/' + name + ext);
+  }
 
 export const createJSONResolver = (dir: string) => createFilenameResolver(dir, 'json');
 

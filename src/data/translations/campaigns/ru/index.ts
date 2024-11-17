@@ -1,0 +1,1 @@
+export { default as zhod } from './zhod.json'; 

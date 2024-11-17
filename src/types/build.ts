@@ -21,5 +21,6 @@ export namespace IBuild {
     encounterSets: Mapping
     investigators: Mapping
     common: Mapping
+    custom: Mapping<Mapping>
   }
 }
