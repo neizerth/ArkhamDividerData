@@ -40,3 +40,5 @@ export const definedIf = <T>(getValue: () => T, getCondition: () => boolean) => 
   }
   return;
 }
+
+export const prefix = (prefix: string) => (msg: string) => `${prefix}${msg}`;

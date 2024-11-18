@@ -2,6 +2,7 @@ import { IDatabase } from '@/types/database'
 import { ICache } from '@/types/cache';
 import { prop } from 'ramda';
 import path from 'path';
+import { prefix } from '@/util/common';
 
 export const CUSTOM_POSITION_OFFSET = 200;
 
@@ -64,6 +65,8 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 
   const cycleCode = type.includes('campaign') ? 'zcam' : 'zsid';
 
+  const withCode = prefix(`${code}-`);
+
   const baseData = {
     cycle_code: cycleCode,
     is_canonical: false,
@@ -88,7 +91,8 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
   const scenarios: IDatabase.StoryScenario[] = options.scenarios ? options.scenarios.map(
     scenario => ({
       ...scenario,
-      icon: `${code}-${scenario.id}`,
+      id: withCode(scenario.id),
+      icon: withCode(scenario.id),
       campaign_id: code,
       full_name: scenario.full_name || scenario.scenario_name,
       header: scenario.header || scenario.scenario_name
@@ -110,15 +114,16 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
     encunterSet => ({
       ...encunterSet,
       ...packEncounterSetBase,
-      icon: `${code}-${encunterSet.icon || encunterSet.code}`,
+      code: withCode(encunterSet.code),
+      icon: withCode(encunterSet.icon || encunterSet.code),
     })
   ) || [];
 
   const scenarioEncounters: IDatabase.EncounterSet[] = scenarios.map(scenario => ({
     ...packEncounterSetBase,
     name: scenario.scenario_name,
-    code: scenario.id,
-    icon: `${code}-${scenario.id}`
+    code: withCode(scenario.id),
+    icon: withCode(scenario.id)
   }));
 
   const requiredEncounters = options.story.encounter_sets || 
