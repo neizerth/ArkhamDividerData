@@ -1,0 +1,50 @@
+[
+  {
+    "id": "beneath_the_manor",
+    "scenario_name": "Beneath the manor",
+    "number_text": "I",
+    "number": 1
+  },
+  {
+    "id": "the_study_of_life",
+    "scenario_name": "The Study of Life",
+    "number_text": "II",
+    "number": 2
+  },
+  {
+    "id": "blind_leading_the_blind",
+    "scenario_name": "Blind Leading the Blind",
+    "number_text": "III",
+    "number": 3
+  },
+  {
+    "id": "wolves_at_the_door",
+    "scenario_name": "Wolves at the Door",
+    "number_text": "IV",
+    "number": 4
+  },
+  {
+    "id": "lost_in_the_woods",
+    "scenario_name": "Lost in the Woods",
+    "number_text": "V",
+    "number": 5
+  },
+  {
+    "id": "summoning_courage",
+    "scenario_name": "Summoning Courage",
+    "number_text": "VI",
+    "number": 6
+  },
+  {
+    "id": "rising_tides",
+    "scenario_name": "Rising Tides",
+    "number_text": "VII",
+    "number": 7
+  },
+  {
+    "id": "heart_of_darkness",
+    "scenario_name": "Heart of Darkness",
+    "number_text": "VIII",
+    "number": 8
+  }
+]
