@@ -17,12 +17,12 @@ import { getCustomContent } from '@/components/custom/getCustomContent';
 sax.MAX_BUFFER_LENGTH = Infinity;
 
 export const createIconFont = async () => {
-  // console.log('clearing icons cache...');
-  // await clearIconsCache();
-  // console.log('extracting svg icons...');
-  // await extractIcons();
-  // console.log('copying extra icons...');
-  // await copyExtraIcons();
+  console.log('clearing icons cache...');
+  await clearIconsCache();
+  console.log('extracting svg icons...');
+  await extractIcons();
+  console.log('copying extra icons...');
+  await copyExtraIcons();
   console.log('creating font assets...');
   await createAssets();
 }
