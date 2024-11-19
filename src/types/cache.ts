@@ -15,6 +15,7 @@ export const enum CacheType {
 
   ICONS = 'icons.project',
   ICONS_INFO = 'icons.info',
+  SVG_ICONS_INFO = 'svgIcons.info',
   ICONS_MAPPING = 'icons.mapping',
 
   DATABASE_CAMPAIGNS = 'database.campaigns',
@@ -51,6 +52,12 @@ export namespace ICache {
     code: number
     iconSet?: string
   }
+
+  export type SVGIconInfo = {
+    icon: string
+    ratio: number
+  }
+
 
   export enum Source {
     ARKHAMDB = 'arkham-db',
