@@ -1,0 +1,134 @@
+[
+  {
+    "name": "Agents of Amygdala",
+    "code": "agents_of_amygdala"
+  },
+  {
+    "name": "Agents_of_Ebrietas",
+    "code": "agents_of_ebrietas"
+  },
+  {
+    "name": "Agents_of_Kos",
+    "code": "agents_of_kos"
+  },
+  {
+    "name": "Agents_of_Mergo",
+    "code": "agents_of_mergo"
+  },
+  {
+    "name": "Agents_of_Oedon",
+    "code": "agents_of_oedon"
+  },
+  {
+    "name": "Agents_of_Paleblood",
+    "code": "agents_of_paleblood"
+  },
+  {
+    "name": "Agents_of_Rom",
+    "code": "agents_of_rom"
+  },
+  {
+    "name": "Beasts",
+    "code": "beasts"
+  },
+  {
+    "name": "Quite Thrilling!",
+    "code": "quite_thrilling"
+  },
+  {
+    "name": "Welcome to Yharnam",
+    "code": "welcome_to_yharnam"
+  },
+  {
+    "name": "Corruption",
+    "code": "corruption"
+  },
+  {
+    "name": "Radiance",
+    "code": "radiance"
+  },
+  {
+    "name": "Clawmark",
+    "code": "clawmark"
+  },
+  {
+    "name": "Arcane Lake",
+    "code": "arcane_lake"
+  },
+  {
+    "name": "Great Deep Sea",
+    "code": "great_deep_sea"
+  },
+  {
+    "name": "Hunters of Yharnam",
+    "code": "hunters_of_yharnam"
+  },
+  {
+    "name": "Lumenflower",
+    "code": "lumenflower"
+  },
+  {
+    "name": "Metamorphosis",
+    "code": "metamorphosis"
+  },
+  {
+    "name": "Milkweed",
+    "code": "milkweed"
+  },
+  {
+    "name": "Eldritch Eye",
+    "code": "eldritch_eye"
+  },
+  {
+    "name": "Moon",
+    "code": "moon"
+  },
+  {
+    "name": "Oedon Writhe",
+    "code": "oedon_writhe"
+  },
+  {
+    "name": "Silent Prayer",
+    "code": "silent_prayer"
+  },
+  {
+    "name": "Impurity",
+    "code": "impurity"
+  },
+  {
+    "name": "Celestial",
+    "code": "celestial"
+  },
+  {
+    "name": "Astral Clocktower",
+    "code": "astral_clocktower"
+  },
+  {
+    "name": "Living String",
+    "code": "living_string"
+  },
+  {
+    "name": "Pthemerian Heir",
+    "code": "pthemerian_heir"
+  },
+  {
+    "name": "Delicate Keepsake",
+    "code": "delicate_keepsake"
+  },
+  {
+    "name": "Blood Rapture",
+    "code": "blood_rapture"
+  },
+  {
+    "name": "Hanged Man",
+    "code": "hanged_man"
+  },
+  {
+    "name": "Guidance",
+    "code": "guidance"
+  },
+  {
+    "name": "Quests",
+    "code": "quests"
+  }
+]

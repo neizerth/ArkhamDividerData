@@ -1,0 +1,50 @@
+[
+  {
+    "id": "the_hunt_begins",
+    "scenario_name": "The Hunt Begins",
+    "number_text": "I",
+    "number": 1
+  },
+  {
+    "id": "fear_the_old_blood",
+    "scenario_name": "Fear the Old Blood",
+    "number_text": "II",
+    "number": 2
+  },
+  {
+    "id": "night_unending",
+    "scenario_name": "Night Unending",
+    "number_text": "III",
+    "number": 3
+  },
+  {
+    "id": "the_frailty_of_men",
+    "scenario_name": "The Frailty of Men",
+    "number_text": "IV",
+    "number": 4
+  },
+  {
+    "id": "the_altar_of_despair",
+    "scenario_name": "The Altar of Despair",
+    "number_text": "V",
+    "number": 5
+  },
+  {
+    "id": "a_call_beyond",
+    "scenario_name": "A Call Beyond",
+    "number_text": "VI",
+    "number": 6
+  },
+  {
+    "id": "communion",
+    "scenario_name": "Communion",
+    "number_text": "VII",
+    "number": 7
+  },
+  {
+    "id": "arkham_sunrise",
+    "scenario_name": "Arkham Sunrise",
+    "number_text": "VIII",
+    "number": 8
+  }
+]
