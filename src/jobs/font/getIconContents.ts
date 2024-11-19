@@ -33,10 +33,10 @@ export const getTransformedIcon = async (
   { icon, properties }: IIcoMoon.Icon,
   isEncounter = false
 ) => {
+  const { name } = properties;
+  const rect = getSVGBoundingRect(icon.paths); 
 
-  const rect = getSVGBoundingRect(icon); 
-  const { size, width } = rect;
-  const preserveIconWidth = isEncounter || preserveWidth.includes(properties.name);
+  const preserveIconWidth = preserveWidth.includes(name);
 
   const paths = [];
 
@@ -44,15 +44,31 @@ export const getTransformedIcon = async (
     const item = await translatePath({
       path,
       rect,
-      translateX: !preserveIconWidth
     })
 
     paths.push(item);
   }
 
+  const { 
+    width,
+    height,
+    left,
+    right
+  } = getSVGBoundingRect(paths, name === 'alice_in_arkham');
+
+  if (name === 'alice_in_arkham') {
+    // console.log(rect);
+    console.log({
+      left,
+      right,
+      width,
+      height
+    })
+  }
+
   return {
-    width: preserveIconWidth ? width : size,
-    height: size,
+    width: preserveIconWidth ? width : width,
+    height: height,
     paths
   }
 }
@@ -74,25 +90,18 @@ export const getDefaultIcon = ({ icon }: IIcoMoon.Icon) => {
 export const translatePath = async ({
   path,
   rect,
-  translateX = true,
-  translateY = true
 }: {
   path: string
   rect: ISVGBoundingRect
-  translateX?: boolean
-  translateY?: boolean
 }) => {
   const { 
     top, 
     left,
-    width,
-    height,
-    size
   } = rect;
 
   const pathData = new SVGPathData(path);
-  const dX = translateX ? -left + (size - width) / 2 : -left;
-  const dY = translateY ? -top + (size - height) / 2 : -top;
+  const dX = -left;
+  const dY = -top;
   pathData.translate(dX, dY);
 
   return pathData.encode();
@@ -108,9 +117,12 @@ type ISVGBoundingRect = {
   size: number
 }
 
-export const getSVGBoundingRect = ({ paths }: IIcoMoon.IconSetItem): ISVGBoundingRect => {
+export const getSVGBoundingRect = (paths: string[], verbose = false): ISVGBoundingRect => {
   const viewBox = paths.reduce((target, d) => {
     const [left, top, right, bottom] = getBounds(d);
+    if (verbose) {
+      console.log(d, left)
+    }
 
     return {
       top: Math.min(target.top, top),
@@ -130,6 +142,10 @@ export const getSVGBoundingRect = ({ paths }: IIcoMoon.IconSetItem): ISVGBoundin
   const size = Math.max(width, height);
   return {
     ...viewBox,
+    // left: Math.max(0, viewBox.left),
+    // right: Math.min(width, viewBox.right),
+    // top: Math.max(0, viewBox.top),
+    // bottom: Math.min(height, viewBox.bottom),
     width,
     height,
     size

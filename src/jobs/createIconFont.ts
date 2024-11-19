@@ -17,12 +17,21 @@ import { getCustomContent } from '@/components/custom/getCustomContent';
 sax.MAX_BUFFER_LENGTH = Infinity;
 
 export const createIconFont = async () => {
-  console.log('extracting svg icons...');
-  await extractIcons();
+  console.log('clearing icons cache...');
+  await clearIconsCache();
   console.log('copying extra icons...');
   await copyExtraIcons();
-  console.log('creating font assets...');
-  await createAssets();
+  console.log('extracting svg icons...');
+  await extractIcons();
+  // console.log('creating font assets...');
+  // await createAssets();
+}
+
+export const clearIconsCache = async () => {
+  fs.rmSync(ICONS_CACHE_DIR, { 
+    recursive: true, force: true 
+  });
+
 }
 
 export const copyExtraIcons = async () => {
@@ -126,7 +135,7 @@ export const extractIcons = async () => {
   const icons = Cache.getIcons();
   const encounterIcons = Cache.getDatabaseEncounterSets()
     .map(prop('icon'))
-    .filter(isNotNil)
+    .filter(isNotNil);
 
   const options = {
     dir: ICONS_CACHE_DIR, 
