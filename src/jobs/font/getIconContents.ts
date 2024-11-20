@@ -1,21 +1,27 @@
 import { IIcoMoon } from "@/types/icomoon";
-import { preservePaths, preserveWidth } from '@/data/icons/transformation.json'
+import { preservePaths } from '@/data/icons/transformation.json'
 import { DEFAULT_ICON_SIZE } from "@/config/icons";
 
 import { 
   SVGPathData, 
 } from 'svg-pathdata';
 import sharp from "sharp";
+import { getIsIconCircled } from "./getIsIconCircled";
 
 export const getIconContents = async (item: IIcoMoon.Icon) => {
-  const icon = item.properties.name;
-  const preserve = preservePaths.includes(icon);
+  const { name } = item.properties;
+  const preserve = preservePaths.includes(name);
+
+  const icon = preserve ? 
+    getDefaultIcon(item) : 
+    await getCroppedIcon(item);
   
   const {
     width,
     height,
-    paths
-  } = preserve ? getDefaultIcon(item) : await getCroppedIcon(item)
+    paths,
+    circled
+  } = icon;
 
   const svg = getSVG({
     paths,
@@ -26,7 +32,8 @@ export const getIconContents = async (item: IIcoMoon.Icon) => {
   return {
     svg,
     width,
-    height
+    height,
+    circled
   }
 }
 
@@ -56,7 +63,7 @@ export const getCroppedIcon = async (item: IIcoMoon.Icon) => {
   console.log(`processing icon: ${name}`);
 
   const rect = await getSVGBoundingRect(item);
-  const { width, height } = rect;
+  const { width, height, circled } = rect;
 
   const paths = [];
 
@@ -72,6 +79,7 @@ export const getCroppedIcon = async (item: IIcoMoon.Icon) => {
   return {
     width,
     height,
+    circled,
     paths
   }
 }
@@ -86,7 +94,8 @@ export const getDefaultIcon = ({ icon }: IIcoMoon.Icon) => {
   return {
     width,
     height,
-    paths
+    paths,
+    circled: false
   }
 }
 
@@ -116,6 +125,7 @@ type ISVGBoundingRect = {
   width: number
   height: number
   size: number
+  circled?: boolean
 }
 
 export const getSVGBoundingRect = async ({ icon }: IIcoMoon.Icon): Promise<ISVGBoundingRect> => {
@@ -131,12 +141,17 @@ export const getSVGBoundingRect = async ({ icon }: IIcoMoon.Icon): Promise<ISVGB
   });
 
   const buffer = Buffer.from(svg);
-  const img = await sharp(buffer)
-    .trim();
+  const img = sharp(buffer)
+    .trim()
+    .raw()
 
-  const { info } = await img.toBuffer({
+  const response = await img.toBuffer({
     resolveWithObject: true
   });
+
+  const circled = getIsIconCircled(response);
+
+  const { info } = response;
 
   const { 
     trimOffsetLeft = 0, 
@@ -150,6 +165,7 @@ export const getSVGBoundingRect = async ({ icon }: IIcoMoon.Icon): Promise<ISVGB
     left: -trimOffsetLeft,
     width: info.width,
     height: info.height,
-    size
+    size,
+    circled
   }
 }

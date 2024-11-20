@@ -16,13 +16,17 @@ import { getCustomContent } from '@/components/custom/getCustomContent';
 // @ts-ignore
 sax.MAX_BUFFER_LENGTH = Infinity;
 
-export const createIconFont = async () => {
+export const prepareIcons = async () => {
   console.log('clearing icons cache...');
   await clearIconsCache();
   console.log('extracting svg icons...');
   await extractIcons();
   console.log('copying extra icons...');
   await copyExtraIcons();
+}
+
+export const createIconFont = async () => {
+  await prepareIcons();
   console.log('creating font assets...');
   await createAssets();
 }
@@ -101,7 +105,8 @@ export const cacheIconsInfo = async () => {
       if (dbIcon && svgIconInfo) {
         const { width = DEFAULT_ICON_SIZE } = dbIcon.icon;
         const { 
-          ratio = width / DEFAULT_ICON_SIZE 
+          ratio = width / DEFAULT_ICON_SIZE,
+          circled
         } = svgIconInfo;
         const iconSet = dbIcon.properties.iconSetName;
 
@@ -109,7 +114,8 @@ export const cacheIconsInfo = async () => {
           icon,
           ratio,
           iconSet,
-          code
+          code,
+          circled
         }
       }
 
@@ -137,6 +143,7 @@ export const cacheIconsInfo = async () => {
 }
 
 export const extractIcons = async () => {
+  // const icons = Cache.getIcons().slice(0, 20);
   const icons = Cache.getIcons();
   const iconInfo: ICache.SVGIconInfo[] = [];
 
@@ -151,13 +158,19 @@ export const extractIcons = async () => {
   for (const icon of icons) {
     const { name, iconSetName } = icon.properties;
 
-    const { svg, width, height } = await getIconContents(icon);
+    const { 
+      svg, 
+      width, 
+      height, 
+      circled 
+    } = await getIconContents(icon);
 
     const ratio = width / height;
 
     iconInfo.push({
       icon: name,
-      ratio
+      ratio,
+      circled
     });
 
     if (!exists(name)) {

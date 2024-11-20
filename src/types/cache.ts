@@ -50,12 +50,14 @@ export namespace ICache {
     icon: string
     ratio?: number
     code: number
+    circled?: boolean
     iconSet?: string
   }
 
   export type SVGIconInfo = {
     icon: string
-    ratio: number
+    ratio: number,
+    circled: boolean
   }
 
 

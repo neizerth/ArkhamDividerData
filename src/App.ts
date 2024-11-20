@@ -4,6 +4,7 @@ import {
   createDatabaseCache,
   createTranslationsCache,
   createIconFont,
+  prepareIcons,
   createIconsCache,
   downloadRepos,
 } from "./jobs";
@@ -23,7 +24,9 @@ export class App {
         return await createDatabaseCache();
       case 'cache':
         return await createCache();
-      case 'icons':
+      case 'prepare-icons':
+        return await prepareIcons();
+      case 'cache-icons':
         return await createIconsCache();
       case 'download':
         return await downloadRepos();
