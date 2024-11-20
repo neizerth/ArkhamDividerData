@@ -22,6 +22,7 @@ export type CreateCustomContentOptions = {
     icon: string
     width: number
     height: number
+    circled?: boolean
   }> 
   scenarios?: Array<Omit<
       IDatabase.StoryScenario, 

@@ -42,7 +42,8 @@
   {
     "icon": "astral_clocktower",
     "width": 1450,
-    "height": 1450
+    "height": 1450,
+    "circled": true
   },
   {
     "icon": "beasts",
@@ -142,12 +143,14 @@
   {
     "icon": "quests",
     "width": 194,
-    "height": 194
+    "height": 194,
+    "circled": true
   },
   {
     "icon": "quite_thrilling",
     "width": 800,
-    "height": 800
+    "height": 800,
+    "circled": true
   },
   {
     "icon": "radiance",
@@ -177,7 +180,8 @@
   {
     "icon": "arkham_sunrise",
     "width": 615,
-    "height": 615
+    "height": 615,
+    "circled": true
   },
   {
     "icon": "communion",
@@ -207,6 +211,7 @@
   {
     "icon": "the_hunt_begins",
     "width": 250,
-    "height": 250
+    "height": 250,
+    "circled": true
   }
 ]
