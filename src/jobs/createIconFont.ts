@@ -122,12 +122,13 @@ export const cacheIconsInfo = async () => {
       const customIcon = customIcons.find(propEq(icon, 'icon'));
 
       if (customIcon) {
-        const { width, height } = customIcon;
+        const { width, height, circled } = customIcon;
         const ratio = width / height;
 
         return {
           icon,
           code,
+          circled,
           ratio
         }
       }
