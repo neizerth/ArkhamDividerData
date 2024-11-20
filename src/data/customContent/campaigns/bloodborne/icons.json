@@ -1,134 +1,134 @@
 [
   {
     "icon": "agents_of_amygdala",
-    "width": 277,
-    "height": 408
+    "width": 237,
+    "height": 357
   },
   {
     "icon": "agents_of_ebrietas",
-    "width": 494,
-    "height": 494
+    "width": 366,
+    "height": 427
   },
   {
     "icon": "agents_of_kos",
-    "width": 1348,
-    "height": 1286
+    "width": 1264,
+    "height": 1152
   },
   {
     "icon": "agents_of_mergo",
-    "width": 1728,
-    "height": 1728
+    "width": 1329,
+    "height": 1301
   },
   {
     "icon": "agents_of_oedon",
-    "width": 576,
-    "height": 607
+    "width": 219,
+    "height": 546
   },
   {
     "icon": "agents_of_paleblood",
-    "width": 1348,
-    "height": 1376
+    "width": 1178,
+    "height": 1181
   },
   {
     "icon": "agents_of_rom",
-    "width": 666,
-    "height": 703
+    "width": 621,
+    "height": 522
   },
   {
     "icon": "arcane_lake",
-    "width": 600,
-    "height": 487
+    "width": 545,
+    "height": 385
   },
   {
     "icon": "astral_clocktower",
-    "width": 1450,
-    "height": 1450,
+    "width": 1204,
+    "height": 1207,
     "circled": true
   },
   {
     "icon": "beasts",
-    "width": 408,
-    "height": 648
-  },
-  {
-    "icon": "blood_rapture",
-    "width": 456,
-    "height": 628
-  },
-  {
-    "icon": "celestial",
-    "width": 224,
-    "height": 224
-  },
-  {
-    "icon": "clawmark",
-    "width": 468,
-    "height": 582
-  },
-  {
-    "icon": "corruption",
-    "width": 321,
-    "height": 636
-  },
-  {
-    "icon": "delicate_keepsake",
-    "width": 80,
-    "height": 80
-  },
-  {
-    "icon": "eldritch_eye",
-    "width": 422,
-    "height": 579
-  },
-  {
-    "icon": "great_deep_sea",
-    "width": 474,
-    "height": 612
-  },
-  {
-    "icon": "guidance",
-    "width": 505,
-    "height": 505
-  },
-  {
-    "icon": "hanged_man",
-    "width": 574,
-    "height": 964
-  },
-  {
-    "icon": "hunters_of_yharnam",
-    "width": 462,
-    "height": 637
-  },
-  {
-    "icon": "impurity",
-    "width": 462,
+    "width": 351,
     "height": 577
   },
   {
+    "icon": "blood_rapture",
+    "width": 362,
+    "height": 589
+  },
+  {
+    "icon": "celestial",
+    "width": 192,
+    "height": 157
+  },
+  {
+    "icon": "clawmark",
+    "width": 326,
+    "height": 531
+  },
+  {
+    "icon": "corruption",
+    "width": 259,
+    "height": 560
+  },
+  {
+    "icon": "delicate_keepsake",
+    "width": 63,
+    "height": 67
+  },
+  {
+    "icon": "eldritch_eye",
+    "width": 353,
+    "height": 519
+  },
+  {
+    "icon": "great_deep_sea",
+    "width": 343,
+    "height": 514
+  },
+  {
+    "icon": "guidance",
+    "width": 266,
+    "height": 462
+  },
+  {
+    "icon": "hanged_man",
+    "width": 427,
+    "height": 958
+  },
+  {
+    "icon": "hunters_of_yharnam",
+    "width": 298,
+    "height": 547
+  },
+  {
+    "icon": "impurity",
+    "width": 308,
+    "height": 474
+  },
+  {
     "icon": "living_string",
-    "width": 400,
-    "height": 400
+    "width": 395,
+    "height": 373
   },
   {
     "icon": "lumenflower",
-    "width": 1000,
-    "height": 999
+    "width": 895,
+    "height": 860
   },
   {
     "icon": "metamorphosis",
-    "width": 504,
-    "height": 594
+    "width": 441,
+    "height": 515
   },
   {
     "icon": "milkweed",
-    "width": 420,
-    "height": 631
+    "width": 354,
+    "height": 542
   },
   {
     "icon": "moon",
-    "width": 372,
-    "height": 652
+    "width": 226,
+    "height": 511
   },
   {
     "icon": "oedon_writhe",
@@ -137,81 +137,81 @@
   },
   {
     "icon": "pthemerian_heir",
-    "width": 669,
-    "height": 1143
+    "width": 583,
+    "height": 1106
   },
   {
     "icon": "quests",
-    "width": 194,
-    "height": 194,
+    "width": 172,
+    "height": 172,
     "circled": true
   },
   {
     "icon": "quite_thrilling",
-    "width": 800,
-    "height": 800,
+    "width": 556,
+    "height": 566,
     "circled": true
   },
   {
     "icon": "radiance",
-    "width": 649,
-    "height": 649
+    "width": 380,
+    "height": 505
   },
   {
     "icon": "silent_prayer",
-    "width": 860,
-    "height": 630
+    "width": 402,
+    "height": 546
   },
   {
     "icon": "welcome_to_yharnam",
-    "width": 860,
-    "height": 1447
+    "width": 798,
+    "height": 1363
   },
   {
     "icon": "bloodborne",
-    "width": 574,
-    "height": 964
+    "width": 427,
+    "height": 958
   },
   {
     "icon": "a_call_beyond",
-    "width": 368,
-    "height": 427
+    "width": 229,
+    "height": 405
   },
   {
     "icon": "arkham_sunrise",
-    "width": 615,
-    "height": 615,
+    "width": 553,
+    "height": 555,
     "circled": true
   },
   {
     "icon": "communion",
-    "width": 504,
-    "height": 504
+    "width": 368,
+    "height": 551
   },
   {
     "icon": "fear_the_old_blood",
-    "width": 225,
-    "height": 225
+    "width": 149,
+    "height": 183
   },
   {
     "icon": "night_unending",
-    "width": 200,
-    "height": 200
+    "width": 152,
+    "height": 172
   },
   {
     "icon": "the_altar_of_despair",
-    "width": 800,
-    "height": 800
+    "width": 614,
+    "height": 540
   },
   {
     "icon": "the_frailty_of_men",
-    "width": 400,
-    "height": 400
+    "width": 198,
+    "height": 389
   },
   {
     "icon": "the_hunt_begins",
-    "width": 250,
-    "height": 250,
+    "width": 173,
+    "height": 173,
     "circled": true
   }
 ]
