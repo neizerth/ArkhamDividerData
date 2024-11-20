@@ -2,6 +2,7 @@
 import { createCustomContent } from '@/components/custom/createCustomContent';
 
 export default createCustomContent({
+  dir: __dirname,
   story: {
     code: 'betrayal_at_the_mountains_of_madness',
     type: 'side_story',
@@ -12,5 +13,12 @@ export default createCustomContent({
         en: 'https://arkhamcentral.com/index.php/betrayal-at-the-mountains-of-madness/'
       }
     }
-  }
+  },
+  icons: [
+    {
+      icon: "betrayal_at_the_mountains_of_madness",
+      width: 39.371,
+      height: 28.093
+    }
+  ]
 });

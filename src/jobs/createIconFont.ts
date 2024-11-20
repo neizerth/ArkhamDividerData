@@ -21,12 +21,12 @@ export const prepareIcons = async () => {
   await clearIconsCache();
   console.log('extracting svg icons...');
   await extractIcons();
-  console.log('copying extra icons...');
-  await copyExtraIcons();
 }
 
 export const createIconFont = async () => {
   await prepareIcons();
+  console.log('copying extra icons...');
+  await copyExtraIcons();
   console.log('creating font assets...');
   await createAssets();
 }

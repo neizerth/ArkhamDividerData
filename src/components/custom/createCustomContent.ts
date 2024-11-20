@@ -97,7 +97,16 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
       full_name: scenario.full_name || scenario.scenario_name,
       header: scenario.header || scenario.scenario_name
     })
-  ) : [];
+  ) : [
+    {
+      id: code,
+      icon: code,
+      campaign_id: code,
+      scenario_name: name,
+      header: name,
+      full_name: name
+    }
+  ];
 
   const campaignScenarios = scenarios.length > 0 ? 
     scenarios.map(prop('id')) :

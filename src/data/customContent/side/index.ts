@@ -1,5 +1,5 @@
-// export { default as betrayal_at_the_mountains_of_madness } from './betrayal_at_the_mountains_of_madness/betrayal_at_the_mountains_of_madness';
-// export { default as blood_spilled_in_salem } from './blood_spilled_in_salem/blood_spilled_in_salem';
+export { default as betrayal_at_the_mountains_of_madness } from './betrayal_at_the_mountains_of_madness/betrayal_at_the_mountains_of_madness';
+export { default as blood_spilled_in_salem } from './blood_spilled_in_salem/blood_spilled_in_salem';
 // export { default as knightfall } from './knightfall/knightfall';
 // export { default as stranger_things } from './stranger_things/stranger_things';
 // export { default as the_collector } from './the_collector/the_collector';
