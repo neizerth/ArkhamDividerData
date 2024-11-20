@@ -7,6 +7,7 @@ import {
   prepareIcons,
   createIconsCache,
   downloadRepos,
+  createAssets,
 } from "./jobs";
 
 import * as app from '@/config/app'
@@ -32,6 +33,8 @@ export class App {
         return await downloadRepos();
       case 'font':
         return await createIconFont();
+      case 'assets':
+        return await createAssets();
       case 'build':
         return await buildFromCache();
     }
