@@ -2,6 +2,7 @@
 import { createCustomContent } from '@/components/custom/createCustomContent';
 
 export default createCustomContent({
+  dir: __dirname,
   story: {
     code: 'the_collector',
     type: 'side_story',
@@ -13,5 +14,12 @@ export default createCustomContent({
         it: 'https://arkhamcentral.com/index.php/the-collector-arkham-horror-lcg-adventure/'
       }
     }
-  }
+  },
+  icons: [
+    {
+      icon: 'the_collector',
+      width: 23,
+      height: 29
+    }
+  ]
 });

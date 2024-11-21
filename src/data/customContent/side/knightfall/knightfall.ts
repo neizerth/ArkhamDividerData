@@ -2,6 +2,7 @@
 import { createCustomContent } from '@/components/custom/createCustomContent';
 
 export default createCustomContent({
+  dir: __dirname,
   story: {
     code: 'knightfall',
     type: 'side_story',
@@ -17,6 +18,18 @@ export default createCustomContent({
     {
       code: 'fear_toxin',
       name: 'Fear Toxin',
+    }
+  ],
+  icons: [
+    {
+      icon: 'knightfall',
+      width: 38,
+      height: 17
+    },
+    {
+      icon: 'fear_toxin',
+      width: 27,
+      height: 37
     }
   ]
 });
