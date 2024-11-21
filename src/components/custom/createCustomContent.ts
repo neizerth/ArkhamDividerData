@@ -93,7 +93,7 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
     scenario => ({
       ...scenario,
       id: withCode(scenario.id),
-      icon: withCode(scenario.id),
+      icon: withCode(scenario.icon || scenario.id),
       campaign_id: code,
       full_name: scenario.full_name || scenario.scenario_name,
       header: scenario.header || scenario.scenario_name

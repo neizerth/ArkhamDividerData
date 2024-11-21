@@ -14,11 +14,14 @@ export default createCustomContent({
       }
     }
   },
-  encounterSets: [
+  scenarios: [
     {
-      code: 'blood_spilled_in_salem_set',
-      name: 'Blood Spilled in Salem'
-    },
+      id: 'blood_spilled_in_salem',
+      icon: 'blood_spilled_in_salem_set',
+      scenario_name: 'Blood Spilled in Salem'
+    }
+  ],
+  encounterSets: [
     {
       code: 'atrocities',
       name: 'Atrocities'

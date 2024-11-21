@@ -14,11 +14,14 @@ export default createCustomContent({
       }
     }
   },
-  encounterSets: [
+  scenarios: [
     {
-      code: 'stranger_things_set',
-      name: 'Stranger Things'
-    },
+      id: 'stranger_things',
+      icon: 'stranger_things_set',
+      scenario_name: 'Stranger Things'
+    }
+  ],
+  encounterSets: [
     {
       code: 'upside_down',
       name: 'Upside Down'
