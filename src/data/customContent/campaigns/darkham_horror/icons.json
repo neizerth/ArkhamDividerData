@@ -1,3 +1,98 @@
 [
-  
+  {
+    "icon": "agents_of_the_ancestor",
+    "width": 136,
+    "height": 169
+  },
+  {
+    "icon": "beneath_the_manor",
+    "width": 108,
+    "height": 107
+  },
+  {
+    "icon": "blind_leading_the_blind",
+    "width": 273,
+    "height": 309
+  },
+  {
+    "icon": "deep_treasures",
+    "width": 150,
+    "height": 148
+  },
+  {
+    "icon": "dungeon_supplies",
+    "width": 135,
+    "height": 170
+  },
+  {
+    "icon": "gods_converge",
+    "width": 173,
+    "height": 161
+  },
+  {
+    "icon": "halls_of_power",
+    "width": 165,
+    "height": 186
+  },
+  {
+    "icon": "heart_of_darkness",
+    "width": 142,
+    "height": 162
+  },
+  {
+    "icon": "long_journey",
+    "width": 158,
+    "height": 170
+  },
+  {
+    "icon": "lost_in_the_woods",
+    "width": 174,
+    "height": 134
+  },
+  {
+    "icon": "rising_tides",
+    "width": 184,
+    "height": 148
+  },
+  {
+    "icon": "setting_sun",
+    "width": 181,
+    "height": 123
+  },
+  {
+    "icon": "summoning_courage",
+    "width": 184,
+    "height": 171
+  },
+  {
+    "icon": "the_dark",
+    "width": 170,
+    "height": 176,
+    "circled": true
+  },
+  {
+    "icon": "the_ordained",
+    "width": 183,
+    "height": 170
+  },
+  {
+    "icon": "the_study_of_life",
+    "width": 170,
+    "height": 170
+  },
+  {
+    "icon": "the_templar",
+    "width": 183,
+    "height": 170
+  },
+  {
+    "icon": "wolves_at_the_door",
+    "width": 144,
+    "height": 155
+  },
+  {
+    "icon": "darkham_horror",
+    "width": 77,
+    "height": 104
+  }
 ]
