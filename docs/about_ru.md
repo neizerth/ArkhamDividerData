@@ -44,6 +44,8 @@ Arkham Cards повторяет структуру хранения данных
 
 Имена в наборе ADB/Arkham Cards и сценарии могут не совпадать, из-за чего нужно делать нечувствительный к регистру поиск 
 
+Сценарий может лежать без привязки к Pack. Пример - Midwinter Gala
+
 ### Icon
 
 - Id иконки в шрифте Arkham Cards не всегда совпадает с кодом набора контактов. Используется mapping после парсинга https://github.com/zzorba/ArkhamCards/blob/master/src/icons/EncounterIcon.tsx

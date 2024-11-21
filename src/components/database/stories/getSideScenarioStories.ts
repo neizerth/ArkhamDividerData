@@ -3,13 +3,14 @@ import { IDatabase } from "@/types/database";
 import * as Cache from '@/util/cache';
 import { showError } from "@/util/console";
 import packsData from '@/data/arkhamCards/packs.json'
+import scenariosData from '@/data/arkhamCards/scenarios.json'
 
 import { isNotNil, prop, propEq, uniq } from "ramda";
 import { getSideCampaign } from "@/components/arkhamCards/scenarios/getSideCampaign";
-import { SingleValue } from "@/types/common";
 import { createStoryScenarioHandler } from "./getStoryScenario";
 import { IconDBType } from "@/types/icons";
 import { getStoryScenarioEncounters } from "./getStoryScenarioEncounters";
+import { ICache } from "@/types/cache";
 
 export const getSideScenarioStories = (): IDatabase.Story[] => {
   const packs = Cache.getPacks();
@@ -69,10 +70,14 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
       const name = pack?.name || scenario.scenario_name;
       
       const {
-        is_official,
-        is_canonical,
         code = scenario.id,
-      } = pack || {} as SingleValue<typeof packs>;
+      } = pack || {} as ICache.Pack;
+
+      const scenarioInfo = scenariosData.find(propEq(scenario.id, 'id'));
+      const {
+        is_official,
+        is_canonical
+      } = Object.assign({}, pack, scenarioInfo);
 
       const isSizeSupported = is_official && 
         is_canonical && 
