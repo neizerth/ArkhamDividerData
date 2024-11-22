@@ -57,8 +57,20 @@ export const loadJSONTranslationCycles = async (language: string) => {
   return data;
 }
 
+export const getCycleDir = (code: string) => {
+  if (code === 'side_stories') {
+    return 'side';
+  }
+
+  if (code === 'promotional') {
+    return 'promo';
+  }
+
+  return code;
+}
+
 export const loadJSONPackEncounterCards = async (cycleCode: string, code: string) => {
-  const cycle = cycleCode === 'side_stories' ? 'side' : cycleCode;
+  const cycle = getCycleDir(cycleCode);
   const { data } = await getGithubJSON<IArkhamDB.JSON.EncounterCard[]>(`/pack/${cycle}/${code}_encounter.json`, {
     defaultData: []
   });
@@ -66,7 +78,7 @@ export const loadJSONPackEncounterCards = async (cycleCode: string, code: string
 }
 
 export const loadJSONPackCards = async (cycleCode: string, code: string) => {
-  const cycle = cycleCode === 'side_stories' ? 'side' : cycleCode;
+  const cycle = getCycleDir(cycleCode);
   const { data } = await getGithubJSON<IArkhamDB.JSON.Card[]>(`/pack/${cycle}/${code}.json`, {
     defaultData: []
   });

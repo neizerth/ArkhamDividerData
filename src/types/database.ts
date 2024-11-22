@@ -28,7 +28,8 @@ export namespace IDatabase {
     SIDE = 'side_story',
     SIDE_CAMPAIGN = 'side_campaign',
     CHALLENGE = 'challenge',
-    CAMPAIGN = 'campaign'
+    CAMPAIGN = 'campaign',
+    PROMO = 'promo'
   }
 
   export type EncounterSetType = {
