@@ -5,7 +5,7 @@ export default createCustomContent({
   dir: __dirname,
   story: {
     code: 'betrayal_at_the_mountains_of_madness',
-    type: 'side_story',
+    type: 'side_campaign',
     name: 'Betrayal at the Mountains of Madness',
     custom_content: {
       creators: [
