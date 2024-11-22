@@ -2,6 +2,7 @@
 import { createCustomContent } from '@/components/custom/createCustomContent';
 
 export default createCustomContent({
+  dir: __dirname,
   story: {
     code: 'the_grand_oak_hotel',
     type: 'side_story',
@@ -23,5 +24,12 @@ export default createCustomContent({
         }
       ]
     }
-  }
+  },
+  icons: [
+    {
+      icon: 'the_grand_oak_hotel',
+      width: 33,
+      height: 33
+    }
+  ]
 });

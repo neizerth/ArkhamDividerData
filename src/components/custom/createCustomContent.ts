@@ -89,11 +89,13 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
     synonyms: [],
   }
 
+  const toId = (id: string) => id === code ? code : withCode(id);
+
   const scenarios: IDatabase.StoryScenario[] = options.scenarios ? options.scenarios.map(
     scenario => ({
       ...scenario,
-      id: withCode(scenario.id),
-      icon: withCode(scenario.icon || scenario.id),
+      id: toId(scenario.id),
+      icon: toId(scenario.icon || scenario.id),
       campaign_id: code,
       full_name: scenario.full_name || scenario.scenario_name,
       header: scenario.header || scenario.scenario_name
@@ -121,19 +123,19 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
   }
 
   const encounters: IDatabase.EncounterSet[] = options.encounterSets?.map(
-    encunterSet => ({
-      ...encunterSet,
+    encounterSet => ({
+      ...encounterSet,
       ...packEncounterSetBase,
-      code: withCode(encunterSet.code),
-      icon: withCode(encunterSet.icon || encunterSet.code),
+      code: toId(encounterSet.code),
+      icon: toId(encounterSet.icon || encounterSet.code),
     })
   ) || [];
 
   const scenarioEncounters: IDatabase.EncounterSet[] = scenarios.map(scenario => ({
     ...packEncounterSetBase,
     name: scenario.scenario_name,
-    code: withCode(scenario.id),
-    icon: withCode(scenario.id)
+    code: toId(scenario.id),
+    icon: toId(scenario.id)
   }));
 
   const requiredEncounters = options.story.encounter_sets || 

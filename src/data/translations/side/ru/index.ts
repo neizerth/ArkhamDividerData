@@ -6,3 +6,5 @@ export { default as ltr } from './ltr.json'
 export { default as rop } from './rop.json'
 export { default as rtr } from './rtr.json'
 export { default as blood_spilled_in_salem } from './blood_spilled_in_salem.json';
+export { default as the_legend_of_sleepy_hollow } from './the_legend_of_sleepy_hollow.json';
+export { default as the_nameless_city } from './the_nameless_city.json';

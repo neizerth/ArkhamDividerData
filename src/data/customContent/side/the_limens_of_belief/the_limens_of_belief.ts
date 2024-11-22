@@ -2,6 +2,7 @@
 import { createCustomContent } from '@/components/custom/createCustomContent';
 
 export default createCustomContent({
+  dir: __dirname,
   story: {
     code: 'the_limens_of_belief',
     type: 'side_story',
@@ -23,5 +24,12 @@ export default createCustomContent({
         }
       ]
     }
-  }
+  },
+  icons: [
+    {
+      icon: 'the_limens_of_belief',
+      width: 39,
+      height: 35
+    }
+  ]
 });
