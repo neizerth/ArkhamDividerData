@@ -1,6 +1,6 @@
 {
   "name": "arkham-divider-data",
-  "version": "1.0.35",
+  "version": "1.0.36",
   "description": "",
   "types": "build/types.d.ts",
   "module": "build/index.js",
@@ -26,9 +26,7 @@
     "@types/romans": "^2.0.2",
     "@types/sax": "^1.2.7",
     "@types/svg-path-bounds": "^1.0.2",
-    "http-server": "^14.1.1"
-  },
-  "dependencies": {
+    "http-server": "^14.1.1",
     "@types/sharp": "^0.32.0",
     "axios": "^1.7.7",
     "decompress": "^4.2.1",
@@ -43,7 +41,9 @@
     "svg-pathdata": "^7.1.0",
     "tsc-alias": "^1.8.10",
     "tslib": "^2.7.0",
-    "tsx": "^4.19.0",
+    "tsx": "^4.19.0"
+  },
+  "dependencies": {
     "typescript": "^5.5.4"
   },
   "_moduleAliases": {
