@@ -8,10 +8,39 @@ export default createCustomContent({
     type: 'side_story',
     name: 'Blood Spilled in Salem',
     custom_content: {
-      creator: 'Colin Towle',
-      download_link: {
-        en: 'https://arkhamcentral.com/index.php/blood-spilled-salem-fan-created-content-for-arkham-horror-lcg/'
-      }
+      creators: [
+        {
+          name: 'Colin Towle',
+        }
+      ], 
+      download_links: [
+        {
+          language: 'en',
+          links: [
+            {
+              link: 'https://arkhamcentral.com/index.php/blood-spilled-salem-fan-created-content-for-arkham-horror-lcg/'
+            }
+          ]
+        },
+        {
+          language: 'ru',
+          links: [
+            {
+              translated_by: [
+                {
+                  name: '@Renegat_693',
+                  link: 'https://t.me/Renegat_693'
+                },
+                {
+                  name: '@gigabytesergey',
+                  link: 'https://t.me/gigabytesergey'
+                }
+              ],
+              link: "https://drive.google.com/drive/folders/1wotg6USgu72ZfQLi1hq7xDAysnXebkt_"
+            }
+          ]
+        }
+      ]
     }
   },
   scenarios: [

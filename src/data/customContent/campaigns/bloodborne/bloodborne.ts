@@ -10,10 +10,21 @@ export default createCustomContent({
     type: 'side_campaign',
     name: 'Bloodborne: The City of the Unseen',
     custom_content: {
-      creator: 'exhaled innards',
-      download_link: {
-        en: 'https://mysteriouschanting.wordpress.com/2024/02/18/bloodborne-the-city-of-the-unseen/'
-      }
+      creators: [
+        {
+          name: 'exhaled innards'
+        }
+      ],
+      download_links: [
+        {
+          language: 'en',
+          links: [
+            {
+              link: 'https://mysteriouschanting.wordpress.com/2024/02/18/bloodborne-the-city-of-the-unseen/'
+            }
+          ]
+        }
+      ]
     }
   },
   scenarios,

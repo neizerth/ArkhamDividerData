@@ -11,10 +11,21 @@ export default createCustomContent({
     type: 'side_campaign',
     name: 'Celtic Rising',
     custom_content: {
-      creator: 'QggOne',
-      download_link: {
-        en: 'https://mysteriouschanting.wordpress.com/2022/07/20/celtic-rising-campaign/'
-      }
+      creators: [
+        {
+          name: 'QggOne'
+        }
+      ],
+      download_links: [
+        {
+          language: 'en',
+          links: [
+            {
+              link: 'https://mysteriouschanting.wordpress.com/2022/07/20/celtic-rising-campaign/'
+            }
+          ]
+        }
+      ]
     }
   },
   scenarios,

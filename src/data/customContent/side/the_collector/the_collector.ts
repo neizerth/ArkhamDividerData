@@ -1,5 +1,6 @@
 
 import { createCustomContent } from '@/components/custom/createCustomContent';
+import { link } from 'fs';
 
 export default createCustomContent({
   dir: __dirname,
@@ -8,11 +9,29 @@ export default createCustomContent({
     type: 'side_story',
     name: 'The Collector',
     custom_content: {
-      creator: 'Mike Hutchinson',
-      download_link: {
-        en: 'https://arkhamcentral.com/index.php/the-collector-arkham-horror-lcg-adventure/',
-        it: 'https://arkhamcentral.com/index.php/the-collector-arkham-horror-lcg-adventure/'
-      }
+      creators: [
+        {
+          name: 'Mike Hutchinson',
+        }
+      ],
+      download_links: [
+        {
+          language: 'en',
+          links: [
+            {
+              link: 'https://arkhamcentral.com/index.php/the-collector-arkham-horror-lcg-adventure/',
+            }
+          ]
+        },
+        {
+          language: 'it',
+          links: [
+            {
+              link: 'https://arkhamcentral.com/index.php/the-collector-arkham-horror-lcg-adventure/',
+            }
+          ]
+        }
+      ]
     }
   },
   icons: [

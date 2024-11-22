@@ -4,8 +4,22 @@ import { Mapping } from "./common";
 export namespace IDatabase {
   
   export type CustomContent = {
-    creator: string;
-    download_link: Mapping<string>
+    creators: Array<{
+      name: string
+      link?: string
+    }>
+    download_links: Array<{
+      language: string
+      links: Array<{
+        link: string
+        name?: string,
+        translated_by?: Array<{
+          name: string
+          kind?: string
+          link?: string
+        }>
+      }>
+    }>
   }
 
   export enum StoryType {

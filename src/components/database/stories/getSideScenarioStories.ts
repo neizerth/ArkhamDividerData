@@ -7,10 +7,11 @@ import scenariosData from '@/data/arkhamCards/scenarios.json'
 
 import { isNotNil, prop, propEq, uniq } from "ramda";
 import { getSideCampaign } from "@/components/arkhamCards/scenarios/getSideCampaign";
-import { createStoryScenarioHandler } from "./getStoryScenario";
+import { createStoryScenarioHandler } from "./features/getStoryScenario";
 import { IconDBType } from "@/types/icons";
-import { getStoryScenarioEncounters } from "./getStoryScenarioEncounters";
+import { getStoryScenarioEncounters } from "./features/getStoryScenarioEncounters";
 import { ICache } from "@/types/cache";
+import { getStoryCustomContent } from "./features/getStoryCustomContent";
 
 export const getSideScenarioStories = (): IDatabase.Story[] => {
   const packs = Cache.getPacks();
@@ -110,7 +111,7 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
         pack_code: pack?.code,
         cycle_code: pack?.cycle_code,
         scenario: storyScenario,
-        custom_content: scenario.custom,
+        custom_content: getStoryCustomContent(scenario.custom),
         is_size_supported: Boolean(isSizeSupported),
         is_canonical,
         is_official,

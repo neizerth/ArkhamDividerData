@@ -7,10 +7,21 @@ export default createCustomContent({
     type: 'side_story',
     name: 'The Nameless City',
     custom_content: {
-      creator: 'Niccolò Sbaraini',
-      download_link: {
-        en: 'https://arkhamcentral.com/index.php/the-nameless-city/'
-      }
+      creators: [
+        {
+          name: 'Niccolò Sbaraini',
+        }
+      ],
+      download_links: [
+        {
+          language: 'en',
+          links: [
+            {
+              link: 'https://arkhamcentral.com/index.php/the-nameless-city/'
+            }
+          ]
+        }
+      ]
     }
   },
   encounterSets: [

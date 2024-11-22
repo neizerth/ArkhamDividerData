@@ -8,10 +8,21 @@ export default createCustomContent({
     type: 'side_campaign',
     name: 'Jumanji',
     custom_content: {
-      creator: 'The Beard',
-      download_link: {
-        en: 'https://mysteriouschanting.wordpress.com/2022/06/21/jumanji-campaign/'
-      }
+      creators: [
+        {
+          name: 'The Beard'
+        }
+      ],
+      download_links: [
+        {
+          language: 'en',
+          links: [
+            {
+              link: 'https://mysteriouschanting.wordpress.com/2022/06/21/jumanji-campaign/'
+            }
+          ]
+        }
+      ]
     }
   },
   scenarios: [

@@ -8,10 +8,21 @@ export default createCustomContent({
     type: 'side_story',
     name: 'Stranger Things',
     custom_content: {
-      creator: 'Ian Martin',
-      download_link: {
-        en: 'https://arkhamcentral.com/index.php/stranger-things-for-arkham-horror-lcg/'
-      }
+      creators: [
+        {
+          name: 'Ian Martin',
+        }
+      ],
+      download_links: [
+        {
+          language: 'en',
+          links: [
+            {
+              link: 'https://arkhamcentral.com/index.php/stranger-things-for-arkham-horror-lcg/'
+            }
+          ]
+        }
+      ]
     }
   },
   scenarios: [

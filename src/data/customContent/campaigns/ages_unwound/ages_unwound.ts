@@ -11,10 +11,21 @@ export default createCustomContent({
     type: 'side_campaign',
     name: 'Ages Unwound',
     custom_content: {
-      creator: 'Olivia Juliet',
-      download_link: {
-        en: 'https://mysteriouschanting.wordpress.com/2021/11/10/ages-unwound-campaign/'
-      }
+      creators: [
+        {
+          name: 'Olivia Juliet'
+        }
+      ],
+      download_links: [
+        {
+          language: 'en',
+          links: [
+            {
+              link: 'https://mysteriouschanting.wordpress.com/2021/11/10/ages-unwound-campaign/'
+            }
+          ]
+        }
+      ]
     }
   },
   scenarios,

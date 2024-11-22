@@ -7,10 +7,21 @@ export default createCustomContent({
     type: 'side_story',
     name: 'The Limens of Belief',
     custom_content: {
-      creator: 'Dee',
-      download_link: {
-        en: 'https://arkhamcentral.com/index.php/the-limens-of-belief-arkham-horror-lcg-adventure/'
-      }
+      creators: [
+        {
+          name: 'Dee',
+        }
+      ],
+      download_links: [
+        {
+          language: 'en',
+          links: [
+            {
+              link: 'https://arkhamcentral.com/index.php/the-limens-of-belief-arkham-horror-lcg-adventure/'
+            }
+          ]
+        }
+      ]
     }
   }
 });

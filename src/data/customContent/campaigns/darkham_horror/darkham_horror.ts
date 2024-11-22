@@ -11,10 +11,21 @@ export default createCustomContent({
     type: 'side_campaign',
     name: 'Darkham Horror',
     custom_content: {
-      creator: 'Kenneth Siu',
-      download_link: {
-        en: 'https://github.com/Kenneth-Siu/darkham-horror-card-images'
-      }
+      creators: [
+        {
+          name: 'Kenneth Siu'
+        }
+      ],
+      download_links: [
+        {
+          language: 'en',
+          links: [
+            {
+              link: 'https://github.com/Kenneth-Siu/darkham-horror-card-images'
+            }
+          ]
+        }
+      ]
     }
   },
   scenarios,

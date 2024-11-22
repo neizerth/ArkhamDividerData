@@ -8,10 +8,21 @@ export default createCustomContent({
     type: 'side_campaign',
     name: 'North Country Cycle',
     custom_content: {
-      creator: 'Tim Cox',
-      download_link: {
-        en: 'https://arkhamcentral.com/index.php/north-country-cycle-arkham-horror-lcg-adventure/'
-      }
+      creators: [
+        {
+          name: 'Tim Cox',
+        }
+      ],
+      download_links: [
+        {
+          language: 'en',
+          links: [
+            {
+              link: 'https://arkhamcentral.com/index.php/north-country-cycle-arkham-horror-lcg-adventure/'
+            }
+          ]
+        }
+      ]
     }
   },
   scenarios: [

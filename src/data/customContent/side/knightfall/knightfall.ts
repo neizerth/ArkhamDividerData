@@ -8,10 +8,21 @@ export default createCustomContent({
     type: 'side_story',
     name: 'Knightfall',
     custom_content: {
-      creator: 'Jake Rubio',
-      download_link: {
-        en: 'https://arkhamcentral.com/index.php/knightfall-a-batman-adventure-for-arkham-horror-the-card-game/'
-      }
+      creators: [
+        {
+          name: 'Jake Rubio',
+        }
+      ],
+      download_links: [
+        {
+          language: 'en',
+          links: [
+            {
+              link: 'https://arkhamcentral.com/index.php/knightfall-a-batman-adventure-for-arkham-horror-the-card-game/'
+            }
+          ]
+        }
+      ]
     }
   },
   encounterSets: [

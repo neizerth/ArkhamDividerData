@@ -6,11 +6,12 @@ import { IDatabase } from "@/types/database";
 import * as Cache from '@/util/cache';
 import { showError, showWarning } from "@/util/console";
 import { isNotNil, prop, propEq, uniqBy } from "ramda";
-import { createStoryScenarioHandler } from "./getStoryScenario";
-import { createStoryCampaignHandler } from "./getStoryCampaign";
-import { groupStoryScenarios } from "./groupStoryScenarios";
+import { createStoryScenarioHandler } from "./features/getStoryScenario";
+import { createStoryCampaignHandler } from "./features/getStoryCampaign";
+import { groupStoryScenarios } from "./features/groupStoryScenarios";
 import { IconDBType } from "@/types/icons";
-import { getStoryScenarioEncounters } from "./getStoryScenarioEncounters";
+import { getStoryScenarioEncounters } from "./features/getStoryScenarioEncounters";
+import { getStoryCustomContent } from "./features/getStoryCustomContent";
 
 const CAMPAIGN_CODES = [
   ArkhamCards.CUSTOM_CAMPAIGN_CODE,
@@ -183,7 +184,7 @@ export const getSpecialStories = (): IDatabase.Story[] => {
         investigators,
         encounter_sets: requiredEncounters,
         extra_encounter_sets: extraEncounters,
-        custom_content: custom,
+        custom_content: getStoryCustomContent(custom),
         scenario_encounter_sets: storyScenarioEncounters,
         return_to_code: getReturnToCode(code),
         is_size_supported: isSizeSupported,

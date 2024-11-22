@@ -8,10 +8,21 @@ export default createCustomContent({
     type: 'side_story',
     name: 'Betrayal at the Mountains of Madness',
     custom_content: {
-      creator: 'ArgusTheCat',
-      download_link: {
-        en: 'https://arkhamcentral.com/index.php/betrayal-at-the-mountains-of-madness/'
-      }
+      creators: [
+        {
+          name: 'ArgusTheCat',
+        }
+      ],
+      download_links: [
+        {
+          language: 'en',
+          links: [
+            {
+              link: 'https://arkhamcentral.com/index.php/betrayal-at-the-mountains-of-madness/'
+            }
+          ]
+        }
+      ]
     }
   },
   icons: [

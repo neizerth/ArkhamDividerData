@@ -8,10 +8,21 @@ export default createCustomContent({
     type: 'side_story',
     name: 'The Festival',
     custom_content: {
-      creator: 'Matthew Heiti',
-      download_link: {
-        en: 'https://arkhamcentral.com/index.php/the-festival-fan-created-content-for-arkham-horror-lcg/'
-      }
+      creators: [
+        {
+          name: 'Matthew Heiti',
+        }
+      ],
+      download_links: [
+        {
+          language: 'en',
+          links: [
+            {
+              link: 'https://arkhamcentral.com/index.php/the-festival-fan-created-content-for-arkham-horror-lcg/'
+            }
+          ]
+        }
+      ]
     }
   },
   encounterSets: [

@@ -7,11 +7,12 @@ import { isNotNil, prop, propEq, uniq } from "ramda";
 
 import * as ArkhamDBConstants from "@/api/arkhamDB/constants";
 import * as ArkhamCardsConstants from "@/api/arkhamCards/constants";
-import { createStoryScenarioHandler } from "./getStoryScenario";
-import { createStoryCampaignHandler } from "./getStoryCampaign";
-import { groupStoryScenarios } from "./groupStoryScenarios";
+import { createStoryScenarioHandler } from "./features/getStoryScenario";
+import { createStoryCampaignHandler } from "./features/getStoryCampaign";
+import { groupStoryScenarios } from "./features/groupStoryScenarios";
 import { IconDBType } from "@/types/icons";
-import { getStoryScenarioEncounters } from "./getStoryScenarioEncounters";
+import { getStoryScenarioEncounters } from "./features/getStoryScenarioEncounters";
+import { getStoryCustomContent } from "./features/getStoryCustomContent";
 
 
 const CAMPAIGN_SKIP_CYCLE_CODES = [
@@ -205,7 +206,7 @@ export const getCycleStories = (): IDatabase.Story[] => {
       position,
       investigators,
       scenario_encounter_sets: storyScenarioEncounters,
-      custom_content: fullCampaign?.campaign.custom,
+      custom_content: getStoryCustomContent(fullCampaign?.campaign.custom),
       campaigns: storyCampaigns,
       scenarios: storyScenariosGroup,
       pack_codes: packCodes,

@@ -7,10 +7,21 @@ export default createCustomContent({
     type: 'side_story',
     name: 'The Grand Oak Hotel',
     custom_content: {
-      creator: 'ArgusTheCat',
-      download_link: {
-        en: 'https://arkhamcentral.com/index.php/grand-oak-hotel-player-created-adventure-for-arkham-horror-the-card-game/'
-      }
+      creators: [
+        {
+          name: 'ArgusTheCat',
+        }
+      ],
+      download_links: [
+        {
+          language: 'en',
+          links: [
+            {
+              link: 'https://arkhamcentral.com/index.php/grand-oak-hotel-player-created-adventure-for-arkham-horror-the-card-game/'
+            }
+          ]
+        }
+      ]
     }
   }
 });
