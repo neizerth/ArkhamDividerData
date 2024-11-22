@@ -10,7 +10,7 @@ export default createCustomContent({
     custom_content: {
       creators: [
         {
-          name: 'ArgusTheCat',
+          name: 'Tim Fletcher',
         }
       ],
       download_links: [
