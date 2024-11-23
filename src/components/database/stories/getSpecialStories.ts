@@ -6,11 +6,11 @@ import { IDatabase } from "@/types/database";
 import * as Cache from '@/util/cache';
 import { showError, showWarning } from "@/util/console";
 import { isNotNil, prop, propEq, uniqBy } from "ramda";
-import { createStoryScenarioHandler } from "./features/getStoryScenario";
+import { createStoryScenarioHandler } from "./scenarios/getStoryScenario";
 import { createStoryCampaignHandler } from "./features/getStoryCampaign";
-import { groupStoryScenarios } from "./features/groupStoryScenarios";
+import { groupStoryScenarios } from "./scenarios/groupStoryScenarios";
 import { IconDBType } from "@/types/icons";
-import { getStoryScenarioEncounters } from "./features/getStoryScenarioEncounters";
+import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounters";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
 
 const CAMPAIGN_CODES = [
@@ -34,7 +34,8 @@ export const getSpecialStories = (): IDatabase.Story[] => {
 
   const storyHandlerData = {
     iconDB,
-    scenarioEncounters: scenarioEncounterSets
+    scenarioEncounters: scenarioEncounterSets,
+    encounterSets
   };
 
   const getStoryScenario = createStoryScenarioHandler(storyHandlerData)

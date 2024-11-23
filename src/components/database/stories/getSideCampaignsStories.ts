@@ -7,10 +7,10 @@ import packsData from '@/data/arkhamCards/packs.json'
 import { isNotNil, prop, propEq } from "ramda";
 import { SingleValue } from "@/types/common";
 import { SIDE_STORY_CODE } from "@/api/arkhamDB/constants";
-import { createStoryScenarioHandler } from "./features/getStoryScenario";
-import { groupStoryScenarios } from "./features/groupStoryScenarios";
+import { createStoryScenarioHandler } from "./scenarios/getStoryScenario";
+import { groupStoryScenarios } from "./scenarios/groupStoryScenarios";
 import { IconDBType } from "@/types/icons";
-import { getStoryScenarioEncounters } from "./features/getStoryScenarioEncounters";
+import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounters";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
 
 export const getSideCampaignStories = (): IDatabase.Story[] => {
@@ -29,7 +29,8 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
   
   const getStoryScenario = createStoryScenarioHandler({
     iconDB,
-    scenarioEncounters: scenarioEncounterSets
+    scenarioEncounters: scenarioEncounterSets,
+    encounterSets
   })
 
   const sideCampaignIds = sideScenarios

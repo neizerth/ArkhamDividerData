@@ -7,11 +7,11 @@ import { isNotNil, prop, propEq, uniq } from "ramda";
 
 import * as ArkhamDBConstants from "@/api/arkhamDB/constants";
 import * as ArkhamCardsConstants from "@/api/arkhamCards/constants";
-import { createStoryScenarioHandler } from "./features/getStoryScenario";
+import { createStoryScenarioHandler } from "./scenarios/getStoryScenario";
 import { createStoryCampaignHandler } from "./features/getStoryCampaign";
-import { groupStoryScenarios } from "./features/groupStoryScenarios";
+import { groupStoryScenarios } from "./scenarios/groupStoryScenarios";
 import { IconDBType } from "@/types/icons";
-import { getStoryScenarioEncounters } from "./features/getStoryScenarioEncounters";
+import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounters";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
 
 
@@ -33,7 +33,8 @@ export const getCycleStories = (): IDatabase.Story[] => {
 
   const storyHandlerData = {
     iconDB,
-    scenarioEncounters: scenarioEncounterSets
+    scenarioEncounters: scenarioEncounterSets,
+    encounterSets
   };
 
   const getStoryScenario = createStoryScenarioHandler(storyHandlerData);

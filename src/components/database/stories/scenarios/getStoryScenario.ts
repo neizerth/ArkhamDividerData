@@ -2,15 +2,51 @@ import { IIconDB } from "@/components/arkhamCards/icons/IconDB";
 import { IArkhamCards } from "@/types/arkhamCards";
 import { ICache } from "@/types/cache";
 import { IDatabase } from "@/types/database";
+import { toArrayIf } from "@/util/common";
 import { prop, propEq, uniqBy } from "ramda";
 import { romanize } from "romans";
 
+export const ENCOUNTER_PRIORITY_CAMPAIGNS = [
+  'tskc'
+]
+
+export const getScenarioIconIds = ({
+  campaignId,
+  scenario,
+  encounterSets
+}: {
+  campaignId
+  scenario: IArkhamCards.JSON.Scenario
+  encounterSets: IDatabase.EncounterSet[]
+}) => {
+  const { icon, id, scenario_name } = scenario;
+  const isEncounterPriority = ENCOUNTER_PRIORITY_CAMPAIGNS.includes(campaignId);
+
+  if (!isEncounterPriority) {
+    return [icon, id];
+  }
+
+  const encounter = encounterSets.find(propEq(scenario_name, 'name'));
+
+  if (!encounter) {
+    return [icon, id];
+  }
+
+  return [
+    encounter.icon,
+    icon,
+    id
+  ];
+}
+
 export const createStoryScenarioHandler = ({
   iconDB,
-  scenarioEncounters
+  scenarioEncounters,
+  encounterSets
 }: {
   iconDB: IIconDB
   scenarioEncounters: ICache.ScenarioEncounterSet[]
+  encounterSets: IDatabase.EncounterSet[]
 }) => {
   return ({
     campaignId,
@@ -26,17 +62,18 @@ export const createStoryScenarioHandler = ({
       scenario_name,
       full_name,
       header,
-      icon,
       steps,
       type
     } = scenario;
     
-    const iconList = [];
-
-    if (id === 'core') {
-      iconList.push(campaignId);
-    }
-    iconList.push(icon, id);
+    const iconList = [
+      ...toArrayIf(id === 'core', campaignId),
+      ...getScenarioIconIds({
+        campaignId,
+        scenario,
+        encounterSets
+      })
+    ];
 
     const data = {
       id,

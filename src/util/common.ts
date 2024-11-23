@@ -42,3 +42,5 @@ export const definedIf = <T>(getValue: () => T, getCondition: () => boolean) => 
 }
 
 export const prefix = (prefix: string) => (msg: string) => `${prefix}${msg}`;
+
+export const toArrayIf = <T>(condition: boolean, item: T) => condition ? [item] : [];

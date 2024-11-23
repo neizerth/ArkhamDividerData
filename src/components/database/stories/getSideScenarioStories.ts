@@ -7,9 +7,9 @@ import scenariosData from '@/data/arkhamCards/scenarios.json'
 
 import { isNotNil, prop, propEq, uniq } from "ramda";
 import { getSideCampaign } from "@/components/arkhamCards/scenarios/getSideCampaign";
-import { createStoryScenarioHandler } from "./features/getStoryScenario";
+import { createStoryScenarioHandler } from "./scenarios/getStoryScenario";
 import { IconDBType } from "@/types/icons";
-import { getStoryScenarioEncounters } from "./features/getStoryScenarioEncounters";
+import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounters";
 import { ICache } from "@/types/cache";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
 
@@ -25,7 +25,6 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
     .filter(propEq(false, 'is_size_supported'))
     .map(prop('pack_code'));
 
-
   if (!sideCampaign) {
     showError('side campaign not found');
     return [];
@@ -37,7 +36,8 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
   
   const getStoryScenario = createStoryScenarioHandler({
     iconDB,
-    scenarioEncounters: scenarioEncounterSets
+    scenarioEncounters: scenarioEncounterSets,
+    encounterSets
   })
 
   return scenarios
