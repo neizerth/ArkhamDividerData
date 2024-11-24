@@ -12,6 +12,7 @@ import { Mapping } from '@/types/common';
 import { DEFAULT_ICON_SIZE } from '@/config/icons';
 import { getIconContents } from './font/getIconContents';
 import { getCustomContent } from '@/components/custom/getCustomContent';
+import specialIcons from '@/data/icons/special.json';
 
 // @ts-ignore
 sax.MAX_BUFFER_LENGTH = Infinity;
@@ -92,7 +93,8 @@ export const cacheIconsInfo = async () => {
   const customIcons = getCustomContent()
     .map(prop('icons'))
     .filter(isNotNil)
-    .flat();
+    .flat()
+    .concat(specialIcons);
 
   const data = toPairs(info)
     .map(([icon, code]) => {

@@ -55,7 +55,7 @@ export class IconDB implements IIconDB {
       return defaultValue;
     }
 
-    if (specialIcons.includes(id)) {
+    if (specialIcons.find(propEq(id, 'icon'))) {
       return id;
     }
 

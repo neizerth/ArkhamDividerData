@@ -1,4 +1,47 @@
 [
-  "en",
-  "ffg"
+  {
+    "icon": "en",
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "icon": "ffg",
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "icon": "etsy",
+    "width": 48,
+    "height": 24
+  },
+  {
+    "icon": "bgg",
+    "width": 16,
+    "height": 24
+  },
+  {
+    "icon": "meeple",
+    "width": 800,
+    "height": 800
+  },
+  {
+    "icon": "multiclass_arkhamesque",
+    "width": 27,
+    "height": 24
+  },
+  {
+    "icon": "mystic_alt",
+    "width": 10,
+    "height": 9.08
+  },
+  {
+    "icon": "patreon",
+    "width": 1080,
+    "height": 1080
+  },
+  {
+    "icon": "s_frame_background_null",
+    "width": 1030,
+    "height": 1024
+  }
 ]
