@@ -13,13 +13,15 @@ export namespace IDatabase {
       links: Array<{
         link: string
         name?: string,
-        translated_by?: Array<{
-          name: string
-          kind?: string
-          link?: string
-        }>
+        translated_by?: CustomContentTranslator[]
       }>
     }>
+  }
+
+  export type CustomContentTranslator = {
+    name: string
+    kind?: string
+    link?: string
   }
 
   export enum StoryType {

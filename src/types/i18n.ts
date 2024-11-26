@@ -1,4 +1,5 @@
 import { Mapping } from "./common";
+import { IDatabase } from "./database";
 
 export namespace IPOEditor {
   export type Translation = {
@@ -22,6 +23,9 @@ export namespace IPOEditor {
 export type StoryTranslation = {
   common: Mapping
   translations: Mapping
+  info?: {
+    translated_by: IDatabase.CustomContentTranslator[]
+  }
 }
 
 export type LanguageStoryTranslation = Mapping<StoryTranslation>;
