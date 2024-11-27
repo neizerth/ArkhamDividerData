@@ -79,7 +79,8 @@ export default createCustomContent({
     {
       icon: 'curse_of_the_wendigo',
       width: 242,
-      height: 241
+      height: 241,
+      circled: true
     },
     {
       icon: 'fearsome_fates',
@@ -89,7 +90,8 @@ export default createCustomContent({
     {
       icon: 'spoils_of_hanninah',
       width: 241,
-      height: 196
+      height: 196,
+      circled: true
     }
   ]
 });
