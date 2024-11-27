@@ -72,22 +72,22 @@ export default createCustomContent({
       height: 250
     },
     {
-      icon: 'return_to_the_wendigo-return_to_the_wendigo_set',
+      icon: 'return_to_the_wendigo_set',
       width: 220,
       height: 237
     },
     {
-      icon: 'return_to_the_wendigo-curse_of_the_wendigo',
+      icon: 'curse_of_the_wendigo',
       width: 242,
       height: 241
     },
     {
-      icon: 'return_to_the_wendigo-fearsome_fates',
+      icon: 'fearsome_fates',
       width: 192,
       height: 236
     },
     {
-      icon: 'return_to_the_wendigo-spoils_of_hanninah',
+      icon: 'spoils_of_hanninah',
       width: 241,
       height: 196
     }
