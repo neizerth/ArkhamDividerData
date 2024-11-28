@@ -90,7 +90,7 @@ export default createCustomContent({
     {
       icon: 'spoils_of_hanninah',
       width: 241,
-      height: 241,
+      height: 196,
       circled: true
     }
   ]

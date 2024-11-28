@@ -7,5 +7,5 @@ export { default as the_grand_oak_hotel } from './the_grand_oak_hotel/the_grand_
 export { default as the_legend_of_sleepy_hollow } from './the_legend_of_sleepy_hollow/the_legend_of_sleepy_hollow';
 export { default as the_limens_of_belief } from './the_limens_of_belief/the_limens_of_belief';
 export { default as the_nameless_city } from './the_nameless_city/the_nameless_city';
-
 export { default as return_to_the_wendigo } from './return_to_the_wendigo/return_to_the_wendigo';
+export { default as return_to_consternation_on_the_constellation } from './return_to_consternation_on_the_constellation/return_to_consternation_on_the_constellation';

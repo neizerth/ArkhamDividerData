@@ -10,3 +10,4 @@ export { default as the_legend_of_sleepy_hollow } from './the_legend_of_sleepy_h
 export { default as the_nameless_city } from './the_nameless_city.json';
 
 export { default as return_to_the_wendigo } from './return_to_the_wendigo.json';
+export { default as return_to_consternation_on_the_constellation } from './return_to_consternation_on_the_constellation.json';
