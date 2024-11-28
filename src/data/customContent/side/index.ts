@@ -9,3 +9,4 @@ export { default as the_limens_of_belief } from './the_limens_of_belief/the_lime
 export { default as the_nameless_city } from './the_nameless_city/the_nameless_city';
 export { default as return_to_the_wendigo } from './return_to_the_wendigo/return_to_the_wendigo';
 export { default as return_to_consternation_on_the_constellation } from './return_to_consternation_on_the_constellation/return_to_consternation_on_the_constellation';
+export { default as code_red_at_bleeding_heart } from './code_red_at_bleeding_heart/code_red_at_bleeding_heart';

@@ -11,3 +11,4 @@ export { default as the_nameless_city } from './the_nameless_city.json';
 
 export { default as return_to_the_wendigo } from './return_to_the_wendigo.json';
 export { default as return_to_consternation_on_the_constellation } from './return_to_consternation_on_the_constellation.json';
+export { default as code_red_at_bleeding_heart } from './code_red_at_bleeding_heart.json';
