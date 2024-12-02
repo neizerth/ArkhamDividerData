@@ -12,6 +12,7 @@ import { groupStoryScenarios } from "./scenarios/groupStoryScenarios";
 import { IconDBType } from "@/types/icons";
 import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounters";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
+import { checkScenario } from "./scenarios/checkScenario";
 
 const CAMPAIGN_CODES = [
   ArkhamCards.CUSTOM_CAMPAIGN_CODE,
@@ -157,7 +158,8 @@ export const getSpecialStories = (): IDatabase.Story[] => {
             scenario
           }))
         )
-        .flat();
+        .flat()
+        .filter(checkScenario)
 
       const storyScenarioEncounters = getStoryScenarioEncounters({
         encounterSets,

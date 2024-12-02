@@ -5,10 +5,7 @@ import { IDatabase } from "@/types/database";
 import { toArrayIf } from "@/util/common";
 import { prop, propEq, uniqBy } from "ramda";
 import { romanize } from "romans";
-
-export const ENCOUNTER_PRIORITY_CAMPAIGNS = [
-  'tskc'
-]
+import { encounter_priority_campaigns } from '@/data/arkhamCards/cycles.json';
 
 export const getScenarioIconIds = ({
   campaignId,
@@ -20,7 +17,7 @@ export const getScenarioIconIds = ({
   encounterSets: IDatabase.EncounterSet[]
 }) => {
   const { icon, id, scenario_name } = scenario;
-  const isEncounterPriority = ENCOUNTER_PRIORITY_CAMPAIGNS.includes(campaignId);
+  const isEncounterPriority = encounter_priority_campaigns.includes(campaignId);
 
   if (!isEncounterPriority) {
     return [icon, id];

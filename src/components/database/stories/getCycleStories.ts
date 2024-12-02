@@ -1,7 +1,10 @@
 import { IDatabase } from "@/types/database";
 import * as Cache from '@/util/cache';
 import { showError } from "@/util/console";
-import { without_size_support as withoutSizeSupport } from '@/data/arkhamCards/cycles.json'
+import { 
+  without_size_support as withoutSizeSupport,
+  no_interlude_campaigns as noInterludeCampaigns
+} from '@/data/arkhamCards/cycles.json'
 import { createIconDB } from "@/components/arkhamCards/icons/IconDB";
 import { isNotNil, prop, propEq, uniq } from "ramda";
 
@@ -13,6 +16,7 @@ import { groupStoryScenarios } from "./scenarios/groupStoryScenarios";
 import { IconDBType } from "@/types/icons";
 import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounters";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
+import { checkScenario } from "./scenarios/checkScenario";
 
 
 const CAMPAIGN_SKIP_CYCLE_CODES = [
@@ -108,6 +112,7 @@ export const getCycleStories = (): IDatabase.Story[] => {
           )
         )
         .flat()
+        .filter(checkScenario);
 
       storyScenarios.push(
         ...scenarios

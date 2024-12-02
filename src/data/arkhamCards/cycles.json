@@ -20,5 +20,8 @@
       "campaign_id": "rttic",
       "pack_code": "zrttic"
     }
+  ],
+  "encounter_priority_campaigns": [
+    "tskc"
   ]
 }

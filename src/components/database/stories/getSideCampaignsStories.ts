@@ -12,6 +12,7 @@ import { groupStoryScenarios } from "./scenarios/groupStoryScenarios";
 import { IconDBType } from "@/types/icons";
 import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounters";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
+import { checkScenario } from "./scenarios/checkScenario";
 
 export const getSideCampaignStories = (): IDatabase.Story[] => {
   const packs = Cache.getPacks();
@@ -92,7 +93,8 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
             campaignId: campaign.id,
             scenario
           })
-        );
+        )
+        .filter(checkScenario)
 
       const storyScenarioGroups = groupStoryScenarios({
         iconDB,
