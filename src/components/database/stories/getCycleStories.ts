@@ -2,8 +2,7 @@ import { IDatabase } from "@/types/database";
 import * as Cache from '@/util/cache';
 import { showError } from "@/util/console";
 import { 
-  without_size_support as withoutSizeSupport,
-  no_interlude_campaigns as noInterludeCampaigns
+  without_size_support as withoutSizeSupport
 } from '@/data/arkhamCards/cycles.json'
 import { createIconDB } from "@/components/arkhamCards/icons/IconDB";
 import { isNotNil, prop, propEq, uniq } from "ramda";

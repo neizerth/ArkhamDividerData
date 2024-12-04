@@ -99,29 +99,53 @@ export const cacheIconsInfo = async () => {
     .flat()
     .concat(specialIcons);
 
+  const findIconInfo = ({
+    icon,
+    id = icon,
+    iconSet
+  }: {
+    id?: string
+    icon: string
+    iconSet?: string
+  }) => {
+    const code = info[icon];
+
+    const dbIcon = icons.find(
+      ({ properties }) => properties.name === icon && 
+        (!iconSet || iconSet === getIconSetId(properties.iconSetName))
+    )
+    
+    const svgIconInfo = svgIconsInfo.find(propEq(id, 'icon')); 
+
+    if (dbIcon && svgIconInfo) {
+      const { 
+        width,
+        height,
+        ratio = width / height,
+        circled
+      } = svgIconInfo;
+      const iconSet = dbIcon.properties.iconSetName;
+
+      return {
+        icon: id,
+        ratio,
+        iconSet,
+        width,
+        height,
+        code,
+        circled
+      }
+    }
+  }
+
   const data = toPairs(info)
     .map(([icon, code]) => {
-      const dbIcon = icons.find(
-        ({ properties }) => properties.name === icon
-      )
+      const item = findIconInfo({
+        icon
+      });
 
-      const svgIconInfo = svgIconsInfo.find(propEq(icon, 'icon')); 
-
-      if (dbIcon && svgIconInfo) {
-        const { width = DEFAULT_ICON_SIZE } = dbIcon.icon;
-        const { 
-          ratio = width / DEFAULT_ICON_SIZE,
-          circled
-        } = svgIconInfo;
-        const iconSet = dbIcon.properties.iconSetName;
-
-        return {
-          icon,
-          ratio,
-          iconSet,
-          code,
-          circled
-        }
+      if (item) {
+        return item;
       }
 
       const customIcon = customIcons.find(propEq(icon, 'icon'));
@@ -134,19 +158,35 @@ export const cacheIconsInfo = async () => {
           icon,
           code,
           circled,
+          width,
+          height,
           ratio
         }
       }
+
+      const dashIndex = icon.indexOf('-');
       
-      return {
-        icon,
-        code
+      const dashItem = findIconInfo({
+        id: icon,
+        icon: icon.slice(dashIndex + 1),
+        iconSet: icon.slice(0, dashIndex)
+      });
+
+      if (dashItem) {
+        return dashItem;
       }
+      
+
+      console.log(`icon ${icon} not found`);
+
+      return;
     })
     .filter(isNotNil);
 
   Cache.cache(CacheType.ICONS_INFO, data);
 }
+
+export const getIconSetId = (id: string) => id.toLowerCase().replace(/\W/g, '')
 
 export const extractIcons = async () => {
   // const icons = Cache.getIcons().slice(0, 20);
@@ -176,7 +216,9 @@ export const extractIcons = async () => {
     iconInfo.push({
       icon: name,
       ratio,
-      circled
+      circled,
+      width,
+      height
     });
 
     if (!exists(name)) {
@@ -184,8 +226,16 @@ export const extractIcons = async () => {
       continue;
     }
 
-    const iconSetId = iconSetName.toLowerCase().replace(/\W/g, '');
+    const iconSetId = getIconSetId(iconSetName);
     const uniqueName = `${iconSetId}-${name}`;
+
+    iconInfo.push({
+      icon: uniqueName,
+      ratio,
+      circled,
+      width,
+      height
+    });
 
     writeSVG(uniqueName, svg);
   }
