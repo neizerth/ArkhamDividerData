@@ -3,7 +3,7 @@ import { FontAssetType, generateFonts, OtherAssetType } from 'fantasticon';
 import sax from 'sax';
 import fs from 'fs';
 
-import { FONTS_DIR, ICONS_CACHE_DIR, ICONS_EXTRA_DIR } from '@/config/app';
+import { FONT_ICONS_DIR, FONTS_DIR, ICONS_CACHE_DIR, ICONS_EXTRA_DIR } from '@/config/app';
 import * as Cache from '@/util/cache';
 import { createExistsChecker, createJSONReader, createWriter, mkDir } from '@/util/fs';
 import { isNotNil, prop, propEq, toPairs } from 'ramda';
@@ -78,10 +78,13 @@ export const createAssets = async () => {
     ]
   });
 
-  await cacheIconsInfo();
+  mkDir(FONT_ICONS_DIR);
 
-  const infoFilename = path.resolve(FONTS_DIR + '/icons.json');
-  fs.unlinkSync(infoFilename);
+  fs.cpSync(ICONS_CACHE_DIR, FONT_ICONS_DIR, {
+    recursive: true
+  });
+
+  await cacheIconsInfo();
 }
 
 export const cacheIconsInfo = async () => {

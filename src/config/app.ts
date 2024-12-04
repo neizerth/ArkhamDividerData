@@ -14,3 +14,5 @@ export const DOWNLOADS_DIR = path.join(CACHE_DIR, 'downloads');
 export const ICONS_EXTRA_DIR = path.join(ASSETS_DIR, 'icons');
 
 export const FONTS_DIR = path.join(DIST_DIR, 'fonts');
+
+export const FONT_ICONS_DIR = path.join(FONTS_DIR, 'icons');
