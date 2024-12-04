@@ -108,7 +108,7 @@ export const cacheIconsInfo = async () => {
     icon: string
     iconSet?: string
   }) => {
-    const code = info[icon];
+    const code = info[id];
 
     const dbIcon = icons.find(
       ({ properties }) => properties.name === icon && 
