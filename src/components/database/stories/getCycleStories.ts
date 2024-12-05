@@ -111,7 +111,6 @@ export const getCycleStories = (): IDatabase.Story[] => {
           )
         )
         .flat()
-        .filter(checkScenario);
 
       storyScenarios.push(
         ...scenarios
@@ -213,7 +212,7 @@ export const getCycleStories = (): IDatabase.Story[] => {
       scenario_encounter_sets: storyScenarioEncounters,
       custom_content: getStoryCustomContent(fullCampaign?.campaign.custom),
       campaigns: storyCampaigns,
-      scenarios: storyScenariosGroup,
+      scenarios: storyScenariosGroup.filter(checkScenario),
       pack_codes: packCodes,
       is_size_supported: isSizeSupported,
       encounter_sets: requiredEncounters,

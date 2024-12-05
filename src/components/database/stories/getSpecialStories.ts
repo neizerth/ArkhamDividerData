@@ -158,8 +158,7 @@ export const getSpecialStories = (): IDatabase.Story[] => {
             scenario
           }))
         )
-        .flat()
-        .filter(checkScenario)
+        .flat();
 
       const storyScenarioEncounters = getStoryScenarioEncounters({
         encounterSets,
@@ -180,7 +179,7 @@ export const getSpecialStories = (): IDatabase.Story[] => {
         icon,
         code,
         campaigns: storyCampaigns,
-        scenarios: storyScenarioGroups,
+        scenarios: storyScenarioGroups.filter(checkScenario),
         cycle_code: cycleCode,
         pack_code: code,
         type,

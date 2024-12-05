@@ -93,8 +93,7 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
             campaignId: campaign.id,
             scenario
           })
-        )
-        .filter(checkScenario)
+        );
 
       const storyScenarioGroups = groupStoryScenarios({
         iconDB,
@@ -120,7 +119,7 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
         cycle_code: pack?.cycle_code,
         pack_code: pack?.code,
         campaign_id: campaign.id,
-        scenarios: storyScenarioGroups,
+        scenarios: storyScenarioGroups.filter(checkScenario),
         custom_content: getStoryCustomContent(campaign.custom),
         is_size_supported: Boolean(isSizeSupported),
         is_canonical,
