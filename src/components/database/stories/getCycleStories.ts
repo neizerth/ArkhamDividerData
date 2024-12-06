@@ -165,10 +165,7 @@ export const getCycleStories = (): IDatabase.Story[] => {
 
     const type = fullCampaign?.campaign.campaign_type || IDatabase.StoryType.CAMPAIGN;
 
-    const icon = iconDB.getIconOf([
-      fullCampaign?.campaign.id,
-      code
-    ]);
+    const icon = iconDB.getIcon(code);
 
     const packCodes = cyclePacks.map(prop('code'));
 
