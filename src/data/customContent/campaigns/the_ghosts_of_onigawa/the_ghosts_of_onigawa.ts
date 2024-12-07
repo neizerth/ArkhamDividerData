@@ -7,7 +7,7 @@ export default createCustomContent({
   dir: __dirname,
   story: {
     code: 'the_ghosts_of_onigawa',
-    type: 'side_story',
+    type: 'side_campaign',
     name: 'The Ghosts of Onigawa',
     custom_content: {
       creators: [
