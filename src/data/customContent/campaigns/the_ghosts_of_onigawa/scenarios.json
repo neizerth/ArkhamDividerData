@@ -1,0 +1,50 @@
+[
+  {
+    "id": "the_hidden_village",
+    "scenario_name": "The Hidden Village",
+    "number": 1,
+    "number_text": "I"
+  },
+  {
+    "id": "the_house_on_the_hill",
+    "scenario_name": "The House on the Hill",
+    "number": 2,
+    "number_text": "II"
+  },
+  {
+    "id": "the_river_delta",
+    "scenario_name": "The River Delta",
+    "number": 3,
+    "number_text": "III"
+  },
+  {
+    "id": "the_war_eternal",
+    "scenario_name": "The War Eternal",
+    "number": 4,
+    "number_text": "IV"
+  },
+  {
+    "id": "half_light",
+    "scenario_name": "Half Light",
+    "number": 5,
+    "number_text": "V"
+  },
+  {
+    "id": "the_end_of_august",
+    "scenario_name": "The End of August",
+    "number": 6,
+    "number_text": "VI"
+  },
+  {
+    "id": "the_molten_armory",
+    "scenario_name": "The Molten Armory",
+    "number": 7,
+    "number_text": "VII"
+  },
+  {
+    "id": "the_black_harvest",
+    "scenario_name": "The Black Harvest",
+    "number": 8,
+    "number_text": "VIII"
+  }
+]
