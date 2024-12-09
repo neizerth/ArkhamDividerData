@@ -75,6 +75,12 @@ export namespace IArkhamDB {
       traits?: string;
       real_traits?: string;
       flavor?: string;
+      health: number;
+      sanity: number;
+      skill_agility: number;
+      skill_intellect: number;
+      skill_combat: number;
+      skill_willpower: number;
     }
   }
   export namespace Web {

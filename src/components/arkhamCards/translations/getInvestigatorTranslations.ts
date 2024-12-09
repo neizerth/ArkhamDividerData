@@ -48,7 +48,7 @@ export const getInvestigators = async (pack: ICache.Pack, language: string) => {
       
       const investigator = cards.find(
         propEq(code, 'code')
-      ) as IArkhamDB.API.Investigator | undefined;
+      ) as never as IArkhamDB.API.Investigator | undefined;
 
       if (!investigator) {
         showWarning(`local investigator ${baseInvestigator.name}/${baseInvestigator.code} not found`);

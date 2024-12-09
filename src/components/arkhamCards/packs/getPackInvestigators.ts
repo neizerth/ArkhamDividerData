@@ -27,7 +27,7 @@ const getInvestigators = async (pack: ICache.Pack): Promise<ICache.PackInvestiga
   const investigators = cards
     .filter(
       propEq('investigator', 'type_code')
-    ) as IArkhamDB.API.Investigator[];
+    ) as never as IArkhamDB.API.Investigator[];
 
   return investigators.map(({
     code,
@@ -38,7 +38,13 @@ const getInvestigators = async (pack: ICache.Pack): Promise<ICache.PackInvestiga
     subname,
     traits,
     real_traits,
-    flavor
+    flavor,
+    health,
+    sanity,
+    skill_agility,
+    skill_intellect,
+    skill_combat,
+    skill_willpower
   }) => ({
     code,
     cycle_code,
@@ -49,6 +55,12 @@ const getInvestigators = async (pack: ICache.Pack): Promise<ICache.PackInvestiga
     subname,
     traits,
     real_traits,
-    flavor
+    flavor,
+    health,
+    sanity,
+    skill_agility,
+    skill_intellect,
+    skill_combat,
+    skill_willpower
   }))
 }
