@@ -24,6 +24,20 @@ export default createCustomContent({
               link: 'https://mysteriouschanting.wordpress.com/2021/11/10/ages-unwound-campaign/'
             }
           ]
+        },
+        {
+          language: 'ru',
+          links: [
+            {
+              link: 'https://drive.google.com/drive/folders/15M0flj6mJOxBv5EdQcBRtJQYd3kxrWAj?usp=sharing',
+              translated_by: [
+                {
+                  name: '@darkfakke',
+                  link: 'https://t.me/darkfakke'
+                }
+              ]
+            }
+          ]
         }
       ]
     }
