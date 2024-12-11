@@ -48,5 +48,10 @@
     "icon": "s_frame_background_null",
     "width": 1030,
     "height": 1024
+  },
+  {
+    "icon": "boosty",
+    "width": 157,
+    "height": 189
   }
 ]
