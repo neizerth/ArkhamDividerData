@@ -1,6 +1,6 @@
 import { IDatabase } from '@/types/database'
 import { ICache } from '@/types/cache';
-import { prop } from 'ramda';
+import { identity, prop, uniq } from 'ramda';
 import path from 'path';
 import { prefix } from '@/util/common';
 
@@ -98,7 +98,8 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
       icon: toId(scenario.icon || scenario.id),
       campaign_id: code,
       full_name: scenario.full_name || scenario.scenario_name,
-      header: scenario.header || scenario.scenario_name
+      header: scenario.header || scenario.scenario_name,
+      encounter_sets: scenario.encounter_sets?.map(toId) || [toId(scenario.id)]
     })
   ) : [
     {
@@ -130,7 +131,7 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
       icon: toId(encounterSet.icon || encounterSet.code),
     })
   ) || [];
-
+  
   const scenarioEncounters: IDatabase.EncounterSet[] = scenarios.map(scenario => ({
     ...packEncounterSetBase,
     name: scenario.scenario_name,
@@ -141,10 +142,24 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
   const requiredEncounters = options.story.encounter_sets || 
     encounters.map(prop('code'));
 
-  const encounterSets = [
-    ...requiredEncounters,
-    ...campaignScenarios
-  ];
+  const scenarioRequiredEncounters = scenarios
+    .map(prop('encounter_sets'))
+    .flat()
+
+  const encounterSets = uniq([
+      ...requiredEncounters,
+      ...campaignScenarios,
+      ...scenarioRequiredEncounters
+    ])
+    .filter(identity)
+
+  const extraEncounters = uniq([
+      ...(options.story.extra_encounter_sets || []),
+      ...scenarios
+        .map(prop('extra_encounter_sets'))
+        .flat()
+    ])
+    .filter(identity)
 
   const story: IDatabase.Story = {
     ...options.story,
@@ -154,7 +169,7 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
     is_size_supported: options.story.is_size_supported || false,
     encounter_sets: encounterSets,
     scenario_encounter_sets: options.story.scenario_encounter_sets || campaignScenarios,
-    extra_encounter_sets: options.story.extra_encounter_sets || [],
+    extra_encounter_sets: extraEncounters,
     investigators: options.story.investigators || []
   }
 

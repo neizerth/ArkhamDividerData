@@ -3,42 +3,100 @@
     "id": "night_of_fire",
     "scenario_name": "Night of Fire",
     "number_text": "I",
-    "number": 1
+    "number": 1,
+    "encounter_sets": [
+      "night_of_fire",
+      "agents_of_aforgomon",
+      "nyctophobia",
+      "thugs",
+      "unravelling_years"
+    ]
   },
   {
     "id": "the_myriad_gentleman",
     "scenario_name": "The Myriad Gentleman",
     "number_text": "II",
-    "number": 2
+    "number": 2,
+    "encounter_sets": [
+      "the_myriad_gentleman",
+      "shifting_reality",
+      "unravelling_years"
+    ],
+    "extra_encounter_sets": [
+      "agents_of_yog",
+      "locked_doors"
+    ]
   },
   {
     "id": "a_world_torn_down",
     "scenario_name": "A World Torn Down",
     "number_text": "III",
-    "number": 3
+    "number": 3,
+    "encounter_sets": [
+      "a_world_torn_down",
+      "night_of_the_ritual",
+      "agents_of_aforgomon",
+      "myriad",
+      "nyctophobia",
+      "thugs",
+      "unleashed_chaos"
+    ]
   },
   {
     "id": "unstuck",
     "scenario_name": "Unstuck",
     "number_text": "IV",
-    "number": 4
+    "number": 4,
+    "encounter_sets": [
+      "unstuck",
+      "paradox"
+    ]
   },
   {
     "id": "a_year_to_plan",
     "scenario_name": "A Year to Plan",
     "number_text": "V",
-    "number": 5
+    "number": 5,
+    "encounter_sets": [
+      "a_year_to_plan",
+      "missions",
+      "myriad",
+      "shifting_reality",
+      "unravelling_years",
+      "missions"
+    ],
+    "extra_encounter_sets": [
+      "dark_cult",
+      "arkham"
+    ]
   },
   {
     "id": "a_world_torn_down_again",
     "scenario_name": "A World Torn Down Again",
     "number_text": "VI",
-    "number": 6
+    "number": 6,
+    "encounter_sets": [
+      "a_world_torn_down_again",
+      "night_of_the_ritual",
+      "agents_of_aforgomon",
+      "myriad",
+      "nyctophobia",
+      "thugs",
+      "unleashed_chaos",
+      "paradox"
+    ]
   },
   {
     "id": "time_runs_out",
     "scenario_name": "Time Runs Out",
     "number_text": "VII",
-    "number": 7
+    "number": 7,
+    "encounter_sets": [
+      "time_runs_out",
+      "agents_of_aforgomon",
+      "paradox",
+      "unravelling_years",
+      "unleashed_chaos"
+    ]
   }
 ]
