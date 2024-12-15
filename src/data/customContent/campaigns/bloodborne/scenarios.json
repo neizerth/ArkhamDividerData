@@ -3,48 +3,127 @@
     "id": "the_hunt_begins",
     "scenario_name": "The Hunt Begins",
     "number_text": "I",
-    "number": 1
+    "number": 1,
+    "encounter_sets": [
+      "the_hunt_begins",
+      "beasts",
+      "quite_thrilling",
+      "corruption",
+      "welcome_to_yharnam"
+    ]
   },
   {
     "id": "fear_the_old_blood",
     "scenario_name": "Fear the Old Blood",
     "number_text": "II",
-    "number": 2
+    "number": 2,
+    "encounter_sets": [
+      "fear_the_old_blood",
+      "agents_of_oedon",
+      "corruption",
+      "silent_prayer",
+      "beasts",
+      "quite_thrilling",
+      "radiance"
+    ]
   },
   {
     "id": "night_unending",
     "scenario_name": "Night Unending",
     "number_text": "III",
-    "number": 3
+    "number": 3,
+    "encounter_sets": [
+      "arcane_lake",
+      "clawmark",
+      "beasts",
+      "night_unending",
+      "impurity",
+      "agents_of_mergo",
+      "paleblood_moon",
+      "metamorphosis",
+      "hunters_of_yharnam"
+    ]
   },
   {
     "id": "the_frailty_of_men",
     "scenario_name": "The Frailty of Men",
     "number_text": "IV",
-    "number": 4
+    "number": 4,
+    "encounter_sets": [
+      "arcane_lake",
+      "great_deep_sea",
+      "agents_of_rom",
+      "the_frailty_of_men",
+      "agents_of_mergo",
+      "metamorphosis",
+      "hunters_of_yharnam"
+    ]
   },
   {
     "id": "the_altar_of_despair",
     "scenario_name": "The Altar of Despair",
     "number_text": "V",
-    "number": 5
+    "number": 5,
+    "encounter_sets": [
+      "celestial",
+      "agents_of_ebrietas",
+      "the_altar_of_despair",
+      "radiance",
+      "agents_of_amygdala",
+      "hunters_of_yharnam"
+    ]
   },
   {
     "id": "a_call_beyond",
     "scenario_name": "A Call Beyond",
     "number_text": "VI",
-    "number": 6
+    "number": 6,
+    "encounter_sets": [
+      "a_call_beyond",
+      "agents_of_amygdala",
+      "agents_of_rom",
+      "eldritch_eye",
+      "agents_of_paleblood",
+      "oedon_writhe",
+      "milkweed",
+      "hunters_of_yharnam"
+    ]
   },
   {
     "id": "communion",
     "scenario_name": "Communion",
     "number_text": "VII",
-    "number": 7
+    "number": 7,
+    "encounter_sets": [
+      "communion",
+      "beasts",
+      "eldritch_eye",
+      "oedon_writhe",
+      "corruption",
+      "agents_of_mergo",
+      "pthemerian_heir",
+      "agents_of_kos",
+      "great_deep_sea",
+      "astral_clocktower",
+      "agents_of_paleblood",
+      "living_string",
+      "milkweed",
+      "hunters_of_yharnam"
+    ]
   },
   {
     "id": "arkham_sunrise",
     "scenario_name": "Arkham Sunrise",
     "number_text": "VIII",
-    "number": 8
+    "number": 8,
+    "encounter_sets": [
+      "arkham_sunrise",
+      "oedon_writhe",
+      "paleblood_moon",
+      "hunters_of_yharnam",
+      "blood_rapture",
+      "delicate_keepsake",
+      "hanged_man"
+    ]
   }
 ]
