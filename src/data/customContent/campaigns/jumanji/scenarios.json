@@ -1,0 +1,57 @@
+[
+  {
+    "id": "home_invasion",
+    "scenario_name": "Home Invasion",
+    "number_text": "I",
+    "number": 1,
+    "encounter_sets": [
+      "home_invasion",
+      "call_of_jumanji",
+      "bats",
+      "plants",
+      "spreading_wilds",
+      "jungle_spirits",
+      "lions"
+    ]
+  },
+  {
+    "id": "urban_jungle",
+    "scenario_name": "Urban Jungle",
+    "number_text": "II",
+    "number": 2,
+    "encounter_sets": [
+      "urban_jungle",
+      "call_of_jumanji",
+      "spreading_wilds",
+      "primal_influence"
+    ]
+  },
+  {
+    "id": "game_night",
+    "scenario_name": "Game Night",
+    "number_text": "III",
+    "number": 3,
+    "encounter_sets": [
+      "game_night",
+      "plants",
+      "bats",
+      "gameplay",
+      "lions",
+      "hunter"
+    ]
+  },
+  {
+    "id": "force_of_nature",
+    "scenario_name": "Force of Nature",
+    "number_text": "IV",
+    "number": 4,
+    "encounter_sets": [
+      "force_of_nature",
+      "gameplay",
+      "jungle_spirits",
+      "spreading_wilds",
+      "primal_influence",
+      "hunter"
+    ]
+  }
+]
