@@ -1,0 +1,64 @@
+[
+  {
+    "icon": "winter_winds",
+    "width": 432,
+    "height": 432,
+    "circled": true
+  },
+  {
+    "icon": "frozen_tracks",
+    "width": 486,
+    "height": 483
+  },
+  {
+    "icon": "stranded_in_the_urals",
+    "width": 386,
+    "height": 392
+  },
+  {
+    "icon": "the_forgotten_village",
+    "width": 447,
+    "height": 438
+  },
+  {
+    "icon": "mysterious_passengers",
+    "width": 475,
+    "height": 481
+  },
+  {
+    "icon": "gaze_of_the_north",
+    "width": 480,
+    "height": 272
+  },
+  {
+    "icon": "snowblind",
+    "width": 398,
+    "height": 398,
+    "circled": true
+  },
+  {
+    "icon": "dark_forest",
+    "width": 333,
+    "height": 477
+  },
+  {
+    "icon": "pursuit",
+    "width": 381,
+    "height": 387
+  },
+  {
+    "icon": "gnoph_keh",
+    "width": 468,
+    "height": 393
+  },
+  {
+    "icon": "blizzard",
+    "width": 473,
+    "height": 466
+  },
+  {
+    "icon": "hidden_motivations",
+    "width": 369,
+    "height": 364
+  }
+]

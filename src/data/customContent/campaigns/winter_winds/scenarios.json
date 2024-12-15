@@ -1,0 +1,52 @@
+[
+  {
+    "id": "frozen_tracks",
+    "scenario_name": "Frozen Tracks",
+    "number": 1,
+    "number_text": "I",
+    "encounter_sets": [
+      "frozen_tracks",
+      "mysterious_passengers",
+      "gaze_of_the_north"
+    ],
+    "extra_encounter_sets": [
+      "chilling_cold",
+      "pentagram",
+      "ancient_evils"
+    ]
+  },
+  {
+    "id": "stranded_in_the_urals",
+    "scenario_name": "Stranded in the Urals",
+    "number": 2,
+    "number_text": "II",
+    "encounter_sets": [
+      "stranded_in_the_urals",
+      "snowblind",
+      "gaze_of_the_north",
+      "dark_forest",
+      "pursuit"
+    ],
+    "extra_encounter_sets": [
+      "chilling_cold"
+    ]
+  },
+  {
+    "id": "the_forgotten_village",
+    "scenario_name": "The Forgotten Village",
+    "number": 3,
+    "number_text": "III",
+    "encounter_sets": [
+      "the_forgotten_village",
+      "gnoph_keh",
+      "gaze_of_the_north",
+      "blizzard",
+      "hidden_motivations"
+    ],
+    "extra_encounter_sets": [
+      "chilling_cold",
+      "rats",
+      "pentagram"
+    ]
+  }
+]

@@ -1,6 +1,10 @@
 import { createCustomContent } from "@/components/custom/createCustomContent";
+import scenarios from './scenarios.json';
+import encounterSets from './encounterSets.json';
+import icons from './icons.json';
 
 export default createCustomContent({
+  dir: __dirname,
   story: {
     code: "winter_winds",
     type: "side_campaign",
@@ -8,31 +12,36 @@ export default createCustomContent({
     custom_content: {
       creators: [
         {
-          name: "@myriadantitrust",
-          link: "https://twitter.com/myriadantitrust"
-        },
-        {
-          name: "Arkham.cards team",
-          link: "https://discord.gg/xEZ5FwKrNS"
+          name: "Nicholas Kory"
         }
       ],
       download_links: [
-
+        {
+          language: "en",
+          links: [
+            {
+              link: "https://arkhamcentral.com/index.php/frozen-tracks-fan-created-content-for-arkham-horror-the-card-game/",
+            }
+          ]
+        },
+        {
+          language: "ru",
+          links: [
+            {
+              link: "https://t.me/arkhamhorrorlcg_ru_chat/3258/816212",
+              translated_by: [
+                {
+                  name: "@ceifer",
+                  link: "https://t.me/ceifer"
+                }
+              ]
+            }
+          ]
+        }
       ]
     }
   },
-  scenarios: [
-    {
-      id: "frozen_tracks",
-      scenario_name: "Frozen Tracks"
-    },
-    {
-      id: "stranded_in_the_urals",
-      scenario_name: "Stranded in the Urals"
-    },
-    {
-      id: "the_forgotten_village",
-      scenario_name: "The Forgotten Village"
-    }
-  ]
+  scenarios,
+  encounterSets,
+  icons
 });
