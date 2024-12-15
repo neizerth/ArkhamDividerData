@@ -3,36 +3,86 @@
     "id": "caorthannachs_song",
     "scenario_name": "Caorthannach\"s Song",
     "number_text": "I",
-    "number": 1
+    "number": 1,
+    "encounter_sets": [
+      "caorthannachs_song",
+      "frozen_winds",
+      "celtic_evils",
+      "pests",
+      "burnt_air"
+    ]
   },
   {
     "id": "away_with_the_fairies",
     "scenario_name": "Away With The Fairies",
     "number_text": "II",
-    "number": 2
+    "number": 2,
+    "encounter_sets": [
+      "away_with_the_fairies",
+      "angry_pixies",
+      "mischievous_fairies",
+      "roadside"
+    ]
   },
   {
     "id": "the_stephens_manor",
     "scenario_name": "The Stephens Manor",
     "number_text": "III",
-    "number": 3
+    "number": 3,
+    "encounter_sets": [
+      "the_stephens_manor",
+      "lock_and_key",
+      "sealed_runes",
+      "pests",
+      "celtic_evils",
+      "beyond_the_grave"
+    ]
   },
   {
     "id": "flight_from_the_dullahan",
     "scenario_name": "Flight From the Dullahan",
     "number_text": "IV",
-    "number": 4
+    "number": 4,
+    "encounter_sets": [
+      "flight_from_the_dullahan",
+      "roadside",
+      "sealed_runes",
+      "celtic_evils",
+      "the_deep_woods",
+      "waterside",
+      "cave_path"
+    ]
   },
   {
     "id": "balor_rising",
     "scenario_name": "Balor Rising",
     "number_text": "V",
-    "number": 5
+    "number": 5,
+    "encounter_sets": [
+      "balor_rising",
+      "lock_and_key",
+      "pests",
+      "balors_command",
+      "balors_might",
+      "frozen_winds",
+      "berserker",
+      "burnt_air",
+      "caorthannach",
+      "mischievous_fairies",
+      "angry_pixies"
   },
   {
     "id": "the_phantom_queen",
     "scenario_name": "The Phantom Queen",
     "number_text": "VI",
-    "number": 6
+    "number": 6,
+    "encounter_sets": [
+      "the_phantom_queen",
+      "abject_mania",
+      "losing_hope",
+      "morrigans_will",
+      "celtic_evils",
+      "roadside"
+    ]
   }
 ]
