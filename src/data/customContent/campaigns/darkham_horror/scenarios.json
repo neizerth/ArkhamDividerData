@@ -3,48 +3,129 @@
     "id": "beneath_the_manor",
     "scenario_name": "Beneath the manor",
     "number_text": "I",
-    "number": 1
+    "number": 1,
+    "encounter_sets": [
+      "beneath_the_manor",
+      "agents_of_the_ancestor",
+      "long_journey",
+      "the_dark"
+    ],
+    "extra_encounter_sets": [
+      "locked_doors",
+      "rats"
+    ]
   },
   {
     "id": "the_study_of_life",
     "scenario_name": "The Study of Life",
     "number_text": "II",
-    "number": 2
+    "number": 2,
+    "encounter_sets": [
+      "the_study_of_life",
+      "agents_of_the_ancestor",
+      "setting_sun",
+      "dungeon_supplies"
+    ],
+    "extra_encounter_sets": [
+      "chilling_cold",
+      "locked_doors",
+      "pentagram"
+    ]
   },
   {
     "id": "blind_leading_the_blind",
     "scenario_name": "Blind Leading the Blind",
     "number_text": "III",
-    "number": 3
+    "number": 3,
+    "encounter_sets": [
+      "blind_leading_the_blind",
+      "dungeon_supplies",
+      "deep_treasures",
+      "agents_of_the_ancestor",
+      "long_journey",
+      "the_dark",
+      "halls_of_power"
+    ],
+    "extra_encounter_sets": [
+      "locked_doors"
+    ]
   },
   {
     "id": "wolves_at_the_door",
     "scenario_name": "Wolves at the Door",
     "number_text": "IV",
-    "number": 4
+    "number": 4,
+    "encounter_sets": [
+      "wolves_at_the_door",
+      "setting_sun"
+    ],
+    "extra_encounter_sets": [
+      "locked_doors",
+      "striking_fear"
+    ]
   },
   {
     "id": "lost_in_the_woods",
     "scenario_name": "Lost in the Woods",
     "number_text": "V",
-    "number": 5
+    "number": 5,
+    "encounter_sets": [
+      "lost_in_the_woods",
+      "agents_of_the_ancestor",
+      "setting_sun"
+    ],
+    "extra_encounter_sets": [
+      "chilling_cold",
+      "pentagram",
+      "arkham"
+    ]
   },
   {
     "id": "summoning_courage",
     "scenario_name": "Summoning Courage",
     "number_text": "VI",
-    "number": 6
+    "number": 6,
+    "encounter_sets": [
+      "summoning_courage",
+      "dungeon_supplies",
+      "deep_treasures",
+      "agents_of_the_ancestor",
+      "long_journey",
+      "the_dark",
+      "halls_of_power"
+    ],
+    "extra_encounter_sets": [
+      "locked_doors"
+    ]
   },
   {
     "id": "rising_tides",
     "scenario_name": "Rising Tides",
     "number_text": "VII",
-    "number": 7
+    "number": 7,
+    "encounter_sets": [
+      "rising_tides",
+      "agents_of_the_ancestor",
+      "setting_sun",
+      "gods_converge",
+      "dungeon_supplies"
+    ],
+    "extra_encounter_sets": [
+      "chilling_cold"
+    ]
   },
   {
     "id": "heart_of_darkness",
     "scenario_name": "Heart of Darkness",
     "number_text": "VIII",
-    "number": 8
+    "number": 8,
+    "encounter_sets": [
+      "heart_of_darkness",
+      "dungeon_supplies",
+      "long_journey",
+      "agents_of_the_ancestor",
+      "the_dark",
+      "gods_converge"
+    ]
   }
 ]
