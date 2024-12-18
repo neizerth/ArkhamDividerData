@@ -1,4 +1,8 @@
-import 'dotenv/config';
+import dotenv from 'dotenv';
+
+dotenv.config({
+  path: ['.env.local', '.env']
+});
 
 import { App } from "./App";
 const app = new App;
