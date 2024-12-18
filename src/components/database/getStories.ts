@@ -5,6 +5,7 @@ import { getSpecialStories } from "./stories/getSpecialStories";
 import { getSideCampaignStories } from "./stories/getSideCampaignsStories";
 import { prop, uniqBy } from "ramda";
 import { getPromoStories } from "./stories/getPromoStories";
+import { getInvestigatorStories } from "./stories/getInvestigatorStories";
 
 export const getStories = (): IDatabase.Story[] => {
   const data = [];
@@ -23,6 +24,9 @@ export const getStories = (): IDatabase.Story[] => {
 
   console.log('caching promo stories...');
   data.push(...getPromoStories());
+
+  console.log('caching investigator stories...');
+  data.push(...getInvestigatorStories());
 
   return uniqBy(prop('code'), data);
 }
