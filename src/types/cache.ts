@@ -99,15 +99,10 @@ export namespace ICache {
     is_official: boolean;
   }
 
-  export type EncounterSetTypeCard = {
-    position: number
-    quantity: number
-  }
-
   export type EncounterSetType = {
     type: string;
     size: number;
-    cards?: EncounterSetTypeCard[]
+    cards?: number[]
   }
 
   export type PackEncounterSet = {

@@ -2,7 +2,7 @@ import * as API from '@/api/arkhamDB/api';
 import { IArkhamDB } from '@/types/arkhamDB';
 import { ICache } from '@/types/cache';
 import * as Cache from '@/util/cache';
-import { groupBy, prop, toPairs, propEq, uniq, isNotNil, pick } from 'ramda';
+import { groupBy, prop, toPairs, propEq, uniq, isNotNil } from 'ramda';
 
 export const getPackEncounterSets = async (): Promise<ICache.PackEncounterSet[]> => {
   const packs = Cache.getPacks();
@@ -68,7 +68,7 @@ export const getEncounterSetTypes = (cards: IArkhamDB.JSON.Card[]) => {
         0
       )
 
-      const cardCodes = typeCards.map(pick(['position', 'quantity']));
+      const cardCodes = typeCards.map(prop('position'));
 
       return {
         type,
