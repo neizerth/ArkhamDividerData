@@ -14,8 +14,8 @@ import { createStoryCampaignHandler } from "./features/getStoryCampaign";
 import { groupStoryScenarios } from "./scenarios/groupStoryScenarios";
 import { IconDBType } from "@/types/icons";
 import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounters";
-import { getStoryCustomContent } from "./features/getStoryCustomContent";
 import { checkScenario } from "./scenarios/checkScenario";
+import { getStoryCustomContent } from "./features/getStoryCustomContent";
 
 
 const CAMPAIGN_SKIP_CYCLE_CODES = [
@@ -199,6 +199,11 @@ export const getCycleStories = (): IDatabase.Story[] => {
 
     const investigators = packInvestigators.filter(propEq(code, 'cycle_code'));
 
+    const customContent = fullCampaign.campaign?.custom && getStoryCustomContent({
+      code,
+      content: fullCampaign.campaign.custom
+    });
+
     return {
       ...campaignData,
       code,
@@ -210,7 +215,7 @@ export const getCycleStories = (): IDatabase.Story[] => {
       position,
       investigators,
       scenario_encounter_sets: storyScenarioEncounters,
-      custom_content: getStoryCustomContent(fullCampaign?.campaign.custom),
+      custom_content: customContent,
       campaigns: storyCampaigns,
       scenarios: storyScenariosGroup.filter(checkScenario),
       pack_codes: packCodes,

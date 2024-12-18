@@ -11,5 +11,4 @@ const sources = [
 
 const translations = createTranslationBundle(sources)
 
-
 export default translations;

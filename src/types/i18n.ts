@@ -23,9 +23,7 @@ export namespace IPOEditor {
 export type StoryTranslation = {
   common: Mapping
   translations: Mapping
-  info?: {
-    translated_by: IDatabase.CustomContentTranslator[]
-  }
+  translated_by?: IDatabase.CustomContentTranslator[]
 }
 
 export type LanguageStoryTranslation = Mapping<StoryTranslation>;

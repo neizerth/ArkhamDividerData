@@ -5,6 +5,7 @@ export const createTranslationBundle = (sources: Mapping<LanguageStoryTranslatio
   const translations: Mapping<{
     common: Mapping,
     translations: Mapping<Mapping>
+    translated_by: Mapping<StoryTranslation['translated_by']>
   }> = {}
 
   const appendBundle = (source: Mapping<LanguageStoryTranslation>) => {
@@ -12,12 +13,14 @@ export const createTranslationBundle = (sources: Mapping<LanguageStoryTranslatio
       if (!translations[lang]) {
         translations[lang] = {
           common: {},
-          translations: {}
+          translations: {},
+          translated_by: {}
         };
       }
       for (const [code, mapping] of Object.entries(sideLangData)) {
         Object.assign(translations[lang].common, mapping.common);
         translations[lang].translations[code] = mapping.translations;
+        translations[lang].translated_by[code] = mapping.translated_by;
       }
     
     }

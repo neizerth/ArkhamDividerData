@@ -110,6 +110,11 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
           propEq(pack.code, 'pack_code')
         ) : [];
 
+      const customContent = campaign.custom && getStoryCustomContent({
+        code,
+        content: campaign.custom
+      });
+
       return {
         name,
         code,
@@ -120,7 +125,7 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
         pack_code: pack?.code,
         campaign_id: campaign.id,
         scenarios: storyScenarioGroups.filter(checkScenario),
-        custom_content: getStoryCustomContent(campaign.custom),
+        custom_content: customContent,
         is_size_supported: Boolean(isSizeSupported),
         is_canonical,
         is_official,

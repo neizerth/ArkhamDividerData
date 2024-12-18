@@ -174,6 +174,11 @@ export const getSpecialStories = (): IDatabase.Story[] => {
         propEq(code, 'pack_code')
       );
 
+      const customContent = custom && getStoryCustomContent({
+        code,
+        content: custom
+      });
+
       const story = {
         name,
         icon,
@@ -186,7 +191,7 @@ export const getSpecialStories = (): IDatabase.Story[] => {
         investigators,
         encounter_sets: requiredEncounters,
         extra_encounter_sets: extraEncounters,
-        custom_content: getStoryCustomContent(custom),
+        custom_content: customContent,
         scenario_encounter_sets: storyScenarioEncounters,
         return_to_code: getReturnToCode(code),
         is_size_supported: isSizeSupported,
