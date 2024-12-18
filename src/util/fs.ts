@@ -40,7 +40,12 @@ export const createWriter = <T = string, D = string>({
 export const createJSONWriter = (dir: string) => createWriter<string, object>({
   dir,
   extension: 'json',
-  serialize: data => JSON.stringify(data, null, 2)
+  serialize: data => {
+    if (process.env.NODE_ENV === 'development') {
+      return JSON.stringify(data, null, 2);
+    }
+    return JSON.stringify(data);
+  }
 });
 
 export const createReader = <T = string, D = string>({

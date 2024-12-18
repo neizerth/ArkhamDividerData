@@ -7,7 +7,6 @@ import { Mapping } from "@/types/common";
 import { prop } from "ramda";
 import { getCustomContent } from "@/components/custom/getCustomContent";
 import customTranslations from '@/data/translations';
-import { StoryTranslation } from "@/types/i18n";
 
 export const buildFromCache = async () => {
   const languages = buildI18NSources();
