@@ -100,7 +100,6 @@ export namespace ICache {
   }
 
   export type EncounterSetTypeCard = {
-    code: string
     position: number
     quantity: number
   }
