@@ -4,23 +4,19 @@ import decompress from 'decompress';
 import { download } from "@/api/download"
 import { DOWNLOADS_DIR } from '@/config/app';
 import { mkDir, rmDir } from '@/util/fs';
-import { 
-  ARKHAM_CARDS_DATA_ZIP_URL, 
-  ARKHAMDB_DATA_ZIP_URL,
-  ARKHAM_CARDS_CONTENTS_ZIP_URL
-} from '@/config/api';
+import * as API from '@/config/api';
 
 export const downloadRepos = async () => {
   rmDir(DOWNLOADS_DIR);
   mkDir(DOWNLOADS_DIR);
   console.log('processing ArkhamDB...');
-  await processRepo(ARKHAMDB_DATA_ZIP_URL);
+  await processRepo(API.ARKHAMDB_DATA_ZIP_URL);
 
   console.log('processing ArkhamCards...');
-  await processRepo(ARKHAM_CARDS_CONTENTS_ZIP_URL);
+  await processRepo(API.ARKHAM_CARDS_CONTENTS_ZIP_URL);
 
   console.log('processing ArkhamCards Data...');
-  await processRepo(ARKHAM_CARDS_DATA_ZIP_URL);
+  await processRepo(API.ARKHAM_CARDS_DATA_ZIP_URL);
 }
 
 export const processRepo = async (url: string) => {
