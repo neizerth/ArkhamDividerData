@@ -2,7 +2,7 @@ import * as API from '@/api/arkhamDB/api';
 import { IArkhamDB } from '@/types/arkhamDB';
 import { ICache } from '@/types/cache';
 import * as Cache from '@/util/cache';
-import { propEq } from 'ramda';
+import { pick, propEq } from 'ramda';
 
 export const getPackInvestigators = async (): Promise<ICache.PackInvestigator[]> => {
   const packs = Cache.getPacks();
@@ -31,40 +31,26 @@ const getInvestigators = async (pack: ICache.Pack) => {
     propEq('investigator', 'type_code')
   ) as never as IArkhamDB.API.Investigator[];
 
-  return investigators.map(({
-    code,
-    pack_code,
-    faction_code,
-    name,
-    real_name,
-    subname,
-    traits,
-    real_traits,
-    flavor,
-    health,
-    sanity,
-    skill_agility,
-    skill_intellect,
-    skill_combat,
-    skill_willpower
-  }) => {
-    return {
-      code,
-      cycle_code,
-      pack_code,
-      faction_code,
-      name,
-      real_name,
-      subname,
-      traits,
-      real_traits,
-      flavor,
-      health,
-      sanity,
-      skill_agility,
-      skill_intellect,
-      skill_combat,
-      skill_willpower
-    }
-  })
+  const pickInvestigatorProps = pick([
+    'code',
+    'pack_code',
+    'faction_code',
+    'name',
+    'real_name',
+    'subname',
+    'traits',
+    'real_traits',
+    'flavor',
+    'health',
+    'sanity',
+    'skill_agility',
+    'skill_intellect',
+    'skill_combat',
+    'skill_willpower'
+  ])
+
+  return investigators.map(investigator => ({
+    cycle_code,
+    ...pickInvestigatorProps(investigator)
+  }));
 }
