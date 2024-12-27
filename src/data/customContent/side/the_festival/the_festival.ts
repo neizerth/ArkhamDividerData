@@ -21,6 +21,14 @@ export default createCustomContent({
               link: 'https://arkhamcentral.com/index.php/the-festival-fan-created-content-for-arkham-horror-lcg/'
             }
           ]
+        },
+        {
+          language: 'de',
+          links: [
+            {
+              link: 'https://mpc.north101.co.uk/projects'
+            }
+          ]
         }
       ]
     }

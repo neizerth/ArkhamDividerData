@@ -23,6 +23,14 @@ export default createCustomContent({
           ]
         },
         {
+          language: 'de',
+          links: [
+            {
+              link: 'https://mpc.north101.co.uk/projects'
+            }
+          ]
+        },
+        {
           language: 'ru',
           links: [
             {
