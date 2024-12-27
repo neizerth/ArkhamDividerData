@@ -2,7 +2,7 @@ import * as ArkhamDB from '@/api/arkhamDB/api';
 import { ICache } from '@/types/cache';
 import * as Cache from '@/util/cache';
 import { createPropTranslator } from '@/util/common';
-import { isNotNil, prop, propEq, uniq } from 'ramda';
+import { isNotNil, pick, prop, propEq, uniq } from 'ramda';
 
 export const getInvestigatorTranslations = async (language: string) => {
   const packs = Cache.getPacks();
@@ -35,11 +35,20 @@ export const getInvestigatorTranslations = async (language: string) => {
 export const getInvestigators = async (pack: ICache.Pack, language: string) => {
   const { cycle_code } = pack;
   console.log(`loading pack ${language}/${pack.code} cards...`);
+  const onlyProps = pick([
+    'code',
+    'name',
+    'real_name',
+    'subname',
+    'traits',
+    'real_traits',
+    'flavor'
+  ])
   const packInvestigators = Cache.getPackInvestigators();
   
-  const baseInvestigators = packInvestigators.filter(
-    propEq(pack.code, 'pack_code')
-  );
+  const baseInvestigators = packInvestigators
+    .filter(propEq(pack.code, 'pack_code'))
+    .map(onlyProps);
 
   const cards = await ArkhamDB.loadLocalPackCards(pack.cycle_code, pack.code, language);
 

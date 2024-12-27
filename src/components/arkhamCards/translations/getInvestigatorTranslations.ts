@@ -4,7 +4,7 @@ import { ICache } from '@/types/cache';
 import * as Cache from '@/util/cache';
 import { createPropTranslator } from '@/util/common';
 import { showWarning } from '@/util/console';
-import { isNotNil, prop, propEq, uniq } from 'ramda';
+import { isNotNil, pick, prop, propEq, uniq } from 'ramda';
 
 export const getInvestigatorTranslations = async (language: string) => {
   const packs = Cache.getPacks();
@@ -36,9 +36,19 @@ export const getInvestigators = async (pack: ICache.Pack, language: string) => {
 
   const packInvestigators = Cache.getPackInvestigators();
   
-  const baseInvestigators = packInvestigators.filter(
-    propEq(pack.code, 'pack_code')
-  );
+  const onlyProps = pick([
+    'code',
+    'name',
+    'real_name',
+    'subname',
+    'traits',
+    'real_traits',
+    'flavor'
+  ]);
+  
+  const baseInvestigators = packInvestigators
+    .filter(propEq(pack.code, 'pack_code'))
+    .map(onlyProps)
 
   const cards = await ArkhamCards.loadLocalJSONPackCards(pack.code, language);
 
