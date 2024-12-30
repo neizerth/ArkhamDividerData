@@ -116,6 +116,7 @@ export namespace ICache {
 
   export type PackInvestigator = {
     code: string
+    position: number
     cycle_code: string
     pack_code: string
     faction_code: string;
@@ -125,6 +126,7 @@ export namespace ICache {
     traits?: string
     real_traits?: string
     flavor?: string
+    text: string;
     
     health: number;
     sanity: number;

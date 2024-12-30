@@ -43,7 +43,8 @@ export const getInvestigators = async (pack: ICache.Pack, language: string) => {
     'subname',
     'traits',
     'real_traits',
-    'flavor'
+    'flavor',
+    'text'
   ]);
   
   const baseInvestigators = packInvestigators
@@ -77,6 +78,7 @@ export const getInvestigators = async (pack: ICache.Pack, language: string) => {
 
       return translateProps([
         'name',
+        'text',
         'real_name',
         'subname',
         'traits',
