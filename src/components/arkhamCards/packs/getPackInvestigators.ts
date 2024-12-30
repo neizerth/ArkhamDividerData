@@ -38,6 +38,7 @@ const getInvestigators = async (pack: ICache.Pack): Promise<ICache.PackInvestiga
     'real_name',
     'subname',
     'traits',
+    'text',
     'real_traits',
     'flavor',
     'health',
