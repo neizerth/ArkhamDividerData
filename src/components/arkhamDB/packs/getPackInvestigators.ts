@@ -33,7 +33,7 @@ const getInvestigators = async (pack: ICache.Pack) => {
 
   const pickInvestigatorProps = pick([
     'code',
-    'number',
+    'position',
     'pack_code',
     'faction_code',
     'name',

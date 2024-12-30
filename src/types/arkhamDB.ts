@@ -64,7 +64,6 @@ export namespace IArkhamDB {
     export type Card = HasCode & HasName & HasPosition & HasPackCode & {
       faction_code: string
       type_code: string
-      number: number
       encounter_position?: number
       encounter_code?: string
     }
