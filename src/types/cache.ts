@@ -1,4 +1,4 @@
-export const enum CacheType {
+export enum CacheType {
   SCENARIOS = 'scenarios',
   STANDALONE_SCENARIOS = 'standaloneScenarios',
   CAMPAIGNS = 'campaigns',

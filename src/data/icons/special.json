@@ -53,5 +53,10 @@
     "icon": "boosty",
     "width": 157,
     "height": 189
+  },
+  {
+    "icon": "unique",
+    "width": 405,
+    "height": 301
   }
 ]
