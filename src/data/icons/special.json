@@ -58,5 +58,15 @@
     "icon": "unique",
     "width": 405,
     "height": 301
+  },
+  {
+    "icon": "plus",
+    "width": 145,
+    "height": 145
+  },
+  {
+    "icon": "minus",
+    "width": 118,
+    "height": 29
   }
 ]
