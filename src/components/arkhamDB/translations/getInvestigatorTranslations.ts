@@ -1,4 +1,5 @@
 import * as ArkhamDB from '@/api/arkhamDB/api';
+import { IArkhamDB } from '@/types/arkhamDB';
 import { ICache } from '@/types/cache';
 import * as Cache from '@/util/cache';
 import { createPropTranslator } from '@/util/common';
@@ -67,7 +68,7 @@ export const getInvestigators = async (pack: ICache.Pack, language: string) => {
 
       const localInvestigator = {
         cycle_code,
-        ...card,
+        ...(card as IArkhamDB.API.Investigator),
       }
 
       const translateProps = createPropTranslator(
