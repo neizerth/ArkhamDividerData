@@ -42,7 +42,8 @@ export const getInvestigators = async (pack: ICache.Pack, language: string) => {
     'subname',
     'traits',
     'real_traits',
-    'flavor'
+    'flavor',
+    'text'
   ])
   const packInvestigators = Cache.getPackInvestigators();
   
@@ -80,7 +81,8 @@ export const getInvestigators = async (pack: ICache.Pack, language: string) => {
         'subname',
         'traits',
         'real_traits',
-        'flavor'
+        'flavor',
+        'text'
       ])
     })
     .filter(isNotNil)
