@@ -109,6 +109,11 @@ export const getSpecialStories = (): IDatabase.Story[] => {
         showWarning(`links not found: ${code}`);
       }
 
+      if (!links[0]) {
+        showWarning('wrong link');
+        return;
+      }
+
       const campaignIds = links.map(prop('campaign_id'));
 
       const campaigns = fullCampaigns.filter(
@@ -151,14 +156,13 @@ export const getSpecialStories = (): IDatabase.Story[] => {
         cycle_code: cycleCode
       }));
 
-      const storyScenarios = campaigns.map(
+      const storyScenarios = campaigns.flatMap(
         ({ campaign, scenarios }) => scenarios.map(
           scenario => getStoryScenario({
             campaignId: campaign.id,
             scenario
           }))
-        )
-        .flat();
+        );
 
       const storyScenarioEncounters = getStoryScenarioEncounters({
         encounterSets,
