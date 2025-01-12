@@ -2,7 +2,7 @@ import * as ArkhamCards from '@/api/arkhamCards/api';
 import * as Cache from '@/util/cache'
 import { ICache } from "@/types/cache"
 import { pick, propEq } from 'ramda';
-import { IArkhamDB } from '@/types/arkhamDB';
+import type { IArkhamDB } from '@/types/arkhamDB';
 
 export const getPackInvestigators = async (): Promise<ICache.PackInvestigator[]> => {
   const packs = Cache.getPacks();

@@ -1,5 +1,5 @@
 import * as API from '@/api/arkhamDB/api';
-import { IArkhamDB } from '@/types/arkhamDB';
+import type { IArkhamDB } from '@/types/arkhamDB';
 import { ICache } from '@/types/cache';
 import * as Cache from '@/util/cache';
 import { pick, propEq } from 'ramda';
@@ -26,10 +26,15 @@ const getInvestigators = async (pack: ICache.Pack) => {
   } = pack;
 
   const cards = await API.loadJSONPackCards(cycle_code, code);
+  const encounterCards = await API.loadJSONPackCards(cycle_code, `${code}_encounter`);
 
-  const investigators = cards.filter(
-    propEq('investigator', 'type_code')
-  ) as never as IArkhamDB.API.Investigator[];
+  const investigators = [
+      ...cards,
+      ...encounterCards
+    ]
+    .filter(
+      propEq('investigator', 'type_code')
+    ) as never as IArkhamDB.API.Investigator[];
 
   const pickInvestigatorProps = pick([
     'code',

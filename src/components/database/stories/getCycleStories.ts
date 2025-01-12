@@ -102,7 +102,7 @@ export const getCycleStories = (): IDatabase.Story[] => {
     }
     else {
       const scenarios = campaigns
-        .map(
+        .flatMap(
           ({ campaign, scenarios }) => scenarios.map(scenario => 
             getStoryScenario({
               campaignId: campaign.id, 
@@ -110,7 +110,6 @@ export const getCycleStories = (): IDatabase.Story[] => {
             })
           )
         )
-        .flat()
 
       storyScenarios.push(
         ...scenarios

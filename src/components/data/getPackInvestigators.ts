@@ -1,6 +1,6 @@
 import * as ArkhamDB from '@/components/arkhamDB';
 import * as ArkhamCards from '@/components/arkhamCards';
-import { ICache } from '@/types/cache';
+import type { ICache } from '@/types/cache';
 
 /*
   Gets encounter sets per pack
