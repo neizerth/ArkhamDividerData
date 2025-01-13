@@ -30,7 +30,7 @@ const getInvestigators = async (pack: ICache.Pack) => {
 
   const investigators = [
       ...cards,
-      // ...encounterCards
+      ...encounterCards
     ]
     .filter(
       propEq('investigator', 'type_code')
