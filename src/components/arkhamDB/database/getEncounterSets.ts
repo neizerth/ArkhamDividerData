@@ -10,13 +10,15 @@ export const getEncounterSets = (): IDatabase.EncounterSet[] => {
   const packEncounterSets = Cache.getPackEncounterSets();
   const iconDB = createIconDB();
   
-  return packEncounterSets.map(({
-    cycle_code,
-    pack_code,
-    encounter_set_code,
-    types,
-    size
-  }): IDatabase.EncounterSet => {
+  return packEncounterSets.map((packEncounterSet): IDatabase.EncounterSet => {
+    const {
+      cycle_code,
+      pack_code,
+      encounter_set_code,
+      types,
+      size
+    } = packEncounterSet;
+
     const encounter = {
       code: encounter_set_code,
       cycle_code,
@@ -37,7 +39,7 @@ export const getEncounterSets = (): IDatabase.EncounterSet[] => {
         name: encounter_set_code,
       };
     }
-
+    
     const { name, synonyms } = encounterSet;
     const codes = toSynonyms(encounterSet);
 

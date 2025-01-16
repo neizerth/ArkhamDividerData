@@ -91,8 +91,7 @@ export const buildCoreSources = (languages: string[]) => {
 
   const customStories = uniqueCustomContent.map(prop('story'));
   const customEncounterSets = uniqueCustomContent
-    .map(prop('encounterSets'))
-    .flat();
+    .flatMap(prop('encounterSets'));
     
   const customPacks = uniqueCustomContent.map(prop('pack'));
 

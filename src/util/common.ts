@@ -10,7 +10,7 @@ export const toSynonyms = ({
   return [code, ...synonyms];
 }
 
-export const isNumeric = (value: string): boolean => !isNaN(+value);
+export const isNumeric = (value: string): boolean => !Number.isNaN(+value);
 
 export const onlyWords = (text: string) => text.replace(/[^\w ]/g, '');
 

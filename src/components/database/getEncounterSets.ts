@@ -10,11 +10,12 @@ import { groupBy, isNotNil, mergeAll, prop, values } from 'ramda';
 */
 export const getEncounterSets = (): IDatabase.EncounterSet[] => {
   const data = [];
-  console.log('caching ArkhamDB database encounter sets...');
-  data.push(...ArkhamDB.getEncounterSets());
 
   console.log('caching Arkham Cards database encounter sets...');
   data.push(...ArkhamCards.getEncounterSets());
+
+  console.log('caching ArkhamDB database encounter sets...');
+  data.push(...ArkhamDB.getEncounterSets());
 
   const groups = groupBy(prop('code'), data);
 
