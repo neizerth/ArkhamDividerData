@@ -9,6 +9,11 @@ import specialIcons from '@/data/icons/special.json';
 
 import { propEq } from "ramda";
 
+const ARKHAM_CARDS_CUSTOM_PREFIXES = [
+  'zau_',
+  'z'
+];
+
 export type IconDBOptions = {
   icons: string[]
   iconMapping: Mapping
@@ -80,8 +85,12 @@ export class IconDB implements IIconDB {
       return temporaryIcon;
     }
 
-    if (id[0] === 'z') {
-      return this.getIcon(id.slice(1), defaultValue);
+    const prefix = ARKHAM_CARDS_CUSTOM_PREFIXES.find(
+      prefix => id.startsWith(prefix)
+    );
+
+    if (prefix) {
+      return this.getIcon(id.slice(prefix.length), defaultValue);
     }
     
     showError(`icon for encounter code "${id}" not found`);
