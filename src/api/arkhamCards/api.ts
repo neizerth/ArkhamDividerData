@@ -88,7 +88,12 @@ export const loadJSONPackCards = async (code: string) => {
 }
 
 export const loadLocalJSONPackCards = async (code: string, language: string) => {
-  const { data } = await getDataRaw<IArkhamDB.JSON.Card[]>(`/i18n/${language}/cards/${code}.json`);
+  const { data } = await getDataRaw<IArkhamDB.JSON.Card[]>(
+    `/i18n/${language}/cards/${code}.json`,
+    {
+      defaultData: []
+    }
+  );
   return data;
 }
 

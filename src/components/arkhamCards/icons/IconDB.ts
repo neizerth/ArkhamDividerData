@@ -1,4 +1,4 @@
-import { Mapping } from "@/types/common";
+import type { Mapping } from "@/types/common";
 import { IconDBType } from "@/types/icons";
 import * as Cache from "@/util/cache";
 import { showError } from "@/util/console";
@@ -11,6 +11,7 @@ import { propEq } from "ramda";
 
 const ARKHAM_CARDS_CUSTOM_PREFIXES = [
   'zau_',
+  'zgoo_',
   'z'
 ];
 
