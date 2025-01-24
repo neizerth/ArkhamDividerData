@@ -1,8 +1,8 @@
 import * as side from './side';
 import * as campaigns from './campaigns';
 import { createTranslationBundle } from '@/components/translations/createTranslationBundle';
-import { LanguageStoryTranslation } from '@/types/i18n';
-import { Mapping } from '@/types/common';
+import type { LanguageStoryTranslation } from '@/types/i18n';
+import type { Mapping } from '@/types/common';
 
 const sources = [
   campaigns,

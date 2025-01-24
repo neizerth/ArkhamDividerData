@@ -1,5 +1,5 @@
-import { IArkhamCards } from "@/types/arkhamCards";
-import { IDatabase } from "@/types/database";
+import type { IArkhamCards } from "@/types/arkhamCards";
+import type { IDatabase } from "@/types/database";
 import translations from "@/data/translations";
 
 export const getStoryCustomContent = ({

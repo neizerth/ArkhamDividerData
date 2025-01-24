@@ -1,7 +1,7 @@
-import { IIconDB } from "@/components/arkhamCards/icons/IconDB";
-import { IArkhamCards } from "@/types/arkhamCards";
-import { ICache } from "@/types/cache";
-import { IDatabase } from "@/types/database";
+import type { IIconDB } from "@/components/arkhamCards/icons/IconDB";
+import type { IArkhamCards } from "@/types/arkhamCards";
+import type { ICache } from "@/types/cache";
+import type { IDatabase } from "@/types/database";
 import { prop, propEq, uniqBy } from "ramda";
 
 export const createStoryCampaignHandler = ({

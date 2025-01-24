@@ -1,5 +1,5 @@
-import { Mapping } from "./common";
-import { IDatabase } from "./database";
+import type { Mapping } from "./common";
+import type { IDatabase } from "./database";
 
 export namespace IPOEditor {
   export type Translation = {

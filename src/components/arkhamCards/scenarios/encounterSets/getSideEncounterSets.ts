@@ -1,9 +1,9 @@
-import { ICache } from '@/types/cache';
+import type { ICache } from '@/types/cache';
 import * as Cache from '@/util/cache';
 import { isNotNil, prop, propEq } from 'ramda';
 import { getSideCampaign } from '../getSideCampaign';
 import { showWarning } from '@/util/console';
-import { IArkhamCards } from '@/types/arkhamCards';
+import type { IArkhamCards } from '@/types/arkhamCards';
 import { onlyWords } from '@/util/common';
 
 export const getSideEncounterSets = (): ICache.ScenarioEncounterSet[] => {
@@ -58,7 +58,7 @@ export const getSideEncounterSets = (): ICache.ScenarioEncounterSet[] => {
 
   const packEncounters = scenarios
     .filter(({ id }) => standaloneScenarios.includes(id))
-    .map(scenario => {
+    .flatMap(scenario => {
       const pack = findPack(scenario);
       
       if (!pack) {
@@ -94,7 +94,6 @@ export const getSideEncounterSets = (): ICache.ScenarioEncounterSet[] => {
         is_extra: getIsExtra(encounter_set_code),
       }))
     })
-    .flat()
     .filter(isNotNil);
 
   return packEncounters as ICache.ScenarioEncounterSet[];

@@ -2,7 +2,7 @@ import * as Cache from '@/util/cache';
 import * as ArkhamCards from '@/api/arkhamCards/api';
 import { propEq, toPairs } from 'ramda';
 import { showError } from '@/util/console';
-import { Mapping } from '@/types/common';
+import type { Mapping } from '@/types/common';
 
 export const getEncounterSetTranslations = async (language: string) => {
   const dbEncounters = Cache.getDatabaseEncounterSets();

@@ -1,4 +1,4 @@
-import { IIcoMoon } from "@/types/icomoon";
+import type { IIcoMoon } from "@/types/icomoon";
 import { preservePaths } from '@/data/icons/transformation.json'
 import { DEFAULT_ICON_SIZE } from "@/config/icons";
 

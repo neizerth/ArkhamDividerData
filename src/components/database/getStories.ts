@@ -1,4 +1,4 @@
-import { IDatabase } from "@/types/database";
+import type { IDatabase } from "@/types/database";
 import { getCycleStories } from "./stories/getCycleStories";
 import { getSideScenarioStories } from "./stories/getSideScenarioStories";
 import { getSpecialStories } from "./stories/getSpecialStories";

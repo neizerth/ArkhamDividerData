@@ -1,7 +1,7 @@
 import * as Cache from '@/util/cache';
 import * as Translations from '@/components/translations'
 import { CacheType } from '@/types/cache';
-import { Mapping } from '@/types/common';
+import type { Mapping } from '@/types/common';
 import { toTranslationBundle } from './toTranslationBundle';
 import { fromPairs, isNotNil, toPairs, uniq } from 'ramda';
 import { onlyWords } from '@/util/common';

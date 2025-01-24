@@ -1,6 +1,6 @@
 import { loadIconsPatch } from "@/api/arkhamCards/api";
 import * as Cache from '@/util/cache';
-import { Mapping } from "@/types/common";
+import type { Mapping } from "@/types/common";
 import { fromPairs, toPairs } from "ramda";
 import { showWarning } from "@/util/console";
 

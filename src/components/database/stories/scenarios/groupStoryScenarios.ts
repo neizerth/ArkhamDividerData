@@ -1,5 +1,5 @@
-import { IIconDB } from "@/components/arkhamCards/icons/IconDB";
-import { IDatabase } from "@/types/database";
+import type { IIconDB } from "@/components/arkhamCards/icons/IconDB";
+import type { IDatabase } from "@/types/database";
 import { isNumeric } from "@/util/common";
 import { withEncounters } from "@/util/criteria";
 import { groupBy, isNotNil, omit, prop, uniq, values } from "ramda";
@@ -40,15 +40,13 @@ export const removePartText = (text: string) => text.replace(/, Part .*$/, '');
 export const getGroupEncounters = (scenarios: IDatabase.StoryScenario[]) => {
   const encounterSets = uniq(
     scenarios
-      .map(prop('encounter_sets'))
-      .flat()
+      .flatMap(prop('encounter_sets'))
       .filter(isNotNil)
   )
 
   const extraEncounterSets = uniq(
     scenarios
-      .map(prop('extra_encounter_sets'))
-      .flat()
+      .flatMap(prop('extra_encounter_sets'))
       .filter(isNotNil)
   )
 
@@ -66,7 +64,7 @@ export const groupStoryScenariosByNumber = ({ scenarios, iconDB }: IGroupCompose
 
   return values(groups)
     .filter(isNotNil)
-    .map(scenarios => {
+    .flatMap(scenarios => {
       const [first] = scenarios;
       if (scenarios.length === 1) {
         return first;
@@ -115,8 +113,7 @@ export const groupStoryScenariosByNumber = ({ scenarios, iconDB }: IGroupCompose
         header: changeGroupText(header),
         scenarios
       }
-    })
-    .flat();
+    });
 }
 
 export const groupStoryScenariosByHeader = ({ scenarios }: IGroupComposer): IDatabase.StoryScenario[] => {
@@ -127,7 +124,7 @@ export const groupStoryScenariosByHeader = ({ scenarios }: IGroupComposer): IDat
 
   return values(groups)
     .filter(isNotNil)
-    .map((group) => {
+    .flatMap((group) => {
       const [first, ...scenarios] = group;
       if (!first.header) {
         return group;
@@ -146,8 +143,7 @@ export const groupStoryScenariosByHeader = ({ scenarios }: IGroupComposer): IDat
         ...getGroupEncounters(scenarios),
         scenarios,
       }
-    })
-    .flat();
+    });
 }
 
 const isRoman = (text: string) => {

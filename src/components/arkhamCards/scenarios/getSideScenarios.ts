@@ -2,9 +2,9 @@ import * as Cache from '@/util/cache';
 import { showError, showWarning } from "@/util/console";
 import { isNotNil, prop, propEq } from "ramda";
 import { getSideCampaign } from './getSideCampaign';
-import { ICache } from '@/types/cache';
+import type { ICache } from '@/types/cache';
 import { SIDE_STORIES_CODE } from '@/api/arkhamCards/constants';
-import { IArkhamCards } from '@/types/arkhamCards';
+import type { IArkhamCards } from '@/types/arkhamCards';
 import { SIDE_STORY_CODE } from '@/api/arkhamDB/constants';
 import { onlyWords } from '@/util/common';
 

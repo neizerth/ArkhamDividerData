@@ -1,7 +1,7 @@
 import * as ArkhamCards from "@/api/arkhamCards/constants";
 import * as ArkhamDB from "@/api/arkhamDB/constants";
 import { createIconDB } from "@/components/arkhamCards/icons/IconDB";
-import { SingleValue } from "@/types/common";
+import type { SingleValue } from "@/types/common";
 import { IDatabase } from "@/types/database";
 import * as Cache from '@/util/cache';
 import { showError, showWarning } from "@/util/console";

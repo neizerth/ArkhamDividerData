@@ -1,8 +1,8 @@
-import { Mapping, SingleValue } from "@/types/common";
+import type { Mapping, SingleValue } from "@/types/common";
 import * as Cache from "@/util/cache";
 import { getCampaigns } from "@/components/arkhamCards/campaigns/getCampaigns"
 import { propEq } from "ramda";
-import { IArkhamCards } from "@/types/arkhamCards";
+import type { IArkhamCards } from "@/types/arkhamCards";
 
 type FullCampaigns = ReturnType<typeof Cache.getCampaigns>;
 type FullCampaign = SingleValue<FullCampaigns>;

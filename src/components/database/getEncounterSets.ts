@@ -1,4 +1,4 @@
-import { IDatabase } from '@/types/database';
+import type { IDatabase } from '@/types/database';
 import * as ArkhamCards from '@/components/arkhamCards/database'
 import * as ArkhamDB from '@/components/arkhamDB/database';
 import { groupBy, isNotNil, mergeAll, prop, values } from 'ramda';

@@ -1,4 +1,4 @@
-import { Mapping } from "@/types/common";
+import type { Mapping } from "@/types/common";
 import { createReader } from "@/util/fs"
 import fs from "fs"
 

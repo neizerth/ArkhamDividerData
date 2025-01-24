@@ -10,7 +10,7 @@ import { getSideCampaign } from "@/components/arkhamCards/scenarios/getSideCampa
 import { createStoryScenarioHandler } from "./scenarios/getStoryScenario";
 import { IconDBType } from "@/types/icons";
 import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounters";
-import { ICache } from "@/types/cache";
+import type { ICache } from "@/types/cache";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
 
 export const getSideScenarioStories = (): IDatabase.Story[] => {

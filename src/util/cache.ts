@@ -1,11 +1,11 @@
-import { IArkhamCards } from "@/types/arkhamCards";
-import { CacheType, ICache } from "@/types/cache";
-import { Mapping } from "@/types/common";
-import { IDatabase } from "@/types/database";
+import type { IArkhamCards } from "@/types/arkhamCards";
+import { CacheType, type ICache } from "@/types/cache";
+import type { Mapping } from "@/types/common";
+import type { IDatabase } from "@/types/database";
 
 import { CACHE_DIR } from "@/config/app";
 import { createJSONReader, createJSONWriter, createJSONResolver } from "./fs";
-import { IIcoMoon } from "@/types/icomoon";
+import type { IIcoMoon } from "@/types/icomoon";
 
 export const cache = createJSONWriter(CACHE_DIR);
 export const getCache = createJSONReader(CACHE_DIR);

@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { type AxiosRequestConfig } from "axios";
 
 export const getWithPrefix = (baseURL: string) => {
   const client = axios.create({

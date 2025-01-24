@@ -1,4 +1,4 @@
-import sharp from "sharp"
+import type sharp from "sharp"
 
 export const getIsIconCircled = ({
   data,

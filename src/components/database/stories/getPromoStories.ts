@@ -1,4 +1,4 @@
-import { IDatabase } from "@/types/database"
+import type { IDatabase } from "@/types/database"
 import * as Cache from '@/util/cache';
 import { propEq } from "ramda";
 

@@ -1,12 +1,12 @@
 import { loadIcons } from '@/api/arkhamCards/api';
-import { IIcoMoon } from '@/types/icomoon'
+import type { IIcoMoon } from '@/types/icomoon'
 
 export const getIcoMoonIcons = async () => {
   const project = await loadIcons();
   return getIconsInfo(project);
 }
 
-export const getIconsInfo = ({ iconSets }: IIcoMoon.Project): IIcoMoon.Icon[] => iconSets.map(mapIconSet).flat()
+export const getIconsInfo = ({ iconSets }: IIcoMoon.Project): IIcoMoon.Icon[] => iconSets.flatMap(mapIconSet)
 
 const addIconName = ({ selection, metadata }: IIcoMoon.IconSet) => {
   const iconMap = new Map<number, string>();

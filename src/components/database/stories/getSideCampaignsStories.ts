@@ -5,7 +5,7 @@ import { showError, showWarning } from "@/util/console";
 import packsData from '@/data/arkhamCards/packs.json'
 
 import { isNotNil, prop, propEq } from "ramda";
-import { SingleValue } from "@/types/common";
+import type { SingleValue } from "@/types/common";
 import { SIDE_STORY_CODE } from "@/api/arkhamDB/constants";
 import { createStoryScenarioHandler } from "./scenarios/getStoryScenario";
 import { groupStoryScenarios } from "./scenarios/groupStoryScenarios";

@@ -1,4 +1,4 @@
-import { Mapping } from "@/types/common";
+import type { Mapping } from "@/types/common";
 import { toPairs } from "ramda";
 
 export const toTranslationBundle = (mapping: Mapping) => {

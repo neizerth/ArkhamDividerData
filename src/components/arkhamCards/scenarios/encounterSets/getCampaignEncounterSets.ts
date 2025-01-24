@@ -1,4 +1,4 @@
-import { ICache } from '@/types/cache';
+import type { ICache } from '@/types/cache';
 import * as Cache from '@/util/cache';
 import { showError } from '@/util/console';
 

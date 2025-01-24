@@ -1,9 +1,9 @@
-import { IBuild } from "@/types/build";
+import type { IBuild } from "@/types/build";
 import * as Cache from "../util/cache";
 import { CacheType } from "@/types/cache";
 import { buildSource } from "@/util/build";
 import { createI18NCacheReader } from "@/util/cache";
-import { Mapping } from "@/types/common";
+import type { Mapping } from "@/types/common";
 import { prop } from "ramda";
 import { getCustomContent } from "@/components/custom/getCustomContent";
 import customTranslations from '@/data/translations';

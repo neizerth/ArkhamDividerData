@@ -1,7 +1,7 @@
 import * as C from "@/config/api";
 import * as R from "@/api/request";
 import * as F from "@/api/fileRepo";
-import { IArkhamDB } from "@/types/arkhamDB";
+import type { IArkhamDB } from "@/types/arkhamDB";
 
 const getAPIData = R.getWithPrefix(C.ARKHAMDB_API_BASE_URL);
 const getPageContents = R.getWithPrefix(C.ARKHAMDB_BASE_URL);

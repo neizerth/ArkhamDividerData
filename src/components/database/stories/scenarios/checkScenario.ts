@@ -1,4 +1,4 @@
-import { IDatabase } from "@/types/database";
+import type { IDatabase } from "@/types/database";
 
 export const checkScenario = ({ 
   id, 

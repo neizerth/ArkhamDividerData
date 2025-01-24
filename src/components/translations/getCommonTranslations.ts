@@ -1,6 +1,6 @@
 
 import * as ArkhamCards from '@/api/arkhamCards/api'
-import { Mapping } from '@/types/common';
+import type { Mapping } from '@/types/common';
 
 export const getCommonTranslations = async (language: string) => {
   const source = await ArkhamCards.loadCoreTranslations(language);

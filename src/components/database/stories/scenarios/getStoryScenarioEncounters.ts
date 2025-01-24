@@ -1,4 +1,4 @@
-import { IDatabase } from "@/types/database"
+import type { IDatabase } from "@/types/database"
 import { isNotNil, propEq, uniq } from "ramda"
 
 export const getStoryScenarioEncounters = ({

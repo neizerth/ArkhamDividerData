@@ -1,5 +1,5 @@
-import { Mapping } from "@/types/common";
-import { LanguageStoryTranslation, StoryTranslation } from "@/types/i18n";
+import type { Mapping } from "@/types/common";
+import type { LanguageStoryTranslation, StoryTranslation } from "@/types/i18n";
 
 export const createTranslationBundle = (sources: Mapping<LanguageStoryTranslation>[]) => {
   const translations: Mapping<{

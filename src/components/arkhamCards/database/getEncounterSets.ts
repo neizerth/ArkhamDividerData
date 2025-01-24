@@ -1,11 +1,11 @@
-import { IDatabase } from "@/types/database";
+import type { IDatabase } from "@/types/database";
 import * as Cache from '@/util/cache';
 import { whereSynonyms } from "@/util/criteria";
 import { groupBy, isNotNil, prop, propEq, values } from "ramda";
 import { createIconDB } from "../icons/IconDB";
 import { toSynonyms } from "@/util/common";
 import { showError } from "@/util/console";
-import { ICache } from "@/types/cache";
+import type { ICache } from "@/types/cache";
 
 export const getEncounterSets = (): IDatabase.EncounterSet[] => {
   const scenarioEncounters = Cache.getScenarioEncounterSets();

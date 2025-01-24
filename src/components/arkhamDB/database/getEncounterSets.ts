@@ -1,5 +1,5 @@
 import { createIconDB } from '@/components/arkhamCards/icons/IconDB';
-import { IDatabase } from '@/types/database';
+import type { IDatabase } from '@/types/database';
 import * as Cache from '@/util/cache';
 import { toSynonyms } from '@/util/common';
 import { showError } from '@/util/console';

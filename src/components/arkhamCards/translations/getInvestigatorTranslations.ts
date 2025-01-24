@@ -1,5 +1,5 @@
 import * as ArkhamCards from '@/api/arkhamCards/api';
-import { IArkhamDB } from '@/types/arkhamDB';
+import type { IArkhamDB } from '@/types/arkhamDB';
 import { ICache } from '@/types/cache';
 import * as Cache from '@/util/cache';
 import { createPropTranslator } from '@/util/common';

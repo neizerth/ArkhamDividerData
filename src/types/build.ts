@@ -1,6 +1,6 @@
-import { ICache } from "./cache"
-import { Mapping } from "./common"
-import { IDatabase } from "./database"
+import type { ICache } from "./cache"
+import type { Mapping } from "./common"
+import type { IDatabase } from "./database"
 
 export namespace IBuild {
   export type Core = {

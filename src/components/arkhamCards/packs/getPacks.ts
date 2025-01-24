@@ -1,6 +1,6 @@
 import * as API from '@/api/arkhamCards/api';
 import { ICache } from '@/types/cache';
-import { SingleValue } from '@/types/common';
+import type { SingleValue } from '@/types/common';
 import { getCycles } from '@/util/cache';
 import { propEq } from 'ramda';
 

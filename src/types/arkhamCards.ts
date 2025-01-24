@@ -1,5 +1,5 @@
-import { IArkhamDB } from "./arkhamDB";
-import { Mapping } from "./common"
+import type { IArkhamDB } from "./arkhamDB";
+import type { Mapping } from "./common"
 
 export namespace IArkhamCards {
 

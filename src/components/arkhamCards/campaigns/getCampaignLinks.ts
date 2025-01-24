@@ -1,10 +1,10 @@
 import { SIDE_STORIES_CODE } from '@/api/arkhamCards/constants';
-import { ICache } from '@/types/cache';
+import type { ICache } from '@/types/cache';
 import * as Cache from '@/util/cache';
 import { showError } from '@/util/console';
 import { prop, propEq } from 'ramda';
 import { arkham_db_mapping as packsMapping } from '@/data/arkhamCards/cycles.json';
-import { IArkhamCards } from '@/types/arkhamCards';
+import type { IArkhamCards } from '@/types/arkhamCards';
 
 
 export const getCampaignLinks = (): ICache.CampaignLink[] => {
@@ -42,7 +42,7 @@ export const getCampaignLinks = (): ICache.CampaignLink[] => {
   }
 
   return campaigns
-    .map(({ campaign }) => {
+    .flatMap(({ campaign }) => {
       const packs = findCampaignPacks(campaign);
 
       if (packs.length === 0) {
@@ -59,6 +59,5 @@ export const getCampaignLinks = (): ICache.CampaignLink[] => {
           cycle_code
         }
       })
-    })
-    .flat();
+    });
 }

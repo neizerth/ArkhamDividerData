@@ -1,4 +1,4 @@
-import { IDatabase } from '@/types/database'
+import type { IDatabase } from '@/types/database'
 import { ICache } from '@/types/cache';
 import { identity, prop, uniq } from 'ramda';
 import path from 'path';
@@ -143,8 +143,7 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
     encounters.map(prop('code'));
 
   const scenarioRequiredEncounters = scenarios
-    .map(prop('encounter_sets'))
-    .flat()
+    .flatMap(prop('encounter_sets'))
 
   const encounterSets = uniq([
       ...requiredEncounters,
@@ -156,8 +155,7 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
   const extraEncounters = uniq([
       ...(options.story.extra_encounter_sets || []),
       ...scenarios
-        .map(prop('extra_encounter_sets'))
-        .flat()
+        .flatMap(prop('extra_encounter_sets'))
     ])
     .filter(identity)
 

@@ -7,15 +7,15 @@ import { FONT_ICONS_DIR, FONTS_DIR, ICONS_CACHE_DIR, ICONS_EXTRA_DIR } from '@/c
 import * as Cache from '@/util/cache';
 import { createExistsChecker, createJSONReader, createWriter, mkDir } from '@/util/fs';
 import { isNotNil, prop, propEq, toPairs } from 'ramda';
-import { CacheType, ICache } from '@/types/cache';
-import { Mapping } from '@/types/common';
+import { CacheType, type ICache } from '@/types/cache';
+import type { Mapping } from '@/types/common';
 import { DEFAULT_ICON_SIZE } from '@/config/icons';
 import { getIconContents } from './font/getIconContents';
 import { getCustomContent } from '@/components/custom/getCustomContent';
 import specialIcons from '@/data/icons/special.json';
 
 // @ts-ignore
-sax.MAX_BUFFER_LENGTH = Infinity;
+sax.MAX_BUFFER_LENGTH = Number.POSITIVE_INFINITY;
 
 export const prepareIcons = async () => {
   console.log('clearing icons cache...');

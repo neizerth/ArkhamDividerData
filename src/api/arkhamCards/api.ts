@@ -2,11 +2,11 @@ import * as C from "@/config/api";
 // import { getWithPrefix } from "@/api/request";
 import { getWithPrefix, getContents } from "../fileRepo";
 
-import { IArkhamCards } from "@/types/arkhamCards";
-import { IIcoMoon } from "@/types/icomoon";
-import { Mapping } from "@/types/common";
-import { IPOEditor } from "@/types/i18n";
-import { IArkhamDB } from "@/types/arkhamDB";
+import type { IArkhamCards } from "@/types/arkhamCards";
+import type { IIcoMoon } from "@/types/icomoon";
+import type { Mapping } from "@/types/common";
+import type { IPOEditor } from "@/types/i18n";
+import type { IArkhamDB } from "@/types/arkhamDB";
 
 // URL versions
 // const getGithubRaw = getWithPrefix(GITHUB_RAW_BASE_URL);

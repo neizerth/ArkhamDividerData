@@ -1,4 +1,4 @@
-import { ICache } from "./cache";
+import type { ICache } from "./cache";
 import { Mapping } from "./common";
 
 export namespace IDatabase {
