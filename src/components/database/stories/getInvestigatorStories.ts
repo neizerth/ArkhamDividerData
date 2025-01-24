@@ -1,13 +1,18 @@
-import { IDatabase } from "@/types/database"
+import type { IDatabase } from "@/types/database"
 import * as Cache from '@/util/cache';
 import { propEq } from "ramda";
 
 export const getInvestigatorStories = (): IDatabase.Story[] => {
 
   const packInvestigators = Cache.getPackInvestigators();
-  const getInvestigatorsByCycle = (cycle_code: string) => 
-    packInvestigators.filter(
-      propEq(cycle_code, 'cycle_code')
+  const packs = Cache.getPacks();
+
+  const starterInvestigators = packInvestigators.filter(
+    propEq('investigator', 'cycle_code')
+  );
+
+  const fanMadeCategories = packs.filter(
+      propEq('zinv', 'cycle_code')
     );
 
   return [
@@ -22,11 +27,11 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
       is_size_supported: false,
       is_official: true,
       is_canonical: true,
-      investigators: getInvestigatorsByCycle('investigator')
+      investigators: starterInvestigators
     },
-    {
-      name: 'Fan-made Investigators',
-      code: 'custom-investigators',
+    ...fanMadeCategories.map(({ code, name }) => ({
+      name,
+      code,
       type: 'investigators',
       icon: 'investigator',
       encounter_sets: [],
@@ -35,7 +40,9 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
       is_size_supported: false,
       is_canonical: false,
       is_official: false,
-      investigators: getInvestigatorsByCycle('zinv')
-    }
+      investigators: packInvestigators.filter(
+        propEq(code, 'pack_code')
+      )
+    }))
   ]
 }
