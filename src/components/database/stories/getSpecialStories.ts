@@ -17,7 +17,6 @@ import { checkScenario } from "./scenarios/checkScenario";
 const CAMPAIGN_CODES = [
   ArkhamCards.CUSTOM_CAMPAIGN_CODE,
   ArkhamCards.CUSTOM_SCENARIO_CODE,
-  ArkhamDB.PARALLEL_CODE,
   ArkhamDB.PROMOTIONAL_CODE,
   ArkhamDB.RETURN_CYCLE_CODE
 ]
