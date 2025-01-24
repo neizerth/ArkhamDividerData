@@ -18,6 +18,8 @@ export const getPromoStories = (): IDatabase.Story[] => {
       encounter_sets: [],
       extra_encounter_sets: [],
       scenario_encounter_sets: [],
+      is_canonical: true,
+      is_official: true,
       is_size_supported: false,
       investigators
     }
