@@ -70,6 +70,7 @@ export namespace IArkhamDB {
 
     export type Investigator = Card & {
       name: string;
+      alternate_of?: string;
       real_name?: string;
       subname?: string;
       traits?: string;
