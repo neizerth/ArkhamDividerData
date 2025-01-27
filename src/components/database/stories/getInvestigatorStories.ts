@@ -34,7 +34,7 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
       is_canonical: true,
       investigators: starterInvestigators
     },
-    ...fanMadeCategories.map(({ code, name }) => ({
+    ...fanMadeCategories.map(({ code, name, is_canonical, is_official }) => ({
       name,
       code,
       type: 'investigators',
@@ -43,13 +43,13 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
       extra_encounter_sets: [],
       scenario_encounter_sets: [],
       is_size_supported: false,
-      is_canonical: false,
-      is_official: false,
+      is_canonical,
+      is_official,
       investigators: packInvestigators.filter(
         propEq(code, 'pack_code')
       )
     })),
-    ...parallelCategories.map(({ code, name}) => ({
+    ...parallelCategories.map(({ code, name, is_canonical, is_official }) => ({
       name,
       code,
       type: 'challenge',
@@ -58,8 +58,8 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
       extra_encounter_sets: [],
       scenario_encounter_sets: [],
       is_size_supported: false,
-      is_canonical: false,
-      is_official: false,
+      is_canonical,
+      is_official,
       investigators: packInvestigators.filter(
         propEq(code, 'pack_code')
       )

@@ -127,6 +127,7 @@ export namespace ICache {
     real_traits?: string
     flavor?: string
     text: string;
+    alternate_of?: string
     
     health: number;
     sanity: number;
