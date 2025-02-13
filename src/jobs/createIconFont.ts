@@ -69,7 +69,8 @@ export const createAssets = async () => {
     normalize: true,
     fontTypes: [
       FontAssetType.WOFF,
-      FontAssetType.WOFF2
+      FontAssetType.WOFF2,
+      FontAssetType.TTF
     ],
     assetTypes: [
       OtherAssetType.JSON,
