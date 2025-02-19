@@ -24,6 +24,15 @@
     "ae_level_3",
     "ae_level_4",
     "ae_level_5",
-    "skill_agility"
+    "skill_agility",
+    "skill_willpower",
+    "skill_combat",
+    "skill_intellect",
+    "skill_wild",
+    "skill_agility_inverted",
+    "skill_willpower_inverted",
+    "skill_combat_inverted",
+    "skill_intellect_inverted",
+    "skill_wild_inverted"
   ]
 }
