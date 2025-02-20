@@ -33,6 +33,26 @@
     "skill_willpower_inverted",
     "skill_combat_inverted",
     "skill_intellect_inverted",
-    "skill_wild_inverted"
+    "skill_wild_inverted",
+    "num0",
+    "num1",
+    "num2",
+    "num3",
+    "num4",
+    "num5",
+    "num6",
+    "num7",
+    "num8",
+    "num9",
+    "num0-fill",
+    "num1-fill",
+    "num2-fill",
+    "num3-fill",
+    "num4-fill",
+    "num5-fill",
+    "num6-fill",
+    "num7-fill",
+    "num8-fill",
+    "num9-fill"
   ]
 }
