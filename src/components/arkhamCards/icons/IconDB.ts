@@ -12,6 +12,7 @@ import { propEq } from "ramda";
 const ARKHAM_CARDS_CUSTOM_PREFIXES = [
   'zau_',
   'zgoo_',
+  'zoz_',
   'z'
 ];
 
