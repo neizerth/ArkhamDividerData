@@ -1,7 +1,7 @@
 import type { Mapping } from "@/types/common";
 import { IconDBType } from "@/types/icons";
 import * as Cache from "@/util/cache";
-import { showError } from "@/util/console";
+import { showError, showSuccess, showWarning } from "@/util/console";
 
 import storyIcons from '@/data/icons/stories.json';
 import temporaryIcons from '@/data/icons/temporary.json';
@@ -10,11 +10,10 @@ import specialIcons from '@/data/icons/special.json';
 import { propEq } from "ramda";
 
 const ARKHAM_CARDS_CUSTOM_PREFIXES = [
-  'zau_',
-  'zgoo_',
-  'zoz_',
   'z'
 ];
+
+const CUSTOM_PATTERN = /^z[^_]+_(.*)$/; 
 
 export type IconDBOptions = {
   icons: string[]
@@ -87,12 +86,33 @@ export class IconDB implements IIconDB {
       return temporaryIcon;
     }
 
+    if (CUSTOM_PATTERN.test(id)) {
+      const customId = id.replace(CUSTOM_PATTERN, '$1');
+      // console.log('custom icon', customId)
+      return this.getIcon(
+        customId, 
+        defaultValue
+      );
+    }
+
     const prefix = ARKHAM_CARDS_CUSTOM_PREFIXES.find(
       prefix => id.startsWith(prefix)
     );
 
     if (prefix) {
-      return this.getIcon(id.slice(prefix.length), defaultValue);
+      return this.getIcon(
+        id.slice(prefix.length), 
+        defaultValue
+      );
+    }
+
+    const starts = this.icons.filter(
+      icon => icon.startsWith(id)
+    );
+
+    if (starts.length === 1) {
+      showWarning(`not exact search for id ${id} -> ${starts[0]}`)
+      return starts[0];
     }
     
     showError(`icon for encounter code "${id}" not found`);
