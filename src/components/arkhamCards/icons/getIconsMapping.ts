@@ -12,7 +12,10 @@ export const getIconsMapping = async () => {
   return removeMissingIcons(mapping);
 }
 
-export const PATCH_EXPRESSION = /(\s*case '(.*)':[^\n ]*)+\s*return this\.[^(]+\('(.*)'/gm;
+// export const PATCH_EXPRESSION = /(\s*case '(.*)':.*\n)+\s*return this\.[^(]+\('(.*)'/gm;
+// export const PATCH_EXPRESSION = /(\s*case '(.*)':[^\n ]*)+\s*return this\.[^(]+\('(.*)'/gm;
+export const PATCH_EXPRESSION = /([\s\n]*case '(.*)':.*)+\s*return this\.[^(]+\('(.*)'/gm;
+
 export const PATCH_ENCOUNTER_SET_EXPRESSION = /(case '(.*)':)/gm;
 
 export const removeMissingIcons = (mapping: Mapping): Mapping => {
