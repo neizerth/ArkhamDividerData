@@ -78,5 +78,15 @@
     "icon": "minus-outline",
     "width": 1160,
     "height": 410
+  },
+  {
+    "icon": "plus-fill",
+    "width": 1160,
+    "height": 1160
+  },
+  {
+    "icon": "minus-fill",
+    "width": 1160,
+    "height": 410
   }
 ]
