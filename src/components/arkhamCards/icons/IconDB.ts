@@ -10,7 +10,7 @@ import specialIcons from '@/data/icons/special.json';
 import { propEq } from "ramda";
 
 const ARKHAM_CARDS_CUSTOM_PREFIXES = [
-  'z'
+  'z',
 ];
 
 const CUSTOM_PATTERN = /^z[^_]+_(.*)$/; 

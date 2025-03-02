@@ -13,8 +13,8 @@ export const getIconsMapping = async () => {
 }
 
 // export const PATCH_EXPRESSION = /(\s*case '(.*)':.*\n)+\s*return this\.[^(]+\('(.*)'/gm;
-// export const PATCH_EXPRESSION = /(\s*case '(.*)':[^\n ]*)+\s*return this\.[^(]+\('(.*)'/gm;
-export const PATCH_EXPRESSION = /([\s\n]*case '(.*)':.*)+\s*return this\.[^(]+\('(.*)'/gm;
+export const PATCH_EXPRESSION = /(\s*case '(.*)':[^\n ]*)+\s*return this\.[^(]+\('(.*)'/gm;
+// export const PATCH_EXPRESSION = /([\s\n]*case '(.*)':.*)+\s*return this\.[^(]+\('(.*)'/gm;
 
 export const PATCH_ENCOUNTER_SET_EXPRESSION = /(case '(.*)':)/gm;
 
@@ -33,8 +33,11 @@ export const removeMissingIcons = (mapping: Mapping): Mapping => {
   return fromPairs(pairs);
 }
 
+const removeComments = (text: string) => text.replace(/\/\*\*?\s*([\W\w]*?)\s*\*\/|\/\/\s*(.*)$/gm, '$1');
+
 export const parsePatchContents = (patchContents: string): Mapping => {
-  const matches = patchContents.matchAll(PATCH_EXPRESSION);
+  const matches = removeComments(patchContents)
+    .matchAll(PATCH_EXPRESSION);
 
   const map = {} as Mapping;
   const patch = Array.from(matches)
