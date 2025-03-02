@@ -88,5 +88,10 @@
     "icon": "minus-fill",
     "width": 1160,
     "height": 410
+  },
+  {
+    "icon": "num0-outline_alt",
+    "width": 1024,
+    "height": 1024
   }
 ]
