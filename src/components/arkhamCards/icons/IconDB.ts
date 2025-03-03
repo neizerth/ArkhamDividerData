@@ -5,7 +5,7 @@ import { showError, showSuccess, showWarning } from "@/util/console";
 
 import storyIcons from '@/data/icons/stories.json';
 import temporaryIcons from '@/data/icons/temporary.json';
-import specialIcons from '@/data/icons/special.json';
+import specialIcons from '@/data/icons/special';
 
 import { propEq } from "ramda";
 
