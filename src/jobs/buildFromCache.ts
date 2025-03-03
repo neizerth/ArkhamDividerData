@@ -7,6 +7,7 @@ import type { Mapping } from "@/types/common";
 import { prop } from "ramda";
 import { getCustomContent } from "@/components/custom/getCustomContent";
 import customTranslations from '@/data/translations';
+import { VERSION } from "@/constants";
 
 export const buildFromCache = async () => {
   const languages = buildI18NSources();
@@ -111,6 +112,7 @@ export const buildCoreSources = (languages: string[]) => {
   ]
 
   const data: IBuild.Core = {
+    version: VERSION,
     languages,
     stories,
     encounterSets,

@@ -4,6 +4,7 @@ import type { IDatabase } from "./database"
 
 export namespace IBuild {
   export type Core = {
+    version: string
     languages: string[]
     stories: IDatabase.Story[]
     encounterSets: IDatabase.EncounterSet[]

@@ -13,6 +13,7 @@ import { DEFAULT_ICON_SIZE } from '@/config/icons';
 import { getIconContents } from './font/getIconContents';
 import { getCustomContent } from '@/components/custom/getCustomContent';
 import specialIcons from '@/data/icons/special';
+import { VERSION } from '@/constants';
 
 // @ts-ignore
 sax.MAX_BUFFER_LENGTH = Number.POSITIVE_INFINITY;
@@ -25,7 +26,7 @@ export const prepareIcons = async () => {
 }
 
 export const createIconFont = async () => {
-  await prepareIcons();
+  // await prepareIcons();
   console.log('copying extra icons...');
   await copyExtraIcons();
   console.log('creating font assets...');
@@ -84,6 +85,8 @@ export const createAssets = async () => {
   fs.cpSync(ICONS_CACHE_DIR, FONT_ICONS_DIR, {
     recursive: true
   });
+
+  fs.cpSync(`${FONTS_DIR}/icons.ttf`, `${FONTS_DIR}/icons.${VERSION}.ttf`)
 
   await cacheIconsInfo();
 }
