@@ -26,7 +26,7 @@ export const prepareIcons = async () => {
 }
 
 export const createIconFont = async () => {
-  // await prepareIcons();
+  await prepareIcons();
   console.log('copying extra icons...');
   await copyExtraIcons();
   console.log('creating font assets...');
