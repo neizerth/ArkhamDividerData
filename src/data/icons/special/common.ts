@@ -93,5 +93,10 @@ export default [
     'icon': 'num0-outline_alt',
     'width': 1024,
     'height': 1024
+  },
+  {
+    'icon': 'change-investigator',
+    'width': 535,
+    'height': 555
   }
 ]
