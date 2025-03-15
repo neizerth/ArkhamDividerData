@@ -16,3 +16,5 @@ export const ARKHAMDB_CONTENTS_BASE_URL: string = process.env.ARKHAMDB_CONTENTS_
 export const ARKHAMDB_JSON_BASE_URL: string = process.env.ARKHAMDB_JSON_BASE_URL;
 export const ARKHAMDB_DATA_ZIP_URL: string = process.env.ARKHAMDB_DATA_ZIP_URL;
 export const ARKHAMDB_DATA_FOLDER_NAME: string = process.env.ARKHAMDB_DATA_FOLDER_NAME;
+
+export const PRODUCTION_URL = process.env.PRODUCTION_URL;

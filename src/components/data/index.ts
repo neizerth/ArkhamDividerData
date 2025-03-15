@@ -6,6 +6,7 @@ export * from './getPackInvestigators';
 
 export * from '@/components/arkhamCards/icons/getIcoMoonIcons';
 export * from '@/components/arkhamCards/icons/getIconsMapping';
+export * from '@/components/arkhamCards/icons/getLastGlyphMapCache';
 export * from '@/components/arkhamCards/campaigns/getCampaigns';
 export * from '@/components/arkhamCards/campaigns/getCampaignLinks';
 export * from '@/components/arkhamCards/scenarios/getScenarioEncounterSets';

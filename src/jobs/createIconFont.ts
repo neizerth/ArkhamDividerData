@@ -9,11 +9,11 @@ import { createExistsChecker, createJSONReader, createWriter, mkDir } from '@/ut
 import { isNotNil, prop, propEq, toPairs } from 'ramda';
 import { CacheType, type ICache } from '@/types/cache';
 import type { Mapping } from '@/types/common';
-import { DEFAULT_ICON_SIZE } from '@/config/icons';
 import { getIconContents } from './font/getIconContents';
 import { getCustomContent } from '@/components/custom/getCustomContent';
 import specialIcons from '@/data/icons/special';
 import { VERSION } from '@/constants';
+import { getCodepoints } from './font/getCodepoints';
 
 // @ts-ignore
 sax.MAX_BUFFER_LENGTH = Number.POSITIVE_INFINITY;
@@ -37,7 +37,6 @@ export const clearIconsCache = async () => {
   fs.rmSync(ICONS_CACHE_DIR, { 
     recursive: true, force: true 
   });
-
 }
 
 export const copyExtraIcons = async () => {
@@ -63,11 +62,14 @@ export const copyExtraIcons = async () => {
 export const createAssets = async () => {
   mkDir(FONTS_DIR);
 
+  const codepoints = getCodepoints();
+
   await generateFonts({
     name: 'icons',
     inputDir: ICONS_CACHE_DIR,
     outputDir: FONTS_DIR,
     normalize: true,
+    codepoints,
     fontTypes: [
       FontAssetType.WOFF,
       FontAssetType.WOFF2,

@@ -34,14 +34,20 @@ export const showError = (...messages: any[]) => console.error(
   ConsoleTextColor.Reset
 );
 
-export const showWarning = (...messages: any[]) => console.error(
+export const showWarning = (...messages: any[]) => console.warn(
   ConsoleTextColor.FgYellow,
   ...messages,
   ConsoleTextColor.Reset
 );
 
-export const showSuccess = (...messages: any[]) => console.error(
+export const showSuccess = (...messages: any[]) => console.log(
   ConsoleTextColor.FgGreen,
+  ...messages,
+  ConsoleTextColor.Reset
+);
+
+export const showInfo = (...messages: any[]) => console.info(
+  ConsoleTextColor.FgBlue,
   ...messages,
   ConsoleTextColor.Reset
 );

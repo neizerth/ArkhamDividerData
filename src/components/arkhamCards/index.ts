@@ -5,3 +5,4 @@ export * from './packs/getPackInvestigators'
 export * from './encounterSets/getEncounterSets';
 export * from './scenarios/getScenarioEncounterSets';
 export * from './icons/getIcoMoonIcons';
+export * from './icons/getLastGlyphMapCache';

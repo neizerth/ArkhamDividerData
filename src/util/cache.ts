@@ -40,3 +40,4 @@ export const getCampaignLinks = () => getCache<ICache.CampaignLink[]>(CacheType.
 export const getStories = () => getCache<IDatabase.Story[]>(CacheType.DATABASE_STORIES);
 export const getIconInfo = () => getCache<ICache.IconInfo[]>(CacheType.ICONS_INFO);
 export const getSVGIconInfo = () => getCache<ICache.SVGIconInfo[]>(CacheType.SVG_ICONS_INFO);
+export const getLastGlyphMap = () => getCache<ICache.FontIconInfo>(CacheType.ICONS_LAST_GLYPH_MAP);

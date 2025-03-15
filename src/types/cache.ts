@@ -17,6 +17,7 @@ export enum CacheType {
   ICONS_INFO = 'icons.info',
   SVG_ICONS_INFO = 'svgIcons.info',
   ICONS_MAPPING = 'icons.mapping',
+  ICONS_LAST_GLYPH_MAP = 'icons.lastGlyphMap',
 
   DATABASE_CAMPAIGNS = 'database.campaigns',
   DATABASE_ENCOUNTER_SETS = 'database.encounterSets',
@@ -64,6 +65,7 @@ export namespace ICache {
     circled: boolean
   }
 
+  export type FontIconInfo = Record<string, number>
 
   export enum Source {
     ARKHAMDB = 'arkham-db',

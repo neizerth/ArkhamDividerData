@@ -50,6 +50,9 @@ export const createIconsCache = async () => {
 
   console.log('caching icons mapping...');
   cache(CacheType.ICONS_MAPPING, await Data.getIconsMapping());
+
+  console.log('caching icons last glyph map...');
+  cache(CacheType.ICONS_LAST_GLYPH_MAP, await Data.getLastGlyphMap());
 }
 
 export const createEntityCache = async () => {
