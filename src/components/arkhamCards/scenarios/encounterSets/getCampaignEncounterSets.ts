@@ -4,6 +4,7 @@ import { showError } from '@/util/console';
 
 import { isNotNil, prop, propEq } from 'ramda';
 import { SIDE_STORIES_CODE } from '@/api/arkhamCards/constants';
+import packsData from '@/data/arkhamCards/packs'
 
 export const getCampaignEncounterSets = (): ICache.ScenarioEncounterSet[] => {
   const encounterSets = Cache.getPackEncounterSets();
@@ -38,12 +39,18 @@ export const getCampaignEncounterSets = (): ICache.ScenarioEncounterSet[] => {
       cycle_code,
     } = pack;
 
+    const additionalCodes = packsData
+      .find(
+        propEq(code, 'pack_code')
+      )?.add_encounter_sets || [];
+
     const packScenarioEncounters = scenarios.map(scenario => {
       
       const scenarioEncounters = scenario.steps
         .map(prop('encounter_sets'))
         .filter(isNotNil)
-        .flat();
+        .flat()
+        .concat(additionalCodes)
 
       const getIsExtra = (code: string) => encounterSets.some(encounter => {
         return encounter.encounter_set_code === code && 
@@ -67,7 +74,9 @@ export const getCampaignEncounterSets = (): ICache.ScenarioEncounterSet[] => {
     return packScenarioEncounters.flat();
   });
 
-  const encounters = packEncounters.flat().filter(isNotNil);
+  const encounters = packEncounters
+    .flat()
+    .filter(isNotNil);
 
   return encounters as ICache.ScenarioEncounterSet[];
 }

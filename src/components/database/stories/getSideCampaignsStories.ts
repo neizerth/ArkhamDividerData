@@ -2,7 +2,7 @@ import { createIconDB } from "@/components/arkhamCards/icons/IconDB";
 import { IDatabase } from "@/types/database";
 import * as Cache from '@/util/cache';
 import { showError, showWarning } from "@/util/console";
-import packsData from '@/data/arkhamCards/packs.json'
+import packsData from '@/data/arkhamCards/packs'
 
 import { isNotNil, prop, propEq } from "ramda";
 import type { SingleValue } from "@/types/common";

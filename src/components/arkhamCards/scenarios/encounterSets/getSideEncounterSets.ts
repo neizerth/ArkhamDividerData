@@ -5,6 +5,7 @@ import { getSideCampaign } from '../getSideCampaign';
 import { showWarning } from '@/util/console';
 import type { IArkhamCards } from '@/types/arkhamCards';
 import { onlyWords } from '@/util/common';
+import packsData from '@/data/arkhamCards/packs'
 
 export const getSideEncounterSets = (): ICache.ScenarioEncounterSet[] => {
   const sideCampaign = getSideCampaign();
@@ -68,8 +69,15 @@ export const getSideEncounterSets = (): ICache.ScenarioEncounterSet[] => {
       const packCode = pack?.code;
       const cycleCode = pack?.cycle_code;
 
+
+      const additionalCodes = packsData
+        .find(
+          propEq(packCode, 'pack_code')
+        )?.add_encounter_sets || [];
+
       const scenarioEncounters = scenario.steps
         .map(prop('encounter_sets'))
+        .concat(additionalCodes)
         .filter(isNotNil)
         .flat();
 
