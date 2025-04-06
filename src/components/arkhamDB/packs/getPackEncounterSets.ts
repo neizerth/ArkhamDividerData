@@ -38,8 +38,9 @@ const getEncounterSets = async (pack: ICache.Pack) => {
 
   return toPairs(groups)
     .map(([encounter_set_code, cards = []]) => {
-      const size = cards.reduce(
-        (total, { quantity }) => total + quantity,
+      const types = getEncounterSetTypes(cards);
+      const size = types.reduce(
+        (total, { size }) => total + size,
         0
       )
       return {
@@ -48,7 +49,7 @@ const getEncounterSets = async (pack: ICache.Pack) => {
         source: ICache.Source.ARKHAMDB,
         encounter_set_code,
         size,
-        types: getEncounterSetTypes(cards)
+        types
       }
     });
 }
