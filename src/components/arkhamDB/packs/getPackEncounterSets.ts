@@ -59,14 +59,26 @@ export const getEncounterSetTypes = (cards: IArkhamDB.JSON.Card[]) => {
       .map(prop('type_code'))
       .filter(isNotNil)
   );
+
+  const mainTypes = ['agenda', 'act', 'scenario'];
+  const mainTypeCards = cards.filter(
+      ({ type_code }) => mainTypes.includes(type_code)
+    )
+    .map(prop('position'));
+
   return types
     .map(type => {
       const typeCards = cards.filter(propEq(type, 'type_code'));
 
-      const size = typeCards.reduce(
-        (total, { quantity }) => total + quantity,
-        0
-      )
+      const size = typeCards
+        .filter(({ position, type_code }) => 
+          mainTypes.includes(type_code) || 
+          !mainTypeCards.includes(position)
+        )
+        .reduce(
+          (total, { quantity }) => total + quantity,
+          0
+        )
 
       const cardCodes = typeCards.map(prop('position'));
 
