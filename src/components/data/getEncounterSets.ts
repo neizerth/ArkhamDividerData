@@ -20,7 +20,10 @@ export const getEncounterSets = async () => {
         group,
       };
     })
-    .filter(({ group }) => {
+    .filter(({ group, name }) => {
+      if (!SPECIAL_GROUP_NAMES.includes(name)) {
+        return false;
+      }
       return group.length > 1;
     });
 
