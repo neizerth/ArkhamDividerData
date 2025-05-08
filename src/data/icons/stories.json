@@ -14,5 +14,9 @@
   {
     "code": "coh",
     "icon": "standalone-venice"
+  },
+  {
+    "code": "wog",
+    "icon": "wotog"
   }
 ]
