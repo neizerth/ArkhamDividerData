@@ -1,7 +1,5 @@
 {
-  "without_size_support": [
-    "tdc"
-  ],
+  "without_size_support": [],
   "arkham_db_mapping": [
     {
       "campaign_id": "tskc",
@@ -20,7 +18,11 @@
       "pack_code": "zrttic"
     }
   ],
-  "encounter_priority_campaigns": [
-    "tskc"
+  "encounter_priority_campaigns": ["tskc"],
+  "ignore_campaign_scenarios": [
+    {
+      "campaign_id": "tdc",
+      "scenario_ids": ["core"]
+    }
   ]
 }
