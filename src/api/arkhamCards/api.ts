@@ -83,7 +83,9 @@ export const loadJSONEncounterSets = async () => {
 }
 
 export const loadJSONPackCards = async (code: string) => {
-  const { data } = await getDataRaw<IArkhamDB.JSON.Card[]>(`/cards/${code}.json`);
+  const { data } = await getDataRaw<IArkhamDB.JSON.Card[]>(`/cards/${code}.json`, {
+    defaultData: []
+  });
   return data;
 }
 
