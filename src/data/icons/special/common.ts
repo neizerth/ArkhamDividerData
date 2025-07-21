@@ -98,5 +98,10 @@ export default [
     'icon': 'change-investigator',
     'width': 535,
     'height': 555
+  },
+  {
+    'icon': 'token-modification',
+    'width': 270,
+    'height': 270
   }
 ]
