@@ -77,8 +77,8 @@ export const createAssets = async () => {
     ],
     assetTypes: [
       OtherAssetType.JSON,
-      // OtherAssetType.HTML,
-      // OtherAssetType.CSS
+      OtherAssetType.HTML,
+      OtherAssetType.CSS
     ]
   });
 
