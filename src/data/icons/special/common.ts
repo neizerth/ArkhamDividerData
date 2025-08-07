@@ -103,5 +103,15 @@ export default [
     'icon': 'token-modification',
     'width': 270,
     'height': 270
-  }
+  },
+  {
+    'icon': 'check-fill',
+    'width': 909,
+    'height': 895
+  },
+  {
+    'icon': 'check-outline',
+    'width': 909,
+    'height': 895
+  },
 ]
