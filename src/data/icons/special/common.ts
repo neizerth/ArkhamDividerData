@@ -114,4 +114,9 @@ export default [
     'width': 909,
     'height': 895
   },
+  {
+    'icon': 'token_auto_fail_highlight_inverse',
+    'width': 868,
+    'height': 868
+  }
 ]
