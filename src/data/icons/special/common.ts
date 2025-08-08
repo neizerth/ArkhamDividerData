@@ -110,6 +110,11 @@ export default [
     'height': 700
   },
   {
+    'icon': 'check-outline_bold',
+    'width': 700,
+    'height': 700
+  },
+  {
     'icon': 'check-outline',
     'width': 700,
     'height': 895
