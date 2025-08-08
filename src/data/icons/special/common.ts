@@ -106,12 +106,12 @@ export default [
   },
   {
     'icon': 'check-fill',
-    'width': 909,
-    'height': 895
+    'width': 700,
+    'height': 700
   },
   {
     'icon': 'check-outline',
-    'width': 909,
+    'width': 700,
     'height': 895
   },
   {
