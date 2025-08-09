@@ -124,8 +124,13 @@ export default [
     'width': 512,
     'height': 512
   },
-  {
+   {
     'icon': 'blocked-thin',
+    'width': 512,
+    'height': 512
+  },
+  {
+    'icon': 'effect',
     'width': 512,
     'height': 512
   },
