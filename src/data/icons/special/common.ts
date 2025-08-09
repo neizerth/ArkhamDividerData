@@ -120,6 +120,21 @@ export default [
     'height': 895
   },
   {
+    'icon': 'blocked-medium',
+    'width': 512,
+    'height': 512
+  },
+  {
+    'icon': 'blocked-thin',
+    'width': 512,
+    'height': 512
+  },
+  {
+    'icon': 'blocked-outline',
+    'width': 512,
+    'height': 512
+  },
+  {
     'icon': 'token_auto_fail_highlight_inverse',
     'width': 868,
     'height': 868
