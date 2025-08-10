@@ -122,4 +122,5 @@ export const buildCoreSources = (languages: string[]) => {
   };
 
   buildSource(CacheType.CORE, data);
+  buildSource('icons', icons);
 }
