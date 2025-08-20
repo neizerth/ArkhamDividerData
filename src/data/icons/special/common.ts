@@ -143,5 +143,10 @@ export default [
     'icon': 'token_auto_fail_highlight_inverse',
     'width': 868,
     'height': 868
+  },
+  {
+    'icon': 'exhaust',
+    'width': 863,
+    'height': 1022
   }
 ]
