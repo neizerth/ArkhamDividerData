@@ -148,5 +148,10 @@ export default [
     'icon': 'exhaust',
     'width': 863,
     'height': 1022
+  },
+  {
+    'icon': 'claws',
+    'width': 295,
+    'height': 298
   }
 ]
