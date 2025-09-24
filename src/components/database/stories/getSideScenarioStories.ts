@@ -5,7 +5,7 @@ import { showError } from "@/util/console";
 import packsData from '@/data/arkhamCards/packs'
 import scenariosData from '@/data/arkhamCards/scenarios.json'
 
-import { isNotNil, prop, propEq, uniq } from "ramda";
+import { groupBy, isNotNil, pick, prop, propEq, uniq, values } from "ramda";
 import { getSideCampaign } from "@/components/arkhamCards/scenarios/getSideCampaign";
 import { createStoryScenarioHandler } from "./scenarios/getStoryScenario";
 import { IconDBType } from "@/types/icons";
@@ -40,22 +40,49 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
     encounterSets
   })
 
-  return scenarios
-    .map(scenario => {
-      
-      const link = sideScenarios.find(({ scenario_id }) => scenario_id === scenario.id);
+  const items = scenarios.map(scenario => {
+    const link = sideScenarios.find(({ scenario_id }) => scenario_id === scenario.id);
 
-      if (!link) {
-        showError(`link not found: ${scenario.id}`);
-        return;
-      }
+    if (!link) {
+      showError(`link not found: ${scenario.id}`);
+      return;
+    }
+
+    return {
+      scenario,
+      link
+    }
+  }).filter(isNotNil);
+
+  const groups = values(groupBy((item) => {
+    return item.link.pack_code;
+  }, items))
+  .map((items) => {
+    const scenarios = items.map(prop('scenario'));
+    const link = items[0].link;
+
+    return {
+      scenarios,
+      link
+    }
+  })
+
+
+  return groups
+    .map(({ link, scenarios }) => {
+
 
       const packCode = link.pack_code;
 
       const pack = packs.find(propEq(packCode, 'code'));
+
+      if (!pack) {
+        showError(`pack not found: ${packCode}`);
+        return;
+      }
       
       const scenarioEncounters = scenarioEncounterSets.filter(
-        propEq(scenario.id, 'scenario_id')
+        ({ scenario_id }) => scenarios.some(propEq(scenario_id, 'id'))
       );
 
       const requiredEncounters = scenarioEncounters.filter(
@@ -68,11 +95,13 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
       )
       .map(prop('encounter_set_code'));
 
-      const name = pack?.name || scenario.scenario_name;
+      const name = pack.name;
       
       const {
-        code = scenario.id,
-      } = pack || {} as ICache.Pack;
+        code,
+      } = pack;
+
+      const [scenario] = scenarios;
 
       const scenarioInfo = scenariosData.find(propEq(scenario.id, 'id'));
       const {
@@ -87,20 +116,19 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
       const icon = iconDB.getIcon(code);
       const type = scenario.side_scenario_type || IDatabase.StoryType.SIDE;
 
-      const storyScenario = getStoryScenario({
+      const storyScenarios = scenarios.map(scenario => getStoryScenario({
         campaignId: sideCampaign.campaign.id, 
         scenario,
-      });
+      }));
 
       const storyScenarioEncounters = getStoryScenarioEncounters({
         encounterSets,
-        scenarios: [storyScenario]
+        scenarios: storyScenarios
       });
 
-      const investigators = pack ? 
-        packInvestigators.filter(
-          propEq(pack.code, 'pack_code')
-        ) : [];
+      const investigators = packInvestigators.filter(
+        propEq(pack.code, 'pack_code')
+      );
 
       const customContent = scenario.custom && getStoryCustomContent({
         code,
@@ -113,9 +141,9 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
         icon,
         type,
         investigators,
-        pack_code: pack?.code,
-        cycle_code: pack?.cycle_code,
-        scenario: storyScenario,
+        pack_code: code,
+        cycle_code: pack.cycle_code,
+        scenarios: storyScenarios,
         custom_content: customContent,
         is_size_supported: Boolean(isSizeSupported),
         is_canonical,
