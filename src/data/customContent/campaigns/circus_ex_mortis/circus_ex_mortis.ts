@@ -9,6 +9,7 @@ export default createCustomContent({
     code: 'zcxc',
     type: 'side_campaign',
     name: 'Circus Ex Mortis',
+    icon: 'zcx_circus_ex_mortis',
     custom_content: {
       creators: [
         {

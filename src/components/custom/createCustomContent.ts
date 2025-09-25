@@ -162,7 +162,7 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 
   const story: IDatabase.Story = {
     ...options.story,
-    icon: code,
+    icon: options.story.icon || code,
     scenarios,
     campaigns: options.story.campaigns || [campaign],
     is_size_supported: options.story.is_size_supported || false,
