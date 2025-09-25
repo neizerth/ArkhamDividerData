@@ -48,7 +48,7 @@ export const copyExtraIcons = async () => {
 
   const customDirs = getCustomContent()
     .map(prop('iconsDir'))
-    .filter(isNotNil);
+    .filter(dir => isNotNil(dir) && fs.existsSync(dir));
   
   for (const dir of customDirs) {
     fs.cpSync(
