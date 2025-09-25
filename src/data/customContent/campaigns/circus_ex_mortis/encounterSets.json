@@ -1,0 +1,78 @@
+[
+  {
+    "name": "One Night Only",
+    "code": "zcx_one_night_only"
+  },
+  {
+    "name": "Circus Grounds",
+    "code": "zcx_circus_grounds"
+  },
+  {
+    "name": "Illusory Tricks",
+    "code": "zcx_illusory_tricks"
+  },
+  {
+    "name": "New Moon Daredevils",
+    "code": "zcx_new_moon_daredevils"
+  },
+  {
+    "name": "New Moon Entertainers",
+    "code": "zcx_new_moon_entertainers"
+  },
+  {
+    "name": "Panicked Masses",
+    "code": "zcx_panicked_masses"
+  },
+  {
+    "name": "Primordial Evils",
+    "code": "zcx_primordial_evils"
+  },
+  {
+    "name": "The Primrose Path",
+    "code": "zcx_primrose_path"
+  },
+  {
+    "name": "Children of the Goat",
+    "code": "zcx_children_of_the_goat"
+  },
+  {
+    "name": "Lunatic Night",
+    "code": "zcx_lunatic_night"
+  },
+  {
+    "name": "Savage Woods",
+    "code": "zcx_savage_woods"
+  },
+  {
+    "name": "Harm's Way",
+    "code": "zcx_harms_way"
+  },
+  {
+    "name": "Cult of Shub-Niggurath",
+    "code": "zcx_cult_of_shub_niggurath"
+  },
+  {
+    "name": "All Points West",
+    "code": "zcx_all_points_west"
+  },
+  {
+    "name": "Piper at the Gates of Dawn",
+    "code": "zcx_piper_at_the_gates_of_dawn"
+  },
+  {
+    "name": "Bacchanalia",
+    "code": "zcx_bacchanalia"
+  },
+  {
+    "name": "Red Sunrise",
+    "code": "zcx_red_sunrise"
+  },
+  {
+    "name": "Thousand to One",
+    "code": "zcx_thousand_to_one"
+  },
+  {
+    "name": "Destiny and Prophecy",
+    "code": "zcx_destiny_and_prophecy"
+  }
+]

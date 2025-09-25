@@ -6,4 +6,5 @@ export { default as north_country_cycle } from './north_country_cycle/north_coun
 export { default as darkham_horror } from './darkham_horror/darkham_horror'
 export { default as the_ghosts_of_onigawa } from './the_ghosts_of_onigawa/the_ghosts_of_onigawa'
 export { default as winter_winds } from './winter_winds/winter_winds';
+export { default as circus_ex_mortis } from './circus_ex_mortis/circus_ex_mortis';
 // export { default as betrayal_at_the_mountains_of_madness } from './betrayal_at_the_mountains_of_madness/betrayal_at_the_mountains_of_madness';

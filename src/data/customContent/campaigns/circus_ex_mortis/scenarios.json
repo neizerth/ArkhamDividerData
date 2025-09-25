@@ -1,0 +1,118 @@
+[
+  {
+    "id": "one_night_only",
+    "scenario_name": "One Night Only",
+    "number_text": "I",
+    "number": 1,
+    "icon": "zcx_one_night_only",
+    "encounter_sets": [
+      "zcx_one_night_only",
+      "zcx_circus_grounds",
+      "zcx_illusory_tricks",
+      "zcx_new_moon_daredevils",
+      "zcx_new_moon_entertainers",
+      "zcx_panicked_masses",
+      "zcx_primordial_evils"
+    ]
+  },
+  {
+    "id": "the_primrose_path",
+    "scenario_name": "The Primrose Path",
+    "number_text": "II",
+    "number": 2,
+    "icon": "zcx_primrose_path",
+    "encounter_sets": [
+      "zcx_primrose_path",
+      "zcx_children_of_the_goat",
+      "zcx_illusory_tricks",
+      "zcx_lunatic_night",
+      "zcx_savage_woods"
+    ]
+  },
+  {
+    "id": "harms_way",
+    "scenario_name": "Harm's Way",
+    "number_text": "III",
+    "number": 3,
+    "icon": "zcx_harms_way",
+    "encounter_sets": [
+      "zcx_harms_way",
+      "zcx_cult_of_shub_niggurath",
+      "zcx_lunatic_night",
+      "zcx_new_moon_entertainers",
+      "zcx_panicked_masses"
+    ]
+  },
+  {
+    "id": "all_points_west",
+    "scenario_name": "All Points West",
+    "number_text": "IV",
+    "number": 4,
+    "icon": "zcx_all_points_west",
+    "encounter_sets": [
+      "zcx_all_points_west",
+      "zcx_cult_of_shub_niggurath",
+      "zcx_new_moon_daredevils",
+      "zcx_primordial_evils"
+    ]
+  },
+  {
+    "id": "piper_at_the_gates_of_dawn",
+    "scenario_name": "Piper at the Gates of Dawn",
+    "number_text": "V",
+    "number": 5,
+    "icon": "zcx_piper_at_the_gates_of_dawn",
+    "encounter_sets": [
+      "zcx_piper_at_the_gates_of_dawn",
+      "zcx_circus_grounds",
+      "zcx_children_of_the_goat",
+      "zcx_illusory_tricks",
+      "zcx_lunatic_night",
+      "zcx_new_moon_daredevils",
+      "zcx_new_moon_entertainers"
+    ]
+  },
+  {
+    "id": "bacchanalia",
+    "scenario_name": "Bacchanalia",
+    "number_text": "VI",
+    "number": 6,
+    "icon": "zcx_bacchanalia",
+    "encounter_sets": [
+      "zcx_bacchanalia",
+      "zcx_cult_of_shub_niggurath",
+      "zcx_new_moon_entertainers",
+      "zcx_panicked_masses",
+      "zcx_primordial_evils"
+    ]
+  },
+  {
+    "id": "red_sunrise",
+    "scenario_name": "Red Sunrise",
+    "number_text": "VII",
+    "number": 7,
+    "icon": "zcx_red_sunrise",
+    "encounter_sets": [
+      "zcx_red_sunrise",
+      "zcx_children_of_the_goat",
+      "zcx_illusory_tricks",
+      "zcx_new_moon_daredevils",
+      "zcx_primordial_evils",
+      "zcx_savage_woods"
+    ]
+  },
+  {
+    "id": "thousand_to_one",
+    "scenario_name": "Thousand to One",
+    "number_text": "VIII",
+    "number": 8,
+    "icon": "zcx_thousand_to_one",
+    "encounter_sets": [
+      "zcx_thousand_to_one",
+      "zcx_children_of_the_goat",
+      "zcx_cult_of_shub_niggurath",
+      "zcx_lunatic_night",
+      "zcx_savage_woods"
+    ]
+  }
+]

@@ -18,6 +18,7 @@ export type CustomStoryType =
 
 export type CreateCustomContentOptions = {
   dir?: string
+  prefix?: string | false
   icons?: Array<{
     icon: string
     width: number
@@ -66,11 +67,11 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 
   const cycleCode = type.includes('campaign') ? 'zcam' : 'zsid';
 
-  const withCode = prefix(`${code}-`);
+  const withCode = options.prefix !== false ? prefix(`${code}-`) : identity;
 
   const baseData = {
     cycle_code: cycleCode,
-    is_canonical: false,
+    is_canonical: false,  
     is_official: false
   }
 
