@@ -51,6 +51,8 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Prepare R2 upload
+        run: mkdir -p ./dist/r2 && cp -r ./dist/*.json ./dist/r2
       - name: Upload artifact to R2
         uses: ryand56/r2-upload-action@latest # Can be any release
         with:
@@ -58,5 +60,5 @@ jobs:
           r2-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
           r2-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           r2-bucket: ${{ secrets.R2_BUCKET }}
-          source-dir: dist
+          source-dir: dist/r2
           keep-file-fresh: true # defaults to false
