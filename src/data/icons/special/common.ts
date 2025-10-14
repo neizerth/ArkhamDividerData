@@ -153,5 +153,15 @@ export default [
     'icon': 'claws',
     'width': 295,
     'height': 298
+  },
+  {
+    'icon': 'token_moon_fill',
+    'width': 1024,
+    'height': 1024
+  },
+  {
+    'icon': 'token_moon_outline',
+    'width': 1024,
+    'height': 1024
   }
 ]
