@@ -42,7 +42,7 @@ export const getSVG = ({
 	paths: string[];
 }) => {
 	const pathContents = paths
-		.map(normalizePathWinding)
+		// .map(normalizePathWinding)
 		.map((d) => `<path d="${d}" />`)
 		.join("");
 
