@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "svg-path-commander": "^2.1.11",
+    "svg-reorient": "^1.0.3",
     "typescript": "^5.5.4"
   },
   "_moduleAliases": {

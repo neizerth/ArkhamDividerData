@@ -6,7 +6,7 @@ import { SVGPathData } from "svg-pathdata";
 import sharp from "sharp";
 import { getIsIconCircled } from "./getIsIconCircled";
 
-import { normalizePathWinding } from "./normalizePathWinding";
+import { reorient } from "svg-reorient";
 
 export const getIconContents = async (item: IIcoMoon.Icon) => {
 	const { name } = item.properties;
@@ -41,17 +41,16 @@ export const getSVG = ({
 	height: number;
 	paths: string[];
 }) => {
-	const pathContents = paths
-		// .map(normalizePathWinding)
-		.map((d) => `<path d="${d}" />`)
-		.join("");
+	const pathContents = paths.map((d) => `<path d="${d}" />`).join(" ");
 
 	const viewBox = `0 0 ${width} ${height}`;
 
 	const xmlns = "http://www.w3.org/2000/svg";
 
 	const attrs = `xmlns="${xmlns}" viewBox="${viewBox}" width="${width}" height="${height}"`;
-	return `<svg ${attrs}><g fill="#000" fill-rule="nonzero" clip-rule="nonzero">${pathContents}</g></svg>`;
+	const svg = `<svg ${attrs}>${pathContents}</svg>`;
+
+	return reorient(svg);
 };
 
 export const getCroppedIcon = async (item: IIcoMoon.Icon) => {
@@ -61,12 +60,12 @@ export const getCroppedIcon = async (item: IIcoMoon.Icon) => {
 	const paths = [];
 
 	for (const path of item.icon.paths) {
-		const item = await translatePath({
+		const translatedPath = await translatePath({
 			path,
 			rect,
 		});
 
-		paths.push(item);
+		paths.push(translatedPath);
 	}
 
 	return {
