@@ -44,8 +44,10 @@
     "tsx": "^4.19.0"
   },
   "dependencies": {
+    "pathkit-wasm": "^1.0.0",
     "svg-path-commander": "^2.1.11",
     "svg-reorient": "^1.0.3",
+    "svgo": "^4.0.0",
     "typescript": "^5.5.4"
   },
   "_moduleAliases": {

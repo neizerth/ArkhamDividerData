@@ -7,6 +7,7 @@ import sharp from "sharp";
 import { getIsIconCircled } from "./getIsIconCircled";
 
 import { reorient } from "svg-reorient";
+import { optimize } from "svgo";
 
 export const getIconContents = async (item: IIcoMoon.Icon) => {
 	const { name } = item.properties;
@@ -120,7 +121,7 @@ export const getSVGBoundingRect = async ({
 }: IIcoMoon.Icon): Promise<ISVGBoundingRect> => {
 	const { paths, width = DEFAULT_ICON_SIZE } = icon;
 	const height = DEFAULT_ICON_SIZE;
-	const svg = getSVG({
+	const svg = await getSVG({
 		width,
 		height,
 		paths,

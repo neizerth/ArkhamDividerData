@@ -169,4 +169,9 @@ export default [
 		width: 87,
 		height: 88,
 	},
+	{
+		icon: "the_great_seal",
+		width: 38,
+		height: 36,
+	},
 ];
