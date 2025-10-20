@@ -41,16 +41,17 @@ export const getSVG = ({
 	height: number;
 	paths: string[];
 }) => {
-	const d = paths.map(normalizePathWinding).join(" ");
-
-	const pathContents = `<path d="${d}" fill="#000" fill-rule="nonzero" clip-rule="nonzero"/>`;
+	const pathContents = paths
+		.map(normalizePathWinding)
+		.map((d) => `<path d="${d}" />`)
+		.join("");
 
 	const viewBox = `0 0 ${width} ${height}`;
 
 	const xmlns = "http://www.w3.org/2000/svg";
 
 	const attrs = `xmlns="${xmlns}" viewBox="${viewBox}" width="${width}" height="${height}"`;
-	return `<svg ${attrs}>${pathContents}</svg>`;
+	return `<svg ${attrs}><g fill="#000" fill-rule="nonzero" clip-rule="nonzero">${pathContents}</g></svg>`;
 };
 
 export const getCroppedIcon = async (item: IIcoMoon.Icon) => {

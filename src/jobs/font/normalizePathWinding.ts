@@ -4,67 +4,178 @@ import {
 	reversePath,
 } from "svg-path-commander";
 
-export function normalizePathWinding(d: string) {
-	const segs = normalizePath(parsePathString(d)); // make segments absolute
-	// compute signed area (Green’s theorem) via discretization
-	const area = signedArea(segs);
-	// enforce CCW winding (area > 0). If negative — reverse.
-	const path =
-		area < 0
-			? reversePath(segs)
-					.map((s) => s.join(" "))
-					.join(" ")
-			: segs.map((s) => s.join(" ")).join(" ");
+export function normalizePathWinding(input: string): string {
+	const d = extractD(input);
+	const segs = normalizePath(parsePathString(d));
 
-	return sanitizePathD(path);
-}
-
-function signedArea(segs: (string | number)[][]) {
-	// rough Bezier discretization -> polygon for area estimation
-	const pts: { x: number; y: number }[] = [];
-	let x = 0,
-		y = 0;
-	const push = (nx: number, ny: number) => {
-		pts.push({ x: nx, y: ny });
-		x = nx;
-		y = ny;
-	};
-
-	// use only vertices (add curve discretization for higher accuracy)
+	// Разбивка на подконтуры
+	const contours: (string | number)[][][] = [];
+	let cur: (string | number)[][] = [];
 	for (const s of segs) {
 		const cmd = s[0] as string;
-		if (cmd === "M" || cmd === "L") push(s[1] as number, s[2] as number);
-		else if (cmd === "C") push(s[5] as number, s[6] as number);
-		else if (cmd === "Q") push(s[3] as number, s[4] as number);
-		else if (cmd === "Z") {
-			/* close */
+		if (cmd === "M" && cur.length) {
+			contours.push(cur);
+			cur = [];
+		}
+		cur.push(s);
+	}
+	if (cur.length) contours.push(cur);
+
+	// Геометрия каждого подконтура
+	const geom = contours.map((c) => {
+		const pts = contourVertices(c);
+		return {
+			segs: c,
+			area: polygonArea(pts),
+			pts,
+			rep: centroid(pts),
+		};
+	});
+
+	// Определяем «вложенность» лучевым тестом
+	const fixed = geom.map((g, i) => {
+		let containsCount = 0;
+		for (let j = 0; j < geom.length; j++)
+			if (j !== i) {
+				if (pointInPolygon(g.rep, geom[j].pts)) containsCount++;
+			}
+		const shouldBeHole = containsCount % 2 === 1; // нечётная вложенность → дырка
+		const wantCCW = !shouldBeHole;
+		const isCCW = g.area > 0;
+
+		const segs2 = wantCCW
+			? isCCW
+				? g.segs
+				: reversePath(g.segs as any)
+			: isCCW
+				? reversePath(g.segs as any)
+				: g.segs;
+
+		return segs2;
+	});
+
+	const joined = fixed
+		.map((c) => c.map((s) => s.join(" ")).join(" "))
+		.join(" ");
+	return sanitizePathD(joined); // precision см. выше
+}
+
+/* — helpers — */
+
+function extractD(input: string): string {
+	const m = input.match(/\sd="([^"]+)"/);
+	return m ? m[1] : input.trim();
+}
+
+type P = { x: number; y: number };
+
+function contourVertices(contour: (string | number)[][]): P[] {
+	const pts: P[] = [];
+	let sx = 0,
+		sy = 0,
+		px = 0,
+		py = 0;
+	for (const s of contour) {
+		const cmd = s[0] as string;
+		if (cmd === "M") {
+			sx = +s[1];
+			sy = +s[2];
+			pts.push({ x: sx, y: sy });
+			px = sx;
+			py = sy;
+		} else if (cmd === "L") {
+			px = +s[1];
+			py = +s[2];
+			pts.push({ x: px, y: py });
+		} else if (cmd === "H") {
+			px = +s[1];
+			pts.push({ x: px, y: py });
+		} else if (cmd === "V") {
+			py = +s[1];
+			pts.push({ x: px, y: py });
+		} else if (cmd === "C") {
+			px = +s[5];
+			py = +s[6];
+			pts.push({ x: px, y: py });
+		} else if (cmd === "Q") {
+			px = +s[3];
+			py = +s[4];
+			pts.push({ x: px, y: py });
+		} else if (cmd === "A") {
+			const n = s.length;
+			px = +s[n - 2];
+			py = +s[n - 1];
+			pts.push({ x: px, y: py });
+		} else if (cmd === "Z") {
+			pts.push({ x: sx, y: sy });
+			px = sx;
+			py = sy;
 		}
 	}
+	return pts;
+}
+
+function polygonArea(pts: P[]): number {
 	let a = 0;
-	for (let i = 0; i < pts.length; i++) {
+	for (let i = 0; i < pts.length - 1; i++) {
 		const p = pts[i],
-			q = pts[(i + 1) % pts.length];
+			q = pts[i + 1];
 		a += p.x * q.y - q.x * p.y;
 	}
 	return a / 2;
 }
 
-function sanitizePathD(d: string) {
-	return (
-		d
-			// comma before/after a command letter → space
-			.replace(/,([a-zA-Z])/g, " $1")
-			.replace(/([a-zA-Z]),/g, "$1 ")
-			// any remaining commas → spaces
-			.replace(/,/g, " ")
-			.replace(/\s+/g, " ")
-			.replace(/(\d)([a-zA-Z])/g, "$1 $2")
-			.replace(/(-?\d*\.?\d+)\s+([eE][+-]?\d+)/g, "$1$2")
-			// (optional) convert scientific notation to a plain number
-			.replace(/-?\d*\.?\d+[eE][+-]?\d+/g, (m) => {
-				const n = Number(m);
-				return Object.is(n, -0) ? "0" : String(n);
-			})
-			.trim()
-	);
+function centroid(pts: P[]): P {
+	let x = 0,
+		y = 0,
+		n = Math.max(pts.length, 1);
+	for (const p of pts) {
+		x += p.x;
+		y += p.y;
+	}
+	return { x: x / n, y: y / n };
+}
+
+function pointInPolygon(p: P, poly: P[]): boolean {
+	// even-odd ray casting, допускаем последний = первый
+	let inside = false;
+	for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+		const xi = poly[i].x,
+			yi = poly[i].y,
+			xj = poly[j].x,
+			yj = poly[j].y;
+		const intersect =
+			yi > p.y !== yj > p.y &&
+			p.x < ((xj - xi) * (p.y - yi)) / (yj - yi + 1e-12) + xi;
+		if (intersect) inside = !inside;
+	}
+	return inside;
+}
+
+export function sanitizePathD(raw: string, precision = 10): string {
+	// Мягкая чистка, без агрессивного округления
+	let d = raw
+		.replace(/\s+xmlns="[^"]*"/g, "")
+		.replace(/,([a-zA-Z])/g, " $1")
+		.replace(/([a-zA-Z]),/g, "$1 ")
+		.replace(/,/g, " ")
+		.replace(/(\d)-(?=\d)/g, "$1 -")
+		.replace(/(-?\d*\.?\d+)\s+([eE][+\-]?\d+)/g, "$1$2")
+		.replace(/\s+/g, " ")
+		.trim();
+
+	if (precision != null) {
+		d = d.replace(/[+\-]?\d*\.?\d+(?:[eE][+\-]?\d+)?/g, (num) => {
+			const n = Number(num);
+			if (!Number.isFinite(n)) return "0";
+			const s = n.toFixed(precision).replace(/\.?0+$/, "");
+			return s === "-0" ? "0" : s;
+		});
+	}
+
+	return d
+		.replace(/([a-zA-Z])(?=[+\-]?\d|\.)/g, "$1 ")
+		.replace(/(\d)([a-zA-Z])/g, "$1 $2")
+		.replace(/\s+/g, " ")
+		.trim();
 }
