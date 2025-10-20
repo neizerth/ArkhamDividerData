@@ -5,10 +5,10 @@ import {
 } from "svg-path-commander";
 
 export function normalizePathWinding(d: string) {
-	const segs = normalizePath(parsePathString(d)); // делаем абсолютные сегменты
-	// посчитаем ориентированную площадь (Green’s theorem) по дискретизации
+	const segs = normalizePath(parsePathString(d)); // make segments absolute
+	// compute signed area (Green’s theorem) via discretization
 	const area = signedArea(segs);
-	// хотим, чтобы все были CCW (area > 0). Если отрицательная — разворачиваем.
+	// enforce CCW winding (area > 0). If negative — reverse.
 	const path =
 		area < 0
 			? reversePath(segs)
@@ -20,7 +20,7 @@ export function normalizePathWinding(d: string) {
 }
 
 function signedArea(segs: (string | number)[][]) {
-	// грубая дискретизация Безье -> полигона для оценки площади
+	// rough Bezier discretization -> polygon for area estimation
 	const pts: { x: number; y: number }[] = [];
 	let x = 0,
 		y = 0;
@@ -30,7 +30,7 @@ function signedArea(segs: (string | number)[][]) {
 		y = ny;
 	};
 
-	// берём только вершины (для точности можно добавить дискретизацию кривых)
+	// use only vertices (add curve discretization for higher accuracy)
 	for (const s of segs) {
 		const cmd = s[0] as string;
 		if (cmd === "M" || cmd === "L") push(s[1] as number, s[2] as number);
@@ -52,15 +52,15 @@ function signedArea(segs: (string | number)[][]) {
 function sanitizePathD(d: string) {
 	return (
 		d
-			// запятая перед/после буквы команды → пробел
+			// comma before/after a command letter → space
 			.replace(/,([a-zA-Z])/g, " $1")
 			.replace(/([a-zA-Z]),/g, "$1 ")
-			// любые оставшиеся запятые → пробелы
+			// any remaining commas → spaces
 			.replace(/,/g, " ")
 			.replace(/\s+/g, " ")
 			.replace(/(\d)([a-zA-Z])/g, "$1 $2")
 			.replace(/(-?\d*\.?\d+)\s+([eE][+-]?\d+)/g, "$1$2")
-			// (опционально) конвертировать научную нотацию в обычное число
+			// (optional) convert scientific notation to a plain number
 			.replace(/-?\d*\.?\d+[eE][+-]?\d+/g, (m) => {
 				const n = Number(m);
 				return Object.is(n, -0) ? "0" : String(n);
