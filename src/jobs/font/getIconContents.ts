@@ -6,143 +6,149 @@ import { SVGPathData } from "svg-pathdata";
 import sharp from "sharp";
 import { getIsIconCircled } from "./getIsIconCircled";
 
+import { normalize as normalizePath } from "svg-path-reverse";
+
 export const getIconContents = async (item: IIcoMoon.Icon) => {
-  const { name } = item.properties;
-  const preserve = preservePaths.includes(name) || name.startsWith("token_");
+	const { name } = item.properties;
+	const preserve = preservePaths.includes(name) || name.startsWith("token_");
 
-  const icon = preserve ? getDefaultIcon(item) : await getCroppedIcon(item);
+	const getIcon = preserve ? getDefaultIcon : getCroppedIcon;
 
-  const { width, height, paths, circled } = icon;
+	const icon = await getIcon(item);
 
-  const svg = getSVG({
-    paths,
-    width,
-    height,
-  });
+	const { width, height, paths, circled } = icon;
 
-  return {
-    svg,
-    width,
-    height,
-    circled,
-  };
+	const svg = getSVG({
+		paths,
+		width,
+		height,
+	});
+
+	return {
+		svg,
+		width,
+		height,
+		circled,
+	};
 };
 
 export const getSVG = ({
-  width,
-  height,
-  paths,
+	width,
+	height,
+	paths,
 }: {
-  width: number;
-  height: number;
-  paths: string[];
+	width: number;
+	height: number;
+	paths: string[];
 }) => {
-  const pathContents = paths.map((d) => `<path d="${d}"/>`).join("");
+	const pathContents = paths
+		.map((d) => `<path d="${normalizePath(d)}" fill="#000"/>`)
+		.join("");
 
-  const viewBox = `0 0 ${width} ${height}`;
+	const viewBox = `0 0 ${width} ${height}`;
 
-  const xmlns = "http://www.w3.org/2000/svg";
+	const xmlns = "http://www.w3.org/2000/svg";
 
-  const attrs = `xmlns="${xmlns}" viewBox="${viewBox}" width="${width}" height="${height}"`;
-  return `<svg ${attrs}>${pathContents}</svg>`;
+	const attrs = `xmlns="${xmlns}" viewBox="${viewBox}" width="${width}" height="${height}"`;
+	return `<svg ${attrs}>${pathContents}</svg>`;
 };
 
 export const getCroppedIcon = async (item: IIcoMoon.Icon) => {
-  const { name } = item.properties;
-  console.log(`processing icon: ${name}`);
+	const { name } = item.properties;
+	console.log(`processing icon: ${name}`);
 
-  const rect = await getSVGBoundingRect(item);
-  const { width, height, circled } = rect;
+	const rect = await getSVGBoundingRect(item);
+	const { width, height, circled } = rect;
 
-  const paths = [];
+	const paths = [];
 
-  for (const path of item.icon.paths) {
-    const item = await translatePath({
-      path,
-      rect,
-    });
+	for (const path of item.icon.paths) {
+		const item = await translatePath({
+			path,
+			rect,
+		});
 
-    paths.push(item);
-  }
+		paths.push(item);
+	}
 
-  return {
-    width,
-    height,
-    circled,
-    paths,
-  };
+	return {
+		width,
+		height,
+		circled,
+		paths,
+	};
 };
 
 export const getDefaultIcon = ({ icon }: IIcoMoon.Icon) => {
-  const height = DEFAULT_ICON_SIZE;
-  const { width = DEFAULT_ICON_SIZE, paths } = icon;
+	const height = DEFAULT_ICON_SIZE;
+	const { width = DEFAULT_ICON_SIZE, paths } = icon;
 
-  return {
-    width,
-    height,
-    paths,
-    circled: false,
-  };
+	return {
+		width,
+		height,
+		paths,
+		circled: false,
+	};
 };
 
 export const translatePath = async ({
-  path,
-  rect,
+	path,
+	rect,
 }: {
-  path: string;
-  rect: ISVGBoundingRect;
+	path: string;
+	rect: ISVGBoundingRect;
 }) => {
-  const { top, left } = rect;
+	const { top, left } = rect;
 
-  const pathData = new SVGPathData(path);
-  const dX = -left;
-  const dY = -top;
-  pathData.translate(dX, dY);
+	const pathData = new SVGPathData(path);
+	const dX = -left;
+	const dY = -top;
+	pathData.translate(dX, dY);
 
-  return pathData.encode();
+	return pathData.encode();
 };
 
 type ISVGBoundingRect = {
-  top: number;
-  left: number;
-  width: number;
-  height: number;
-  size: number;
-  circled?: boolean;
+	top: number;
+	left: number;
+	width: number;
+	height: number;
+	size: number;
+	circled?: boolean;
 };
 
 export const getSVGBoundingRect = async ({
-  icon,
+	icon,
 }: IIcoMoon.Icon): Promise<ISVGBoundingRect> => {
-  const { paths, width = DEFAULT_ICON_SIZE } = icon;
-  const height = DEFAULT_ICON_SIZE;
-  const svg = getSVG({
-    width,
-    height,
-    paths,
-  });
+	const { paths, width = DEFAULT_ICON_SIZE } = icon;
+	const height = DEFAULT_ICON_SIZE;
+	const svg = getSVG({
+		width,
+		height,
+		paths,
+	});
 
-  const buffer = Buffer.from(svg);
-  const img = sharp(buffer).trim().raw();
+	const buffer = Buffer.from(svg);
+	const img = sharp(buffer).trim().raw();
 
-  const response = await img.toBuffer({
-    resolveWithObject: true,
-  });
+	const response = await img.toBuffer({
+		resolveWithObject: true,
+	});
 
-  const circled = getIsIconCircled(response);
+	const circled = getIsIconCircled(response);
 
-  const { info } = response;
+	const { info } = response;
 
-  const { trimOffsetLeft = 0, trimOffsetTop = 0 } = info;
+	const { trimOffsetLeft = 0, trimOffsetTop = 0 } = info;
 
-  const size = Math.max(info.width, info.height);
+	const size = Math.max(info.width, info.height);
 
-  return {
-    top: -trimOffsetTop,
-    left: -trimOffsetLeft,
-    width: info.width,
-    height: info.height,
-    size,
-    circled,
-  };
+	return {
+		top: -trimOffsetTop,
+		left: -trimOffsetLeft,
+		width: info.width,
+		height: info.height,
+		size,
+		circled,
+	};
 };
