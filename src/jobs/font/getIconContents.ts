@@ -6,7 +6,7 @@ import { SVGPathData } from "svg-pathdata";
 import sharp from "sharp";
 import { getIsIconCircled } from "./getIsIconCircled";
 
-import { normalize as normalizePath } from "svg-path-reverse";
+import { normalizePathWinding } from "./normalizePathWinding";
 
 export const getIconContents = async (item: IIcoMoon.Icon) => {
 	const { name } = item.properties;
@@ -41,9 +41,9 @@ export const getSVG = ({
 	height: number;
 	paths: string[];
 }) => {
-	const pathContents = paths
-		.map((d) => `<path d="${normalizePath(d)}" fill="#000"/>`)
-		.join("");
+	const d = paths.map(normalizePathWinding).join(" ");
+
+	const pathContents = `<path d="${d}" fill="#000" fill-rule="nonzero" clip-rule="nonzero"/>`;
 
 	const viewBox = `0 0 ${width} ${height}`;
 
@@ -54,9 +54,6 @@ export const getSVG = ({
 };
 
 export const getCroppedIcon = async (item: IIcoMoon.Icon) => {
-	const { name } = item.properties;
-	console.log(`processing icon: ${name}`);
-
 	const rect = await getSVGBoundingRect(item);
 	const { width, height, circled } = rect;
 
@@ -119,6 +116,7 @@ type ISVGBoundingRect = {
 
 export const getSVGBoundingRect = async ({
 	icon,
+	properties,
 }: IIcoMoon.Icon): Promise<ISVGBoundingRect> => {
 	const { paths, width = DEFAULT_ICON_SIZE } = icon;
 	const height = DEFAULT_ICON_SIZE;
@@ -136,6 +134,10 @@ export const getSVGBoundingRect = async ({
 	});
 
 	const circled = getIsIconCircled(response);
+
+	if (circled) {
+		console.log(`icon "${properties.name}" is circled!`);
+	}
 
 	const { info } = response;
 

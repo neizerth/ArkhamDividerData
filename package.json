@@ -27,7 +27,6 @@
     "@types/sax": "^1.2.7",
     "@types/sharp": "^0.32.0",
     "@types/svg-path-bounds": "^1.0.2",
-    "@types/svg-path-reverse": "^1.7.0",
     "axios": "^1.7.7",
     "decompress": "^4.2.1",
     "dotenv": "^16.4.5",
@@ -45,7 +44,7 @@
     "tsx": "^4.19.0"
   },
   "dependencies": {
-    "svg-path-reverse": "^1.7.0",
+    "svg-path-commander": "^2.1.11",
     "typescript": "^5.5.4"
   },
   "_moduleAliases": {
