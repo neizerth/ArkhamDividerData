@@ -21,7 +21,7 @@ const getGithubContents = getContents(C.ARKHAM_CARDS_CONTENTS_FOLDER_NAME);
 export const withLanguagePostfix =
 	<T>(getUrl: (language: string) => string) =>
 	async (language: string) => {
-		const postfix = language === "en" ? "" : "_" + language;
+		const postfix = language === "en" ? "" : `_${language.replace("-", "_")}`;
 		const url = getUrl(postfix);
 		const { data } = await getGithubRaw<T>(url);
 		return data;
@@ -42,8 +42,9 @@ export const loadIconsPatch = async () => {
 };
 
 export const loadCoreTranslations = async (language: string) => {
+	const key = language.replace("_", "-");
 	const { data } = await getGithubRaw<IPOEditor.Source>(
-		`/assets/i18n/${language}.po.json`,
+		`/assets/i18n/${key}.po.json`,
 	);
 	return data;
 };
@@ -58,7 +59,7 @@ export const loadCampaignTranslationLanguages = async () => {
 	const prefix = "all_campaigns_";
 	const languages = data
 		.filter((name) => name.startsWith(prefix))
-		.map((name) => name.replace(prefix, "").replace(".json", ""));
+		.map((name) => name.replace(prefix, "").replace(".txt", ""));
 
 	return ["en", ...languages];
 };
@@ -77,7 +78,7 @@ export const loadJSONCycles = async () => {
 
 export const loadJSONStandaloneScenarios = async () => {
 	const { data } = await getGithubRaw<IArkhamCards.JSON.StandaloneScenario[]>(
-		"/assets/generated/standaloneScenarios.json",
+		"/assets/generated/standalone_scenarios.txt",
 	);
 	return data;
 };
@@ -116,8 +117,8 @@ export const loadLocalJSONPackCards = async (
 
 export const loadСampaigns = withLanguagePostfix<
 	IArkhamCards.JSON.FullCampaign[]
->((language: string) => `/assets/generated/allCampaigns${language}.json`);
+>((language: string) => `/assets/generated/all_campaigns${language}.txt`);
 
 export const loadEncounterSets = withLanguagePostfix<Mapping>(
-	(language: string) => `/assets/generated/encounterSets${language}.json`,
+	(language: string) => `/assets/generated/encounter_sets${language}.txt`,
 );
