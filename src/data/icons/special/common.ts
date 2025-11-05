@@ -60,7 +60,7 @@ export default [
 		height: 301,
 	},
 	{
-		icon: "plus",
+		icon: "arkham-plus",
 		width: 145,
 		height: 145,
 	},
@@ -173,5 +173,10 @@ export default [
 		icon: "the_great_seal",
 		width: 38,
 		height: 36,
+	},
+	{
+		icon: "resolve",
+		width: 13.1,
+		height: 13.5,
 	},
 ];
