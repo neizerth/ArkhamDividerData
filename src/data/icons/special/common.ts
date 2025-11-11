@@ -160,7 +160,7 @@ export default [
 		height: 1024,
 	},
 	{
-		icon: "token_moon_outline",
+		icon: "token_moon_overlay",
 		width: 1024,
 		height: 1024,
 	},
