@@ -5,6 +5,7 @@
 		"number": 1,
 		"number_text": "I",
 		"icon": "book",
+		"prefix": false,
 		"encounter_sets": ["museum", "guards", "cultists", "choice"],
 		"extra_encounter_sets": [
 			"agents_of_yog",
@@ -22,6 +23,7 @@
 		"number": 2,
 		"number_text": "II",
 		"icon": "book",
+		"prefix": false,
 		"encounter_sets": [
 			"cairo_streets",
 			"chaos_in_cairo",
