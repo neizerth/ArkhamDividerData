@@ -1,0 +1,82 @@
+[
+	{
+		"icon": "abomination",
+		"width": 2800,
+		"height": 2664
+	},
+	{
+		"icon": "cairo_streets",
+		"width": 300,
+		"height": 300
+	},
+	{
+		"icon": "chaos_in_cairos",
+		"width": 200,
+		"height": 200
+	},
+	{
+		"icon": "choice",
+		"width": 150,
+		"height": 150
+	},
+	{
+		"icon": "cobra",
+		"width": 200,
+		"height": 200
+	},
+	{
+		"icon": "cultists",
+		"width": 135,
+		"height": 135
+	},
+	{
+		"icon": "guards",
+		"width": 480,
+		"height": 452
+	},
+	{
+		"icon": "islamic_district",
+		"width": 250,
+		"height": 250
+	},
+	{
+		"icon": "kidnapped",
+		"width": 1024,
+		"height": 1024
+	},
+	{
+		"icon": "museum",
+		"width": 220,
+		"height": 220
+	},
+	{
+		"icon": "of_sphinx_and_sands",
+		"width": 430,
+		"height": 430
+	},
+	{
+		"icon": "return_to",
+		"width": 250,
+		"height": 250
+	},
+	{
+		"icon": "southeastern_cairo",
+		"width": 300,
+		"height": 300
+	},
+	{
+		"icon": "sphinx",
+		"width": 250,
+		"height": 250
+	},
+	{
+		"icon": "will_to_triumph",
+		"width": 270,
+		"height": 290
+	},
+	{
+		"icon": "worship",
+		"width": 140,
+		"height": 90
+	}
+]

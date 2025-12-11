@@ -1,0 +1,63 @@
+[
+	{
+		"id": "eye_on_the_prize",
+		"scenario_name": "Eye on the Prize",
+		"number": 1,
+		"number_text": "I",
+		"encounter_sets": ["museum", "guards", "cultists", "choice"],
+		"extra_encounter_sets": [
+			"agents_of_yog",
+			"chilling_cold",
+			"dark_cult",
+			"locked_doors",
+			"midnight_masks",
+			"rats",
+			"striking_fear"
+		]
+	},
+	{
+		"id": "chaos_in_cairo",
+		"scenario_name": "Chaos in Cairo",
+		"number": 2,
+		"number_text": "II",
+		"encounter_sets": [
+			"cairo_streets",
+			"chaos_in_cairo",
+			"cobra",
+			"cultists",
+			"islamic_district",
+			"kidnappers",
+			"southeastern_cairo",
+			"sphinx"
+		],
+		"extra_encounter_sets": [
+			"agents_of_yog",
+			"dark_cult",
+			"locked_doors",
+			"striking_fear"
+		]
+	},
+	{
+		"id": "will_to_triumph",
+		"scenario_name": "Will to Triumph",
+		"number": 3,
+		"number_text": "III",
+		"encounter_sets": [
+			"abomination",
+			"cairo_streets",
+			"chaos_in_cairo",
+			"choice",
+			"cobra",
+			"museum",
+			"sphinx",
+			"will_to_triumph",
+			"worship"
+		],
+		"extra_encounter_sets": [
+			"agents_of_yog",
+			"dark_cult",
+			"striking_fear",
+			"rats"
+		]
+	}
+]

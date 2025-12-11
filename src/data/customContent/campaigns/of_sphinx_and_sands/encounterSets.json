@@ -1,0 +1,54 @@
+[
+	{
+		"code": "museum",
+		"name": "Museum"
+	},
+	{
+		"code": "guards",
+		"name": "Guards"
+	},
+	{
+		"code": "cultists",
+		"name": "Cultists"
+	},
+	{
+		"code": "choice",
+		"name": "Choice"
+	},
+	{
+		"code": "cairo_streets",
+		"name": "Cairo Streets"
+	},
+	{
+		"code": "chaos_in_cairo",
+		"name": "Chaos in Cairo"
+	},
+	{
+		"code": "cobra",
+		"name": "Cobra"
+	},
+	{
+		"code": "islamic_district",
+		"name": "Islamic District"
+	},
+	{
+		"code": "kidnappers",
+		"name": "Kidnappers"
+	},
+	{
+		"code": "southeastern_cairo",
+		"name": "Southeastern Cairo"
+	},
+	{
+		"code": "sphinx",
+		"name": "Sphinx"
+	},
+	{
+		"code": "worship",
+		"name": "Worship"
+	},
+	{
+		"code": "abomination",
+		"name": "Abomination"
+	}
+]
