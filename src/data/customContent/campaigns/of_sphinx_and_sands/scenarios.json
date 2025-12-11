@@ -4,6 +4,7 @@
 		"scenario_name": "Eye on the Prize",
 		"number": 1,
 		"number_text": "I",
+		"icon": "book",
 		"encounter_sets": ["museum", "guards", "cultists", "choice"],
 		"extra_encounter_sets": [
 			"agents_of_yog",
@@ -20,6 +21,7 @@
 		"scenario_name": "Chaos in Cairo",
 		"number": 2,
 		"number_text": "II",
+		"icon": "book",
 		"encounter_sets": [
 			"cairo_streets",
 			"chaos_in_cairo",
