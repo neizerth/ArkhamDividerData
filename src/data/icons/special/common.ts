@@ -184,4 +184,9 @@ export default [
 		width: 24,
 		height: 28,
 	},
+	{
+		icon: "vpn-gateway",
+		width: 1024,
+		height: 1024,
+	},
 ];
