@@ -179,4 +179,9 @@ export default [
 		width: 13.1,
 		height: 13.5,
 	},
+	{
+		icon: "bluetooth",
+		width: 24,
+		height: 28,
+	},
 ];
