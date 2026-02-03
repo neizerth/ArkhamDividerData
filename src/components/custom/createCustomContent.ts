@@ -27,7 +27,7 @@ export type CreateCustomContentOptions = {
 	}>;
 	scenarios?: Array<
 		Omit<IDatabase.StoryScenario, "header" | "full_name" | "campaign_id"> & {
-			prefix?: string | false;
+			prefix?: string | false | boolean;
 			campaign_id?: string;
 			header?: string;
 			full_name?: string;

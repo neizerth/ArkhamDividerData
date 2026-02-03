@@ -23,7 +23,7 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
   const packInvestigators = Cache.getPackInvestigators();
 
   const withoutSizeSupport = packsData
-    .filter(propEq(false, "is_size_supported"))
+    .filter((pack) => pack.is_size_supported === false)
     .map(prop("pack_code"));
 
   const iconDB = createIconDB(IconDBType.STORY);
