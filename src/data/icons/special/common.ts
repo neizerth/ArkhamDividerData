@@ -189,4 +189,24 @@ export default [
 		width: 1024,
 		height: 1024,
 	},
+	{
+		icon: "asset",
+		width: 659,
+		height: 659,
+	},
+	{
+		icon: "event",
+		width: 760,
+		height: 647,
+	},
+	{
+		icon: "skill",
+		width: 653,
+		height: 764,
+	},
+	{
+		icon: "bonded",
+		width: 257,
+		height: 97,
+	}
 ];
