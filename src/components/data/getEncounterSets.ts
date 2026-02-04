@@ -1,8 +1,8 @@
 import * as ArkhamDB from "@/components/arkhamDB";
 import * as ArkhamCards from "@/components/arkhamCards";
 import { groupBy, prop, propEq, toPairs } from "ramda";
-import { whereSynonyms } from "@/util/criteria";
 import { showError } from "@/util/console";
+import { isIconIgnored, withIconSynonyms } from "./criteria";
 
 const SPECIAL_GROUP_NAMES = ["Epic Multiplayer", "Single Group"];
 
@@ -41,7 +41,7 @@ export const getEncounterSets = async () => {
         ...specialGroup.group
           .map(prop("code"))
           .filter((code) => code !== encounter.code),
-      ];
+      ].filter(isIconIgnored);
 
       return {
         ...encounter,
@@ -77,7 +77,7 @@ export const getEncounterSets = async () => {
     if (SPECIAL_GROUP_NAMES.includes(code)) {
       return false;
     }
-    return !arkhamDBEncounters.some(whereSynonyms(code));
+    return !arkhamDBEncounters.some(withIconSynonyms(code));
   });
 
   return [...matches, ...restArkhamCards];

@@ -16,3 +16,5 @@ export * from '@/components/arkhamCards/scenarios/getSideScenarios';
 export * from '@/components/arkhamCards/languages/getCampaignLanguages';
 
 export * from '@/components/arkhamDB/languages/getCoreLanguages';
+
+export * from './criteria';

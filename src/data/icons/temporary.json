@@ -6,5 +6,9 @@
   {
     "code": "zin",
     "icon": "the_colour_itself"
+  },
+  {
+    "code": "coc_deep_ones",
+    "icon": "standalone-deep_ones"
   }
 ]

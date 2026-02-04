@@ -1,11 +1,11 @@
 import type { IDatabase } from "@/types/database";
 import * as Cache from '@/util/cache';
-import { whereSynonyms } from "@/util/criteria";
 import { groupBy, isNotNil, prop, propEq, values } from "ramda";
 import { createIconDB } from "../icons/IconDB";
 import { toSynonyms } from "@/util/common";
 import { showError } from "@/util/console";
 import type { ICache } from "@/types/cache";
+import { withIconSynonyms } from "@/components/data";
 
 export const getEncounterSets = (): IDatabase.EncounterSet[] => {
   const scenarioEncounters = Cache.getScenarioEncounterSets();
@@ -40,7 +40,7 @@ export const getEncounterSets = (): IDatabase.EncounterSet[] => {
       icon
     };
     
-    const encounter = encounters.find(whereSynonyms(encounter_set_code));
+    const encounter = encounters.find(withIconSynonyms(encounter_set_code));
 
     if (!encounter) {
       showError(`encounter not found: ${encounter_set_code}`);
