@@ -1,9 +1,9 @@
 import { createIconDB } from '@/components/arkhamCards/icons/IconDB';
-import { withIconSynonyms } from '@/components/data';
 import type { IDatabase } from '@/types/database';
 import * as Cache from '@/util/cache';
 import { toSynonyms } from '@/util/common';
 import { showError } from '@/util/console';
+import { whereSynonyms } from '@/util/criteria';
 
 export const getEncounterSets = (): IDatabase.EncounterSet[] => {
   const encounterSets = Cache.getEncounterSets();
@@ -30,7 +30,7 @@ export const getEncounterSets = (): IDatabase.EncounterSet[] => {
       synonyms: []
     };
 
-    const encounterSet = encounterSets.find(withIconSynonyms(encounter_set_code));
+    const encounterSet = encounterSets.find(whereSynonyms(encounter_set_code));
 
     if (!encounterSet) {
       showError(`encounter set not found: ${encounter_set_code}`);
