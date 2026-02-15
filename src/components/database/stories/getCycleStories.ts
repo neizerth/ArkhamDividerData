@@ -186,7 +186,7 @@ export const getCycleStories = (): IDatabase.Story[] => {
         scenarios: allowedScenarios,
       });
 
-      const investigators = packInvestigators.filter(
+      const investigators = code === 'core' ? [] : packInvestigators.filter(
         propEq(code, "cycle_code")
       );
 

@@ -6,7 +6,6 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
 
   const packInvestigators = Cache.getPackInvestigators();
   const packs = Cache.getPacks();
-  const fullCampaigns = Cache.getCampaigns();
 
   const starterInvestigators = packInvestigators.filter(
     propEq('investigator', 'cycle_code')
@@ -20,7 +19,43 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
     propEq('parallel', 'cycle_code')
   );
 
+  const coreInvestigators = packInvestigators.filter(
+    propEq('core', 'pack_code')
+  );
+
+  const core2026Investigators = packInvestigators.filter(
+    propEq('core_2026', 'pack_code')
+  );
+
   return [
+    {
+      name: 'Core Set',
+      code: 'core_2016',
+      type: 'investigators',
+      icon: 'investigator',
+      encounter_sets: [],
+      extra_encounter_sets: [],
+      scenario_encounter_sets: [],
+      is_size_supported: false,
+      is_official: true,
+      is_canonical: true,
+      investigators: coreInvestigators,
+      position: 1
+    },
+    {
+      name: 'Core 2026',
+      code: 'core_2026',
+      type: 'investigators',
+      icon: 'core_2026',
+      encounter_sets: [],
+      extra_encounter_sets: [],
+      scenario_encounter_sets: [],
+      is_size_supported: false,
+      is_official: true,
+      is_canonical: true,
+      investigators: core2026Investigators,
+      position: 1
+    },
     {
       name: 'Investigator Starter Decks',
       code: 'starter-decks',
