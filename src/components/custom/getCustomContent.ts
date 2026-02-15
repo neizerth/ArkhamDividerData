@@ -7,15 +7,13 @@ export const getCustomContent = () => {
 
 	const customData = Object.values(customContent);
 
-	return customData.filter((customStory) => {
+	return customData.filter(({ story }) => {
 		const existingStory = stories.find(
-			(story) =>
-				story.name === customStory.story.name &&
-				story.type === customStory.story.type,
+			({ name, type }) => name === story.name && type === story.type,
 		);
 		if (existingStory) {
 			showWarning(
-				`Custom content: story ${customStory.story.name}/${existingStory.type} already exists`,
+				`Custom content: story ${existingStory.name}/${existingStory.type} already exists`,
 			);
 		}
 		return !existingStory;

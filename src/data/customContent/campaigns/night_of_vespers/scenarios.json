@@ -1,0 +1,119 @@
+[
+	{
+		"id": "the_end_of_seasons",
+		"scenario_name": "The End of Seasons",
+		"number_text": "I",
+		"number": 1,
+		"encounter_sets": [
+			"the_family",
+			"hostile_architecture",
+			"inferno",
+			"liminal_spaces"
+		]
+	},
+	{
+		"id": "behind_closed_doors",
+		"scenario_name": "Behind Closed Doors",
+		"number_text": "II-A",
+		"number": 2,
+		"encounter_sets": [
+			"the_commission",
+			"habeas_corpus",
+			"agents_of_darkness",
+			"hostile_architecture",
+			"liminal_spaces",
+			"nyctophobia",
+			"paranormal_activity",
+			"vivat_regina"
+		],
+		"extra_encounter_sets": ["locked_doors"]
+	},
+	{
+		"id": "dancing_with_death",
+		"scenario_name": "Dancing with Death",
+		"number_text": "II-B",
+		"number": 2,
+		"encounter_sets": [
+			"agents_of_tears",
+			"agents_of_sighs",
+			"giallo",
+			"inferno",
+			"last_dance",
+			"phenomena",
+			"vivat_regina"
+		],
+		"extra_encounter_sets": ["chilling_cold"]
+	},
+	{
+		"id": "the_teachings_of_aradia",
+		"scenario_name": "The Teachings of Aradia",
+		"number_text": "III",
+		"number": 3,
+		"encounter_sets": [
+			"sacred_triad",
+			"liminal_spaces",
+			"nyctophobia",
+			"threefold_evils",
+			"unhallowed_land"
+		]
+	},
+	{
+		"id": "the_city_of_fog",
+		"scenario_name": "The City of Fog",
+		"number_text": "IV-A",
+		"number": 4,
+		"encounter_sets": [
+			"agents_of_darkness",
+			"megapolisomancy",
+			"tenebrae",
+			"agents_of_sighs",
+			"agents_of_tears"
+		]
+	},
+	{
+		"id": "the_garden_of_bones",
+		"scenario_name": "The Garden of Bones",
+		"number_text": "IV-B",
+		"number": 4,
+		"encounter_sets": [
+			"agents_of_sighs",
+			"giallo",
+			"phenomena",
+			"sacred_triad",
+			"megapolisomancy",
+			"paranormal_activity",
+			"agents_of_tears",
+			"unhallowed_land",
+			"nyctophobia",
+			"trauma"
+		]
+	},
+	{
+		"id": "a_chorus_of_suffering",
+		"scenario_name": "A Chorus of Suffering",
+		"number_text": "IV-C",
+		"number": 4,
+		"encounter_sets": [
+			"hostile_architecture",
+			"liminal_spaces",
+			"sacred_triad",
+			"threefold_evils"
+		]
+	},
+	{
+		"id": "mothers_mercy",
+		"scenario_name": "Mother's Mercy",
+		"number_text": "V",
+		"number": 5,
+		"encounter_sets": [
+			"astral_crossroads",
+			"astral_justice",
+			"astral_requital",
+			"liminal_spaces",
+			"phenomena",
+			"sacred_triad",
+			"tenebrae",
+			"trauma"
+		]
+	}
+]
