@@ -66,13 +66,13 @@
   },
   {
     "icon": "revelations",
-    "width": 148,
-    "height": 218
+    "width": 335,
+    "height": 326
   },
   {
     "icon": "souls_of_darkness",
-    "width": 76,
-    "height": 11
+    "width": 79,
+    "height": 144
   },
   {
     "icon": "temple_of_blood",
@@ -96,13 +96,13 @@
   },
   {
     "icon": "thralls",
-    "width": 1479,
+    "width": 1478,
     "height": 1166
   },
   {
     "icon": "unhallowed_oath",
-    "width": 51,
-    "height": 75
+    "width": 99,
+    "height": 98
   },
   {
     "icon": "unhallowed_oath_day",
