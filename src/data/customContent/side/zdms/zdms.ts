@@ -13,4 +13,17 @@ export default createCustomContent({
 			code: "cards",
 		},
 	],
+	icons: [
+		{
+			icon: "zdms",
+			width: 204,
+			height: 203,
+		},
+		{
+			icon: "cards",
+			width: 179,
+			height: 178,
+			circled: true,
+		},
+	],
 });
