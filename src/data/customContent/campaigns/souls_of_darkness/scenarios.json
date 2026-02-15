@@ -1,0 +1,85 @@
+[
+	{
+		"id": "paid_in_blood",
+		"scenario_name": "Paid in Blood",
+		"number_text": "I",
+		"number": 1,
+		"encounter_sets": ["eldritch_feast", "thralls"]
+	},
+	{
+		"id": "feast_of_flesh",
+		"scenario_name": "Feast of Flesh",
+		"number_text": "II",
+		"number": 2,
+		"encounter_sets": [
+			"blood_pact",
+			"cultists_of_uvhash",
+			"eldritch_feast",
+			"revelations",
+			"blood_magus",
+			"profane_rituals",
+			"thralls"
+		]
+	},
+	{
+		"id": "astral_dreams",
+		"scenario_name": "Astral Dreams",
+		"number_text": "III",
+		"number": 3,
+		"encounter_sets": [
+			"astral_perils",
+			"blood_pact",
+			"eldritch_feast",
+			"hounds_of_tindalos"
+		]
+	},
+	{
+		"id": "unhallowed_oath",
+		"scenario_name": "Unhallowed Oath",
+		"number_text": "IV",
+		"number": 4,
+		"encounter_sets": ["unhallowed_oath_day", "unhallowed_oath_night"]
+	},
+
+	{
+		"id": "jaws_of_the_dragon",
+		"scenario_name": "Jaws of the Dragon",
+		"number_text": "V",
+		"number": 5,
+		"encounter_sets": ["blood_pact", "eldritch_feast", "thralls"]
+	},
+	{
+		"id": "crimson_harvest",
+		"scenario_name": "Crimson Harvest",
+		"number_text": "VI",
+		"number": 6,
+		"encounter_sets": ["cultists_of_uvhash", "the_red_mist"]
+	},
+	{
+		"id": "temple_of_blood",
+		"scenario_name": "Temple of Blood",
+		"number_text": "VII",
+		"number": 7,
+		"encounter_sets": [
+			"blood_pact",
+			"cultists_of_uvhash",
+			"wrath_of_uvhash",
+			"eldritch_feast",
+			"hemophage"
+		]
+	},
+	{
+		"id": "thirst_eternal",
+		"scenario_name": "Thirst Eternal",
+		"number_text": "VIII",
+		"number": 8,
+		"encounter_sets": [
+			"astral_perils",
+			"blood_pact",
+			"cultists_of_uvhash",
+			"wrath_of_uvhash",
+			"yithians",
+			"hemophage"
+		]
+	}
+]

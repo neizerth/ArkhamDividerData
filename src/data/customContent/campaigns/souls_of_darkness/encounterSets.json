@@ -1,0 +1,16 @@
+[
+	{ "name": "Astral Perils", "code": "astral_perils" },
+	{ "name": "Blood Magus", "code": "blood_magus" },
+	{ "name": "Blood Pact", "code": "blood_pact" },
+	{ "name": "Cultists of Uvhash", "code": "cultists_of_uvhash" },
+	{ "name": "Eldritch Feast", "code": "eldritch_feast" },
+	{ "name": "Hemophage", "code": "hemophage" },
+	{ "name": "Hounds of Tindalos", "code": "hounds_of_tindalos" },
+	{ "name": "Profane Rituals", "code": "profane_rituals" },
+	{ "name": "Revelations", "code": "revelations" },
+	{ "name": "Temple of Blood", "code": "temple_of_blood" },
+	{ "name": "The Red Mist", "code": "the_red_mist" },
+	{ "name": "Thralls", "code": "thralls" },
+	{ "name": "Wrath of Uvhash", "code": "wrath_of_uvhash" },
+	{ "name": "Yithians", "code": "yithians" }
+]
