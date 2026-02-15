@@ -32,7 +32,7 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
       name: 'Core Set',
       code: 'core_2016',
       type: 'campaign',
-      icon: 'investigator',
+      icon: 'core',
       encounter_sets: [],
       extra_encounter_sets: [],
       scenario_encounter_sets: [],
