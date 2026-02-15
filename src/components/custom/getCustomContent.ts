@@ -1,14 +1,23 @@
-import { customContent } from '@/data/customContent';
-import * as Cache from '@/util/cache';
-import { prop } from 'ramda';
+import { customContent } from "@/data/customContent";
+import * as Cache from "@/util/cache";
+import { showWarning } from "@/util/console";
 
 export const getCustomContent = () => {
-  const stories = Cache.getStories();
+	const stories = Cache.getStories();
 
-  const storyNames = stories.map(prop('name'));
+	const customData = Object.values(customContent);
 
-  return Object.values(customContent)
-    .filter(
-      ({ story }) => !storyNames.includes(story.name)
-    );
-}
+	return customData.filter((customStory) => {
+		const exists = stories.filter(
+			(story) =>
+				story.name === customStory.story.name &&
+				story.type === customStory.story.type,
+		);
+		if (exists) {
+			showWarning(
+				`Custom content: story ${customStory.story.name} already exists`,
+			);
+		}
+		return !exists;
+	});
+};
