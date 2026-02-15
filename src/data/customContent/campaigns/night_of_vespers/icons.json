@@ -21,7 +21,7 @@
 	{ "icon": "liminal_spaces", "width": 471, "height": 471 },
 	{ "icon": "megapolisomancy", "width": 424, "height": 415 },
 	{ "icon": "mothers_mercy", "width": 316, "height": 316 },
-	{ "icon": "night_of_vespers", "width": 273, "height": 273 },
+	{ "icon": "night_of_vespers", "width": 273, "height": 273, "circled": true },
 	{ "icon": "nyctophobia", "width": 276, "height": 277 },
 	{ "icon": "paranormal_activity", "width": 600, "height": 839 },
 	{ "icon": "phenomena", "width": 904, "height": 914 },

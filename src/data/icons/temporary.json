@@ -1,14 +1,18 @@
 [
-  {
-    "code": "zrttic",
-    "icon": "tic"
-  },
-  {
-    "code": "zin",
-    "icon": "the_colour_itself"
-  },
-  {
-    "code": "coc_deep_ones",
-    "icon": "standalone-deep_ones"
-  }
+	{
+		"code": "zrttic",
+		"icon": "tic"
+	},
+	{
+		"code": "zin",
+		"icon": "the_colour_itself"
+	},
+	{
+		"code": "coc_deep_ones",
+		"icon": "standalone-deep_ones"
+	},
+	{
+		"code": "zdms",
+		"icon": "zdms"
+	}
 ]
