@@ -1,0 +1,33 @@
+{
+	"common": {
+		"Dark Matter": "Тёмная материя"
+	},
+	"translations": {
+		"Endtimes": "Конец времён",
+		"Dark Past": "Тёмное прошлое",
+		"The Boogeyman": "Бугимен",
+		"Deep Space": "Дальний космос",
+		"Anachronism": "Анахронизм",
+		"Interstellar Predators": "Межзвёздные хищники",
+		"Artificial Intelligence": "Искусственный интеллект",
+		"The Tatterdemalion": "Оборванец",
+		"Electric Nightmare": "Электронный кошмар",
+		"In the Shadow of Earth": "В тени Земли",
+		"Lost Quantum": "Потерянный квант",
+		"Strange Moons": "Странные луны",
+		"The Machine in Yellow": "Машина в жёлтом",
+		"Fragment of Carcosa": "Фрагмент Каркозы",
+		"Hastur's Gaze": "Взгляд Хастура",
+		"Starfall": "Звездопад"
+	},
+	"translated_by": [
+		{
+			"name": "@Renegat_693",
+			"link": "https://t.me/Renegat_693"
+		},
+		{
+			"name": "@gigabytesergey",
+			"link": "https://t.me/gigabytesergey"
+		}
+	]
+}
