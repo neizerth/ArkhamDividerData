@@ -29,7 +29,7 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
 	return [
 		{
 			name: "Core Set",
-			code: "core_2016",
+			code: "core_2016-investigators",
 			type: "campaign",
 			icon: "core",
 			encounter_sets: [],
@@ -43,7 +43,7 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
 		},
 		{
 			name: "Core 2026",
-			code: "core_2026",
+			code: "core_2026-investigators",
 			type: "campaign",
 			icon: "core_2026",
 			encounter_sets: [],
@@ -70,7 +70,7 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
 		},
 		...fanMadeCategories.map(({ code, name, is_canonical, is_official }) => ({
 			name,
-			code,
+			code: `${code}-inv`,
 			type: "investigators",
 			icon: iconDB.getIcon(code, "investigator"),
 			encounter_sets: [],
@@ -83,7 +83,7 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
 		})),
 		...parallelCategories.map(({ code, name, is_canonical, is_official }) => ({
 			name,
-			code,
+			code: `${code}-inv`,
 			type: "challenge",
 			icon: "parallel",
 			encounter_sets: [],
