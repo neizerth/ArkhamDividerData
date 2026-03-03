@@ -30,7 +30,7 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
 		{
 			name: "Core Set",
 			code: "core_2016-investigators",
-			type: "campaign",
+			type: "investigators",
 			icon: "core",
 			encounter_sets: [],
 			extra_encounter_sets: [],
@@ -44,7 +44,7 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
 		{
 			name: "Core 2026",
 			code: "core_2026-investigators",
-			type: "campaign",
+			type: "investigators",
 			icon: "core_2026",
 			encounter_sets: [],
 			extra_encounter_sets: [],
