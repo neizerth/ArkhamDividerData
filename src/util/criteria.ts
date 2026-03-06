@@ -1,3 +1,5 @@
+import encounterSets from "@/data/encounterSets.json";
+
 export const whereEquals = <C extends { [index: string]: unknown }>(criteria: C) => <T extends C>(item: T) => 
   Object.entries(criteria).every(([key, value]) => item[key] === value);
 
@@ -35,4 +37,8 @@ export const withEncounters = ({
   extra_encounter_sets?: string[]
 }) => {
   return encounter_sets.length > 0 || extra_encounter_sets.length > 0
+}
+
+export const filterEncounterSet = (code: string) => {
+  return Boolean(code) && !encounterSets.ignored.includes(code);
 }

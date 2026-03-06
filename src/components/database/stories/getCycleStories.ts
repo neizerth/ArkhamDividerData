@@ -1,22 +1,23 @@
+import { createIconDB } from "@/components/arkhamCards/icons/IconDB";
+import {
+  ignore_campaign_scenarios,
+  without_size_support as withoutSizeSupport,
+} from "@/data/arkhamCards/cycles.json";
 import { IDatabase } from "@/types/database";
 import * as Cache from "@/util/cache";
 import { showError } from "@/util/console";
-import {
-  without_size_support as withoutSizeSupport,
-  ignore_campaign_scenarios,
-} from "@/data/arkhamCards/cycles.json";
-import { createIconDB } from "@/components/arkhamCards/icons/IconDB";
 import { isNotNil, prop, propEq, uniq } from "ramda";
 
-import * as ArkhamDBConstants from "@/api/arkhamDB/constants";
 import * as ArkhamCardsConstants from "@/api/arkhamCards/constants";
-import { createStoryScenarioHandler } from "./scenarios/getStoryScenario";
-import { createStoryCampaignHandler } from "./features/getStoryCampaign";
-import { groupStoryScenarios } from "./scenarios/groupStoryScenarios";
+import * as ArkhamDBConstants from "@/api/arkhamDB/constants";
 import { IconDBType } from "@/types/icons";
-import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounters";
-import { checkScenario } from "./scenarios/checkScenario";
+import { filterEncounterSet } from "@/util/criteria";
+import { createStoryCampaignHandler } from "./features/getStoryCampaign";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
+import { checkScenario } from "./scenarios/checkScenario";
+import { createStoryScenarioHandler } from "./scenarios/getStoryScenario";
+import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounters";
+import { groupStoryScenarios } from "./scenarios/groupStoryScenarios";
 
 const CAMPAIGN_SKIP_CYCLE_CODES = [
   ...ArkhamDBConstants.SPECIAL_CAMPAIGN_TYPES,
@@ -207,14 +208,14 @@ export const getCycleStories = (): IDatabase.Story[] => {
         is_official,
         position,
         investigators,
-        scenario_encounter_sets: storyScenarioEncounters,
+        scenario_encounter_sets: storyScenarioEncounters.filter(filterEncounterSet),
         custom_content: customContent,
         campaigns: storyCampaigns,
         scenarios: storyScenariosGroup.filter(checkScenario),
         pack_codes: packCodes,
         is_size_supported: isSizeSupported,
-        encounter_sets: requiredEncounters,
-        extra_encounter_sets: extraEncounters,
+        encounter_sets: requiredEncounters.filter(filterEncounterSet),
+        extra_encounter_sets: extraEncounters.filter(filterEncounterSet),
       };
     })
     .filter(isNotNil);
