@@ -134,15 +134,6 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 			icon: toId(encounterSet.icon || encounterSet.code),
 		})) || [];
 
-	const scenarioEncounters: IDatabase.EncounterSet[] = scenarios.map(
-		(scenario) => ({
-			...packEncounterSetBase,
-			name: scenario.scenario_name,
-			code: toId(scenario.id),
-			icon: toId(scenario.id),
-		}),
-	);
-
 	const requiredEncounters =
 		options.story.encounter_sets || encounters.map(prop("code"));
 
@@ -179,7 +170,7 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 
 	return {
 		pack,
-		encounterSets: [...encounters, ...scenarioEncounters],
+		encounterSets: encounters,
 		story,
 		iconsDir,
 		icons,
