@@ -70,7 +70,7 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
 		},
 		...fanMadeCategories.map(({ code, name, is_canonical, is_official }) => ({
 			name,
-			code: code,
+			code: `${code}-inv`,
 			type: "investigators",
 			icon: iconDB.getIcon(code, "investigator"),
 			encounter_sets: [],
@@ -85,7 +85,7 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
 			name,
 			code: `${code}-inv`,
 			type: "investigators",
-			icon: "parallel",
+			icon: "cardicons-parallel",
 			encounter_sets: [],
 			extra_encounter_sets: [],
 			scenario_encounter_sets: [],
