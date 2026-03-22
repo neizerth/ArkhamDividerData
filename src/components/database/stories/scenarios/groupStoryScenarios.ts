@@ -1,6 +1,5 @@
 import type { IIconDB } from "@/components/arkhamCards/icons/IconDB";
 import type { IDatabase } from "@/types/database";
-import { isNumeric } from "@/util/common";
 import { withEncounters } from "@/util/criteria";
 import { groupBy, isNotNil, omit, prop, uniq, values } from "ramda";
 import { romanize } from "romans";
@@ -67,6 +66,51 @@ export const groupStoryScenariosByNumber = ({ scenarios, iconDB }: IGroupCompose
     .flatMap(scenarios => {
       const [first] = scenarios;
       if (scenarios.length === 1) {
+        const nested = first.scenarios;
+        if (
+          nested &&
+          nested.length > 0 &&
+          PART_NUMBER_EXPRESSION.test(first.id)
+        ) {
+          const group = omit(
+            [
+              'encounter_sets',
+              'extra_encounter_sets',
+              'part_text',
+              'part_number',
+              'scenarios',
+            ],
+            first
+          );
+
+          const {
+            full_name,
+            scenario_name,
+            header,
+            number,
+            number_text = '',
+          } = first;
+
+          const changeGroupText = (text: string) => {
+            const romanText = number ? romanize(number) : '';
+            return removePartText(text)
+              .replace(number_text, romanText)
+              .replace(/(Scenario )(.*):/, '$1' + romanText + ':');
+          };
+          const id = first.id.replace(PART_NUMBER_EXPRESSION, '');
+          const icon = iconDB.getIcon(id) || first.icon;
+
+          return {
+            ...group,
+            ...getGroupEncounters(nested),
+            id,
+            icon,
+            full_name: changeGroupText(full_name),
+            scenario_name: changeGroupText(scenario_name),
+            header: changeGroupText(header),
+            scenarios: nested,
+          };
+        }
         return first;
       }
 
@@ -125,7 +169,7 @@ export const groupStoryScenariosByHeader = ({ scenarios }: IGroupComposer): IDat
   return values(groups)
     .filter(isNotNil)
     .flatMap((group) => {
-      const [first, ...scenarios] = group;
+      const [first] = group;
       if (!first.header) {
         return group;
       }
@@ -140,8 +184,8 @@ export const groupStoryScenariosByHeader = ({ scenarios }: IGroupComposer): IDat
 
       return {
         ...scenarioGroup,
-        ...getGroupEncounters(scenarios),
-        scenarios,
+        ...getGroupEncounters(group),
+        scenarios: group,
       }
     });
 }
