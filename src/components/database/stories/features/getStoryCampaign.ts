@@ -5,68 +5,55 @@ import type { IDatabase } from "@/types/database";
 import { prop, propEq, uniqBy } from "ramda";
 
 export const createStoryCampaignHandler = ({
-  iconDB,
-  scenarioEncounters
+	iconDB,
+	scenarioEncounters,
 }: {
-  iconDB: IIconDB
-  scenarioEncounters: ICache.ScenarioEncounterSet[]
+	iconDB: IIconDB;
+	scenarioEncounters: ICache.ScenarioEncounterSet[];
 }) => {
+	return ({
+		fullCampaign,
+		cycle_code,
+	}: {
+		fullCampaign: IArkhamCards.JSON.FullCampaign;
+		cycle_code?: string;
+	}): IDatabase.StoryCampaign => {
+		const { campaign, scenarios } = fullCampaign;
 
-  return ({
-    fullCampaign,
-    cycle_code
-  }: {
-    fullCampaign: IArkhamCards.JSON.FullCampaign
-    cycle_code?: string
-  }): IDatabase.StoryCampaign => {
-    const {
-      campaign,
-      scenarios,
-    } = fullCampaign;
-    
-    const {
-      id,
-      name,
+		const { id, name } = campaign;
 
-    } = campaign;
+		const iconList = [];
 
-    const iconList = [];
+		if (id === "core") {
+			iconList.push(campaign.id);
+		}
 
-    if (id === 'core') {
-      iconList.push(campaign.id);
-    }
+		iconList.push(cycle_code);
 
-    iconList.push(cycle_code);
+		const data = {
+			id,
+			name,
+			icon: iconDB.getIconOf({ ids: iconList, type: "scenario" }),
+			scenarios: scenarios.map(prop("id")),
+		};
 
-    const data = {
-      id,
-      name,
-      icon: iconDB.getIconOf(iconList),
-      scenarios: scenarios.map(prop('id'))
-    }
-    
-    const encounters = uniqBy(
-      prop('encounter_set_code'),
-      scenarioEncounters
-        .filter(propEq(id, 'campaign_id'))
-    )
+		const encounters = uniqBy(
+			prop("encounter_set_code"),
+			scenarioEncounters.filter(propEq(id, "campaign_id")),
+		);
 
-    const requiredEncounters = encounters
-      .filter(
-        propEq(false, 'is_extra')
-      )
-      .map(prop('encounter_set_code'));
+		const requiredEncounters = encounters
+			.filter(propEq(false, "is_extra"))
+			.map(prop("encounter_set_code"));
 
-      const extraEncounters = encounters
-      .filter(
-        propEq(true, 'is_extra')
-      )
-      .map(prop('encounter_set_code'));
+		const extraEncounters = encounters
+			.filter(propEq(true, "is_extra"))
+			.map(prop("encounter_set_code"));
 
-    return {
-      ...data,
-      encounter_sets: requiredEncounters,
-      extra_encounter_sets: extraEncounters
-    }
-  }
-}
+		return {
+			...data,
+			encounter_sets: requiredEncounters,
+			extra_encounter_sets: extraEncounters,
+		};
+	};
+};

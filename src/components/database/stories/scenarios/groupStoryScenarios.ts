@@ -98,7 +98,7 @@ export const groupStoryScenariosByNumber = ({ scenarios, iconDB }: IGroupCompose
               .replace(/(Scenario )(.*):/, '$1' + romanText + ':');
           };
           const id = first.id.replace(PART_NUMBER_EXPRESSION, '');
-          const icon = iconDB.getIcon(id) || first.icon;
+          const icon = iconDB.getIcon({ id }) || first.icon;
 
           return {
             ...group,
@@ -145,7 +145,7 @@ export const groupStoryScenariosByNumber = ({ scenarios, iconDB }: IGroupCompose
           .replace(/(Scenario )(.*):/, '$1' +romanText+':')
       }
       const id = first.id.replace(PART_NUMBER_EXPRESSION, '');
-      const icon = iconDB.getIcon(id) || first.icon;
+      const icon = iconDB.getIcon({ id }) || first.icon;
 
       return {
         ...group,

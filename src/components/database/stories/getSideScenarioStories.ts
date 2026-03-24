@@ -113,7 +113,7 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
         is_canonical && 
         !withoutSizeSupport.includes(code);
 
-      const icon = iconDB.getIcon(code);
+      const icon = iconDB.getIcon({ id: code });
       const type = scenario.side_scenario_type || IDatabase.StoryType.SIDE;
 
       const storyScenarios = scenarios.map(scenario => getStoryScenario({

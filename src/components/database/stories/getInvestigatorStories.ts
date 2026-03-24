@@ -72,7 +72,7 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
 			name,
 			code: `${code}-inv`,
 			type: "investigators",
-			icon: iconDB.getIcon(code, "investigator"),
+			icon: iconDB.getIcon({ id: code, defaultValue: "investigator" }),
 			encounter_sets: [],
 			extra_encounter_sets: [],
 			scenario_encounter_sets: [],

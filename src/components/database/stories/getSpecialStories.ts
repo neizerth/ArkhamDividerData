@@ -144,7 +144,7 @@ export const getSpecialStories = (): IDatabase.Story[] => {
         custom
       } = campaign;
 
-      const icon = iconDB.getIcon(code);
+      const icon = iconDB.getIcon({ id: code });
 
       const isSizeSupported = is_official && is_canonical;
       const type = campaign_type || IDatabase.StoryType.CAMPAIGN;

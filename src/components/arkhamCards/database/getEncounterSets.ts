@@ -24,7 +24,7 @@ export const getEncounterSets = (): IDatabase.EncounterSet[] => {
     pack_code,
   }): IDatabase.EncounterSet => {
     
-    const icon = iconDB.getIcon(encounter_set_code);
+    const icon = iconDB.getIcon({ id: encounter_set_code });
 
     const {
       is_canonical,
@@ -52,9 +52,9 @@ export const getEncounterSets = (): IDatabase.EncounterSet[] => {
     }
 
     const { name, synonyms } = encounter;
-    const encounterIcon = icon || iconDB.getIconOf(
-      toSynonyms(encounter)
-    )
+    const encounterIcon = icon || iconDB.getIconOf({
+      ids: toSynonyms(encounter),
+    })
 
     return {
       ...encounterData,

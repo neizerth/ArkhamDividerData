@@ -43,7 +43,7 @@ export const getEncounterSets = (): IDatabase.EncounterSet[] => {
     const { name, synonyms } = encounterSet;
     const codes = toSynonyms(encounterSet);
 
-    const icon = iconDB.getIconOf(codes);
+    const icon = iconDB.getIconOf({ ids: codes });
 
     return {
       ...encounter,

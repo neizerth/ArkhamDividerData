@@ -1,3 +1,4 @@
+import scenarioIcons from "@/data/icons/scenarios.json";
 import specialIcons from "@/data/icons/special";
 import storyIcons from "@/data/icons/stories.json";
 import temporaryIcons from "@/data/icons/temporary.json";
@@ -18,12 +19,23 @@ export type IconDBOptions = {
 	type?: IconDBType;
 };
 
+export type IconType = "scenario" | "encounter";
+
+export type GetIconParams = {
+	id?: string;
+	defaultValue?: string;
+	type?: IconType;
+};
+
+export type GetIconOfParams = {
+	ids: (string | undefined)[];
+	defaultValue?: string;
+	type?: IconType;
+};
+
 export type IIconDB = {
-	getIcon(id: string, defaultValue?: string): string | undefined;
-	getIconOf(
-		ids: (string | undefined)[],
-		defaultValue?: string,
-	): string | undefined;
+	getIcon(params: GetIconParams): string | undefined;
+	getIconOf(params: GetIconOfParams): string | undefined;
 };
 
 export class IconDB implements IIconDB {
@@ -45,12 +57,9 @@ export class IconDB implements IIconDB {
 
 		this.getIcon = this.getIcon.bind(this);
 	}
-	getIconOf(
-		ids: (string | undefined)[],
-		defaultValue?: string,
-	): string | undefined {
+	getIconOf({ ids, defaultValue, type }: GetIconOfParams): string | undefined {
 		for (const id of ids) {
-			const icon = this.getIcon(id, defaultValue);
+			const icon = this.getIcon({ id, defaultValue, type });
 			if (icon) {
 				return icon;
 			}
@@ -58,13 +67,20 @@ export class IconDB implements IIconDB {
 		return defaultValue;
 	}
 
-	getIcon(id?: string, defaultValue?: string): string | undefined {
+	getIcon({ id, defaultValue, type }: GetIconParams): string | undefined {
 		if (!id) {
 			return defaultValue;
 		}
 
 		if (specialIcons.find(propEq(id, "icon"))) {
 			return id;
+		}
+
+		if (type === "scenario") {
+			const icon = scenarioIcons[id];
+			if (icon) {
+				return icon;
+			}
 		}
 
 		if (this.type === IconDBType.STORY) {
@@ -91,7 +107,7 @@ export class IconDB implements IIconDB {
 		if (CUSTOM_PATTERN.test(id)) {
 			const customId = id.replace(CUSTOM_PATTERN, "$1");
 			// console.log('custom icon', customId)
-			return this.getIcon(customId, defaultValue);
+			return this.getIcon({ id: customId, defaultValue });
 		}
 
 		const prefix = ARKHAM_CARDS_CUSTOM_PREFIXES.find((prefix) =>
@@ -99,7 +115,7 @@ export class IconDB implements IIconDB {
 		);
 
 		if (prefix) {
-			return this.getIcon(id.slice(prefix.length), defaultValue);
+			return this.getIcon({ id: id.slice(prefix.length), defaultValue });
 		}
 
 		const starts = this.icons.filter((icon) => icon.startsWith(id));
