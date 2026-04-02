@@ -1,4 +1,6 @@
-// import path from "node:path"; // unused
+import path from "node:path";
+import { createWriteStream } from "node:fs";
+import archiver from "archiver";
 import { FontAssetType, generateFonts, OtherAssetType } from "fantasticon";
 import sax from "sax";
 import type { SAXStream as SaxStreamType } from "sax";
@@ -76,6 +78,36 @@ export const createIconFont = async () => {
 	await copyExtraIcons();
 	console.log("creating font assets...");
 	await createAssets();
+	console.log("archiving icon svgs...");
+	await createIconArchive();
+};
+
+export const createIconArchive = async () => {
+	if (!fs.existsSync(FONT_ICONS_DIR)) {
+		console.warn(`skip icons.zip: directory missing: ${FONT_ICONS_DIR}`);
+		return;
+	}
+
+	const zipPath = path.join(FONTS_DIR, "icons.zip");
+	await fs.promises.rm(zipPath, { force: true });
+
+	const output = createWriteStream(zipPath);
+	const archive = archiver("zip", { zlib: { level: 9 } });
+
+	await new Promise<void>((resolve, reject) => {
+		output.on("close", resolve);
+		archive.on("error", reject);
+		archive.on("warning", (err) => {
+			if (err.code === "ENOENT") {
+				console.warn(err);
+				return;
+			}
+			reject(err);
+		});
+		archive.pipe(output);
+		archive.directory(FONT_ICONS_DIR, false);
+		void archive.finalize();
+	});
 };
 
 export const clearIconsCache = async () => {
