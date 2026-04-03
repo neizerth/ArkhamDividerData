@@ -16,6 +16,10 @@
     {
       "campaign_id": "rttic",
       "pack_code": "zrttic"
+    },
+    {
+      "campaign_id": "boa",
+      "pack_code": "core_2026"
     }
   ],
   "encounter_priority_campaigns": ["tskc"],
