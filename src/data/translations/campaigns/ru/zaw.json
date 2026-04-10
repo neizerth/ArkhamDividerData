@@ -1,0 +1,36 @@
+{
+  "common": {
+    "Alice in Wonderland": "Алиса в Стране Чудес"
+  },
+  "translations": {
+    "Gurathnaka's Shadows": "Тени Гуратнаки",
+    "Cheshire Cat": "Чеширский кот",
+    "Wonderland Boons": "Дары Страны Чудес",
+    "Wonderland Banes": "Проклятья Страны Чудес",
+    "Walrus and Carpenter": "Морж и плотник",
+    "Warped Reality": "Искажённая реальность",
+    "Card Guards": "Карточные стражи",
+    "Riddles & Games": "Загадки и игры",
+    "Chessmen": "Шахматные фигуры",
+    "Alice in Arkham": "Алиса в Аркхэме",
+    "Jabberwocky": "Бармаглот",
+    "Arkham in Wonderland": "Аркхэм в Стране Чудес",
+    "A Sea of Troubles": "Море слёз",
+    "Fool's Mate": "Дурацкий мат",
+    "Sibling Rivalry": "Соперничество братьев",
+    "Tempest in a Teapot": "Буря в стакане",
+    "Lucid Nightmare": "Ночной кошмар",
+    "Bleeding Hearts": "Кровоточащие сердца",
+    "Wild Snark Chase": "Охота на дикого Снарка"
+  },
+  "translated_by": [
+		{
+			"name": "@Renegat_693",
+			"link": "https://t.me/Renegat_693"
+		},
+		{
+			"name": "@gigabytesergey",
+			"link": "https://t.me/gigabytesergey"
+		}
+	]
+}
