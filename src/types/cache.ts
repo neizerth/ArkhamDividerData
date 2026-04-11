@@ -104,7 +104,8 @@ export namespace ICache {
   export type EncounterSetType = {
     type: string;
     size: number;
-    cards?: number[]
+    /** Card number (pack position) → quantity in this encounter type */
+    cards: Record<number, number>
   }
 
   export type PackEncounterSet = {
@@ -125,18 +126,7 @@ export namespace ICache {
     name: string
     real_name?: string
     subname?: string
-    traits?: string
-    real_traits?: string
-    flavor?: string
-    text: string;
     alternate_of?: string
-    
-    health: number;
-    sanity: number;
-    skill_agility: number;
-    skill_intellect: number;
-    skill_combat: number;
-    skill_willpower: number;
   }
 
   export type ScenarioEncounterSet = {

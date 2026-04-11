@@ -1,16 +1,15 @@
-import { 
-  buildFromCache, 
-  createCache, 
-  createDatabaseCache,
-  createTranslationsCache,
-  createIconFont,
-  prepareIcons,
-  createIconsCache,
-  downloadRepos,
+import * as app from '@/config/app';
+import {
+  buildFromCache,
   createAssets,
+  createCache,
+  createDatabaseCache,
+  createIconFont,
+  createIconsCache,
+  createTranslationsCache,
+  downloadRepos,
+  prepareIcons,
 } from "./jobs";
-
-import * as app from '@/config/app'
 
 export class App {
   async run(command?: string) {

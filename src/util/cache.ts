@@ -1,11 +1,11 @@
+import { CACHE_DIR } from "@/config/app";
 import type { IArkhamCards } from "@/types/arkhamCards";
+import { IArkhamDB } from "@/types/arkhamDB";
 import { CacheType, type ICache } from "@/types/cache";
 import type { Mapping } from "@/types/common";
 import type { IDatabase } from "@/types/database";
-
-import { CACHE_DIR } from "@/config/app";
-import { createJSONReader, createJSONWriter, createJSONResolver } from "./fs";
 import type { IIcoMoon } from "@/types/icomoon";
+import { createJSONReader, createJSONResolver, createJSONWriter } from "./fs";
 
 export const cache = createJSONWriter(CACHE_DIR);
 export const getCache = createJSONReader(CACHE_DIR);
@@ -29,6 +29,7 @@ export const getEncounterSets = () => getCache<ICache.EncounterSet[]>(CacheType.
 export const getScenarioEncounterSets = () => getCache<ICache.ScenarioEncounterSet[]>(CacheType.SCENARIO_ENCOUNTER_SETS);
 export const getPackEncounterSets = () => getCache<ICache.PackEncounterSet[]>(CacheType.PACK_ENCOUNTER_SETS);
 export const getPackInvestigators = () => getCache<ICache.PackInvestigator[]>(CacheType.PACK_INVESTIGATORS);
+export const getInvestigators = () => getCache<IArkhamDB.API.Investigator[]>(CacheType.INVESTIGATORS);
 
 export const getDatabaseEncounterSets = () => getCache<IDatabase.EncounterSet[]>(CacheType.DATABASE_ENCOUNTER_SETS);
 export const getIconMapping = () => getCache<Mapping>(CacheType.ICONS_MAPPING);

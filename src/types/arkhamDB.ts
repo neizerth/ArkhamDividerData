@@ -69,20 +69,9 @@ export namespace IArkhamDB {
     }
 
     export type Investigator = Card & {
-      name: string;
       alternate_of?: string;
       real_name?: string;
       subname?: string;
-      traits?: string;
-      real_traits?: string;
-      flavor?: string;
-      health: number;
-      sanity: number;
-      text: string;
-      skill_agility: number;
-      skill_intellect: number;
-      skill_combat: number;
-      skill_willpower: number;
     }
   }
   export namespace Web {

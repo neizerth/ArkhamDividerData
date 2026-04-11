@@ -40,30 +40,26 @@ export const getInvestigators = async (pack: ICache.Pack, language: string) => {
     'code',
     'name',
     'real_name',
-    'subname',
-    'traits',
-    'real_traits',
-    'flavor',
-    'text'
+    'subname'
   ]);
   
   const baseInvestigators = packInvestigators
     .filter(propEq(pack.code, 'pack_code'))
     .map(onlyProps)
 
-  const cards = await ArkhamCards.loadLocalJSONPackCards(pack.code, language);
+  const cards = await ArkhamCards.loadLocalJSONPackCards(pack.code, language) as IArkhamDB.API.Investigator[];
 
   const mappings = baseInvestigators
     .map(baseInvestigator => {
       const { code } = baseInvestigator;
       
       const investigator = cards.find(
-        propEq(code, 'code')
-      ) as never as IArkhamDB.API.Investigator | undefined;
+        (investigator) => investigator.alternate_of === code
+      );
 
       if (!investigator) {
         showWarning(`local investigator ${baseInvestigator.name}/${baseInvestigator.code} not found`);
-        return;
+        return null;
       }
 
       const localInvestigator = {
@@ -78,13 +74,8 @@ export const getInvestigators = async (pack: ICache.Pack, language: string) => {
 
       return translateProps([
         'name',
-        'text',
         'real_name',
         'subname',
-        'traits',
-        'real_traits',
-        'flavor',
-        'text'
       ])
     })
     .filter(isNotNil)

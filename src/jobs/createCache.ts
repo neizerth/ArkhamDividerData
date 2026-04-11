@@ -1,7 +1,6 @@
 import * as Data from '@/components/data';
-import * as Database from '@/components/database'
-import * as Validation from '@/components/validation'
-;
+import * as Database from '@/components/database';
+import * as Validation from '@/components/validation';
 import { CacheType } from '@/types/cache';
 import { cache } from '@/util/cache';
 
@@ -73,6 +72,9 @@ export const createEntityCache = async () => {
 
   console.log('caching packs...');
   cache(CacheType.PACKS, await Data.getPacks());
+
+  console.log('caching investigators...');
+  cache(CacheType.INVESTIGATORS, await Data.getInvestigators());
 
   console.log('caching encounter sets...');
   cache(CacheType.ENCOUNTER_SETS, await Data.getEncounterSets());

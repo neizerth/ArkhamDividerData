@@ -45,16 +45,6 @@ const getInvestigators = async (pack: ICache.Pack) => {
     'name',
     'real_name',
     'subname',
-    'traits',
-    'text',
-    'real_traits',
-    'flavor',
-    'health',
-    'sanity',
-    'skill_agility',
-    'skill_intellect',
-    'skill_combat',
-    'skill_willpower'
   ])
 
   return investigators.map(investigator => ({

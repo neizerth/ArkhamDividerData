@@ -91,12 +91,18 @@ export const getEncounterSetTypes = (cards: IArkhamDB.JSON.Card[]) => {
 
 		const size = data.reduce((total, { quantity }) => total + quantity, 0);
 
-		const cardCodes = data.map(prop("position"));
+		const cardCounts = data.reduce<Record<number, number>>(
+			(acc, { position, quantity }) => {
+				acc[position] = (acc[position] ?? 0) + quantity;
+				return acc;
+			},
+			{},
+		);
 
 		return {
 			type,
 			size,
-			cards: cardCodes,
+			cards: cardCounts,
 		};
 	});
 

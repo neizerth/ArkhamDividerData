@@ -37,6 +37,8 @@ export namespace IDatabase {
   export type EncounterSetType = {
     type: string;
     size: number;
+    /** Card number (pack position) → quantity in this encounter type */
+    cards?: Record<number, number>;
   }
 
   export type EncounterSet = {

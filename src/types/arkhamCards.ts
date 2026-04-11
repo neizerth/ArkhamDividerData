@@ -1,5 +1,5 @@
 import type { IArkhamDB } from "./arkhamDB";
-import type { Mapping } from "./common"
+import type { Mapping } from "./common";
 
 export namespace IArkhamCards {
 
@@ -73,6 +73,7 @@ export namespace IArkhamCards {
       cycle_code: string;
       name: string;
       position: number;
+      official?: boolean;
     }
     export type ExtendedPack = Pack & {
       encounter_sets: IArkhamDB.JSON.PackEncounterSet[]

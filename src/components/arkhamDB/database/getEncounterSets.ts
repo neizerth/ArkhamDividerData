@@ -16,7 +16,7 @@ export const getEncounterSets = (): IDatabase.EncounterSet[] => {
       pack_code,
       encounter_set_code,
       types,
-      size
+      size,
     } = packEncounterSet;
 
     const encounter = {
