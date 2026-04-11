@@ -3,6 +3,7 @@ import type { IDatabase } from "@/types/database";
 import { IconDBType } from "@/types/icons";
 import * as Cache from "@/util/cache";
 import { propEq } from "ramda";
+import { compact } from "ramda-adjunct";
 
 export const getInvestigatorStories = (): IDatabase.Story[] => {
 	const packInvestigators = Cache.getPackInvestigators();
@@ -12,6 +13,10 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
 
 	const starterInvestigators = packInvestigators.filter(
 		propEq("investigator", "cycle_code"),
+	);
+
+	const chapter2StarterInvestigators = packInvestigators.filter(
+		propEq("investigator_decks_ch2", "cycle_code"),
 	);
 
 	const fanMadeCategories = packs.filter(propEq("zinv", "cycle_code"));
@@ -26,7 +31,7 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
 		propEq("core_2026", "pack_code"),
 	);
 
-	return [
+	return compact([
 		{
 			name: "Core Set",
 			code: "core_2016-investigators",
@@ -68,6 +73,19 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
 			is_canonical: true,
 			investigators: starterInvestigators,
 		},
+		chapter2StarterInvestigators.length > 0 && ({
+			name: "Chapter 2 Starter Decks",
+			code: "chapter2-starter-decks",
+			type: "investigators",
+			icon: "investigator",
+			encounter_sets: [],
+			extra_encounter_sets: [],
+			scenario_encounter_sets: [],
+			is_size_supported: false,
+			is_official: true,
+			is_canonical: true,
+			investigators: chapter2StarterInvestigators,
+		}),
 		...fanMadeCategories.map(({ code, name, is_canonical, is_official }) => ({
 			name,
 			code: `${code}-inv`,
@@ -94,5 +112,5 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
 			is_official,
 			investigators: packInvestigators.filter(propEq(code, "pack_code")),
 		})),
-	];
+	]);
 };
