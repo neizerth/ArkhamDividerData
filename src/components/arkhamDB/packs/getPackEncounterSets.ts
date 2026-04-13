@@ -2,7 +2,7 @@ import * as API from "@/api/arkhamDB/api";
 import type { IArkhamDB } from "@/types/arkhamDB";
 import { ICache } from "@/types/cache";
 import * as Cache from "@/util/cache";
-import { groupBy, prop, toPairs, propEq, uniq, isNotNil, uniqBy } from "ramda";
+import { groupBy, isNotNil, prop, propEq, toPairs, uniq, uniqBy } from "ramda";
 
 export const getPackEncounterSets = async (): Promise<
 	ICache.PackEncounterSet[]
@@ -65,16 +65,17 @@ export const getEncounterSetTypes = (cards: IArkhamDB.JSON.Card[]) => {
 		.filter(({ type_code }) => mainTypes.includes(type_code))
 		.map(prop("position"));
 
-	const usedCardPositions = new Set<number>();
+	/** Per-card identity across types (variants share `position` but have distinct `code`). */
+	const usedCardCodes = new Set<string>();
 
 	const typeData = sortedTypes.map((type) => {
 		const typeCards = cards.filter(propEq(type, "type_code"));
 
 		const data = uniqBy(
-			prop("position"),
-			typeCards.filter(({ position, type_code }) => {
-				// Skip if card already used in another type
-				if (usedCardPositions.has(position)) {
+			prop("code"),
+			typeCards.filter(({ position, type_code, code }) => {
+				// Skip if this card row was already counted under another type_code
+				if (usedCardCodes.has(code)) {
 					return false;
 				}
 				// Keep main types or cards not in main types
@@ -84,9 +85,8 @@ export const getEncounterSetTypes = (cards: IArkhamDB.JSON.Card[]) => {
 			}),
 		);
 
-		// Mark cards as used
-		for (const { position } of data) {
-			usedCardPositions.add(position);
+		for (const { code } of data) {
+			usedCardCodes.add(code);
 		}
 
 		const size = data.reduce((total, { quantity }) => total + quantity, 0);
