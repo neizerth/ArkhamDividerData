@@ -1,18 +1,17 @@
+import * as ArkhamCardsConstants from "@/api/arkhamCards/constants";
+import * as ArkhamDBConstants from "@/api/arkhamDB/constants";
 import { createIconDB } from "@/components/arkhamCards/icons/IconDB";
 import {
   ignore_campaign_scenarios,
   without_size_support as withoutSizeSupport,
 } from "@/data/arkhamCards/cycles.json";
-import { IDatabase } from "@/types/database";
 import type { ICache } from "@/types/cache";
+import { IDatabase } from "@/types/database";
+import { IconDBType } from "@/types/icons";
 import * as Cache from "@/util/cache";
 import { showError } from "@/util/console";
-import { isNotNil, prop, propEq, sort, uniq } from "ramda";
-
-import * as ArkhamCardsConstants from "@/api/arkhamCards/constants";
-import * as ArkhamDBConstants from "@/api/arkhamDB/constants";
-import { IconDBType } from "@/types/icons";
 import { filterEncounterSet } from "@/util/criteria";
+import { isNotNil, prop, propEq, sort, uniq } from "ramda";
 import { createStoryCampaignHandler } from "./features/getStoryCampaign";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
 import { checkScenario } from "./scenarios/checkScenario";
@@ -26,7 +25,7 @@ const CAMPAIGN_SKIP_CYCLE_CODES = [
 ];
 
 /** Order for splitting the shared `core` cycle by product (pack). */
-const CORE_CYCLE_PACK_ORDER = ["core", "rcore", "core_2026"];
+const CORE_CYCLE_PACK_ORDER = ["core", "core_ch2", "core_2026"];
 
 const compareCorePackCodes = (a: string, b: string) => {
 	const ia = CORE_CYCLE_PACK_ORDER.indexOf(a);
@@ -272,7 +271,8 @@ export const getCycleStories = (): IDatabase.Story[] => {
         ...cycle,
       };
 
-      if (code === "core") {
+      if (CORE_CYCLE_PACK_ORDER.includes(code)) {
+        console.log("core code", code);
         const packCodes = uniq(cycleEncounters.map(prop("pack_code")));
         const sorted =
           packCodes.length > 1 ? sort(compareCorePackCodes, packCodes) : packCodes;
