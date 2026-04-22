@@ -1,18 +1,19 @@
 import * as ArkhamCards from "@/api/arkhamCards/constants";
 import * as ArkhamDB from "@/api/arkhamDB/constants";
 import { createIconDB } from "@/components/arkhamCards/icons/IconDB";
+import { ICache } from "@/types/cache";
 import type { SingleValue } from "@/types/common";
 import { IDatabase } from "@/types/database";
+import { IconDBType } from "@/types/icons";
 import * as Cache from '@/util/cache';
 import { showError, showWarning } from "@/util/console";
 import { isNotNil, prop, propEq, uniqBy } from "ramda";
-import { createStoryScenarioHandler } from "./scenarios/getStoryScenario";
 import { createStoryCampaignHandler } from "./features/getStoryCampaign";
-import { groupStoryScenarios } from "./scenarios/groupStoryScenarios";
-import { IconDBType } from "@/types/icons";
-import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounters";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
 import { checkScenario } from "./scenarios/checkScenario";
+import { createStoryScenarioHandler } from "./scenarios/getStoryScenario";
+import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounters";
+import { groupStoryScenarios } from "./scenarios/groupStoryScenarios";
 
 const CAMPAIGN_CODES = [
   ArkhamCards.CUSTOM_CAMPAIGN_CODE,
@@ -44,6 +45,20 @@ export const getSpecialStories = (): IDatabase.Story[] => {
 
   const sidePackCodes = sideScenarios.map(prop('pack_code'));
 
+  const getPackReturnCode = ({ code, name }: ICache.Pack): string => {
+    const isCampaignExpansion = name.includes('Campaign Expansion') && code.endsWith('c')
+    if (!isCampaignExpansion) {
+      return code;
+    }
+    const normalizedCode = code.replace('c', '');
+    console.log('searching for', normalizedCode);
+    const pack = packs.find(propEq(normalizedCode, 'code'));
+    if (!pack) {
+      return code;
+    }
+    return normalizedCode
+  }
+
   const getReturnToCode = (code: string) => {
     if (code === ArkhamDB.CORE_RETURN_CODE) {
       return ArkhamDB.CORE_CYCLE_CODE;
@@ -57,10 +72,10 @@ export const getSpecialStories = (): IDatabase.Story[] => {
     }
     
     const returnCode = code.slice(prefix.length);
-    const pack = packs.find(propEq(returnCode, 'cycle_code'));
+    const pack = packs.find(propEq(returnCode, 'code'));
 
     if(pack) {
-      return pack.code;
+      return getPackReturnCode(pack);
     }
     
     return getCustomReturnToCode(code);
@@ -78,7 +93,11 @@ export const getSpecialStories = (): IDatabase.Story[] => {
     const returnCode = code.slice(prefix.length);
     const pack = packs.find(propEq(returnCode, 'cycle_code'));
 
-    return pack?.code;
+    if (!pack) {
+      return;
+    }
+
+    return getPackReturnCode(pack);
   } 
 
   return packs
