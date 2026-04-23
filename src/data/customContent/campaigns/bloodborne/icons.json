@@ -213,5 +213,10 @@
     "width": 173,
     "height": 173,
     "circled": true
+  },
+  {
+    "icon": "insight",
+    "width": 564,
+    "height": 420.26
   }
 ]
