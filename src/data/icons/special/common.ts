@@ -208,5 +208,11 @@ export default [
 		icon: "bonded",
 		width: 257,
 		height: 97,
-	}
+	},
+	{
+		icon: "neutral",
+		width: 106,
+		height: 106,
+		circled: true,
+	},
 ];
