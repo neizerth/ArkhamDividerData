@@ -66,6 +66,12 @@ export const getCycleDir = (code: string) => {
     return 'promo';
   }
 
+  // ArkhamDB JSON data stores Chapter 2 core packs under `/pack/core/*`
+  // even though their cycle code is `core_ch2`.
+  if (code === 'core_ch2') {
+    return 'core';
+  }
+
   return code;
 }
 
