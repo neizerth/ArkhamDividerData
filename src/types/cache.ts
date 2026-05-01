@@ -124,6 +124,7 @@ export namespace ICache {
     pack_code: string
     faction_code: string;
     name: string
+    icon?: string
     real_name?: string
     subname?: string
     alternate_of?: string

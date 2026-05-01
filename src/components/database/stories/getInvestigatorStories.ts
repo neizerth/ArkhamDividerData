@@ -1,4 +1,5 @@
 import { createIconDB } from "@/components/arkhamCards/icons/IconDB";
+import { ICache } from "@/types/cache";
 import type { IDatabase } from "@/types/database";
 import { IconDBType } from "@/types/icons";
 import * as Cache from "@/util/cache";
@@ -11,13 +12,20 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
 
 	const iconDB = createIconDB(IconDBType.COMMON);
 
+	const mapIcon = (investigator: ICache.PackInvestigator) => {
+		return {
+			...investigator,
+			icon: iconDB.getIcon({ id: investigator.pack_code, type: "investigator" }),
+		}
+	}
+
 	const ch1StarterInvestigators = packInvestigators.filter(
 		propEq("investigator", "cycle_code"),
-	);
+	).map(mapIcon);
 
 	const ch2StarterInvestigators = packInvestigators.filter(
 		propEq("investigator_decks_ch2", "cycle_code"),
-	);
+	).map(mapIcon);
 
 	const fanMadeCategories = packs.filter(propEq("zinv", "cycle_code"));
 

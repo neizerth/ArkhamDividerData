@@ -1,3 +1,4 @@
+import investigatorIcons from "@/data/icons/investigators.json";
 import scenarioIcons from "@/data/icons/scenarios.json";
 import specialIcons from "@/data/icons/special";
 import storyIcons from "@/data/icons/stories.json";
@@ -19,7 +20,7 @@ export type IconDBOptions = {
 	type?: IconDBType;
 };
 
-export type IconType = "scenario" | "encounter";
+export type IconType = "scenario" | "encounter" | "investigator";
 
 export type GetIconParams = {
 	id?: string;
@@ -78,6 +79,13 @@ export class IconDB implements IIconDB {
 
 		if (type === "scenario") {
 			const icon = scenarioIcons[id];
+			if (icon) {
+				return icon;
+			}
+		}
+
+		if (type === "investigator") {
+			const icon = investigatorIcons[id];
 			if (icon) {
 				return icon;
 			}
