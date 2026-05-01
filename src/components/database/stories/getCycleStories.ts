@@ -206,8 +206,10 @@ export const getCycleStories = (): IDatabase.Story[] => {
       scenarios: allowedScenarios,
     });
 
+    const isCore = code === "core" || code === "core_2026";
+
     const investigators =
-      code === "core" ? [] : packInvestigators.filter(propEq(code, "cycle_code"));
+      isCore ? [] : packInvestigators.filter(propEq(code, "cycle_code"));
 
     const customContent =
       fullCampaign.campaign?.custom &&
