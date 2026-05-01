@@ -11,11 +11,11 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
 
 	const iconDB = createIconDB(IconDBType.COMMON);
 
-	const starterInvestigators = packInvestigators.filter(
+	const ch1StarterInvestigators = packInvestigators.filter(
 		propEq("investigator", "cycle_code"),
 	);
 
-	const chapter2StarterInvestigators = packInvestigators.filter(
+	const ch2StarterInvestigators = packInvestigators.filter(
 		propEq("investigator_decks_ch2", "cycle_code"),
 	);
 
@@ -61,7 +61,7 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
 			position: 1,
 		},
 		{
-			name: "Investigator Starter Decks",
+			name: "Chapter 1 Starter Decks",
 			code: "starter-decks",
 			type: "investigators",
 			icon: "investigator",
@@ -71,9 +71,9 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
 			is_size_supported: false,
 			is_official: true,
 			is_canonical: true,
-			investigators: starterInvestigators,
+			investigators: ch1StarterInvestigators,
 		},
-		chapter2StarterInvestigators.length > 0 && ({
+		ch2StarterInvestigators.length > 0 && ({
 			name: "Chapter 2 Starter Decks",
 			code: "chapter2-starter-decks",
 			type: "investigators",
@@ -84,7 +84,7 @@ export const getInvestigatorStories = (): IDatabase.Story[] => {
 			is_size_supported: false,
 			is_official: true,
 			is_canonical: true,
-			investigators: chapter2StarterInvestigators,
+			investigators: ch2StarterInvestigators,
 		}),
 		...fanMadeCategories.map(({ code, name, is_canonical, is_official }) => ({
 			name,

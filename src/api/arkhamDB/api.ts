@@ -15,7 +15,8 @@ export const loadPacks = async () => {
 }
 
 export const loadLocalPackCards = async (cycleCode: string, code: string, language: string) => {
-  const url = `translations/${language}/pack/${cycleCode}/${code}.json`;
+  const cycle = getCycleDir(cycleCode);
+  const url = `translations/${language}/pack/${cycle}/${code}.json`;
   const { data } = await getGithubJSON<IArkhamDB.API.Card[]>(url, {
     defaultData: []
   });
@@ -70,6 +71,11 @@ export const getCycleDir = (code: string) => {
   // even though their cycle code is `core_ch2`.
   if (code === 'core_ch2') {
     return 'core';
+  }
+
+  // Cycle code on packs can be `investigator_decks_ch2`, but JSON lives next to other starter decks under `/pack/investigator/*` (singular).
+  if (code === 'investigator_decks_ch2') {
+    return 'investigator';
   }
 
   return code;
