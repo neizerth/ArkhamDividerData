@@ -206,7 +206,7 @@ export const getCycleStories = (): IDatabase.Story[] => {
       scenarios: allowedScenarios,
     });
 
-    const isCore = code === "core" || code === "core_2026";
+    const isCore = ['core', 'core_ch2', 'core_2026'].includes(code);
 
     const investigators =
       isCore ? [] : packInvestigators.filter(propEq(code, "cycle_code"));
