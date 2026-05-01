@@ -2,14 +2,17 @@ import type { IIconDB } from "@/components/arkhamCards/icons/IconDB";
 import type { IArkhamCards } from "@/types/arkhamCards";
 import type { ICache } from "@/types/cache";
 import type { IDatabase } from "@/types/database";
+import { normalizeEncounterCodes } from "@/util/encounterCanonical";
 import { prop, propEq, uniqBy } from "ramda";
 
 export const createStoryCampaignHandler = ({
 	iconDB,
 	scenarioEncounters,
+	canonicalizeEncounterCode,
 }: {
 	iconDB: IIconDB;
 	scenarioEncounters: ICache.ScenarioEncounterSet[];
+	canonicalizeEncounterCode: (code: string) => string;
 }) => {
 	return ({
 		fullCampaign,
@@ -42,13 +45,19 @@ export const createStoryCampaignHandler = ({
 			scenarioEncounters.filter(propEq(id, "campaign_id")),
 		);
 
-		const requiredEncounters = encounters
-			.filter(propEq(false, "is_extra"))
-			.map(prop("encounter_set_code"));
+		const requiredEncounters = normalizeEncounterCodes(
+			encounters
+				.filter(propEq(false, "is_extra"))
+				.map(prop("encounter_set_code")),
+			canonicalizeEncounterCode,
+		);
 
-		const extraEncounters = encounters
-			.filter(propEq(true, "is_extra"))
-			.map(prop("encounter_set_code"));
+		const extraEncounters = normalizeEncounterCodes(
+			encounters
+				.filter(propEq(true, "is_extra"))
+				.map(prop("encounter_set_code")),
+			canonicalizeEncounterCode,
+		);
 
 		return {
 			...data,

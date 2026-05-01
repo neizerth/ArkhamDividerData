@@ -5,6 +5,10 @@ import type { SingleValue } from "@/types/common";
 import { IDatabase } from "@/types/database";
 import { IconDBType } from "@/types/icons";
 import * as Cache from "@/util/cache";
+import {
+	createEncounterCanonicalLookup,
+	normalizeEncounterCodes,
+} from "@/util/encounterCanonical";
 import { showError, showWarning } from "@/util/console";
 import { isNotNil, prop, propEq } from "ramda";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
@@ -27,10 +31,15 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
 
 	const iconDB = createIconDB(IconDBType.STORY);
 
+	const canonicalizeEncounterCode = createEncounterCanonicalLookup(
+		Cache.getEncounterSets(),
+	);
+
 	const getStoryScenario = createStoryScenarioHandler({
 		iconDB,
 		scenarioEncounters: scenarioEncounterSets,
 		encounterSets,
+		canonicalizeEncounterCode,
 	});
 
 	const sideCampaignIds = sideScenarios
@@ -63,13 +72,19 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
 				propEq(campaign.id, "campaign_id"),
 			);
 
-			const requiredEncounters = scenarioEncounters
-				.filter(propEq(false, "is_extra"))
-				.map(prop("encounter_set_code"));
+			const requiredEncounters = normalizeEncounterCodes(
+				scenarioEncounters
+					.filter(propEq(false, "is_extra"))
+					.map(prop("encounter_set_code")),
+				canonicalizeEncounterCode,
+			);
 
-			const extraEncounters = scenarioEncounters
-				.filter(propEq(true, "is_extra"))
-				.map(prop("encounter_set_code"));
+			const extraEncounters = normalizeEncounterCodes(
+				scenarioEncounters
+					.filter(propEq(true, "is_extra"))
+					.map(prop("encounter_set_code")),
+				canonicalizeEncounterCode,
+			);
 
 			const name = pack?.name || campaign.name;
 
@@ -101,6 +116,7 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
 			const storyScenarioEncounters = getStoryScenarioEncounters({
 				encounterSets,
 				scenarios: storyScenarios,
+				canonicalizeEncounterCode,
 			});
 
 			const investigators = pack

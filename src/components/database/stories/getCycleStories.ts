@@ -11,6 +11,10 @@ import { IconDBType } from "@/types/icons";
 import * as Cache from "@/util/cache";
 import { showError } from "@/util/console";
 import { filterEncounterSet } from "@/util/criteria";
+import {
+	createEncounterCanonicalLookup,
+	normalizeEncounterCodes,
+} from "@/util/encounterCanonical";
 import { isNotNil, prop, propEq, sort, uniq } from "ramda";
 import { createStoryCampaignHandler } from "./features/getStoryCampaign";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
@@ -51,12 +55,17 @@ export const getCycleStories = (): IDatabase.Story[] => {
   const packEncounters = Cache.getPackEncounterSets();
   const packInvestigators = Cache.getPackInvestigators();
 
+  const canonicalizeEncounterCode = createEncounterCanonicalLookup(
+    Cache.getEncounterSets(),
+  );
+
   const iconDB = createIconDB(IconDBType.STORY);
 
   const storyHandlerData = {
     iconDB,
     scenarioEncounters: scenarioEncounterSets,
     encounterSets,
+    canonicalizeEncounterCode,
   };
 
   const getStoryScenario = createStoryScenarioHandler(storyHandlerData);
@@ -100,9 +109,12 @@ export const getCycleStories = (): IDatabase.Story[] => {
     if (campaigns.length === 0) {
       showError(`campaigns not found: ${code}`);
 
-      const campaignEncounters = packEncounters
-        .filter(propEq(code, "cycle_code"))
-        .map(prop("encounter_set_code"));
+      const campaignEncounters = normalizeEncounterCodes(
+        packEncounters
+          .filter(propEq(code, "cycle_code"))
+          .map(prop("encounter_set_code")),
+        canonicalizeEncounterCode,
+      );
 
       requiredEncounters.push(...campaignEncounters);
     } else {
@@ -117,27 +129,33 @@ export const getCycleStories = (): IDatabase.Story[] => {
 
       storyScenarios.push(...scenarios);
 
-      const toEncounterCode = prop("encounter_set_code");
-
       const filterEncounters = (required: boolean) =>
-        uniq(
+        normalizeEncounterCodes(
           cycleEncounters
             .filter(propEq(!required, "is_extra"))
-            .map(toEncounterCode),
+            .map(prop("encounter_set_code")),
+          canonicalizeEncounterCode,
         );
 
       requiredEncounters.push(...filterEncounters(true));
       extraEncounters.push(...filterEncounters(false));
 
-      const restEncounters = packEncounters
-        .filter(
-          ({ cycle_code, encounter_set_code, pack_code }) =>
-            cycle_code === code &&
-            (!packScope || pack_code === packScope) &&
-            !requiredEncounters.includes(encounter_set_code) &&
-            !extraEncounters.includes(encounter_set_code),
-        )
-        .map(toEncounterCode);
+      const restEncounters = normalizeEncounterCodes(
+        packEncounters
+          .filter(
+            ({ cycle_code, encounter_set_code, pack_code }) =>
+              cycle_code === code &&
+              (!packScope || pack_code === packScope) &&
+              !requiredEncounters.includes(
+                canonicalizeEncounterCode(encounter_set_code),
+              ) &&
+              !extraEncounters.includes(
+                canonicalizeEncounterCode(encounter_set_code),
+              ),
+          )
+          .map(prop("encounter_set_code")),
+        canonicalizeEncounterCode,
+      );
 
       requiredEncounters.push(...restEncounters);
     }
@@ -204,6 +222,7 @@ export const getCycleStories = (): IDatabase.Story[] => {
     const storyScenarioEncounters = getStoryScenarioEncounters({
       encounterSets,
       scenarios: allowedScenarios,
+      canonicalizeEncounterCode,
     });
 
     const isCore = ['core', 'core_ch2', 'core_2026'].includes(code);

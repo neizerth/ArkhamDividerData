@@ -4,6 +4,7 @@ import type { IArkhamCards } from "@/types/arkhamCards";
 import type { ICache } from "@/types/cache";
 import type { IDatabase } from "@/types/database";
 import { toArrayIf } from "@/util/common";
+import { normalizeEncounterCodes } from "@/util/encounterCanonical";
 import { prop, propEq, uniqBy } from "ramda";
 import { romanize } from "romans";
 
@@ -36,10 +37,12 @@ export const createStoryScenarioHandler = ({
 	iconDB,
 	scenarioEncounters,
 	encounterSets,
+	canonicalizeEncounterCode,
 }: {
 	iconDB: IIconDB;
 	scenarioEncounters: ICache.ScenarioEncounterSet[];
 	encounterSets: IDatabase.EncounterSet[];
+	canonicalizeEncounterCode: (code: string) => string;
 }) => {
 	return ({
 		campaignId,
@@ -83,13 +86,19 @@ export const createStoryScenarioHandler = ({
 			),
 		);
 
-		const requiredEncounters = encounters
-			.filter(propEq(false, "is_extra"))
-			.map(prop("encounter_set_code"));
+		const requiredEncounters = normalizeEncounterCodes(
+			encounters
+				.filter(propEq(false, "is_extra"))
+				.map(prop("encounter_set_code")),
+			canonicalizeEncounterCode,
+		);
 
-		const extraEncounters = encounters
-			.filter(propEq(true, "is_extra"))
-			.map(prop("encounter_set_code"));
+		const extraEncounters = normalizeEncounterCodes(
+			encounters
+				.filter(propEq(true, "is_extra"))
+				.map(prop("encounter_set_code")),
+			canonicalizeEncounterCode,
+		);
 
 		const encounterSetGroups = steps
 			.filter(propEq("encounter_sets", "type"))
@@ -105,7 +114,10 @@ export const createStoryScenarioHandler = ({
 					title,
 					type,
 					aside,
-					encounter_sets,
+					encounter_sets: normalizeEncounterCodes(
+						encounter_sets,
+						canonicalizeEncounterCode,
+					),
 					...getStepSetup(id),
 				}),
 			);

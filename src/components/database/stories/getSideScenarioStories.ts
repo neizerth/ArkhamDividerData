@@ -1,16 +1,19 @@
 import { createIconDB } from "@/components/arkhamCards/icons/IconDB";
 import { IDatabase } from "@/types/database";
 import * as Cache from '@/util/cache';
+import {
+	createEncounterCanonicalLookup,
+	normalizeEncounterCodes,
+} from "@/util/encounterCanonical";
 import { showError } from "@/util/console";
 import packsData from '@/data/arkhamCards/packs'
 import scenariosData from '@/data/arkhamCards/scenarios.json'
 
-import { groupBy, isNotNil, pick, prop, propEq, uniq, values } from "ramda";
+import { groupBy, isNotNil, prop, propEq, values } from "ramda";
 import { getSideCampaign } from "@/components/arkhamCards/scenarios/getSideCampaign";
 import { createStoryScenarioHandler } from "./scenarios/getStoryScenario";
 import { IconDBType } from "@/types/icons";
 import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounters";
-import type { ICache } from "@/types/cache";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
 
 export const getSideScenarioStories = (): IDatabase.Story[] => {
@@ -33,12 +36,17 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
   const { scenarios } = sideCampaign;
 
   const iconDB = createIconDB(IconDBType.STORY);
-  
+
+  const canonicalizeEncounterCode = createEncounterCanonicalLookup(
+    Cache.getEncounterSets(),
+  );
+
   const getStoryScenario = createStoryScenarioHandler({
     iconDB,
     scenarioEncounters: scenarioEncounterSets,
-    encounterSets
-  })
+    encounterSets,
+    canonicalizeEncounterCode,
+  });
 
   const items = scenarios.map(scenario => {
     const link = sideScenarios.find(({ scenario_id }) => scenario_id === scenario.id);
@@ -123,7 +131,8 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
 
       const storyScenarioEncounters = getStoryScenarioEncounters({
         encounterSets,
-        scenarios: storyScenarios
+        scenarios: storyScenarios,
+        canonicalizeEncounterCode,
       });
 
       const investigators = packInvestigators.filter(
@@ -149,8 +158,14 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
         is_canonical,
         is_official,
         scenario_encounter_sets: storyScenarioEncounters,
-        encounter_sets: uniq(requiredEncounters),
-        extra_encounter_sets: uniq(extraEncounters)
+        encounter_sets: normalizeEncounterCodes(
+          requiredEncounters,
+          canonicalizeEncounterCode,
+        ),
+        extra_encounter_sets: normalizeEncounterCodes(
+          extraEncounters,
+          canonicalizeEncounterCode,
+        ),
       }
     })
     .filter(isNotNil)

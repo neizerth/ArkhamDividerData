@@ -6,6 +6,10 @@ import type { SingleValue } from "@/types/common";
 import { IDatabase } from "@/types/database";
 import { IconDBType } from "@/types/icons";
 import * as Cache from '@/util/cache';
+import {
+	createEncounterCanonicalLookup,
+	normalizeEncounterCodes,
+} from "@/util/encounterCanonical";
 import { showError, showWarning } from "@/util/console";
 import { isNotNil, prop, propEq, uniqBy } from "ramda";
 import { createStoryCampaignHandler } from "./features/getStoryCampaign";
@@ -34,10 +38,15 @@ export const getSpecialStories = (): IDatabase.Story[] => {
   const sideScenarios = Cache.getSideScenarios();
   const scenarioEncounterSets = Cache.getScenarioEncounterSets();
 
+  const canonicalizeEncounterCode = createEncounterCanonicalLookup(
+    Cache.getEncounterSets(),
+  );
+
   const storyHandlerData = {
     iconDB,
     scenarioEncounters: scenarioEncounterSets,
-    encounterSets
+    encounterSets,
+    canonicalizeEncounterCode,
   };
 
   const getStoryScenario = createStoryScenarioHandler(storyHandlerData)
@@ -145,13 +154,19 @@ export const getSpecialStories = (): IDatabase.Story[] => {
           .filter(propEq(code, 'pack_code'))
       )
 
-      const requiredEncounters = packEncounters
-        .filter(propEq(false, 'is_extra'))
-        .map(prop('encounter_set_code'))
+      const requiredEncounters = normalizeEncounterCodes(
+        packEncounters
+          .filter(propEq(false, 'is_extra'))
+          .map(prop('encounter_set_code')),
+        canonicalizeEncounterCode,
+      );
 
-      const extraEncounters = packEncounters
-        .filter(propEq(true, 'is_extra'))
-        .map(prop('encounter_set_code'))
+      const extraEncounters = normalizeEncounterCodes(
+        packEncounters
+          .filter(propEq(true, 'is_extra'))
+          .map(prop('encounter_set_code')),
+        canonicalizeEncounterCode,
+      );
 
       if (campaigns.length === 0) {
         showError(`campaigns not found: ${code}`);
@@ -185,7 +200,8 @@ export const getSpecialStories = (): IDatabase.Story[] => {
 
       const storyScenarioEncounters = getStoryScenarioEncounters({
         encounterSets,
-        scenarios: storyScenarios
+        scenarios: storyScenarios,
+        canonicalizeEncounterCode,
       });
 
       const storyScenarioGroups = groupStoryScenarios({

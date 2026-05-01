@@ -1,12 +1,15 @@
 import type { IDatabase } from "@/types/database";
-import { isNotNil, propEq, uniq } from "ramda";
+import { normalizeEncounterCodes } from "@/util/encounterCanonical";
+import { isNotNil, propEq } from "ramda";
 
 export const getStoryScenarioEncounters = ({
 	encounterSets,
 	scenarios,
+	canonicalizeEncounterCode,
 }: {
 	encounterSets: IDatabase.EncounterSet[];
 	scenarios: IDatabase.StoryScenario[];
+	canonicalizeEncounterCode: (code: string) => string;
 }) => {
 	const encounters = scenarios
 		.map(({ icon, id, type }) => {
@@ -24,5 +27,5 @@ export const getStoryScenarioEncounters = ({
 		})
 		.filter(isNotNil);
 
-	return uniq(encounters);
+	return normalizeEncounterCodes(encounters, canonicalizeEncounterCode);
 };
