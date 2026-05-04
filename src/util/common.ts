@@ -10,6 +10,21 @@ export const toSynonyms = ({
   return [code, ...synonyms];
 }
 
+const CH2_CODE_SUFFIX = "_ch2";
+
+/** Drop redundant / disallowed synonym entries for encounter set `code`. */
+export const sanitizeEncounterSynonyms = (
+  code: string,
+  synonyms: string[],
+): string[] => {
+  const baseIfCh2 = code.endsWith(CH2_CODE_SUFFIX)
+    ? code.slice(0, -CH2_CODE_SUFFIX.length)
+    : null;
+  return synonyms.filter(
+    (s) => s !== code && (baseIfCh2 === null || s !== baseIfCh2),
+  );
+};
+
 export const isNumeric = (value: string): boolean => !Number.isNaN(+value);
 
 export const onlyWords = (text: string) => text.replace(/[^\w ]/g, '');

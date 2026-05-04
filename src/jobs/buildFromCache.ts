@@ -8,6 +8,7 @@ import { prop } from "ramda";
 import { getCustomContent } from "@/components/custom/getCustomContent";
 import customTranslations from '@/data/translations';
 import { VERSION } from "@/constants";
+import { sanitizeEncounterSynonyms } from "@/util/common";
 
 export const buildFromCache = async () => {
   const languages = buildI18NSources();
@@ -103,8 +104,14 @@ export const buildCoreSources = (languages: string[]) => {
 
   const encounterSets = [
     ...cachedEncounterSets,
-    ...customEncounterSets
-  ];
+    ...customEncounterSets,
+  ].map((encounterSet) => ({
+    ...encounterSet,
+    synonyms: sanitizeEncounterSynonyms(
+      encounterSet.code,
+      encounterSet.synonyms ?? [],
+    ),
+  }));
 
   const packs = [
     ...cachedPacks,
