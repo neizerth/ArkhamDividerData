@@ -33,11 +33,13 @@ export const createStoryCampaignHandler = ({
 
 		iconList.push(cycle_code);
 
+		const notCore = scenarios.filter(({ id }) => id !== 'core');
+
 		const data = {
 			id,
 			name,
 			icon: iconDB.getIconOf({ ids: iconList, type: "scenario" }),
-			scenarios: scenarios.map(prop("id")),
+			scenarios: notCore.map(prop("id")),
 		};
 
 		const encounters = uniqBy(

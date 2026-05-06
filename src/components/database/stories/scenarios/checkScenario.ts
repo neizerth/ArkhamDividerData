@@ -5,5 +5,10 @@ export const checkScenario = ({
   type, 
   encounter_sets = [] 
 }: IDatabase.StoryScenario) => {
+
+  if (id === 'core') {
+    return false;
+  }
+
   return type !== 'interlude' || encounter_sets.includes(id);
 }

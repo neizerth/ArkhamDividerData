@@ -13,6 +13,9 @@ export const getStoryScenarioEncounters = ({
 }) => {
 	const encounters = scenarios
 		.map(({ icon, id, type }) => {
+			if (id === 'core') {
+				return null;
+			}
 			if (type === "interlude") {
 				return null;
 			}

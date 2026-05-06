@@ -9,7 +9,8 @@
 		"start": "tsx ./src/index.ts",
 		"dev": "http-server ./dist --cors",
 		"build": "tsc && tsc-alias",
-		"publish-package": "npm run build && npm publish"
+		"publish-package": "npm run build && npm publish",
+		"db": "npm start database && npm start build"
 	},
 	"keywords": [],
 	"author": "",

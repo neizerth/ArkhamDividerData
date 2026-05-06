@@ -2,8 +2,7 @@ import type { IIconDB } from "@/components/arkhamCards/icons/IconDB";
 import type { IDatabase } from "@/types/database";
 import { withEncounters } from "@/util/criteria";
 import { groupBy, isNotNil, omit, prop, uniq, values } from "ramda";
-import { romanize } from "romans";
-import { deromanize } from "romans";
+import { deromanize, romanize } from "romans";
 
 const PART_NUMBER_EXPRESSION = /_part_(\d+)$/;
 
