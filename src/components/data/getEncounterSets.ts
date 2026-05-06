@@ -33,6 +33,7 @@ export const getEncounterSets = async () => {
   // console.log(`found special groups: ${specialNames.join(", ")}...`);
 
   const prepareText = (text: string) => text.trim().toLowerCase();
+  const isEditionVariantCode = (code: string) => /_ch\d+$/i.test(code);
 
   const matches = arkhamDBEncounters.map((encounter) => {
     const specialGroup = specialGroups.find(propEq(encounter.name, "name"));
@@ -61,6 +62,16 @@ export const getEncounterSets = async () => {
     }
 
     if (encounter.code === arkhamCardsEncounter.code) {
+      return encounter;
+    }
+
+    // Treat edition variants (e.g. `_ch2`) as distinct encounter sets.
+    // Matching solely by name can incorrectly merge `fire` and `fire_ch2`,
+    // which should remain separate codes.
+    if (
+      isEditionVariantCode(encounter.code) ||
+      isEditionVariantCode(arkhamCardsEncounter.code)
+    ) {
       return encounter;
     }
 
