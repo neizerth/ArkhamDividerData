@@ -222,7 +222,6 @@ export const getCycleStories = (): IDatabase.Story[] => {
     const storyScenarioEncounters = getStoryScenarioEncounters({
       encounterSets,
       scenarios: allowedScenarios,
-      canonicalizeEncounterCode,
     });
 
     const isCore = ['core', 'core_ch2', 'core_2026'].includes(code);
