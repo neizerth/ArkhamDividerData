@@ -41,6 +41,10 @@ jobs:
         run: npm install
       - name: Build
         run: npm run start
+      - name: Install rsvg-convert
+        run: sudo apt-get update && sudo apt-get install -y librsvg2-bin
+      - name: Convert SVG to PNG
+        run: npm run svg:convert
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
