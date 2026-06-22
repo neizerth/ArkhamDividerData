@@ -1,0 +1,94 @@
+[
+  {
+    "id": "the_cave_of_fruit_trees",
+    "scenario_name": "The Cave of Fruit Trees",
+    "number": 1,
+    "number_text": "I",
+    "encounter_sets": [
+      "fairies",
+      "striking_fear",
+      "black_knight"    ]
+  },
+  {
+    "id": "london_calling",
+    "scenario_name": "London Calling",
+    "number": 2,
+    "number_text": "II",
+    "encounter_sets": [
+      "fellowship_of_the_knights_of_the_round_table",
+      "metropolitan_police",
+      "locked_doors",
+      "black_knight"
+    ]
+  },
+  {
+    "id": "lac_diane",
+    "scenario_name": "Lac Diane",
+    "number": 3,
+    "number_text": "III",
+    "encounter_sets": [
+      "fairies",
+      "forest_creatures",
+      "black_knight",
+      "dark_forest"
+    ]
+  },
+  {
+    "id": "a_most_magnificent_court",
+    "scenario_name": "A Most Magnificent Court",
+    "number": 4,
+    "number_text": "IV-A",
+    "encounter_sets": [
+      "knights",
+      "black_knight"
+    ]
+  },
+  {
+    "id": "the_queen_of_air_and_darkness",
+    "scenario_name": "The Queen of Air and Darkness",
+    "number": 4,
+    "number_text": "IV-B",
+    "encounter_sets": [
+      "fairies",
+      "forest_creatures",
+      "country_locals",
+      "chilling_cold",
+      "black_knight",
+      "knights"
+    ]
+  },
+  {
+    "id": "prophetiae_merlini",
+    "scenario_name": "Prophetiae Merlini",
+    "number": 5,
+    "number_text": "V",
+    "encounter_sets": [
+      "fellowship_of_the_knights_of_the_round_table",
+      "dark_cult",
+      "black_knight",
+      "metropolitan_police"
+    ]
+  },
+  {
+    "id": "the_ill_made_knight",
+    "scenario_name": "The Ill-Made Knight",
+    "number": 6,
+    "number_text": "VI",
+    "encounter_sets": [
+      "metropolitan_police",
+      "fellowship_of_the_knights_of_the_round_table",
+      "knights",
+      "fairies",
+      "country_locals",
+      "london_calling",
+      "arthurian_relics"
+    ]
+  },
+  {
+    "id": "the_once_and_future_king",
+    "scenario_name": "The Once and Future King",
+    "number": 7,
+    "number_text": "VII",
+    "encounter_sets": []
+  }
+]

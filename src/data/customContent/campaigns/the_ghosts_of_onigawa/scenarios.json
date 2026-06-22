@@ -5,7 +5,6 @@
     "number": 1,
     "number_text": "I",
     "encounter_sets": [
-      "the_hidden_village",
       "cruel_corvids",
       "forest_frights",
       "fearsome_fog"
@@ -17,7 +16,6 @@
     "number": 2,
     "number_text": "II",
     "encounter_sets": [
-      "the_house_on_the_hill",
       "darkened_manor",
       "downwell",
       "moonlit_madness",
@@ -30,7 +28,6 @@
     "number": 3,
     "number_text": "III",
     "encounter_sets": [
-      "the_river_delta",
       "watery_woes",
       "tidal_terrors",
       "cursed_conductors",
@@ -43,7 +40,6 @@
     "number": 4,
     "number_text": "IV",
     "encounter_sets": [
-      "the_war_eternal",
       "siege_of_onigawa",
       "deadly_doctrines",
       "ghostly_grudges",
@@ -67,7 +63,6 @@
     "number": 6,
     "number_text": "VI",
     "encounter_sets":[
-      "the_end_of_august",
       "slumbering_serpents",
       "winds_of_winter",
       "moonlit_madness",
@@ -80,7 +75,6 @@
     "number": 7,
     "number_text": "VII",
     "encounter_sets": [
-      "the_molten_armory",
       "fiery_fate",
       "astral_armaments",
       "lunar_lunacy",
@@ -93,7 +87,6 @@
     "number": 8,
     "number_text": "VIII",
     "encounter_sets": [
-      "the_black_harvest",
       "the_shepherds_flock",
       "forged_in_flames",
       "sunken_kingdom",
