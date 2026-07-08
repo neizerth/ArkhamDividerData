@@ -51,9 +51,11 @@ export const getEncounterSets = async () => {
       };
     }
 
-    const arkhamCardsEncounter = arkhamCardsEncounters.find(
-      ({ name }) => prepareText(encounter.name) === prepareText(name)
-    );
+    const arkhamCardsEncounter =
+      arkhamCardsEncounters.find(({ code }) => code === encounter.code) ??
+      arkhamCardsEncounters.find(
+        ({ name }) => prepareText(encounter.name) === prepareText(name),
+      );
 
     if (!arkhamCardsEncounter) {
       showError(`Arkham Cards encounter not found: ${encounter.code}`);
