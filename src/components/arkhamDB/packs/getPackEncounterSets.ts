@@ -47,64 +47,85 @@ const getEncounterSets = async (pack: ICache.Pack) => {
 	});
 };
 
+/** Physical card id: double-sided faces share one slot via ArkhamDB `back_link`. */
+const getPhysicalCardId = ({
+	code,
+	back_link,
+}: Pick<IArkhamDB.JSON.Card, "code" | "back_link">) => back_link ?? code;
+
+const MAIN_TYPES = ["scenario", "agenda", "act"] as const;
+
+const isMainType = (type: string) =>
+	(MAIN_TYPES as readonly string[]).includes(type);
+
+const mainTypePriority = (type: string) => {
+	const index = (MAIN_TYPES as readonly string[]).indexOf(type);
+	return index === -1 ? MAIN_TYPES.length : index;
+};
+
+/**
+ * Front face of a double-sided card: prefer act/agenda/scenario if present,
+ * otherwise the primary ArkhamDB code (`03065` over `03065b`, `…a` over `…b`).
+ */
+const pickCanonicalFace = (faces: IArkhamDB.JSON.Card[]) => {
+	const mainFaces = faces.filter(({ type_code }) => isMainType(type_code));
+	if (mainFaces.length > 0) {
+		return [...mainFaces].sort(
+			(a, b) => mainTypePriority(a.type_code) - mainTypePriority(b.type_code),
+		)[0];
+	}
+
+	return [...faces].sort((a, b) => a.code.localeCompare(b.code))[0];
+};
+
+const typeSortOrder = (type: string) => {
+	const preferred = [
+		"scenario",
+		"agenda",
+		"act",
+		"location",
+		"enemy",
+		"asset",
+		"treachery",
+		"story",
+	];
+	const index = preferred.indexOf(type);
+	return index === -1 ? preferred.length : index;
+};
+
 export const getEncounterSetTypes = (cards: IArkhamDB.JSON.Card[]) => {
-	const mainTypes = ["agenda", "act", "scenario"];
+	const byPhysicalId = groupBy(getPhysicalCardId, cards);
 
-	const types = uniq(cards.map(prop("type_code")).filter(isNotNil));
+	const canonicalCards = toPairs(byPhysicalId)
+		.map(([, faces = []]) => pickCanonicalFace(faces))
+		.filter(isNotNil);
 
-	// Sort types to process mainTypes first
-	const sortedTypes = [...types].sort((a, b) => {
-		const aIsMain = mainTypes.includes(a);
-		const bIsMain = mainTypes.includes(b);
-		if (aIsMain && !bIsMain) return -1;
-		if (!aIsMain && bIsMain) return 1;
-		return 0;
-	});
+	const types = uniq(canonicalCards.map(prop("type_code")).filter(isNotNil)).sort(
+		(a, b) => typeSortOrder(a) - typeSortOrder(b),
+	);
 
-	const mainTypeCards = cards
-		.filter(({ type_code }) => mainTypes.includes(type_code))
-		.map(prop("position"));
+	return types
+		.map((type) => {
+			const data = uniqBy(
+				getPhysicalCardId,
+				canonicalCards.filter(propEq(type, "type_code")),
+			);
 
-	/** Per-card identity across types (variants share `position` but have distinct `code`). */
-	const usedCardCodes = new Set<string>();
+			const size = data.reduce((total, { quantity }) => total + quantity, 0);
 
-	const typeData = sortedTypes.map((type) => {
-		const typeCards = cards.filter(propEq(type, "type_code"));
+			const cardCounts = data.reduce<Record<number, number>>(
+				(acc, { position, quantity }) => {
+					acc[position] = (acc[position] ?? 0) + quantity;
+					return acc;
+				},
+				{},
+			);
 
-		const data = uniqBy(
-			prop("code"),
-			typeCards.filter(({ position, type_code, code }) => {
-				// Skip if this card row was already counted under another type_code
-				if (usedCardCodes.has(code)) {
-					return false;
-				}
-				// Keep main types or cards not in main types
-				return (
-					mainTypes.includes(type_code) || !mainTypeCards.includes(position)
-				);
-			}),
-		);
-
-		for (const { code } of data) {
-			usedCardCodes.add(code);
-		}
-
-		const size = data.reduce((total, { quantity }) => total + quantity, 0);
-
-		const cardCounts = data.reduce<Record<number, number>>(
-			(acc, { position, quantity }) => {
-				acc[position] = (acc[position] ?? 0) + quantity;
-				return acc;
-			},
-			{},
-		);
-
-		return {
-			type,
-			size,
-			cards: cardCounts,
-		};
-	});
-
-	return typeData;
+			return {
+				type,
+				size,
+				cards: cardCounts,
+			};
+		})
+		.filter(({ size }) => size > 0);
 };

@@ -126,6 +126,8 @@ export namespace IArkhamDB {
       quantity: number
       faction_code?: string
       encounter_position?: number
+      /** Other face of a double-sided card (ArkhamDB). */
+      back_link?: string
     }
 
     export type EncounterCard = Card & {
