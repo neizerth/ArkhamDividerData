@@ -2,7 +2,7 @@ import * as API from "@/api/arkhamDB/api";
 import type { IArkhamDB } from "@/types/arkhamDB";
 import { ICache } from "@/types/cache";
 import * as Cache from "@/util/cache";
-import { groupBy, isNotNil, prop, propEq, toPairs, uniq, uniqBy } from "ramda";
+import { groupBy, isNotNil, prop, propEq, uniq, uniqBy } from "ramda";
 
 export const getPackEncounterSets = async (): Promise<
 	ICache.PackEncounterSet[]
@@ -27,14 +27,18 @@ const getEncounterSets = async (pack: ICache.Pack) => {
 
 	const cards = [...encounterCards, ...packCards];
 
-	const encounters = cards.filter(({ encounter_code }) =>
-		Boolean(encounter_code),
+	const encounters = cards.filter(
+		(card): card is IArkhamDB.JSON.Card & { encounter_code: string } =>
+			Boolean(card.encounter_code),
 	);
 
-	const groups = groupBy(prop("encounter_code"), encounters);
+	const groups = groupBy(
+		(card) => card.encounter_code,
+		encounters,
+	);
 
-	return toPairs(groups).map(([encounter_set_code, cards = []]) => {
-		const types = getEncounterSetTypes(cards);
+	return Object.entries(groups).map(([encounter_set_code, groupCards = []]) => {
+		const types = getEncounterSetTypes(groupCards);
 		const size = types.reduce((total, { size }) => total + size, 0);
 		return {
 			pack_code: code,
@@ -48,10 +52,8 @@ const getEncounterSets = async (pack: ICache.Pack) => {
 };
 
 /** Physical card id: double-sided faces share one slot via ArkhamDB `back_link`. */
-const getPhysicalCardId = ({
-	code,
-	back_link,
-}: Pick<IArkhamDB.JSON.Card, "code" | "back_link">) => back_link ?? code;
+const getPhysicalCardId = (card: IArkhamDB.JSON.Card): string =>
+	card.back_link ?? card.code;
 
 const MAIN_TYPES = ["scenario", "agenda", "act"] as const;
 
@@ -96,7 +98,7 @@ const typeSortOrder = (type: string) => {
 export const getEncounterSetTypes = (cards: IArkhamDB.JSON.Card[]) => {
 	const byPhysicalId = groupBy(getPhysicalCardId, cards);
 
-	const canonicalCards = toPairs(byPhysicalId)
+	const canonicalCards = Object.entries(byPhysicalId)
 		.map(([, faces = []]) => pickCanonicalFace(faces))
 		.filter(isNotNil);
 
