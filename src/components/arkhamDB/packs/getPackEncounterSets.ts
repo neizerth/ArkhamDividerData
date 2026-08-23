@@ -2,6 +2,10 @@ import * as API from "@/api/arkhamDB/api";
 import type { IArkhamDB } from "@/types/arkhamDB";
 import { ICache } from "@/types/cache";
 import * as Cache from "@/util/cache";
+import {
+	buildPackEncounterSetMergePlan,
+	mergeEncounterSetGroups,
+} from "@/util/encounterSetMerge";
 import { groupBy, isNotNil, prop, propEq, uniq, uniqBy } from "ramda";
 
 export const getPackEncounterSets = async (): Promise<
@@ -36,6 +40,13 @@ const getEncounterSets = async (pack: ICache.Pack) => {
 		(card) => card.encounter_code,
 		encounters,
 	);
+
+	const mergePlan = buildPackEncounterSetMergePlan(
+		encounters,
+		Cache.getCampaigns(),
+		Cache.getEncounterSets(),
+	);
+	mergeEncounterSetGroups(groups, mergePlan);
 
 	return Object.entries(groups).map(([encounter_set_code, groupCards = []]) => {
 		const types = getEncounterSetTypes(groupCards);
