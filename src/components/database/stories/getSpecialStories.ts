@@ -201,7 +201,6 @@ export const getSpecialStories = (): IDatabase.Story[] => {
       const storyScenarioEncounters = getStoryScenarioEncounters({
         encounterSets,
         scenarios: storyScenarios,
-        canonicalizeEncounterCode,
       });
 
       const storyScenarioGroups = groupStoryScenarios({

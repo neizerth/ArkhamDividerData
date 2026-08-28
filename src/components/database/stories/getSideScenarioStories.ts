@@ -132,7 +132,6 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
       const storyScenarioEncounters = getStoryScenarioEncounters({
         encounterSets,
         scenarios: storyScenarios,
-        canonicalizeEncounterCode,
       });
 
       const investigators = packInvestigators.filter(

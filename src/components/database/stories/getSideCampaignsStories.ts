@@ -116,7 +116,6 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
 			const storyScenarioEncounters = getStoryScenarioEncounters({
 				encounterSets,
 				scenarios: storyScenarios,
-				canonicalizeEncounterCode,
 			});
 
 			const investigators = pack
