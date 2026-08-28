@@ -23,6 +23,8 @@ export enum CacheType {
   DATABASE_ENCOUNTER_SETS = 'database.encounterSets',
 
   DATABASE_STORIES = 'database.stories',
+
+  DATABASE_ICONS = 'database.icons',
   
   CUSTOM_PACKS = 'packs.custom',
   CUSTOM_CYCLES = 'cycles.custom',

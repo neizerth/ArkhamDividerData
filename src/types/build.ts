@@ -10,7 +10,7 @@ export namespace IBuild {
     encounterSets: IDatabase.EncounterSet[]
     packs: ICache.Pack[]
     cycles: ICache.Cycle[]
-    icons: ICache.IconInfo[]
+    icons: IDatabase.Icon[]
   }
   export type Translation = {
     translatedCampaigns: string[]

@@ -40,6 +40,9 @@ export const createDatabaseCache = async () => {
   console.log('caching database stories...');
   cache(CacheType.DATABASE_STORIES, Database.getStories());
 
+  console.log('caching database icons...');
+  cache(CacheType.DATABASE_ICONS, Database.getIcons());
+
   Validation.checkStories();
 }
 

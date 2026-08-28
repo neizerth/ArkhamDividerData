@@ -34,6 +34,7 @@ export const getInvestigators = () => getCache<IArkhamDB.API.Investigator[]>(Cac
 export const getDatabaseEncounterSets = () => getCache<IDatabase.EncounterSet[]>(CacheType.DATABASE_ENCOUNTER_SETS);
 export const getIconMapping = () => getCache<Mapping>(CacheType.ICONS_MAPPING);
 export const getIcons = () => getCache<IIcoMoon.Icon[]>(CacheType.ICONS);
+export const getDatabaseIcons = () => getCache<IDatabase.Icon[]>(CacheType.DATABASE_ICONS);
 export const getStandaloneScenarios = () => getCache<IArkhamCards.JSON.StandaloneScenario[]>(CacheType.STANDALONE_SCENARIOS);
 export const getSideScenarios = () => getCache<ICache.SideScenario[]>(CacheType.SIDE_SCENARIOS);
 export const getCampaignLinks = () => getCache<ICache.CampaignLink[]>(CacheType.CAMPAIGN_LINKS);

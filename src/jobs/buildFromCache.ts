@@ -1,14 +1,14 @@
+import { getCustomContent } from "@/components/custom/getCustomContent";
+import { VERSION } from "@/constants";
+import customTranslations from '@/data/translations';
 import type { IBuild } from "@/types/build";
-import * as Cache from "../util/cache";
 import { CacheType } from "@/types/cache";
+import type { Mapping } from "@/types/common";
 import { buildSource } from "@/util/build";
 import { createI18NCacheReader } from "@/util/cache";
-import type { Mapping } from "@/types/common";
-import { prop } from "ramda";
-import { getCustomContent } from "@/components/custom/getCustomContent";
-import customTranslations from '@/data/translations';
-import { VERSION } from "@/constants";
 import { sanitizeEncounterSynonyms } from "@/util/common";
+import { prop } from "ramda";
+import * as Cache from "../util/cache";
 
 export const buildFromCache = async () => {
   const languages = buildI18NSources();
@@ -84,7 +84,7 @@ export const buildCoreSources = (languages: string[]) => {
   console.log('building core sources...');
   const cachedStories = Cache.getStories();
   const cachedEncounterSets = Cache.getDatabaseEncounterSets();
-  const icons = Cache.getIconInfo();
+  const icons = Cache.getDatabaseIcons();
   
   const cachedPacks = Cache.getPacks();
   const cycles = Cache.getCycles();

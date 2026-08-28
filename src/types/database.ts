@@ -1,8 +1,13 @@
 import type { ICache } from "./cache";
-import { Mapping } from "./common";
 
 export namespace IDatabase {
   
+  export type Icon = ICache.IconInfo & {
+    encounter_set_code?: string
+    pack_code?: string
+    cycle_code?: string
+  }
+
   export type CustomContent = {
     creators: Array<{
       name: string
