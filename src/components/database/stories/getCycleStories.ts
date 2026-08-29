@@ -12,8 +12,8 @@ import * as Cache from "@/util/cache";
 import { showError } from "@/util/console";
 import { filterEncounterSet } from "@/util/criteria";
 import {
-	createEncounterCanonicalLookup,
-	normalizeEncounterCodes,
+  createEncounterCanonicalLookup,
+  normalizeEncounterCodes,
 } from "@/util/encounterCanonical";
 import { isNotNil, prop, propEq, sort, uniq } from "ramda";
 import { createStoryCampaignHandler } from "./features/getStoryCampaign";
@@ -102,8 +102,8 @@ export const getCycleStories = (): IDatabase.Story[] => {
       campaignsIds.includes(campaign.id),
     );
 
-    const requiredEncounters = [];
-    const extraEncounters = [];
+    const requiredEncounters: string[] = [];
+    const extraEncounters: string[] = [];
     const storyScenarios: IDatabase.StoryScenario[] = [];
 
     if (campaigns.length === 0) {
@@ -179,7 +179,7 @@ export const getCycleStories = (): IDatabase.Story[] => {
     }
     const [fullCampaign] = campaigns;
 
-    const isSizeSupported = is_official && !withoutSizeSupport.includes(code);
+    const isSizeSupported = is_official && !withoutSizeSupport.includes(code as never);
 
     const type =
       fullCampaign?.campaign.campaign_type || IDatabase.StoryType.CAMPAIGN;

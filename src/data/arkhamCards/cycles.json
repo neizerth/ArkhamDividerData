@@ -27,6 +27,10 @@
     {
       "campaign_id": "tdc",
       "scenario_ids": ["core"]
+    },
+    {
+      "campaign_id": "fhv",
+      "scenario_ids": ["fhv_prologue"]
     }
   ]
 }
