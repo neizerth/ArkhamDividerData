@@ -30,7 +30,15 @@
     },
     {
       "campaign_id": "fhv",
-      "scenario_ids": ["fhv_prologue"]
+      "scenario_ids": [
+        "fhv_prologue",
+        "dawn_of_the_second_day",
+        "the_second_evening",
+        "dawn_of_the_final_day",
+        "the_final_evening",
+        "fate_of_the_vale",
+        "fhv_epilogue"
+      ]
     }
   ]
 }
