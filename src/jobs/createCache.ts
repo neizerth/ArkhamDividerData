@@ -40,10 +40,12 @@ export const createDatabaseCache = async () => {
   console.log('caching database stories...');
   cache(CacheType.DATABASE_STORIES, Database.getStories());
 
+  Validation.checkStories();
+}
+
+export const createDatabaseIconsCache = () => {
   console.log('caching database icons...');
   cache(CacheType.DATABASE_ICONS, Database.getIcons());
-
-  Validation.checkStories();
 }
 
 export const createIconsCache = async () => {

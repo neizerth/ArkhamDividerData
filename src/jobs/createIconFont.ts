@@ -27,6 +27,7 @@ import { getCustomContent } from "@/components/custom/getCustomContent";
 import specialIcons from "@/data/icons/special";
 import { VERSION } from "@/constants";
 import { getCodepoints } from "./font/getCodepoints";
+import { createDatabaseIconsCache } from "./createCache";
 
 // accommodate large inline SVG strings
 (sax as unknown as { MAX_BUFFER_LENGTH: number }).MAX_BUFFER_LENGTH =
@@ -247,6 +248,7 @@ export const cacheIconsInfo = async () => {
 		.filter(isNotNil);
 
 	Cache.cache(CacheType.ICONS_INFO, data);
+	createDatabaseIconsCache();
 };
 
 export const getIconSetId = (id: string) => id.toLowerCase().replace(/\W/g, "");

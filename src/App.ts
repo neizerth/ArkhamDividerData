@@ -4,6 +4,7 @@ import {
   createAssets,
   createCache,
   createDatabaseCache,
+  createDatabaseIconsCache,
   createIconFont,
   createIconsCache,
   createTranslationsCache,
@@ -21,7 +22,8 @@ export class App {
       case 'translations':
         return await createTranslationsCache();
       case 'database':
-        return await createDatabaseCache();
+        await createDatabaseCache();
+        return createDatabaseIconsCache();
       case 'cache':
         return await createCache();
       case 'prepare-icons':
