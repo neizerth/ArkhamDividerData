@@ -188,12 +188,23 @@ export const getCycleStories = (): IDatabase.Story[] => {
 
     const packCodes = cyclePacks.map(prop("code"));
 
-    const storyCampaigns = campaigns.map((fullCampaign) =>
-      getCampaignScenario({
+    const ignoredScenarios =
+      ignore_campaign_scenarios.find(propEq(code, "campaign_id"))
+        ?.scenario_ids || [];
+
+    const storyCampaigns = campaigns.map((fullCampaign) => {
+      const campaign = getCampaignScenario({
         fullCampaign,
         cycle_code: code,
-      }),
-    );
+      });
+
+      return {
+        ...campaign,
+        scenarios: campaign.scenarios.filter(
+          (id) => !ignoredScenarios.includes(id),
+        ),
+      };
+    });
 
     const campaignData =
       campaigns.length === 1
@@ -205,10 +216,6 @@ export const getCycleStories = (): IDatabase.Story[] => {
             name: cycleName,
             campaigns,
           };
-
-    const ignoredScenarios =
-      ignore_campaign_scenarios.find(propEq(code, "campaign_id"))
-        ?.scenario_ids || [];
 
     const allowedScenarios = storyScenarios.filter(
       (scenario) => !ignoredScenarios.includes(scenario.id),
