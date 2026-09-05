@@ -25,13 +25,7 @@ export const createStoryCampaignHandler = ({
 
 		const { id, name } = campaign;
 
-		const iconList = [];
-
-		if (id === "core") {
-			iconList.push(campaign.id);
-		}
-
-		iconList.push(cycle_code);
+		const iconList = [id, cycle_code];
 
 		const notCore = scenarios.filter(({ id }) => id !== 'core');
 

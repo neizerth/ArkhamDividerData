@@ -31,6 +31,15 @@ const CAMPAIGN_SKIP_CYCLE_CODES = [
 /** Order for splitting the shared `core` cycle by product (pack). */
 const CORE_CYCLE_PACK_ORDER = ["core", "core_ch2", "core_2026"];
 
+/**
+ * Cycles that group independent products under one cycle code.
+ * Each pack becomes its own story (code/icon = pack code), like core.
+ */
+const PACK_SCOPED_CYCLE_CODES = [
+	...CORE_CYCLE_PACK_ORDER,
+	"small_campaign_expansions",
+];
+
 const compareCorePackCodes = (a: string, b: string) => {
 	const ia = CORE_CYCLE_PACK_ORDER.indexOf(a);
 	const ib = CORE_CYCLE_PACK_ORDER.indexOf(b);
@@ -298,8 +307,7 @@ export const getCycleStories = (): IDatabase.Story[] => {
         ...cycle,
       };
 
-      if (CORE_CYCLE_PACK_ORDER.includes(code)) {
-        console.log("core code", code);
+      if (PACK_SCOPED_CYCLE_CODES.includes(code)) {
         const packCodes = uniq(cycleEncounters.map(prop("pack_code")));
         const sorted =
           packCodes.length > 1 ? sort(compareCorePackCodes, packCodes) : packCodes;
