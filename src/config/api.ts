@@ -20,3 +20,6 @@ export const ARKHAMDB_DATA_FOLDER_NAME: string = process.env.ARKHAMDB_DATA_FOLDE
 export const PRODUCTION_URL = process.env.PRODUCTION_URL;
 
 export const ARKHAM_CARDS_GRAPHQL_URL: string = process.env.ARKHAM_CARDS_GRAPHQL_URL;
+
+export const ARKHAM_BUILD_API_BASE_URL: string =
+	process.env.ARKHAM_BUILD_API_BASE_URL;

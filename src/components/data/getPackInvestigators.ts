@@ -1,4 +1,5 @@
 import type { ICache } from "@/types/cache";
+import * as ArkhamBuild from "@/components/arkhamBuild";
 import * as ArkhamCards from "@/components/arkhamCards";
 import * as ArkhamDB from "@/components/arkhamDB";
 
@@ -9,13 +10,16 @@ import * as ArkhamDB from "@/components/arkhamDB";
 export const getPackInvestigators = async (): Promise<
 	ICache.PackInvestigator[]
 > => {
-	const data = [];
+	const data: ICache.PackInvestigator[] = [];
 
 	console.log("loading ArkhamDB pack investigators...");
 	data.push(...(await ArkhamDB.getPackInvestigators()));
 
 	console.log("loading Arkham Cards pack investigators...");
 	data.push(...(await ArkhamCards.getPackInvestigators()));
+
+	console.log("loading Arkham Build pack investigators...");
+	data.push(...(await ArkhamBuild.getPackInvestigators(data)));
 
 	return data;
 };

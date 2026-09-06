@@ -72,6 +72,7 @@ export namespace ICache {
   export enum Source {
     ARKHAMDB = 'arkham-db',
     ARKHAM_CARDS = 'arkham-cards',
+    ARKHAM_BUILD = 'arkham-build',
     ARKHAM_DIVIDER = 'arkham-divider'
   }
 
