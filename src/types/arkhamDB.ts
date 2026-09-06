@@ -87,7 +87,10 @@ export namespace IArkhamDB {
   export namespace JSON {
     export type Entity = HasName & HasCode;
 
-    export type Cycle = Entity & HasPosition & HasSize;
+    export type Cycle = Entity & HasPosition & HasSize & {
+      chapter?: number
+    };
+    
     export type ExtendedCycle = Cycle & 
       HasReturnSetCode<string> & 
       HasEncounterCodes & 

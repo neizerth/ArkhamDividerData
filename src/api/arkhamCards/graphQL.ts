@@ -99,6 +99,7 @@ export const loadCycles = async () => {
         official
         position
         real_name
+        chapter
       }
     }
   `;
@@ -108,6 +109,7 @@ export const loadCycles = async () => {
     official: boolean;
     position: number;
     real_name: string;
+    chapter: number | null
   };
 
 
@@ -123,5 +125,6 @@ export const loadCycles = async () => {
 		position: cycle.position,
 		name: cycle.real_name,
     size: 0,
+    chapter: cycle.chapter ?? void 1,
 	}));
 };

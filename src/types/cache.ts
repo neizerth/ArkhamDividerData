@@ -81,6 +81,7 @@ export namespace ICache {
     position: number;
     source: Source;
     size?: number;
+    chapter?: number;
     is_canonical: boolean;
     is_official: boolean;
   }

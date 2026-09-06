@@ -92,13 +92,20 @@ export const getCycleStories = (): IDatabase.Story[] => {
       is_canonical: boolean;
       is_official: boolean;
       position: number;
+      chapter?: number;
     };
     cycleEncounters: ICache.ScenarioEncounterSet[];
     storyCode: string;
     packScope?: string;
   }): IDatabase.Story | undefined => {
-    const { code, is_canonical, is_official, position, name: cycleName } =
-      cycle;
+    const {
+      code,
+      is_canonical,
+      is_official,
+      position,
+      chapter,
+      name: cycleName,
+    } = cycle;
 
     if (cycleEncounters.length === 0) {
       showError(`cycle encounters not found: ${code}`);
@@ -261,6 +268,7 @@ export const getCycleStories = (): IDatabase.Story[] => {
       is_canonical,
       is_official,
       position,
+      chapter,
       investigators,
       scenario_encounter_sets: storyScenarioEncounters.filter(filterEncounterSet),
       custom_content: customContent,

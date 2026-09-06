@@ -8,11 +8,18 @@ export const getCycles = async (): Promise<ICache.Cycle[]> => {
   const localCycles = await getLocalCycles();
   const graphQLCycles = await getGraphQLCycles();
 
+  const qlByCode = new Map(graphQLCycles.map((cycle) => [cycle.code, cycle]));
+
+  const localWithChapter = localCycles.map((cycle) => {
+    const chapter = qlByCode.get(cycle.code)?.chapter;
+    return chapter === undefined ? cycle : { ...cycle, chapter };
+  });
+
   const qlCycles = graphQLCycles.filter(
     ({ code }) => !localCycles.some(propEq(code, 'code'))
   );
 
-  return [...qlCycles, ...localCycles];
+  return [...qlCycles, ...localWithChapter];
 }
 
 const getGraphQLCycles = async (): Promise<ICache.Cycle[]> => {
@@ -22,6 +29,7 @@ const getGraphQLCycles = async (): Promise<ICache.Cycle[]> => {
     code: cycle.code,
     name: cycle.name,
     position: cycle.position,
+    chapter: cycle.chapter,
     source: ICache.Source.ARKHAM_CARDS,
     is_canonical: cycle.official,
     is_official: cycle.official,

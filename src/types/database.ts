@@ -102,6 +102,7 @@ export namespace IDatabase {
     name: string
     code: string
     position?: number
+    chapter?: number
     campaign_id?: string
     scenario?: StoryScenario
     scenarios?: StoryScenario[]
