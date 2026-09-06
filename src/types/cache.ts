@@ -100,6 +100,7 @@ export namespace ICache {
     date_release?: string
     cgdb_id?: number
     position: number;
+    chapter?: number;
     is_canonical: boolean;
     is_official: boolean;
   }

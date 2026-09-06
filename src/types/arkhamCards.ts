@@ -74,6 +74,7 @@ export namespace IArkhamCards {
       name: string;
       position: number;
       official?: boolean;
+      chapter?: number;
     }
     export type ExtendedPack = Pack & {
       encounter_sets: IArkhamDB.JSON.PackEncounterSet[]

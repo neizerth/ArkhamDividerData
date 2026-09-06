@@ -105,6 +105,7 @@ export namespace IArkhamDB {
       HasCycleCode & {
       cgdb_id: number
       date_release: string
+      chapter?: number
     }
 
     export type PackEncounterSet = HasCode & HasSize & HasPackCode & HasCycleCode;

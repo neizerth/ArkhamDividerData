@@ -10,7 +10,8 @@ export const getPacks = async (): Promise<ICache.Pack[]> => {
     cycle_code,
     date_release,
     cgdb_id,
-    position
+    position,
+    chapter,
   }) => {
     return {
       code,
@@ -20,6 +21,7 @@ export const getPacks = async (): Promise<ICache.Pack[]> => {
       date_release,
       cgdb_id,
       position,
+      chapter,
       is_canonical: true,
       is_official: true,
     }

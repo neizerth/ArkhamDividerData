@@ -203,6 +203,10 @@ export const getCycleStories = (): IDatabase.Story[] => {
     const icon = iconDB.getIcon({ id: storyCode });
 
     const packCodes = cyclePacks.map(prop("code"));
+    const packChapter = cyclePacks
+      .map((pack) => pack.chapter)
+      .find((value) => value != null);
+    const storyChapter = packChapter ?? chapter;
 
     const ignoredScenarios =
       ignore_campaign_scenarios.find(propEq(code, "campaign_id"))
@@ -268,7 +272,7 @@ export const getCycleStories = (): IDatabase.Story[] => {
       is_canonical,
       is_official,
       position,
-      chapter,
+      chapter: storyChapter,
       investigators,
       scenario_encounter_sets: storyScenarioEncounters.filter(filterEncounterSet),
       custom_content: customContent,

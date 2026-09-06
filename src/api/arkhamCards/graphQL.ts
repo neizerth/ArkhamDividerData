@@ -62,6 +62,7 @@ export const loadPacks = async () => {
         official
         position
         real_name
+        chapter
         official
       }
     }
@@ -73,6 +74,7 @@ export const loadPacks = async () => {
     official: boolean;
     position: number;
     real_name: string;
+    chapter: number | null;
   };
 
 	type Response = {
@@ -87,6 +89,7 @@ export const loadPacks = async () => {
     name: pack.real_name,
     position: pack.position,
     official: pack.official,
+    chapter: pack.chapter ?? void 1,
 	}));
 };
 
