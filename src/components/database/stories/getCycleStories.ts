@@ -208,9 +208,13 @@ export const getCycleStories = (): IDatabase.Story[] => {
       .find((value) => value != null);
     const storyChapter = packChapter ?? chapter;
 
-    const ignoredScenarios =
-      ignore_campaign_scenarios.find(propEq(code, "campaign_id"))
-        ?.scenario_ids || [];
+    const ignoredScenarios = uniq(
+      campaigns.flatMap(
+        ({ campaign }) =>
+          ignore_campaign_scenarios.find(propEq(campaign.id, "campaign_id"))
+            ?.scenario_ids || [],
+      ),
+    );
 
     const storyCampaigns = campaigns.map((fullCampaign) => {
       const campaign = getCampaignScenario({
