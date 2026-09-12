@@ -1,5 +1,7 @@
-
 import { createCustomContent } from '@/components/custom/createCustomContent';
+import encounterSets from './encounterSets.json';
+import icons from './icons.json';
+import scenarios from './scenarios.json';
 
 export default createCustomContent({
   dir: __dirname,
@@ -25,11 +27,7 @@ export default createCustomContent({
       ]
     }
   },
-  icons: [
-    {
-      icon: "betrayal_at_the_mountains_of_madness",
-      width: 39.371,
-      height: 28.093
-    }
-  ]
+  scenarios,
+  encounterSets,
+  icons
 });

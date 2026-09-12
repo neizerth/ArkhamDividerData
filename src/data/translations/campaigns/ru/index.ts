@@ -1,3 +1,4 @@
+export { default as betrayal_at_the_mountains_of_madness } from "./betrayal_at_the_mountains_of_madness.json";
 export { default as winter_winds } from "./winter_winds.json";
 export { default as ages_unwound, default as zau } from "./zau.json";
 export { default as zaw } from "./zaw.json";
