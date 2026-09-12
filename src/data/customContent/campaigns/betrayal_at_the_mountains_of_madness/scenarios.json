@@ -1,0 +1,122 @@
+[
+  {
+    "id": "boston_red_line",
+    "scenario_name": "Boston Red Line",
+    "number": 1,
+    "number_text": "I",
+    "encounter_sets": [
+      "boston_red_line",
+      "miskatonic_day_out",
+      "pitch_black",
+      "surging_rats",
+      "agents_of_the_star_chamber",
+      "alien_activity",
+      "alien_abduction",
+      "loathsome_abominations",
+      "manifold"
+    ]
+  },
+  {
+    "id": "in_the_company_of_monsters",
+    "scenario_name": "In the Company of Monsters",
+    "number": 2,
+    "number_text": "II",
+    "encounter_sets": [
+      "in_the_company_of_monsters",
+      "surging_rats",
+      "dark_dreams",
+      "agents_of_the_star_chamber",
+      "alien_activity",
+      "alien_abduction",
+      "loathsome_abominations",
+      "manifold"
+    ]
+  },
+  {
+    "id": "cold_cold_heart",
+    "scenario_name": "Cold, Cold Heart",
+    "number": 3,
+    "number_text": "III",
+    "encounter_sets": [
+      "cold_cold_heart",
+      "antarctic_cold",
+      "frostbite",
+      "dark_dreams"
+    ]
+  },
+  {
+    "id": "frostbound_cenotaph",
+    "scenario_name": "Frostbound Cenotaph",
+    "number": 4,
+    "number_text": "IV",
+    "encounter_sets": [
+      "frostbound_cenotaph",
+      "antarctic_cold",
+      "frostbite",
+      "pitch_black",
+      "loathsome_abominations"
+    ]
+  },
+  {
+    "id": "schwerpunkt",
+    "scenario_name": "Schwerpunkt",
+    "number": 5,
+    "number_text": "V",
+    "encounter_sets": [
+      "schwerpunkt",
+      "alien_activity",
+      "looming_presence",
+      "loathsome_abominations",
+      "extant_things",
+      "agents_of_the_ahnenerbe",
+      "manifold"
+    ]
+  },
+  {
+    "id": "kingdom_of_the_shoggoths",
+    "scenario_name": "Kingdom of the Shoggoths",
+    "number": 6,
+    "number_text": "VI",
+    "encounter_sets": [
+      "kingdom_of_the_shoggoths",
+      "alien_abduction",
+      "antarctic_cold",
+      "extant_things",
+      "looming_presence",
+      "pitch_black"
+    ]
+  },
+  {
+    "id": "judgement_at_the_dark_tower",
+    "scenario_name": "Judgement at the Dark Tower",
+    "number": 7,
+    "number_text": "VII",
+    "encounter_sets": [
+      "judgement_at_the_dark_tower",
+      "miskatonic_offerings",
+      "alien_activity",
+      "alien_abduction",
+      "loathsome_abominations",
+      "agents_of_the_ahnenerbe",
+      "manifold"
+    ],
+    "extra_encounter_sets": [
+      "agents_of_cthulhu"
+    ]
+  },
+  {
+    "id": "the_end_of_the_earth",
+    "scenario_name": "The End of the Earth",
+    "number": 8,
+    "number_text": "VIII",
+    "encounter_sets": [
+      "the_end_of_the_earth",
+      "antarctic_cold",
+      "frostbite",
+      "loathsome_abominations"
+    ],
+    "extra_encounter_sets": [
+      "ancient_evils"
+    ]
+  }
+]

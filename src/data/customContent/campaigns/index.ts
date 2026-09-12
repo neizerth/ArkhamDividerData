@@ -1,6 +1,6 @@
 // export { default as ages_unwound } from "./ages_unwound/ages_unwound";
 
-// export { default as betrayal_at_the_mountains_of_madness } from './betrayal_at_the_mountains_of_madness/betrayal_at_the_mountains_of_madness';
+export { default as betrayal_at_the_mountains_of_madness } from './betrayal_at_the_mountains_of_madness/betrayal_at_the_mountains_of_madness';
 export { default as bloodborne } from "./bloodborne/bloodborne";
 export { default as celtic_rising } from "./celtic_rising/celtic_rising";
 export { default as circus_ex_mortis } from "./circus_ex_mortis/circus_ex_mortis";
