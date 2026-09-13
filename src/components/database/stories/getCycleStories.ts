@@ -19,6 +19,7 @@ import { isNotNil, prop, propEq, sort, uniq } from "ramda";
 import { createStoryCampaignHandler } from "./features/getStoryCampaign";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
 import { checkScenario } from "./scenarios/checkScenario";
+import { getDedicatedScenarioEncounterCodes } from "./scenarios/getDedicatedScenarioEncounterCodes";
 import { createStoryScenarioHandler } from "./scenarios/getStoryScenario";
 import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounters";
 import { groupStoryScenarios } from "./scenarios/groupStoryScenarios";
@@ -255,6 +256,13 @@ export const getCycleStories = (): IDatabase.Story[] => {
       scenarios: allowedScenarios,
     });
 
+    const dedicatedScenarioEncounterCodes = new Set(
+      getDedicatedScenarioEncounterCodes({
+        encounterSets,
+        scenarios: allowedScenarios,
+      }),
+    );
+
     const isCore = ['core', 'core_ch2', 'core_2026'].includes(code);
 
     const investigators =
@@ -284,7 +292,9 @@ export const getCycleStories = (): IDatabase.Story[] => {
       scenarios: storyScenariosGroup.filter(checkScenario),
       pack_codes: packCodes,
       is_size_supported: isSizeSupported,
-      encounter_sets: requiredEncounters.filter(filterEncounterSet),
+      encounter_sets: requiredEncounters
+        .filter((code) => !dedicatedScenarioEncounterCodes.has(code))
+        .filter(filterEncounterSet),
       extra_encounter_sets: extraEncounters.filter(filterEncounterSet),
     };
   };

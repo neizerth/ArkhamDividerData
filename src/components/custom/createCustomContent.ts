@@ -139,11 +139,17 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 
 	const scenarioRequiredEncounters = scenarios.flatMap(prop("encounter_sets"));
 
+	const scenarioEncounterSets =
+		options.story.scenario_encounter_sets || campaignScenarios;
+
+	const dedicatedScenarioEncounterCodes = new Set(scenarioEncounterSets);
+
 	const encounterSets = uniq([
 		...requiredEncounters,
-		...campaignScenarios,
 		...scenarioRequiredEncounters,
-	]).filter(filterEncounterSet);
+	])
+		.filter((encounterCode) => !dedicatedScenarioEncounterCodes.has(encounterCode))
+		.filter(filterEncounterSet);
 
 	const extraEncounters = uniq([
 		...(options.story.extra_encounter_sets || []),
@@ -157,8 +163,7 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 		campaigns: options.story.campaigns || [campaign],
 		is_size_supported: options.story.is_size_supported || false,
 		encounter_sets: encounterSets,
-		scenario_encounter_sets:
-			options.story.scenario_encounter_sets || campaignScenarios,
+		scenario_encounter_sets: scenarioEncounterSets,
 		extra_encounter_sets: extraEncounters,
 		investigators: options.story.investigators || [],
 	};

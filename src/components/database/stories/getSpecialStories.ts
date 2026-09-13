@@ -15,6 +15,7 @@ import { isNotNil, prop, propEq, uniqBy } from "ramda";
 import { createStoryCampaignHandler } from "./features/getStoryCampaign";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
 import { checkScenario } from "./scenarios/checkScenario";
+import { getDedicatedScenarioEncounterCodes } from "./scenarios/getDedicatedScenarioEncounterCodes";
 import { createStoryScenarioHandler } from "./scenarios/getStoryScenario";
 import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounters";
 import { groupStoryScenarios } from "./scenarios/groupStoryScenarios";
@@ -203,6 +204,13 @@ export const getSpecialStories = (): IDatabase.Story[] => {
         scenarios: storyScenarios,
       });
 
+      const dedicatedScenarioEncounterCodes = new Set(
+        getDedicatedScenarioEncounterCodes({
+          encounterSets,
+          scenarios: storyScenarios,
+        }),
+      );
+
       const storyScenarioGroups = groupStoryScenarios({
         iconDB,
         scenarios: storyScenarios
@@ -227,7 +235,9 @@ export const getSpecialStories = (): IDatabase.Story[] => {
         pack_code: code,
         type,
         investigators,
-        encounter_sets: requiredEncounters,
+        encounter_sets: requiredEncounters.filter(
+          (encounterCode) => !dedicatedScenarioEncounterCodes.has(encounterCode),
+        ),
         extra_encounter_sets: extraEncounters,
         custom_content: customContent,
         scenario_encounter_sets: storyScenarioEncounters,

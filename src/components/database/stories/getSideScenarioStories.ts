@@ -13,6 +13,7 @@ import { groupBy, isNotNil, prop, propEq, values } from "ramda";
 import { getSideCampaign } from "@/components/arkhamCards/scenarios/getSideCampaign";
 import { createStoryScenarioHandler } from "./scenarios/getStoryScenario";
 import { IconDBType } from "@/types/icons";
+import { getDedicatedScenarioEncounterCodes } from "./scenarios/getDedicatedScenarioEncounterCodes";
 import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounters";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
 
@@ -134,6 +135,13 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
         scenarios: storyScenarios,
       });
 
+      const dedicatedScenarioEncounterCodes = new Set(
+        getDedicatedScenarioEncounterCodes({
+          encounterSets,
+          scenarios: storyScenarios,
+        }),
+      );
+
       const investigators = packInvestigators.filter(
         propEq(pack.code, 'pack_code')
       );
@@ -160,6 +168,8 @@ export const getSideScenarioStories = (): IDatabase.Story[] => {
         encounter_sets: normalizeEncounterCodes(
           requiredEncounters,
           canonicalizeEncounterCode,
+        ).filter(
+          (encounterCode) => !dedicatedScenarioEncounterCodes.has(encounterCode),
         ),
         extra_encounter_sets: normalizeEncounterCodes(
           extraEncounters,

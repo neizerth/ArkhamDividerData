@@ -13,6 +13,7 @@ import { showError, showWarning } from "@/util/console";
 import { isNotNil, prop, propEq } from "ramda";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
 import { checkScenario } from "./scenarios/checkScenario";
+import { getDedicatedScenarioEncounterCodes } from "./scenarios/getDedicatedScenarioEncounterCodes";
 import { createStoryScenarioHandler } from "./scenarios/getStoryScenario";
 import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounters";
 import { groupStoryScenarios } from "./scenarios/groupStoryScenarios";
@@ -118,6 +119,13 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
 				scenarios: storyScenarios,
 			});
 
+			const dedicatedScenarioEncounterCodes = new Set(
+				getDedicatedScenarioEncounterCodes({
+					encounterSets,
+					scenarios: storyScenarios,
+				}),
+			);
+
 			const investigators = pack
 				? packInvestigators.filter(propEq(pack.code, "pack_code"))
 				: [];
@@ -144,7 +152,10 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
 				is_canonical,
 				is_official,
 				scenario_encounter_sets: storyScenarioEncounters,
-				encounter_sets: requiredEncounters,
+				encounter_sets: requiredEncounters.filter(
+					(encounterCode) =>
+						!dedicatedScenarioEncounterCodes.has(encounterCode),
+				),
 				extra_encounter_sets: extraEncounters,
 			};
 		})

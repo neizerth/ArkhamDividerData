@@ -18,7 +18,7 @@ export const getStoryScenarioEncounters = ({
 			if (id === "core") {
 				return null;
 			}
-			if (type === "interlude") {
+			if (type === "interlude" || type === "epilogue" || type === "prologue") {
 				return null;
 			}
 
