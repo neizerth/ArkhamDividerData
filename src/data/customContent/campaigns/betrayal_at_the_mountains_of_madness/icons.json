@@ -6,8 +6,8 @@
   },
   {
     "icon": "boston_red_line",
-    "width": 82,
-    "height": 96
+    "width": 1530,
+    "height": 1750
   },
   {
     "icon": "in_the_company_of_monsters",
@@ -16,8 +16,8 @@
   },
   {
     "icon": "cold_cold_heart",
-    "width": 89,
-    "height": 90
+    "width": 600,
+    "height": 599
   },
   {
     "icon": "frostbound_cenotaph",
@@ -31,13 +31,13 @@
   },
   {
     "icon": "kingdom_of_the_shoggoths",
-    "width": 95,
-    "height": 55
+    "width": 600,
+    "height": 599
   },
   {
     "icon": "judgement_at_the_dark_tower",
-    "width": 70,
-    "height": 87
+    "width": 600,
+    "height": 599
   },
   {
     "icon": "the_end_of_the_earth",
@@ -51,8 +51,8 @@
   },
   {
     "icon": "surging_rats",
-    "width": 72,
-    "height": 87
+    "width": 999,
+    "height": 864
   },
   {
     "icon": "agents_of_the_star_chamber",
@@ -76,8 +76,8 @@
   },
   {
     "icon": "dark_dreams",
-    "width": 85,
-    "height": 95
+    "width": 999,
+    "height": 864
   },
   {
     "icon": "antarctic_cold",
@@ -91,8 +91,8 @@
   },
   {
     "icon": "looming_presence",
-    "width": 88,
-    "height": 96
+    "width": 1530,
+    "height": 1750
   },
   {
     "icon": "agents_of_the_ahnenerbe",
@@ -106,8 +106,8 @@
   },
   {
     "icon": "manifold",
-    "width": 83,
-    "height": 83
+    "width": 600,
+    "height": 599
   },
   {
     "icon": "extant_things",
@@ -116,12 +116,7 @@
   },
   {
     "icon": "miskatonic_offerings",
-    "width": 87,
-    "height": 96
-  },
-  {
-    "icon": "challenge_mode",
-    "width": 88,
-    "height": 89
+    "width": 600,
+    "height": 599
   }
 ]

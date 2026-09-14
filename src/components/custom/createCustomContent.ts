@@ -35,7 +35,7 @@ export type CreateCustomContentOptions = {
 		}
 	>;
 	encounterSets?: Omit<
-		IDatabase.EncounterSet,
+		CustomContentEncounter,
 		"synonyms" | "is_canonical" | "is_official"
 	>[];
 	story: Omit<
@@ -54,6 +54,10 @@ export type CreateCustomContentOptions = {
 		investigators?: ICache.PackInvestigator[];
 		is_size_supported?: boolean;
 	};
+};
+
+export type CustomContentEncounter = IDatabase.EncounterSet & {
+	prefix?: boolean
 };
 
 export const createCustomContent = (options: CreateCustomContentOptions) => {
@@ -126,13 +130,16 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 		icon: code,
 	};
 
-	const encounters: IDatabase.EncounterSet[] =
-		options.encounterSets?.map((encounterSet) => ({
-			...encounterSet,
-			...packEncounterSetBase,
-			code: toId(encounterSet.code),
-			icon: toId(encounterSet.icon || encounterSet.code),
-		})) || [];
+	const encounters: CustomContentEncounter[] =
+		options.encounterSets?.map((encounterSet) => {
+			const getIcon = encounterSet.prefix === false ? identity : toId;
+			return {
+				...encounterSet,
+				...packEncounterSetBase,
+				code: toId(encounterSet.code),
+				icon: getIcon(encounterSet.icon || encounterSet.code),
+			}
+		}) || [];
 
 	const requiredEncounters =
 		options.story.encounter_sets || encounters.map(prop("code"));

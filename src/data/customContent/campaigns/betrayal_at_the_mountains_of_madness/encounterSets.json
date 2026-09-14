@@ -61,6 +61,8 @@
   },
   {
     "code": "challenge_mode",
-    "name": "Challenge Mode"
+    "name": "Challenge Mode",
+    "icon": "elder_sign",
+    "prefix": false
   }
 ]
