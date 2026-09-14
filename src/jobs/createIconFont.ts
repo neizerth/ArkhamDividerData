@@ -9,6 +9,7 @@ import fs from "fs";
 import {
 	FONT_ICONS_DIR,
 	FONTS_DIR,
+	FORCE_PROCESS_ICONS,
 	ICONS_CACHE_DIR,
 	ICONS_EXTRA_DIR,
 } from "@/config/app";
@@ -19,6 +20,7 @@ import {
 	createWriter,
 	mkDir,
 } from "@/util/fs";
+import { showInfo, showWarning } from "@/util/console";
 import { isNotNil, prop, propEq, toPairs } from "ramda";
 import { CacheType, type ICache } from "@/types/cache";
 import type { Mapping } from "@/types/common";
@@ -69,8 +71,27 @@ maybePolyfillSaxDestroy(sax);
 export const prepareIcons = async () => {
 	console.log("clearing icons cache...");
 	await clearIconsCache();
+
+	if (!FORCE_PROCESS_ICONS) {
+		console.log("restoring previous icons...");
+		restorePreviousIcons();
+	} else {
+		showInfo("FORCE_PROCESS_ICONS enabled — processing all icons");
+	}
+
 	console.log("extracting svg icons...");
 	await extractIcons();
+};
+
+export const restorePreviousIcons = () => {
+	if (!fs.existsSync(FONT_ICONS_DIR)) {
+		showWarning(
+			`no previous icons at ${FONT_ICONS_DIR} — new icons will be processed from scratch`,
+		);
+		return;
+	}
+
+	fs.cpSync(FONT_ICONS_DIR, ICONS_CACHE_DIR, { recursive: true });
 };
 
 export const createIconFont = async () => {
@@ -254,52 +275,73 @@ export const cacheIconsInfo = async () => {
 export const getIconSetId = (id: string) => id.toLowerCase().replace(/\W/g, "");
 
 export const extractIcons = async () => {
-	// const icons = Cache.getIcons().slice(0, 20);
 	const icons = Cache.getIcons();
-	const iconInfo: ICache.SVGIconInfo[] = [];
+	const glyphMap = Cache.getLastGlyphMap();
+	const force = FORCE_PROCESS_ICONS || !glyphMap;
+
+	const previousSvgInfo = force ? [] : (Cache.getSVGIconInfo() ?? []);
+	const previousSvgInfoByIcon = new Map(
+		previousSvgInfo.map((info) => [info.icon, info]),
+	);
+
+	const iconInfoByIcon = new Map<string, ICache.SVGIconInfo>(
+		previousSvgInfoByIcon,
+	);
 
 	const options = {
 		dir: ICONS_CACHE_DIR,
 		extension: "svg",
 	};
 	const writeSVG = createWriter(options);
-
 	const exists = createExistsChecker(options);
+
+	// Track base names claimed in this run (same semantics as filesystem exists()
+	// on an empty cache). Do not use filesystem exists for naming when previous
+	// icons were restored — that would treat every known icon as a collision.
+	const claimedNames = new Set<string>();
+	let processedCount = 0;
+	let skippedCount = 0;
 
 	for (const icon of icons) {
 		const { name, iconSetName } = icon.properties;
+		const iconSetId = getIconSetId(iconSetName);
+		const id = claimedNames.has(name) ? `${iconSetId}-${name}` : name;
+		claimedNames.add(name);
 
-		const { svg, width, height, circled } = await getIconContents(icon);
+		const isKnown = !force && glyphMap?.[id] !== undefined;
+		const previousInfo = previousSvgInfoByIcon.get(id);
 
-		const ratio = width / height;
-
-		iconInfo.push({
-			icon: name,
-			ratio,
-			circled,
-			width,
-			height,
-		});
-
-		if (!exists(name)) {
-			writeSVG(name, svg);
+		if (isKnown && previousInfo && exists(id)) {
+			skippedCount++;
 			continue;
 		}
 
-		const iconSetId = getIconSetId(iconSetName);
-		const uniqueName = `${iconSetId}-${name}`;
-
-		iconInfo.push({
-			icon: uniqueName,
+		const { svg, width, height, circled } = await getIconContents(icon);
+		const ratio = width / height;
+		const info: ICache.SVGIconInfo = {
+			icon: id,
 			ratio,
 			circled,
 			width,
 			height,
-		});
+		};
 
-		writeSVG(uniqueName, svg);
+		iconInfoByIcon.set(id, info);
+
+		// Legacy: also record under the base name (first write wins on collisions).
+		if (id === name || !iconInfoByIcon.has(name)) {
+			iconInfoByIcon.set(name, { ...info, icon: name });
+		}
+
+		writeSVG(id, svg);
+		processedCount++;
 	}
 
-	Cache.cache(CacheType.SVG_ICONS_INFO, iconInfo);
-	// const
+	if (!force) {
+		showInfo(
+			`processed ${processedCount} new icons, skipped ${skippedCount} existing`,
+		);
+	}
+
+	Cache.cache(CacheType.SVG_ICONS_INFO, [...iconInfoByIcon.values()]);
 };

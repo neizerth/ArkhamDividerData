@@ -1,5 +1,6 @@
-import path from "path";
 import { ROOT_DIR } from "@/constants";
+import { isTruthyEnv } from "@/util/env";
+import path from "path";
 
 export const DIST_DIR = path.join(ROOT_DIR, 'dist');
 
@@ -16,3 +17,5 @@ export const ICONS_EXTRA_DIR = path.join(ASSETS_DIR, 'icons');
 export const FONTS_DIR = path.join(DIST_DIR, 'fonts');
 
 export const FONT_ICONS_DIR = path.join(FONTS_DIR, 'icons');
+
+export const FORCE_PROCESS_ICONS = isTruthyEnv(process.env.FORCE_PROCESS_ICONS);

@@ -1,0 +1,1 @@
+export const isTruthyEnv = (value?: string) => value && ['true', '1', 'yes', 'y', 'on'].includes(value.toLowerCase());

@@ -3,7 +3,7 @@ import type { IDatabase } from "@/types/database";
 import { prefix } from "@/util/common";
 import { filterEncounterSet } from "@/util/criteria";
 import path from "path";
-import { identity, prop, uniq } from "ramda";
+import { identity, isNotNil, prop, uniq } from "ramda";
 
 export const CUSTOM_POSITION_OFFSET = 200;
 
@@ -144,7 +144,9 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 	const requiredEncounters =
 		options.story.encounter_sets || encounters.map(prop("code"));
 
-	const scenarioRequiredEncounters = scenarios.flatMap(prop("encounter_sets"));
+	const scenarioRequiredEncounters = scenarios
+		.flatMap(prop("encounter_sets"))
+		.filter(isNotNil);
 
 	const scenarioEncounterSets =
 		options.story.scenario_encounter_sets || campaignScenarios;
@@ -160,7 +162,7 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 
 	const extraEncounters = uniq([
 		...(options.story.extra_encounter_sets || []),
-		...scenarios.flatMap(prop("extra_encounter_sets")),
+		...scenarios.flatMap(prop("extra_encounter_sets")).filter(isNotNil),
 	]).filter(filterEncounterSet);
 
 	const story: IDatabase.Story = {

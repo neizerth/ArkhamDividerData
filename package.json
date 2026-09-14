@@ -9,6 +9,7 @@
 		"start": "tsx ./src/index.ts",
 		"svg:convert": "bash ./cli/svg-to-png.sh",
 		"dev": "http-server ./dist --cors",
+		"ts:check": "tsc --noEmit",
 		"build": "tsc && tsc-alias",
 		"pack": "npm run build && npm publish",
 		"db": "npm start database && npm start build"
@@ -19,6 +20,7 @@
 	"devDependencies": {
 		"@tsconfig/node20": "^20.1.4",
 		"@tsconfig/strictest": "^2.0.5",
+		"@types/archiver": "^7.0.0",
 		"@types/axios": "^0.14.0",
 		"@types/decompress": "^4.2.7",
 		"@types/esm": "^3.2.2",
