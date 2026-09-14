@@ -15,12 +15,12 @@ import {
 } from "@/config/app";
 import * as Cache from "@/util/cache";
 import {
-	createExistsChecker,
 	createJSONReader,
+	createJSONWriter,
 	createWriter,
 	mkDir,
 } from "@/util/fs";
-import { showInfo, showWarning } from "@/util/console";
+import { showInfo } from "@/util/console";
 import { isNotNil, prop, propEq, toPairs } from "ramda";
 import { CacheType, type ICache } from "@/types/cache";
 import type { Mapping } from "@/types/common";
@@ -72,10 +72,7 @@ export const prepareIcons = async () => {
 	console.log("clearing icons cache...");
 	await clearIconsCache();
 
-	if (!FORCE_PROCESS_ICONS) {
-		console.log("restoring previous icons...");
-		restorePreviousIcons();
-	} else {
+	if (FORCE_PROCESS_ICONS) {
 		showInfo("FORCE_PROCESS_ICONS enabled — processing all icons");
 	}
 
@@ -83,15 +80,16 @@ export const prepareIcons = async () => {
 	await extractIcons();
 };
 
-export const restorePreviousIcons = () => {
-	if (!fs.existsSync(FONT_ICONS_DIR)) {
-		showWarning(
-			`no previous icons at ${FONT_ICONS_DIR} — new icons will be processed from scratch`,
-		);
-		return;
+/** Copy a previously built SVG into the cache when skipping reprocessing. */
+export const restorePreviousIcon = (id: string) => {
+	const src = path.join(FONT_ICONS_DIR, `${id}.svg`);
+	if (!fs.existsSync(src)) {
+		return false;
 	}
 
-	fs.cpSync(FONT_ICONS_DIR, ICONS_CACHE_DIR, { recursive: true });
+	mkDir(ICONS_CACHE_DIR);
+	fs.copyFileSync(src, path.join(ICONS_CACHE_DIR, `${id}.svg`));
+	return true;
 };
 
 export const createIconFont = async () => {
@@ -166,6 +164,20 @@ export const createAssets = async () => {
 		assetTypes: [OtherAssetType.JSON, OtherAssetType.HTML, OtherAssetType.CSS],
 	});
 
+	// Fantasticon may omit glyphs without an SVG; merge so historical
+	// codepoints stay published and never shift for clients.
+	if (codepoints) {
+		const readJSON = createJSONReader(FONTS_DIR);
+		const writeJSON = createJSONWriter(FONTS_DIR);
+		const generated = readJSON<Mapping<number>>("icons") ?? {};
+		writeJSON("icons", {
+			...codepoints,
+			...generated,
+		});
+	}
+
+	// Wipe previous font icons so deleted/renamed SVGs do not linger.
+	fs.rmSync(FONT_ICONS_DIR, { recursive: true, force: true });
 	mkDir(FONT_ICONS_DIR);
 
 	fs.cpSync(ICONS_CACHE_DIR, FONT_ICONS_DIR, {
@@ -262,6 +274,13 @@ export const cacheIconsInfo = async () => {
 				return dashItem;
 			}
 
+			// Historical codepoint with no SVG in this build — keep in fonts/icons.json
+			// for stability, but do not require icons.info metadata.
+			const hasSvg = fs.existsSync(path.join(ICONS_CACHE_DIR, `${icon}.svg`));
+			if (!hasSvg) {
+				return null;
+			}
+
 			console.log(`icon ${icon} not found`);
 
 			return null;
@@ -284,20 +303,16 @@ export const extractIcons = async () => {
 		previousSvgInfo.map((info) => [info.icon, info]),
 	);
 
-	const iconInfoByIcon = new Map<string, ICache.SVGIconInfo>(
-		previousSvgInfoByIcon,
-	);
+	const iconInfoByIcon = new Map<string, ICache.SVGIconInfo>();
 
 	const options = {
 		dir: ICONS_CACHE_DIR,
 		extension: "svg",
 	};
 	const writeSVG = createWriter(options);
-	const exists = createExistsChecker(options);
 
 	// Track base names claimed in this run (same semantics as filesystem exists()
-	// on an empty cache). Do not use filesystem exists for naming when previous
-	// icons were restored — that would treat every known icon as a collision.
+	// on an empty cache). Naming must not depend on restored files.
 	const claimedNames = new Set<string>();
 	let processedCount = 0;
 	let skippedCount = 0;
@@ -311,7 +326,13 @@ export const extractIcons = async () => {
 		const isKnown = !force && glyphMap?.[id] !== undefined;
 		const previousInfo = previousSvgInfoByIcon.get(id);
 
-		if (isKnown && previousInfo && exists(id)) {
+		// Skip expensive sharp work only when we can reuse both prior SVG + info.
+		// Copy per-icon (not bulk-restore) so deleted/orphan icons are not kept.
+		if (isKnown && previousInfo && restorePreviousIcon(id)) {
+			iconInfoByIcon.set(id, previousInfo);
+			if (id === name || !iconInfoByIcon.has(name)) {
+				iconInfoByIcon.set(name, { ...previousInfo, icon: name });
+			}
 			skippedCount++;
 			continue;
 		}
