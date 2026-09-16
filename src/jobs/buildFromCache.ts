@@ -1,4 +1,5 @@
 import { getCustomContent } from "@/components/custom/getCustomContent";
+import { enrichCustomContentSizes } from "@/components/arkhamBuildFan";
 import { VERSION } from "@/constants";
 import customTranslations from '@/data/translations';
 import type { IBuild } from "@/types/build";
@@ -13,7 +14,7 @@ import * as Cache from "../util/cache";
 export const buildFromCache = async () => {
   const languages = buildI18NSources();
 
-  buildCoreSources(languages);
+  await buildCoreSources(languages);
 }
 
 export const buildI18NSources = () => {
@@ -80,7 +81,7 @@ export const buildLanguageSource = (language: string) => {
   return true;
 }
 
-export const buildCoreSources = (languages: string[]) => {
+export const buildCoreSources = async (languages: string[]) => {
   console.log('building core sources...');
   const cachedStories = Cache.getStories();
   const cachedEncounterSets = Cache.getDatabaseEncounterSets();
@@ -89,7 +90,7 @@ export const buildCoreSources = (languages: string[]) => {
   const cachedPacks = Cache.getPacks();
   const cycles = Cache.getCycles();
 
-  const uniqueCustomContent = getCustomContent()
+  const uniqueCustomContent = await enrichCustomContentSizes(getCustomContent());
 
   const customStories = uniqueCustomContent.map(prop('story'));
   const customEncounterSets = uniqueCustomContent

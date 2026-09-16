@@ -11,7 +11,8 @@ import {
 	normalizeEncounterCodes,
 } from "@/util/encounterCanonical";
 import { showError, showWarning } from "@/util/console";
-import { isNotNil, prop, propEq, uniqBy } from "ramda";
+import { hasFullEncounterSizes } from "@/util/encounterSizes";
+import { isNotNil, prop, propEq, uniq, uniqBy } from "ramda";
 import { createStoryCampaignHandler } from "./features/getStoryCampaign";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
 import { checkScenario } from "./scenarios/checkScenario";
@@ -181,7 +182,6 @@ export const getSpecialStories = (): IDatabase.Story[] => {
 
       const icon = iconDB.getIcon({ id: code });
 
-      const isSizeSupported = is_official && is_canonical;
       const type = campaign_type || IDatabase.StoryType.CAMPAIGN;
 
       const cycleCode = links[0].cycle_code;
@@ -224,6 +224,16 @@ export const getSpecialStories = (): IDatabase.Story[] => {
         code,
         content: custom
       });
+
+      const sizedEncounterCodes = uniq([
+        ...requiredEncounters,
+        ...extraEncounters,
+        ...storyScenarioEncounters,
+      ]);
+
+      const isSizeSupported =
+        (Boolean(is_official) && Boolean(is_canonical)) ||
+        hasFullEncounterSizes(sizedEncounterCodes, encounterSets);
 
       const story = {
         name,

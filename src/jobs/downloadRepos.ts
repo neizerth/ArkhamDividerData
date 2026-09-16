@@ -17,6 +17,9 @@ export const downloadRepos = async () => {
 
   console.log('processing ArkhamCards Data...');
   await processRepo(API.ARKHAM_CARDS_DATA_ZIP_URL);
+
+  console.log('processing Arkham Build Fan Content...');
+  await processRepo(API.ARKHAM_BUILD_FAN_REPO_ARCHIVE_URL);
 }
 
 export const processRepo = async (url: string) => {

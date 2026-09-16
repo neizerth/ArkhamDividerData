@@ -23,3 +23,8 @@ export const ARKHAM_CARDS_GRAPHQL_URL: string = process.env.ARKHAM_CARDS_GRAPHQL
 
 export const ARKHAM_BUILD_API_BASE_URL: string =
 	process.env.ARKHAM_BUILD_API_BASE_URL;
+
+export const ARKHAM_BUILD_FAN_REPO_ARCHIVE_URL: string =
+	process.env.ARKHAM_BUILD_FAN_REPO_ARCHIVE_URL;
+export const ARKHAM_BUILD_FAN_REPO_FOLDER_NAME: string =
+	process.env.ARKHAM_BUILD_FAN_REPO_FOLDER_NAME;

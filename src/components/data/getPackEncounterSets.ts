@@ -1,4 +1,5 @@
 import * as ArkhamBuild from '@/components/arkhamBuild';
+import * as ArkhamBuildFan from '@/components/arkhamBuildFan';
 import * as ArkhamCards from '@/components/arkhamCards';
 import * as ArkhamDB from '@/components/arkhamDB';
 import type { ICache } from '@/types/cache';
@@ -9,12 +10,12 @@ const encounterKey = ({
 }: Pick<ICache.PackEncounterSet, 'pack_code' | 'encounter_set_code'>) =>
   `${pack_code}::${encounter_set_code}`;
 
-const needsSize = (entry: ICache.PackEncounterSet) =>
-  entry.size === undefined || entry.size === 0;
+const sizeOf = (entry: ICache.PackEncounterSet) => entry.size ?? 0;
 
 /**
- * Prefer ArkhamDB / Arkham Cards rows; fill missing or zero sizes from arkham.build.
- * Encounter sets that exist only in arkham.build are appended.
+ * Prefer ArkhamDB / Arkham Cards rows; fill missing/zero sizes from fallbacks,
+ * and replace when the fallback reports a larger size for the same set.
+ * Encounter sets that exist only in the fallback are appended.
  */
 export const mergePackEncounterSets = (
   primary: ICache.PackEncounterSet[],
@@ -33,7 +34,7 @@ export const mergePackEncounterSets = (
       continue;
     }
 
-    if (!needsSize(current) || !entry.size) {
+    if (!entry.size || sizeOf(entry) <= sizeOf(current)) {
       continue;
     }
 
@@ -61,7 +62,14 @@ export const getPackEncounterSets = async (): Promise<ICache.PackEncounterSet[]>
   data.push(...await ArkhamCards.getPackEncounterSets());
 
   console.log('loading Arkham Build pack encounter sets (size fallback)...');
-  const build = await ArkhamBuild.getPackEncounterSets();
+  const withBuild = mergePackEncounterSets(
+    data,
+    await ArkhamBuild.getPackEncounterSets(),
+  );
 
-  return mergePackEncounterSets(data, build);
+  console.log('loading Fan Content pack encounter sets (size fallback)...');
+  return mergePackEncounterSets(
+    withBuild,
+    await ArkhamBuildFan.getPackEncounterSets(),
+  );
 }
