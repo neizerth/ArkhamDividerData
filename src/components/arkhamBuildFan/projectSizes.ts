@@ -31,7 +31,7 @@ const toEncounterCard = (
 	encounter_code: card.encounter_code,
 	encounter_position: card.encounter_position,
 	faction_code: card.faction_code ?? "mythos",
-	back_link: card.back_link_id,
+	back_link: card.back_link_id ?? card.back_link,
 });
 
 export const getSizesByEncounterName = (

@@ -34,6 +34,7 @@ export namespace IArkhamBuildFan {
 		faction_code?: string;
 		encounter_code?: string;
 		encounter_position?: number;
+		back_link?: string;
 		back_link_id?: string;
 		double_sided?: boolean;
 	};
