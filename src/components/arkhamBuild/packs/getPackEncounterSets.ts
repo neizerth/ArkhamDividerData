@@ -4,10 +4,6 @@ import type { IArkhamBuild } from "@/types/arkhamBuild";
 import type { IArkhamDB } from "@/types/arkhamDB";
 import { ICache } from "@/types/cache";
 import * as Cache from "@/util/cache";
-import {
-	buildPackEncounterSetMergePlan,
-	mergeEncounterSetGroups,
-} from "@/util/encounterSetMerge";
 import { groupBy } from "ramda";
 
 const toEncounterCard = (
@@ -42,8 +38,6 @@ export const getPackEncounterSets = async (): Promise<
 	);
 
 	const byPack = groupBy((card) => card.pack_code, encounters);
-	const campaigns = Cache.getCampaigns();
-	const encounterDefinitions = Cache.getEncounterSets();
 
 	const result: ICache.PackEncounterSet[] = [];
 
@@ -54,18 +48,17 @@ export const getPackEncounterSets = async (): Promise<
 		}
 
 		const mapped = packCards.map(toEncounterCard);
+		// Per encounter_code only — same rule as ArkhamDB path / printed footer.
 		const groups = groupBy((card) => card.encounter_code, mapped);
 
-		const mergePlan = buildPackEncounterSetMergePlan(
-			mapped,
-			campaigns,
-			encounterDefinitions,
-		);
-		mergeEncounterSetGroups(groups, mergePlan);
-
-		for (const [encounter_set_code, groupCards = []] of Object.entries(groups)) {
+		for (const [encounter_set_code, groupCards = []] of Object.entries(
+			groups,
+		)) {
 			const types = getEncounterSetTypes(groupCards);
-			const size = types.reduce((total, { size: typeSize }) => total + typeSize, 0);
+			const size = types.reduce(
+				(total, { size: typeSize }) => total + typeSize,
+				0,
+			);
 
 			result.push({
 				pack_code,

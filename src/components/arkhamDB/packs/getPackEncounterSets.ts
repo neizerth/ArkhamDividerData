@@ -2,10 +2,6 @@ import * as API from "@/api/arkhamDB/api";
 import type { IArkhamDB } from "@/types/arkhamDB";
 import { ICache } from "@/types/cache";
 import * as Cache from "@/util/cache";
-import {
-	buildPackEncounterSetMergePlan,
-	mergeEncounterSetGroups,
-} from "@/util/encounterSetMerge";
 import { groupBy, isNotNil, prop, propEq, uniq, uniqBy } from "ramda";
 
 export const getPackEncounterSets = async (): Promise<
@@ -36,17 +32,9 @@ const getEncounterSets = async (pack: ICache.Pack) => {
 			Boolean(card.encounter_code),
 	);
 
-	const groups = groupBy(
-		(card) => card.encounter_code,
-		encounters,
-	);
-
-	const mergePlan = buildPackEncounterSetMergePlan(
-		encounters,
-		Cache.getCampaigns(),
-		Cache.getEncounterSets(),
-	);
-	mergeEncounterSetGroups(groups, mergePlan);
+	// Size = cards of this encounter_code only (matches printed X/Y on card).
+	// Do not fold scenario gather sets into the parent — that inflates size.
+	const groups = groupBy((card) => card.encounter_code, encounters);
 
 	return Object.entries(groups).map(([encounter_set_code, groupCards = []]) => {
 		const types = getEncounterSetTypes(groupCards);
@@ -113,9 +101,9 @@ export const getEncounterSetTypes = (cards: IArkhamDB.JSON.Card[]) => {
 		.map(([, faces = []]) => pickCanonicalFace(faces))
 		.filter(isNotNil);
 
-	const types = uniq(canonicalCards.map(prop("type_code")).filter(isNotNil)).sort(
-		(a, b) => typeSortOrder(a) - typeSortOrder(b),
-	);
+	const types = uniq(
+		canonicalCards.map(prop("type_code")).filter(isNotNil),
+	).sort((a, b) => typeSortOrder(a) - typeSortOrder(b));
 
 	return types
 		.map((type) => {
