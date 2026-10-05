@@ -50,10 +50,6 @@ const getEncounterSets = async (pack: ICache.Pack) => {
 	});
 };
 
-/** Physical card id: double-sided faces share one slot via ArkhamDB `back_link`. */
-const getPhysicalCardId = (card: IArkhamDB.JSON.Card): string =>
-	card.back_link ?? card.code;
-
 const MAIN_TYPES = ["scenario", "agenda", "act"] as const;
 
 const isMainType = (type: string) =>
@@ -94,8 +90,46 @@ const typeSortOrder = (type: string) => {
 	return index === -1 ? preferred.length : index;
 };
 
+/**
+ * Physical card id via ArkhamDB `back_link`.
+ * When several distinct fronts share one back (e.g. Masked Carnevale-Goer),
+ * each front is its own physical card — do not collapse them onto the back.
+ */
+const createPhysicalCardIdGetter = (cards: IArkhamDB.JSON.Card[]) => {
+	const backLinkUsers = new Map<string, number>();
+	for (const card of cards) {
+		if (!card.back_link) {
+			continue;
+		}
+		backLinkUsers.set(
+			card.back_link,
+			(backLinkUsers.get(card.back_link) ?? 0) + 1,
+		);
+	}
+
+	const sharedBacks = new Set(
+		[...backLinkUsers.entries()]
+			.filter(([, count]) => count > 1)
+			.map(([id]) => id),
+	);
+
+	return {
+		sharedBacks,
+		getPhysicalCardId: (card: IArkhamDB.JSON.Card): string => {
+			if (card.back_link && sharedBacks.has(card.back_link)) {
+				return card.code;
+			}
+			return card.back_link ?? card.code;
+		},
+	};
+};
+
 export const getEncounterSetTypes = (cards: IArkhamDB.JSON.Card[]) => {
-	const byPhysicalId = groupBy(getPhysicalCardId, cards);
+	const { sharedBacks, getPhysicalCardId } = createPhysicalCardIdGetter(cards);
+
+	// Shared-back records are reverse-face metadata only — not extra cardboard.
+	const countable = cards.filter((card) => !sharedBacks.has(card.code));
+	const byPhysicalId = groupBy(getPhysicalCardId, countable);
 
 	const canonicalCards = Object.entries(byPhysicalId)
 		.map(([, faces = []]) => pickCanonicalFace(faces))

@@ -11,6 +11,7 @@ import {
 	downloadRepos,
 	prepareIcons,
 	validateEncounterCounts,
+	validateHobbyGamesCounts,
 } from "./jobs";
 
 export class App {
@@ -42,6 +43,9 @@ export class App {
 			case "validate-counts":
 				// Local OCR validation only — not invoked by CI (`npm start` default).
 				return await validateEncounterCounts(process.argv[3]);
+			case "validate-hobbyGames":
+				// Local Hobby Games validation only — not invoked by CI.
+				return await validateHobbyGamesCounts(process.argv[3]);
 		}
 
 		await downloadRepos();

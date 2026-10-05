@@ -13,7 +13,8 @@
 		"build": "tsc && tsc-alias",
 		"pack": "npm run build && npm publish",
 		"db": "npm start database && npm start build",
-		"validate:counts": "tsx ./src/index.ts validate-counts"
+		"validate:counts": "tsx ./src/index.ts validate-counts",
+		"validate:hobbyGames": "tsx ./src/index.ts validate-hobbyGames"
 	},
 	"keywords": [],
 	"author": "",
