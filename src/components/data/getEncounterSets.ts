@@ -1,101 +1,103 @@
-import * as ArkhamDB from "@/components/arkhamDB";
 import * as ArkhamCards from "@/components/arkhamCards";
-import { groupBy, prop, propEq, toPairs } from "ramda";
+import * as ArkhamDB from "@/components/arkhamDB";
+import { sanitizeEncounterSynonyms } from "@/util/common";
 import { showError } from "@/util/console";
 import { whereSynonyms } from "@/util/criteria";
-import { sanitizeEncounterSynonyms } from "@/util/common";
+import { groupBy, prop, propEq, toPairs } from "ramda";
 
 const SPECIAL_GROUP_NAMES = ["Epic Multiplayer", "Single Group"];
 
 export const getEncounterSets = async () => {
-  console.log("loading Arkham Cards encounter sets...");
-  const arkhamCardsEncounters = await ArkhamCards.getEncounterSets();
+	console.log("loading Arkham Cards encounter sets...");
+	const arkhamCardsEncounters = await ArkhamCards.getEncounterSets();
 
-  console.log("loading ArkhamDB encounter sets...");
-  const arkhamDBEncounters = await ArkhamDB.getEncounterSets();
+	console.log("loading ArkhamDB encounter sets...");
+	const arkhamDBEncounters = await ArkhamDB.getEncounterSets();
 
-  const specialGroups = toPairs(groupBy(prop("name"), arkhamDBEncounters))
-    .map(([name, group = []]) => {
-      return {
-        name,
-        group,
-      };
-    })
-    .filter(({ group, name }) => {
-      if (!SPECIAL_GROUP_NAMES.includes(name)) {
-        return false;
-      }
-      return group.length > 1;
-    });
+	const specialGroups = toPairs(groupBy(prop("name"), arkhamDBEncounters))
+		.map(([name, group = []]) => {
+			return {
+				name,
+				group,
+			};
+		})
+		.filter(({ group, name }) => {
+			if (!SPECIAL_GROUP_NAMES.includes(name)) {
+				return false;
+			}
+			return group.length > 1;
+		});
 
-  // const specialNames = specialGroups.map(prop('name'));
+	// const specialNames = specialGroups.map(prop('name'));
 
-  // console.log(`found special groups: ${specialNames.join(", ")}...`);
+	// console.log(`found special groups: ${specialNames.join(", ")}...`);
 
-  const prepareText = (text: string) => text.trim().toLowerCase();
-  const isEditionVariantCode = (code: string) => /_ch\d+$/i.test(code);
+	const prepareText = (text: string) => text.trim().toLowerCase();
+	const isEditionVariantCode = (code: string) => /_ch\d+$/i.test(code);
 
-  const matches = arkhamDBEncounters.map((encounter) => {
-    const specialGroup = specialGroups.find(propEq(encounter.name, "name"));
-    if (specialGroup) {
-      const synonyms = [
-        ...encounter.synonyms,
-        ...specialGroup.group
-          .map(prop("code"))
-          .filter((code) => code !== encounter.code),
-      ]
+	const matches = arkhamDBEncounters.map((encounter) => {
+		const specialGroup = specialGroups.find(propEq(encounter.name, "name"));
+		if (specialGroup) {
+			const synonyms = [
+				...encounter.synonyms,
+				...specialGroup.group
+					.map(prop("code"))
+					.filter((code) => code !== encounter.code),
+			];
 
-      return {
-        ...encounter,
-        synonyms,
-      };
-    }
+			return {
+				...encounter,
+				synonyms,
+			};
+		}
 
-    const arkhamCardsEncounter =
-      arkhamCardsEncounters.find(({ code }) => code === encounter.code) ??
-      arkhamCardsEncounters.find(
-        ({ name }) => prepareText(encounter.name) === prepareText(name),
-      );
+		const arkhamCardsEncounter =
+			arkhamCardsEncounters.find(({ code }) => code === encounter.code) ??
+			arkhamCardsEncounters.find(
+				({ name }) => prepareText(encounter.name) === prepareText(name),
+			);
 
-    if (!arkhamCardsEncounter) {
-      showError(`Arkham Cards encounter not found: ${encounter.code}`);
+		if (!arkhamCardsEncounter) {
+			showError(`Arkham Cards encounter not found: ${encounter.code}`);
 
-      return encounter;
-    }
+			return encounter;
+		}
 
-    if (encounter.code === arkhamCardsEncounter.code) {
-      return encounter;
-    }
+		if (encounter.code === arkhamCardsEncounter.code) {
+			return encounter;
+		}
 
-    // Treat edition variants (e.g. `_ch2`) as distinct encounter sets.
-    // Matching solely by name can incorrectly merge `fire` and `fire_ch2`,
-    // which should remain separate codes.
-    if (
-      isEditionVariantCode(encounter.code) ||
-      isEditionVariantCode(arkhamCardsEncounter.code)
-    ) {
-      return encounter;
-    }
+		// Treat edition variants (e.g. `_ch2`) as distinct encounter sets.
+		// Matching solely by name can incorrectly merge `fire` and `fire_ch2`,
+		// which should remain separate codes.
+		if (
+			isEditionVariantCode(encounter.code) ||
+			isEditionVariantCode(arkhamCardsEncounter.code)
+		) {
+			return encounter;
+		}
 
-    console.log(
-      `found encounter code difference: ${encounter.code}/${arkhamCardsEncounter.code}`
-    );
+		console.log(
+			`found encounter code difference: ${encounter.code}/${arkhamCardsEncounter.code}`,
+		);
 
-    return {
-      ...encounter,
-      synonyms: [...encounter.synonyms, arkhamCardsEncounter.code],
-    };
-  });
+		return {
+			...encounter,
+			synonyms: [...encounter.synonyms, arkhamCardsEncounter.code],
+		};
+	});
 
-  const restArkhamCards = arkhamCardsEncounters.filter(({ code }) => {
-    if (SPECIAL_GROUP_NAMES.includes(code)) {
-      return false;
-    }
-    return !arkhamDBEncounters.some(whereSynonyms(code));
-  });
+	// Use `matches` (with filled synonyms), not raw ArkhamDB rows — otherwise
+	// alias-only codes like `sewers` for `arkham_sewers` leak in as duplicates.
+	const restArkhamCards = arkhamCardsEncounters.filter(({ code }) => {
+		if (SPECIAL_GROUP_NAMES.includes(code)) {
+			return false;
+		}
+		return !matches.some(whereSynonyms(code));
+	});
 
-  return [...matches, ...restArkhamCards].map((encounter) => ({
-    ...encounter,
-    synonyms: sanitizeEncounterSynonyms(encounter.code, encounter.synonyms),
-  }));
+	return [...matches, ...restArkhamCards].map((encounter) => ({
+		...encounter,
+		synonyms: sanitizeEncounterSynonyms(encounter.code, encounter.synonyms),
+	}));
 };
