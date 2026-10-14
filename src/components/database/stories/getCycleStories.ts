@@ -2,8 +2,8 @@ import * as ArkhamCardsConstants from "@/api/arkhamCards/constants";
 import * as ArkhamDBConstants from "@/api/arkhamDB/constants";
 import { createIconDB } from "@/components/arkhamCards/icons/IconDB";
 import {
-  ignore_campaign_scenarios,
-  without_size_support as withoutSizeSupport,
+	ignore_campaign_scenarios,
+	without_size_support as withoutSizeSupport,
 } from "@/data/arkhamCards/cycles.json";
 import type { ICache } from "@/types/cache";
 import { IDatabase } from "@/types/database";
@@ -12,8 +12,8 @@ import * as Cache from "@/util/cache";
 import { showError } from "@/util/console";
 import { filterEncounterSet } from "@/util/criteria";
 import {
-  createEncounterCanonicalLookup,
-  normalizeEncounterCodes,
+	createEncounterCanonicalLookup,
+	normalizeEncounterCodes,
 } from "@/util/encounterCanonical";
 import { isNotNil, prop, propEq, sort, uniq } from "ramda";
 import { createStoryCampaignHandler } from "./features/getStoryCampaign";
@@ -25,8 +25,8 @@ import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounte
 import { groupStoryScenarios } from "./scenarios/groupStoryScenarios";
 
 const CAMPAIGN_SKIP_CYCLE_CODES = [
-  ...ArkhamDBConstants.SPECIAL_CAMPAIGN_TYPES,
-  ...ArkhamCardsConstants.SPECIAL_CAMPAIGN_TYPES,
+	...ArkhamDBConstants.SPECIAL_CAMPAIGN_TYPES,
+	...ArkhamCardsConstants.SPECIAL_CAMPAIGN_TYPES,
 ];
 
 /** Order for splitting the shared `core` cycle by product (pack). */
@@ -57,305 +57,318 @@ const compareCorePackCodes = (a: string, b: string) => {
 };
 
 export const getCycleStories = (): IDatabase.Story[] => {
-  const fullCampaigns = Cache.getCampaigns();
-  const cycles = Cache.getCycles();
-  const packs = Cache.getPacks();
-  const encounterSets = Cache.getDatabaseEncounterSets();
-  const scenarioEncounterSets = Cache.getScenarioEncounterSets();
-  const packEncounters = Cache.getPackEncounterSets();
-  const packInvestigators = Cache.getPackInvestigators();
+	const fullCampaigns = Cache.getCampaigns();
+	const cycles = Cache.getCycles();
+	const packs = Cache.getPacks();
+	const encounterSets = Cache.getDatabaseEncounterSets();
+	const scenarioEncounterSets = Cache.getScenarioEncounterSets();
+	const packEncounters = Cache.getPackEncounterSets();
+	const packInvestigators = Cache.getPackInvestigators();
 
-  const canonicalizeEncounterCode = createEncounterCanonicalLookup(
-    Cache.getEncounterSets(),
-  );
+	const canonicalizeEncounterCode = createEncounterCanonicalLookup(
+		Cache.getEncounterSets(),
+	);
 
-  const iconDB = createIconDB(IconDBType.STORY);
+	const iconDB = createIconDB(IconDBType.STORY);
 
-  const storyHandlerData = {
-    iconDB,
-    scenarioEncounters: scenarioEncounterSets,
-    encounterSets,
-    canonicalizeEncounterCode,
-  };
+	const storyHandlerData = {
+		iconDB,
+		scenarioEncounters: scenarioEncounterSets,
+		encounterSets,
+		canonicalizeEncounterCode,
+	};
 
-  const getStoryScenario = createStoryScenarioHandler(storyHandlerData);
-  const getCampaignScenario = createStoryCampaignHandler(storyHandlerData);
+	const getStoryScenario = createStoryScenarioHandler(storyHandlerData);
+	const getCampaignScenario = createStoryCampaignHandler(storyHandlerData);
 
-  const assembleCycleStory = ({
-    cycle,
-    cycleEncounters,
-    storyCode,
-    packScope,
-  }: {
-    cycle: {
-      name: string;
-      code: string;
-      is_canonical: boolean;
-      is_official: boolean;
-      position: number;
-      chapter?: number;
-    };
-    cycleEncounters: ICache.ScenarioEncounterSet[];
-    storyCode: string;
-    packScope?: string;
-  }): IDatabase.Story | undefined => {
-    const {
-      code,
-      is_canonical,
-      is_official,
-      position,
-      chapter,
-      name: cycleName,
-    } = cycle;
+	const assembleCycleStory = ({
+		cycle,
+		cycleEncounters,
+		storyCode,
+		packScope,
+	}: {
+		cycle: {
+			name: string;
+			code: string;
+			is_canonical: boolean;
+			is_official: boolean;
+			position: number;
+			chapter?: number;
+		};
+		cycleEncounters: ICache.ScenarioEncounterSet[];
+		storyCode: string;
+		packScope?: string;
+	}): IDatabase.Story | undefined => {
+		const {
+			code,
+			is_canonical,
+			is_official,
+			position,
+			chapter,
+			name: cycleName,
+		} = cycle;
 
-    if (cycleEncounters.length === 0) {
-      showError(`cycle encounters not found: ${code}`);
-      return;
-    }
+		if (cycleEncounters.length === 0) {
+			showError(`cycle encounters not found: ${code}`);
+			return;
+		}
 
-    const campaignsIds = uniq(cycleEncounters.map(prop("campaign_id")));
+		const campaignsIds = uniq(cycleEncounters.map(prop("campaign_id")));
 
-    const campaigns = fullCampaigns.filter(({ campaign }) =>
-      campaignsIds.includes(campaign.id),
-    );
+		const campaigns = fullCampaigns.filter(({ campaign }) =>
+			campaignsIds.includes(campaign.id),
+		);
 
-    const requiredEncounters: string[] = [];
-    const extraEncounters: string[] = [];
-    const storyScenarios: IDatabase.StoryScenario[] = [];
+		const requiredEncounters: string[] = [];
+		const extraEncounters: string[] = [];
+		const storyScenarios: IDatabase.StoryScenario[] = [];
 
-    if (campaigns.length === 0) {
-      showError(`campaigns not found: ${code}`);
+		if (campaigns.length === 0) {
+			showError(`campaigns not found: ${code}`);
 
-      const campaignEncounters = normalizeEncounterCodes(
-        packEncounters
-          .filter(propEq(code, "cycle_code"))
-          .map(prop("encounter_set_code")),
-        canonicalizeEncounterCode,
-      );
+			const campaignEncounters = normalizeEncounterCodes(
+				packEncounters
+					.filter(propEq(code, "cycle_code"))
+					.map(prop("encounter_set_code")),
+				canonicalizeEncounterCode,
+			);
 
-      requiredEncounters.push(...campaignEncounters);
-    } else {
-      const scenarios = campaigns.flatMap(({ campaign, scenarios }) =>
-        scenarios.map((scenario) =>
-          getStoryScenario({
-            campaignId: campaign.id,
-            scenario,
-          }),
-        ),
-      );
+			requiredEncounters.push(...campaignEncounters);
+		} else {
+			const scenarios = campaigns.flatMap(({ campaign, scenarios }) =>
+				scenarios.map((scenario) =>
+					getStoryScenario({
+						campaignId: campaign.id,
+						scenario,
+					}),
+				),
+			);
 
-      storyScenarios.push(...scenarios);
+			storyScenarios.push(...scenarios);
 
-      const filterEncounters = (required: boolean) =>
-        normalizeEncounterCodes(
-          cycleEncounters
-            .filter(propEq(!required, "is_extra"))
-            .map(prop("encounter_set_code")),
-          canonicalizeEncounterCode,
-        );
+			const filterEncounters = (required: boolean) =>
+				normalizeEncounterCodes(
+					cycleEncounters
+						.filter(propEq(!required, "is_extra"))
+						.map(prop("encounter_set_code")),
+					canonicalizeEncounterCode,
+				);
 
-      requiredEncounters.push(...filterEncounters(true));
-      extraEncounters.push(...filterEncounters(false));
+			requiredEncounters.push(...filterEncounters(true));
+			extraEncounters.push(...filterEncounters(false));
 
-      const restEncounters = normalizeEncounterCodes(
-        packEncounters
-          .filter(
-            ({ cycle_code, encounter_set_code, pack_code }) =>
-              cycle_code === code &&
-              (!packScope || pack_code === packScope) &&
-              !requiredEncounters.includes(
-                canonicalizeEncounterCode(encounter_set_code),
-              ) &&
-              !extraEncounters.includes(
-                canonicalizeEncounterCode(encounter_set_code),
-              ),
-          )
-          .map(prop("encounter_set_code")),
-        canonicalizeEncounterCode,
-      );
+			const restEncounters = normalizeEncounterCodes(
+				packEncounters
+					.filter(
+						({ cycle_code, encounter_set_code, pack_code }) =>
+							cycle_code === code &&
+							(!packScope || pack_code === packScope) &&
+							!requiredEncounters.includes(
+								canonicalizeEncounterCode(encounter_set_code),
+							) &&
+							!extraEncounters.includes(
+								canonicalizeEncounterCode(encounter_set_code),
+							),
+					)
+					.map(prop("encounter_set_code")),
+				canonicalizeEncounterCode,
+			);
 
-      requiredEncounters.push(...restEncounters);
-    }
+			requiredEncounters.push(...restEncounters);
+		}
 
-    const cyclePacks = packs.filter((pack) => {
-      if (code !== pack.cycle_code) {
-        return false;
-      }
-      if (packScope && pack.code !== packScope) {
-        return false;
-      }
-      const pe = encounterSets.filter(
-        ({ pack_code }) => pack_code === pack.code,
-      );
-      return pe.length > 0;
-    });
+		const cyclePacks = packs.filter((pack) => {
+			if (code !== pack.cycle_code) {
+				return false;
+			}
+			if (packScope && pack.code !== packScope) {
+				return false;
+			}
+			const pe = encounterSets.filter(
+				({ pack_code }) => pack_code === pack.code,
+			);
+			return pe.length > 0;
+		});
 
-    if (cyclePacks.length === 0) {
-      showError(`cycle packs not found: ${code}`);
-      return;
-    }
-    const [fullCampaign] = campaigns;
+		if (cyclePacks.length === 0) {
+			showError(`cycle packs not found: ${code}`);
+			return;
+		}
+		const [fullCampaign] = campaigns;
 
-    const isSizeSupported = is_official && !withoutSizeSupport.includes(code as never);
+		const isSizeSupported =
+			is_official && !withoutSizeSupport.includes(code as never);
 
-    const type =
-      fullCampaign?.campaign.campaign_type || IDatabase.StoryType.CAMPAIGN;
+		const type =
+			fullCampaign?.campaign.campaign_type || IDatabase.StoryType.CAMPAIGN;
 
-    const icon = iconDB.getIcon({ id: storyCode });
+		const icon = iconDB.getIcon({ id: storyCode });
 
-    const packCodes = cyclePacks.map(prop("code"));
-    const packChapter = cyclePacks
-      .map((pack) => pack.chapter)
-      .find((value) => value != null);
-    const storyChapter = packChapter ?? chapter;
+		const packCodes = cyclePacks.map(prop("code"));
+		const packChapter = cyclePacks
+			.map((pack) => pack.chapter)
+			.find((value) => value != null);
+		const storyChapter = packChapter ?? chapter;
 
-    const ignoredScenarios = uniq(
-      campaigns.flatMap(
-        ({ campaign }) =>
-          ignore_campaign_scenarios.find(propEq(campaign.id, "campaign_id"))
-            ?.scenario_ids || [],
-      ),
-    );
+		const ignoredScenarios = uniq(
+			campaigns.flatMap(
+				({ campaign }) =>
+					ignore_campaign_scenarios.find(propEq(campaign.id, "campaign_id"))
+						?.scenario_ids || [],
+			),
+		);
 
-    const storyCampaigns = campaigns.map((fullCampaign) => {
-      const campaign = getCampaignScenario({
-        fullCampaign,
-        cycle_code: code,
-      });
+		const allowedScenarios = storyScenarios.filter(
+			(scenario) => !ignoredScenarios.includes(scenario.id),
+		);
 
-      return {
-        ...campaign,
-        scenarios: campaign.scenarios.filter(
-          (id) => !ignoredScenarios.includes(id),
-        ),
-      };
-    });
+		const storyScenariosGroup = groupStoryScenarios({
+			scenarios: allowedScenarios,
+			iconDB,
+		});
 
-    const campaignData =
-      campaigns.length === 1
-        ? {
-            name: campaigns[0].campaign.name,
-            campaign_id: campaigns[0].campaign.id,
-          }
-        : {
-            name: cycleName,
-            campaigns,
-          };
+		const storyScenarioEncounters = getStoryScenarioEncounters({
+			encounterSets,
+			scenarios: allowedScenarios,
+		});
 
-    const allowedScenarios = storyScenarios.filter(
-      (scenario) => !ignoredScenarios.includes(scenario.id),
-    );
+		const dedicatedScenarioEncounterCodes = new Set(
+			getDedicatedScenarioEncounterCodes({
+				encounterSets,
+				scenarios: allowedScenarios,
+			}),
+		);
 
-    const storyScenariosGroup = groupStoryScenarios({
-      scenarios: allowedScenarios,
-      iconDB,
-    });
+		const storyCampaigns = campaigns.map((fullCampaign) => {
+			const campaign = getCampaignScenario({
+				fullCampaign,
+				cycle_code: code,
+			});
 
-    const storyScenarioEncounters = getStoryScenarioEncounters({
-      encounterSets,
-      scenarios: allowedScenarios,
-    });
+			return {
+				...campaign,
+				scenarios: campaign.scenarios.filter(
+					(id) => !ignoredScenarios.includes(id),
+				),
+				encounter_sets: campaign.encounter_sets.filter(
+					(encounterCode) =>
+						!dedicatedScenarioEncounterCodes.has(encounterCode),
+				),
+			};
+		});
 
-    const dedicatedScenarioEncounterCodes = new Set(
-      getDedicatedScenarioEncounterCodes({
-        encounterSets,
-        scenarios: allowedScenarios,
-      }),
-    );
+		const campaignData =
+			campaigns.length === 1
+				? {
+						name: campaigns[0].campaign.name,
+						campaign_id: campaigns[0].campaign.id,
+					}
+				: {
+						name: cycleName,
+						campaigns,
+					};
 
-    const isCore = ['core', 'core_ch2', 'core_2026'].includes(code);
+		const isCore = ["core", "core_ch2", "core_2026"].includes(code);
 
-    const investigators =
-      isCore ? [] : packInvestigators.filter(propEq(code, "cycle_code"));
+		const investigators = isCore
+			? []
+			: packInvestigators.filter(propEq(code, "cycle_code"));
 
-    const customContent =
-      fullCampaign.campaign?.custom &&
-      getStoryCustomContent({
-        code,
-        content: fullCampaign.campaign.custom,
-      });
+		const customContent =
+			fullCampaign.campaign?.custom &&
+			getStoryCustomContent({
+				code,
+				content: fullCampaign.campaign.custom,
+			});
 
-    return {
-      ...campaignData,
-      code: storyCode,
-      icon,
-      type,
-      cycle_code: code,
-      is_canonical,
-      is_official,
-      position,
-      chapter: storyChapter,
-      investigators,
-      scenario_encounter_sets: storyScenarioEncounters.filter(filterEncounterSet),
-      custom_content: customContent,
-      campaigns: storyCampaigns,
-      scenarios: storyScenariosGroup.filter(checkScenario),
-      pack_codes: packCodes,
-      is_size_supported: isSizeSupported,
-      encounter_sets: requiredEncounters
-        .filter((code) => !dedicatedScenarioEncounterCodes.has(code))
-        .filter(filterEncounterSet),
-      extra_encounter_sets: extraEncounters.filter(filterEncounterSet),
-    };
-  };
+		return {
+			...campaignData,
+			code: storyCode,
+			icon,
+			type,
+			cycle_code: code,
+			is_canonical,
+			is_official,
+			position,
+			chapter: storyChapter,
+			investigators,
+			scenario_encounter_sets:
+				storyScenarioEncounters.filter(filterEncounterSet),
+			custom_content: customContent,
+			campaigns: storyCampaigns,
+			scenarios: storyScenariosGroup.filter(checkScenario),
+			pack_codes: packCodes,
+			is_size_supported: isSizeSupported,
+			encounter_sets: requiredEncounters
+				.filter((code) => !dedicatedScenarioEncounterCodes.has(code))
+				.filter(filterEncounterSet),
+			extra_encounter_sets: extraEncounters.filter(filterEncounterSet),
+		};
+	};
 
-  return cycles
-    .filter(({ is_official, code }) => {
-      if (CAMPAIGN_SKIP_CYCLE_CODES.includes(code)) {
-        return false;
-      }
-      if (!is_official) {
-        return false;
-      }
+	return cycles
+		.filter(({ is_official, code }) => {
+			if (CAMPAIGN_SKIP_CYCLE_CODES.includes(code)) {
+				return false;
+			}
+			if (!is_official) {
+				return false;
+			}
 
-      const encounters = encounterSets.filter(
-        ({ cycle_code }) => cycle_code === code,
-      );
+			const encounters = encounterSets.filter(
+				({ cycle_code }) => cycle_code === code,
+			);
 
-      return encounters.length > 0;
-    })
-    .flatMap(({ code, is_canonical, is_official, position, name, ...cycle }) => {
-      const cycleEncounters = scenarioEncounterSets.filter(
-        propEq(code, "cycle_code"),
-      );
+			return encounters.length > 0;
+		})
+		.flatMap(
+			({ code, is_canonical, is_official, position, name, ...cycle }) => {
+				const cycleEncounters = scenarioEncounterSets.filter(
+					propEq(code, "cycle_code"),
+				);
 
-      if (cycleEncounters.length === 0) {
-        showError(`cycle encounters not found: ${code}`);
-        return [];
-      }
+				if (cycleEncounters.length === 0) {
+					showError(`cycle encounters not found: ${code}`);
+					return [];
+				}
 
-      const cycleRow = {
-        code,
-        name,
-        is_canonical,
-        is_official,
-        position,
-        ...cycle,
-      };
+				const cycleRow = {
+					code,
+					name,
+					is_canonical,
+					is_official,
+					position,
+					...cycle,
+				};
 
-      if (PACK_SCOPED_CYCLE_CODES.includes(code)) {
-        const packCodes = uniq(cycleEncounters.map(prop("pack_code")));
-        const sorted =
-          packCodes.length > 1 ? sort(compareCorePackCodes, packCodes) : packCodes;
+				if (PACK_SCOPED_CYCLE_CODES.includes(code)) {
+					const packCodes = uniq(cycleEncounters.map(prop("pack_code")));
+					const sorted =
+						packCodes.length > 1
+							? sort(compareCorePackCodes, packCodes)
+							: packCodes;
 
-        return sorted
-          .map((packCode) =>
-            assembleCycleStory({
-              cycle: cycleRow,
-              cycleEncounters: cycleEncounters.filter(propEq(packCode, "pack_code")),
-              storyCode: packCode,
-              packScope: packCode,
-            }),
-          )
-          .filter(isNotNil);
-      }
+					return sorted
+						.map((packCode) =>
+							assembleCycleStory({
+								cycle: cycleRow,
+								cycleEncounters: cycleEncounters.filter(
+									propEq(packCode, "pack_code"),
+								),
+								storyCode: packCode,
+								packScope: packCode,
+							}),
+						)
+						.filter(isNotNil);
+				}
 
-      const story = assembleCycleStory({
-        cycle: cycleRow,
-        cycleEncounters,
-        storyCode: code,
-      });
+				const story = assembleCycleStory({
+					cycle: cycleRow,
+					cycleEncounters,
+					storyCode: code,
+				});
 
-      return story ? [story] : [];
-    });
+				return story ? [story] : [];
+			},
+		);
 };

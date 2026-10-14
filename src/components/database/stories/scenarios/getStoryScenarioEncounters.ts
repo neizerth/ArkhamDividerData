@@ -18,8 +18,11 @@ export const getStoryScenarioEncounters = ({
 			if (id === "core") {
 				return null;
 			}
+			// Skip narrative-only interludes, but keep those with their own
+			// encounter set (e.g. TCU `disappearance_at_the_twilight_estate`).
 			if (type === "interlude" || type === "epilogue" || type === "prologue") {
-				return null;
+				const hasOwnSet = Boolean(encounterSets.find(propEq(id, "code")));
+				return hasOwnSet ? id : null;
 			}
 
 			if (!icon) {
