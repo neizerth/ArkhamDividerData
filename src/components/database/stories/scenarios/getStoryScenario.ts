@@ -19,18 +19,24 @@ export const getScenarioIconIds = ({
 }) => {
 	const { icon, id, scenario_name } = scenario;
 	const isEncounterPriority = encounter_priority_campaigns.includes(campaignId);
+	const encounter = scenario_name
+		? encounterSets.find(propEq(scenario_name, "name"))
+		: undefined;
 
-	if (!isEncounterPriority) {
-		return [icon, id];
+	if (isEncounterPriority) {
+		if (!encounter) {
+			return [icon, id];
+		}
+		return [encounter.icon, icon, id];
 	}
 
-	const encounter = encounterSets.find(propEq(scenario_name, "name"));
-
-	if (!encounter) {
-		return [icon, id];
+	// Return campaigns may reuse the original scenario id while the encounter
+	// set (and its icon) is `return_to_*` — prefer that icon for the divider.
+	if (encounter && encounter.code !== id) {
+		return [encounter.icon, icon, id];
 	}
 
-	return [encounter.icon, icon, id];
+	return [icon, id];
 };
 
 export const createStoryScenarioHandler = ({

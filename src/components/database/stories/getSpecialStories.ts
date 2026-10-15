@@ -1,16 +1,16 @@
 import * as ArkhamCards from "@/api/arkhamCards/constants";
 import * as ArkhamDB from "@/api/arkhamDB/constants";
 import { createIconDB } from "@/components/arkhamCards/icons/IconDB";
-import { ICache } from "@/types/cache";
+import type { ICache } from "@/types/cache";
 import type { SingleValue } from "@/types/common";
 import { IDatabase } from "@/types/database";
 import { IconDBType } from "@/types/icons";
-import * as Cache from '@/util/cache';
+import * as Cache from "@/util/cache";
+import { showError, showWarning } from "@/util/console";
 import {
 	createEncounterCanonicalLookup,
 	normalizeEncounterCodes,
 } from "@/util/encounterCanonical";
-import { showError, showWarning } from "@/util/console";
 import { hasFullEncounterSizes } from "@/util/encounterSizes";
 import { isNotNil, prop, propEq, uniq, uniqBy } from "ramda";
 import { createStoryCampaignHandler } from "./features/getStoryCampaign";
@@ -22,244 +22,248 @@ import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounte
 import { groupStoryScenarios } from "./scenarios/groupStoryScenarios";
 
 const CAMPAIGN_CODES = [
-  ArkhamCards.CUSTOM_CAMPAIGN_CODE,
-  ArkhamCards.CUSTOM_SCENARIO_CODE,
-  ArkhamDB.PROMOTIONAL_CODE,
-  ArkhamDB.RETURN_CYCLE_CODE
-]
+	ArkhamCards.CUSTOM_CAMPAIGN_CODE,
+	ArkhamCards.CUSTOM_SCENARIO_CODE,
+	ArkhamDB.PROMOTIONAL_CODE,
+	ArkhamDB.RETURN_CYCLE_CODE,
+];
 
 export const getSpecialStories = (): IDatabase.Story[] => {
-  const packs = Cache.getPacks();
-  const encounterSets = Cache.getDatabaseEncounterSets();
-  const campaignLinks = Cache.getCampaignLinks();
-  const fullCampaigns = Cache.getCampaigns();
-  const packInvestigators = Cache.getPackInvestigators();
-  
-  const iconDB = createIconDB(IconDBType.STORY);
+	const packs = Cache.getPacks();
+	const encounterSets = Cache.getDatabaseEncounterSets();
+	const campaignLinks = Cache.getCampaignLinks();
+	const fullCampaigns = Cache.getCampaigns();
+	const packInvestigators = Cache.getPackInvestigators();
 
-  const sideScenarios = Cache.getSideScenarios();
-  const scenarioEncounterSets = Cache.getScenarioEncounterSets();
+	const iconDB = createIconDB(IconDBType.STORY);
 
-  const canonicalizeEncounterCode = createEncounterCanonicalLookup(
-    Cache.getEncounterSets(),
-  );
+	const sideScenarios = Cache.getSideScenarios();
+	const scenarioEncounterSets = Cache.getScenarioEncounterSets();
 
-  const storyHandlerData = {
-    iconDB,
-    scenarioEncounters: scenarioEncounterSets,
-    encounterSets,
-    canonicalizeEncounterCode,
-  };
+	const canonicalizeEncounterCode = createEncounterCanonicalLookup(
+		Cache.getEncounterSets(),
+	);
 
-  const getStoryScenario = createStoryScenarioHandler(storyHandlerData)
-  const getStoryCampaign = createStoryCampaignHandler(storyHandlerData);
+	const storyHandlerData = {
+		iconDB,
+		scenarioEncounters: scenarioEncounterSets,
+		encounterSets,
+		canonicalizeEncounterCode,
+	};
 
-  const sidePackCodes = sideScenarios.map(prop('pack_code'));
+	const getStoryScenario = createStoryScenarioHandler(storyHandlerData);
+	const getStoryCampaign = createStoryCampaignHandler(storyHandlerData);
 
-  const getPackReturnCode = ({ code, name }: ICache.Pack): string => {
-    const isCampaignExpansion = name.includes('Campaign Expansion') && code.endsWith('c')
-    if (!isCampaignExpansion) {
-      return code;
-    }
-    const normalizedCode = code.replace('c', '');
-    console.log('searching for', normalizedCode);
-    const pack = packs.find(propEq(normalizedCode, 'code'));
-    if (!pack) {
-      return code;
-    }
-    return normalizedCode
-  }
+	const sidePackCodes = sideScenarios.map(prop("pack_code"));
 
-  const getReturnToCode = (code: string) => {
-    if (code === ArkhamDB.CORE_RETURN_CODE) {
-      return ArkhamDB.CORE_CYCLE_CODE;
-    }
-    const prefix = ArkhamDB.RETURN_CYCLE_PREFIX;
+	const getPackReturnCode = ({ code, name }: ICache.Pack): string => {
+		const isCampaignExpansion =
+			name.includes("Campaign Expansion") && code.endsWith("c");
+		if (!isCampaignExpansion) {
+			return code;
+		}
+		const normalizedCode = code.replace("c", "");
+		console.log("searching for", normalizedCode);
+		const pack = packs.find(propEq(normalizedCode, "code"));
+		if (!pack) {
+			return code;
+		}
+		return normalizedCode;
+	};
 
-    const returnToCode = code.slice(0, prefix.length);
+	const getReturnToCode = (code: string) => {
+		if (code === ArkhamDB.CORE_RETURN_CODE) {
+			return ArkhamDB.CORE_CYCLE_CODE;
+		}
+		const prefix = ArkhamDB.RETURN_CYCLE_PREFIX;
 
-    if (returnToCode !== prefix) {
-      return getCustomReturnToCode(code);
-    }
-    
-    const returnCode = code.slice(prefix.length);
-    const pack = packs.find(propEq(returnCode, 'code'));
+		const returnToCode = code.slice(0, prefix.length);
 
-    if(pack) {
-      return getPackReturnCode(pack);
-    }
-    
-    return getCustomReturnToCode(code);
-  }
+		if (returnToCode !== prefix) {
+			return getCustomReturnToCode(code);
+		}
 
-  const getCustomReturnToCode = (code: string) => {
-    const prefix = ArkhamCards.CUSTOM_RETURN_CYCLE_PREFIX;
+		const returnCode = code.slice(prefix.length);
+		const pack = packs.find(propEq(returnCode, "code"));
 
-    const returnToCode = code.slice(0, prefix.length);
+		if (pack) {
+			return getPackReturnCode(pack);
+		}
 
-    if (returnToCode !== prefix) {
-      return;
-    }
+		return getCustomReturnToCode(code);
+	};
 
-    const returnCode = code.slice(prefix.length);
-    const pack = packs.find(propEq(returnCode, 'cycle_code'));
+	const getCustomReturnToCode = (code: string) => {
+		const prefix = ArkhamCards.CUSTOM_RETURN_CYCLE_PREFIX;
 
-    if (!pack) {
-      return;
-    }
+		const returnToCode = code.slice(0, prefix.length);
 
-    return getPackReturnCode(pack);
-  } 
+		if (returnToCode !== prefix) {
+			return;
+		}
 
-  return packs
-    .filter(({ cycle_code, code }) => {
-      if (!CAMPAIGN_CODES.includes(cycle_code)) {
-        return false;
-      }
-      if (sidePackCodes.includes(code)) {
-        return false;
-      }
-      const encounters = encounterSets.filter(
-        ({ pack_code }) => pack_code === code 
-      )
+		const returnCode = code.slice(prefix.length);
+		const pack = packs.find(propEq(returnCode, "cycle_code"));
 
-      return encounters.length > 0;
-    })
-    .map(({ 
-      name, 
-      code, 
-      is_canonical,
-      is_official
-    }) => {
-      const links = campaignLinks.filter(
-        ({ pack_code }) => pack_code === code
-      );
+		if (!pack) {
+			return;
+		}
 
-      if (links.length === 0) {
-        showWarning(`links not found: ${code}`);
-      }
+		return getPackReturnCode(pack);
+	};
 
-      if (!links[0]) {
-        showWarning('wrong link');
-        return;
-      }
+	return packs
+		.filter(({ cycle_code, code }) => {
+			if (!CAMPAIGN_CODES.includes(cycle_code)) {
+				return false;
+			}
+			if (sidePackCodes.includes(code)) {
+				return false;
+			}
+			const encounters = encounterSets.filter(
+				({ pack_code }) => pack_code === code,
+			);
 
-      const campaignIds = links.map(prop('campaign_id'));
+			return encounters.length > 0;
+		})
+		.map(({ name, code, is_canonical, is_official }) => {
+			const links = campaignLinks.filter(({ pack_code }) => pack_code === code);
 
-      const campaigns = fullCampaigns.filter(
-        ({ campaign }) => campaignIds.includes(campaign.id) 
-      );
+			if (links.length === 0) {
+				showWarning(`links not found: ${code}`);
+			}
 
-      const packEncounters = uniqBy(
-        prop('encounter_set_code'), 
-        scenarioEncounterSets
-          .filter(propEq(code, 'pack_code'))
-      )
+			if (!links[0]) {
+				showWarning("wrong link");
+				return;
+			}
 
-      const requiredEncounters = normalizeEncounterCodes(
-        packEncounters
-          .filter(propEq(false, 'is_extra'))
-          .map(prop('encounter_set_code')),
-        canonicalizeEncounterCode,
-      );
+			const campaignIds = links.map(prop("campaign_id"));
 
-      const extraEncounters = normalizeEncounterCodes(
-        packEncounters
-          .filter(propEq(true, 'is_extra'))
-          .map(prop('encounter_set_code')),
-        canonicalizeEncounterCode,
-      );
+			const campaigns = fullCampaigns.filter(({ campaign }) =>
+				campaignIds.includes(campaign.id),
+			);
 
-      if (campaigns.length === 0) {
-        showError(`campaigns not found: ${code}`);
-      }
+			const packEncounters = uniqBy(
+				prop("encounter_set_code"),
+				scenarioEncounterSets.filter(propEq(code, "pack_code")),
+			);
 
-      const campaign = campaigns[0]?.campaign || {} as SingleValue<typeof campaigns>['campaign'];
-      const { 
-        campaign_type,
-        custom
-      } = campaign;
+			const requiredEncounters = normalizeEncounterCodes(
+				packEncounters
+					.filter(propEq(false, "is_extra"))
+					.map(prop("encounter_set_code")),
+				canonicalizeEncounterCode,
+			);
 
-      const icon = iconDB.getIcon({ id: code });
+			const extraEncounters = normalizeEncounterCodes(
+				packEncounters
+					.filter(propEq(true, "is_extra"))
+					.map(prop("encounter_set_code")),
+				canonicalizeEncounterCode,
+			);
 
-      const type = campaign_type || IDatabase.StoryType.CAMPAIGN;
+			if (campaigns.length === 0) {
+				showError(`campaigns not found: ${code}`);
+			}
 
-      const cycleCode = links[0].cycle_code;
+			const campaign =
+				campaigns[0]?.campaign ||
+				({} as SingleValue<typeof campaigns>["campaign"]);
+			const { campaign_type, custom } = campaign;
 
-      const storyCampaigns = campaigns.map(fullCampaign => getStoryCampaign({
-        fullCampaign,
-        cycle_code: cycleCode
-      }));
+			const icon = iconDB.getIcon({ id: code });
 
-      const storyScenarios = campaigns.flatMap(
-        ({ campaign, scenarios }) => scenarios.map(
-          scenario => getStoryScenario({
-            campaignId: campaign.id,
-            scenario
-          }))
-        );
+			const type = campaign_type || IDatabase.StoryType.CAMPAIGN;
 
-      const storyScenarioEncounters = getStoryScenarioEncounters({
-        encounterSets,
-        scenarios: storyScenarios,
-      });
+			const cycleCode = links[0].cycle_code;
 
-      const dedicatedScenarioEncounterCodes = new Set(
-        getDedicatedScenarioEncounterCodes({
-          encounterSets,
-          scenarios: storyScenarios,
-        }),
-      );
+			const storyScenarios = campaigns.flatMap(({ campaign, scenarios }) =>
+				scenarios.map((scenario) =>
+					getStoryScenario({
+						campaignId: campaign.id,
+						scenario,
+					}),
+				),
+			);
 
-      const storyScenarioGroups = groupStoryScenarios({
-        iconDB,
-        scenarios: storyScenarios
-      });
+			const storyScenarioEncounters = getStoryScenarioEncounters({
+				encounterSets,
+				scenarios: storyScenarios,
+			});
 
-      const investigators = packInvestigators.filter(
-        propEq(code, 'pack_code')
-      );
+			const dedicatedScenarioEncounterCodes = new Set(
+				getDedicatedScenarioEncounterCodes({
+					encounterSets,
+					scenarios: storyScenarios,
+				}),
+			);
 
-      const customContent = custom && getStoryCustomContent({
-        code,
-        content: custom
-      });
+			const storyCampaigns = campaigns.map((fullCampaign) => {
+				const campaign = getStoryCampaign({
+					fullCampaign,
+					cycle_code: cycleCode,
+				});
 
-      const sizedEncounterCodes = uniq([
-        ...requiredEncounters,
-        ...extraEncounters,
-        ...storyScenarioEncounters,
-      ]);
+				return {
+					...campaign,
+					encounter_sets: campaign.encounter_sets.filter(
+						(encounterCode) =>
+							!dedicatedScenarioEncounterCodes.has(encounterCode),
+					),
+				};
+			});
 
-      const isSizeSupported =
-        (Boolean(is_official) && Boolean(is_canonical)) ||
-        hasFullEncounterSizes(sizedEncounterCodes, encounterSets);
+			const storyScenarioGroups = groupStoryScenarios({
+				iconDB,
+				scenarios: storyScenarios,
+			});
 
-      const story = {
-        name,
-        icon,
-        code,
-        campaigns: storyCampaigns,
-        scenarios: storyScenarioGroups.filter(checkScenario),
-        cycle_code: cycleCode,
-        pack_code: code,
-        type,
-        investigators,
-        encounter_sets: requiredEncounters.filter(
-          (encounterCode) => !dedicatedScenarioEncounterCodes.has(encounterCode),
-        ),
-        extra_encounter_sets: extraEncounters,
-        custom_content: customContent,
-        scenario_encounter_sets: storyScenarioEncounters,
-        return_to_code: getReturnToCode(code),
-        is_size_supported: isSizeSupported,
-        is_canonical,
-        is_official
-      }
+			const investigators = packInvestigators.filter(propEq(code, "pack_code"));
 
-      return {
-        ...story
-      };
-    })
-    .filter(isNotNil);
-}
+			const customContent =
+				custom &&
+				getStoryCustomContent({
+					code,
+					content: custom,
+				});
+
+			const sizedEncounterCodes = uniq([
+				...requiredEncounters,
+				...extraEncounters,
+				...storyScenarioEncounters,
+			]);
+
+			const isSizeSupported =
+				(Boolean(is_official) && Boolean(is_canonical)) ||
+				hasFullEncounterSizes(sizedEncounterCodes, encounterSets);
+
+			const story = {
+				name,
+				icon,
+				code,
+				campaigns: storyCampaigns,
+				scenarios: storyScenarioGroups.filter(checkScenario),
+				cycle_code: cycleCode,
+				pack_code: code,
+				type,
+				investigators,
+				encounter_sets: requiredEncounters.filter(
+					(encounterCode) =>
+						!dedicatedScenarioEncounterCodes.has(encounterCode),
+				),
+				extra_encounter_sets: extraEncounters,
+				custom_content: customContent,
+				scenario_encounter_sets: storyScenarioEncounters,
+				return_to_code: getReturnToCode(code),
+				is_size_supported: isSizeSupported,
+				is_canonical,
+				is_official,
+			};
+
+			return {
+				...story,
+			};
+		})
+		.filter(isNotNil);
+};
