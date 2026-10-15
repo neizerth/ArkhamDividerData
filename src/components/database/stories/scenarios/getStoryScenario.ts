@@ -59,13 +59,32 @@ export const createStoryScenarioHandler = ({
 		scenario: IArkhamCards.JSON.Scenario;
 		includeEncounters?: boolean;
 	}): IDatabase.StoryScenario => {
-		const { id, scenario_name, full_name, header, steps, type } = scenario;
+		const {
+			id: sourceId,
+			scenario_name,
+			full_name,
+			header,
+			steps,
+			type,
+		} = scenario;
+
+		// Return campaigns may reuse the base scenario id in source data
+		// (e.g. Disappearance interlude) while the encounter set is `return_to_*`.
+		// Align the scenario id with that set, like the other return scenarios.
+		const returnCode = `return_to_${sourceId}`;
+		const returnSet =
+			scenario_name &&
+			encounterSets.find(
+				(encounter) =>
+					encounter.code === returnCode && encounter.name === scenario_name,
+			);
+		const id = returnSet ? returnCode : sourceId;
 
 		const iconList = [
-			...toArrayIf(id === "core", campaignId),
+			...toArrayIf(sourceId === "core", campaignId),
 			...getScenarioIconIds({
 				campaignId,
-				scenario,
+				scenario: { ...scenario, id },
 				encounterSets,
 			}),
 		];
@@ -88,7 +107,7 @@ export const createStoryScenarioHandler = ({
 			prop("encounter_set_code"),
 			scenarioEncounters.filter(
 				({ scenario_id, campaign_id }) =>
-					scenario_id === id && campaign_id === campaignId,
+					scenario_id === sourceId && campaign_id === campaignId,
 			),
 		);
 
