@@ -1,108 +1,121 @@
-import type { ICache } from '@/types/cache';
-import * as Cache from '@/util/cache';
-import { isNotNil, prop, propEq } from 'ramda';
-import { getSideCampaign } from '../getSideCampaign';
-import { showWarning } from '@/util/console';
-import type { IArkhamCards } from '@/types/arkhamCards';
-import { onlyWords } from '@/util/common';
-import packsData from '@/data/arkhamCards/packs'
+import packsData from "@/data/arkhamCards/packs";
+import type { IArkhamCards } from "@/types/arkhamCards";
+import type { ICache } from "@/types/cache";
+import * as Cache from "@/util/cache";
+import { onlyWords } from "@/util/common";
+import { showWarning } from "@/util/console";
+import { isNotNil, prop, propEq } from "ramda";
+import { getSideCampaign } from "../getSideCampaign";
 
 export const getSideEncounterSets = (): ICache.ScenarioEncounterSet[] => {
-  const sideCampaign = getSideCampaign();
+	const sideCampaign = getSideCampaign();
 
-  if (!sideCampaign) {
-    return [];
-  }
+	if (!sideCampaign) {
+		return [];
+	}
 
-  const standaloneScenarios = Cache.getStandaloneScenarios()
-    .map(prop('scenarioId'));
-    
-  const packEncounterSets = Cache.getPackEncounterSets();
-  const packs = Cache.getPacks();
+	const standaloneScenarios = Cache.getStandaloneScenarios().map(
+		prop("scenarioId"),
+	);
 
+	const packEncounterSets = Cache.getPackEncounterSets();
+	const packs = Cache.getPacks();
 
-  const findPack = ({ id, scenario_name }: IArkhamCards.JSON.Scenario) => {
-    const packById = packs.find(propEq(id, 'code'));
+	const findPack = ({ id, scenario_name }: IArkhamCards.JSON.Scenario) => {
+		const packById = packs.find(propEq(id, "code"));
 
-    if (packById) {
-      return packById;
-    }
+		if (packById) {
+			return packById;
+		}
 
-    const packByName = packs.find(
-      ({ name }) => name.toLowerCase() === scenario_name.toLowerCase()
-    );
+		const packByName = packs.find(
+			({ name }) => name.toLowerCase() === scenario_name.toLowerCase(),
+		);
 
-    if (packByName) {
-      return packByName;
-    }
+		if (packByName) {
+			return packByName;
+		}
 
-    const packByEncounterSet = packEncounterSets.find(propEq(id, 'encounter_set_code'));
-    
-    if (packByEncounterSet) {
-      return packs.find(propEq(packByEncounterSet.pack_code, 'code'));
-    }
+		const packByEncounterSet = packEncounterSets.find(
+			propEq(id, "encounter_set_code"),
+		);
 
-    const packByWords = packs.find(
-      pack => onlyWords(pack.name).toLowerCase() === 
-        onlyWords(scenario_name).toLowerCase()
-    )
+		if (packByEncounterSet) {
+			return packs.find(propEq(packByEncounterSet.pack_code, "code"));
+		}
 
-    if (packByWords) {
-      return packByWords;
-    }
+		const packByWords = packs.find(
+			(pack) =>
+				onlyWords(pack.name).toLowerCase() ===
+				onlyWords(scenario_name).toLowerCase(),
+		);
 
-    return;
-    // sideScenarios.find(propEq(scenario.id, 'scenario_id'))
-  }
+		if (packByWords) {
+			return packByWords;
+		}
 
-  const { scenarios, campaign } = sideCampaign;
+		return;
+		// sideScenarios.find(propEq(scenario.id, 'scenario_id'))
+	};
 
-  const packEncounters = scenarios
-    .filter(({ id }) => standaloneScenarios.includes(id))
-    .flatMap(scenario => {
-      const pack = findPack(scenario);
-      
-      if (!pack) {
-        showWarning(`pack not found: ${scenario.id}`);
-      }
+	const { scenarios, campaign } = sideCampaign;
 
-      const packCode = pack?.code;
-      const cycleCode = pack?.cycle_code;
+	const packEncounters = scenarios
+		.filter(({ id }) => standaloneScenarios.includes(id))
+		.flatMap((scenario) => {
+			const pack = findPack(scenario);
 
+			if (!pack) {
+				showWarning(`pack not found: ${scenario.id}`);
+			}
 
-      const additionalCodes = packsData
-        .find(
-          propEq(packCode, 'pack_code')
-        )?.add_encounter_sets || [];
+			const packCode = pack?.code;
+			const cycleCode = pack?.cycle_code;
 
-      const scenarioEncounters = scenario.steps
-        .map(prop('encounter_sets'))
-        .concat(additionalCodes)
-        .filter(isNotNil)
-        .flat();
+			const additionalCodes =
+				packsData.find(propEq(packCode, "pack_code"))?.add_encounter_sets || [];
 
-      const getIsExtraFromEncounters = (code: string) => packEncounterSets.some(
-        encounter => {
-          return encounter.encounter_set_code === code && 
-            encounter.pack_code !== packCode;
-        });
+			const scenarioEncounters = scenario.steps
+				.map(prop("encounter_sets"))
+				.concat(additionalCodes)
+				.filter(isNotNil)
+				.flat();
 
-      const getIsExtra = (code: string) => Boolean(pack) && getIsExtraFromEncounters(code);
+			const getIsExtraFromEncounters = (code: string) => {
+				const isOwn = packEncounterSets.some(
+					(encounter) =>
+						encounter.encounter_set_code === code &&
+						encounter.pack_code === packCode,
+				);
 
-      const scenarioData = {
-        cycle_code: packCode,
-        pack_code: cycleCode,
-        campaign_id: campaign.id,
-        scenario_id: scenario.id,
-      }
-      
-      return scenarioEncounters.map(encounter_set_code => ({
-        ...scenarioData,
-        encounter_set_code,
-        is_extra: getIsExtra(encounter_set_code),
-      }))
-    })
-    .filter(isNotNil);
+				if (isOwn) {
+					return false;
+				}
 
-  return packEncounters as ICache.ScenarioEncounterSet[];
-}
+				return packEncounterSets.some(
+					(encounter) =>
+						encounter.encounter_set_code === code &&
+						encounter.pack_code !== packCode,
+				);
+			};
+
+			const getIsExtra = (code: string) =>
+				Boolean(pack) && getIsExtraFromEncounters(code);
+
+			const scenarioData = {
+				cycle_code: packCode,
+				pack_code: cycleCode,
+				campaign_id: campaign.id,
+				scenario_id: scenario.id,
+			};
+
+			return scenarioEncounters.map((encounter_set_code) => ({
+				...scenarioData,
+				encounter_set_code,
+				is_extra: getIsExtra(encounter_set_code),
+			}));
+		})
+		.filter(isNotNil);
+
+	return packEncounters as ICache.ScenarioEncounterSet[];
+};
