@@ -21,13 +21,6 @@ const packs: Pack[] = [
     "add_encounter_sets": [
       "blob_epic_multiplayer"
     ]
-  },
-  {
-    "pack_code": "guardians",
-    "add_encounter_sets": [
-      "the_nights_usurper",
-      "abyssal_gifts"
-    ]
   }
 ]
 

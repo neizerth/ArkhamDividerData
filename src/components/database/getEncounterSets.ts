@@ -43,11 +43,8 @@ export const getEncounterSets = (): IDatabase.EncounterSet[] => {
 	const definitions = Cache.getEncounterSets();
 	const canonicalize = createEncounterCanonicalLookup(definitions);
 
-	// Collapse pack-local aliases (e.g. scenario `sewers` + ArkhamDB `arkham_sewers`).
-	const groups = groupBy(
-		(entry) => `${entry.pack_code}::${canonicalize(entry.code)}`,
-		data,
-	);
+	// Collapse aliases (e.g. scenario `sewers` + ArkhamDB `arkham_sewers`).
+	const groups = groupBy((entry) => canonicalize(entry.code), data);
 
 	const groupValues = values(groups).filter(isNotNil);
 	return groupValues.map((group) => {

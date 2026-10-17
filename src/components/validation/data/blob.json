@@ -1,0 +1,31 @@
+{
+	"code": "blob",
+	"encounter_sets": [
+		{
+			"code": "blob_epic_multiplayer",
+			"size": 3
+		},
+		{
+			"code": "blob_single_group",
+			"size": 3
+		},
+		{
+			"code": "migo_incursion",
+			"size": 18
+		}
+	],
+	"extra_encounter_sets": [],
+	"scenarios": [
+		{
+			"code": "blob",
+			"size": 54,
+			"encounter_sets": [
+				"blob_single_group",
+				"migo_incursion",
+				"blob_epic_multiplayer"
+			],
+			"extra_encounter_sets": []
+		}
+	],
+	"size": 78
+}

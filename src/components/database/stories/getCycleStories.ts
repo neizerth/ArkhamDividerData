@@ -20,6 +20,7 @@ import { createStoryCampaignHandler } from "./features/getStoryCampaign";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
 import { checkScenario } from "./scenarios/checkScenario";
 import { getDedicatedScenarioEncounterCodes } from "./scenarios/getDedicatedScenarioEncounterCodes";
+import { getStoryEncounterSetSizes } from "./scenarios/getEncounterSetSizes";
 import { createStoryScenarioHandler } from "./scenarios/getStoryScenario";
 import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounters";
 import { groupStoryScenarios } from "./scenarios/groupStoryScenarios";
@@ -225,17 +226,23 @@ export const getCycleStories = (): IDatabase.Story[] => {
 		const storyScenariosGroup = groupStoryScenarios({
 			scenarios: allowedScenarios,
 			iconDB,
+			encounterSets,
+		});
+		const finalScenarios = storyScenariosGroup.filter(checkScenario);
+		const storyEncounterSetSizes = getStoryEncounterSetSizes({
+			scenarios: finalScenarios,
+			encounterSets,
 		});
 
 		const storyScenarioEncounters = getStoryScenarioEncounters({
 			encounterSets,
-			scenarios: allowedScenarios,
+			scenarios: finalScenarios,
 		});
 
 		const dedicatedScenarioEncounterCodes = new Set(
 			getDedicatedScenarioEncounterCodes({
 				encounterSets,
-				scenarios: allowedScenarios,
+				scenarios: finalScenarios,
 			}),
 		);
 
@@ -296,13 +303,16 @@ export const getCycleStories = (): IDatabase.Story[] => {
 				storyScenarioEncounters.filter(filterEncounterSet),
 			custom_content: customContent,
 			campaigns: storyCampaigns,
-			scenarios: storyScenariosGroup.filter(checkScenario),
+			scenarios: finalScenarios,
 			pack_codes: packCodes,
 			is_size_supported: isSizeSupported,
 			encounter_sets: requiredEncounters
 				.filter((code) => !dedicatedScenarioEncounterCodes.has(code))
 				.filter(filterEncounterSet),
 			extra_encounter_sets: extraEncounters.filter(filterEncounterSet),
+			...(storyEncounterSetSizes.length > 0
+				? { encounter_set_data: storyEncounterSetSizes }
+				: {}),
 		};
 	};
 

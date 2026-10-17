@@ -1,0 +1,205 @@
+{
+	"code": "tfa",
+	"encounter_sets": [
+		{
+			"code": "rainforest",
+			"size": 11
+		},
+		{
+			"code": "serpents",
+			"size": 7
+		},
+		{
+			"code": "expedition",
+			"size": 5
+		},
+		{
+			"code": "agents_of_yig",
+			"size": 6
+		},
+		{
+			"code": "guardians_of_time",
+			"size": 4
+		},
+		{
+			"code": "traps",
+			"size": 5
+		},
+		{
+			"code": "flux",
+			"size": 5
+		},
+		{
+			"code": "ruins",
+			"size": 7
+		},
+		{
+			"code": "pnakotic_brotherhood",
+			"size": 6
+		},
+		{
+			"code": "venom",
+			"size": 5
+		},
+		{
+			"code": "poison",
+			"size": 6
+		},
+		{
+			"code": "pillars_of_judgment",
+			"size": 13
+		},
+		{
+			"code": "knyan",
+			"size": 13
+		}
+	],
+	"extra_encounter_sets": [
+		{
+			"code": "chilling_cold",
+			"size": 4
+		},
+		{
+			"code": "ancient_evils",
+			"size": 3
+		},
+		{
+			"code": "pentagram",
+			"size": 6
+		},
+		{
+			"code": "agents_of_yog",
+			"size": 4
+		},
+		{
+			"code": "locked_doors",
+			"size": 2
+		},
+		{
+			"code": "striking_fear",
+			"size": 7
+		},
+		{
+			"code": "arkham",
+			"size": 10,
+			"full_size": 20,
+			"note": "Only the 5 treachery cards (2x False Lead and 3x Hunting Shadow) and 5 locations (Northside, Downtown [First Bank of Arkham], Easttown, Miskatonic University, Rivertown) are used in 'Threads of Fate'"
+		},
+		{
+			"code": "nightgaunts",
+			"size": 4
+		}
+	],
+	"scenarios": [
+		{
+			"code": "wilds",
+			"size": 11,
+			"encounter_sets": [
+				"rainforest",
+				"serpents",
+				"expedition",
+				"guardians_of_time",
+				"agents_of_yig",
+				"poison"
+			],
+			"extra_encounter_sets": ["ancient_evils"]
+		},
+		{
+			"code": "eztli",
+			"size": 15,
+			"encounter_sets": [
+				"agents_of_yig",
+				"venom",
+				"flux",
+				"traps",
+				"ruins",
+				"poison"
+			],
+			"extra_encounter_sets": ["chilling_cold"]
+		},
+		{
+			"code": "threads_of_fate",
+			"size": 40,
+			"encounter_sets": ["pnakotic_brotherhood"],
+			"extra_encounter_sets": [
+				"arkham",
+				"locked_doors",
+				"nightgaunts",
+				"pentagram"
+			]
+		},
+		{
+			"code": "the_boundary_beyond",
+			"size": 36,
+			"encounter_sets": [
+				"flux",
+				"poison",
+				"pnakotic_brotherhood",
+				"venom",
+				"guardians_of_time"
+			],
+			"extra_encounter_sets": ["pentagram"]
+		},
+		{
+			"code": "heart_of_the_elders",
+			"size": 8,
+			"encounter_sets": [
+				"pillars_of_judgment",
+				"rainforest",
+				"serpents",
+				"expedition",
+				"poison",
+				"knyan",
+				"agents_of_yig",
+				"venom",
+				"ruins",
+				"traps"
+			],
+			"extra_encounter_sets": []
+		},
+		{
+			"code": "the_city_of_archives",
+			"size": 44,
+			"encounter_sets": [],
+			"extra_encounter_sets": [
+				"agents_of_yog",
+				"locked_doors",
+				"chilling_cold",
+				"striking_fear"
+			]
+		},
+		{
+			"code": "the_depths_of_yoth",
+			"size": 36,
+			"encounter_sets": [
+				"agents_of_yig",
+				"venom",
+				"expedition",
+				"ruins",
+				"poison"
+			],
+			"extra_encounter_sets": []
+		},
+		{
+			"code": "shattered_aeons",
+			"size": 36,
+			"encounter_sets": ["pnakotic_brotherhood", "flux", "agents_of_yig"],
+			"extra_encounter_sets": ["ancient_evils", "pentagram"]
+		},
+		{
+			"code": "turn_back_time",
+			"size": 4,
+			"encounter_sets": [
+				"eztli",
+				"agents_of_yig",
+				"venom",
+				"flux",
+				"traps",
+				"ruins",
+				"poison"
+			],
+			"extra_encounter_sets": ["chilling_cold"]
+		}
+	],
+	"size": 323
+}

@@ -44,6 +44,8 @@ export namespace IArkhamCards {
       id: string
       type: string
       title?: string
+      text?: string
+      subtext?: string
       encounter_sets?: string[]
       aside?: boolean
     }

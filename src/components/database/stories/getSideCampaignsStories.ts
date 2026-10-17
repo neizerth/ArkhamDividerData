@@ -5,15 +5,16 @@ import type { SingleValue } from "@/types/common";
 import { IDatabase } from "@/types/database";
 import { IconDBType } from "@/types/icons";
 import * as Cache from "@/util/cache";
+import { showError, showWarning } from "@/util/console";
 import {
 	createEncounterCanonicalLookup,
 	normalizeEncounterCodes,
 } from "@/util/encounterCanonical";
-import { showError, showWarning } from "@/util/console";
 import { isNotNil, prop, propEq } from "ramda";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
 import { checkScenario } from "./scenarios/checkScenario";
 import { getDedicatedScenarioEncounterCodes } from "./scenarios/getDedicatedScenarioEncounterCodes";
+import { getStoryEncounterSetSizes } from "./scenarios/getEncounterSetSizes";
 import { createStoryScenarioHandler } from "./scenarios/getStoryScenario";
 import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounters";
 import { groupStoryScenarios } from "./scenarios/groupStoryScenarios";
@@ -112,17 +113,23 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
 			const storyScenarioGroups = groupStoryScenarios({
 				iconDB,
 				scenarios: storyScenarios,
+				encounterSets,
+			});
+			const finalScenarios = storyScenarioGroups.filter(checkScenario);
+			const storyEncounterSetSizes = getStoryEncounterSetSizes({
+				scenarios: finalScenarios,
+				encounterSets,
 			});
 
 			const storyScenarioEncounters = getStoryScenarioEncounters({
 				encounterSets,
-				scenarios: storyScenarios,
+				scenarios: finalScenarios,
 			});
 
 			const dedicatedScenarioEncounterCodes = new Set(
 				getDedicatedScenarioEncounterCodes({
 					encounterSets,
-					scenarios: storyScenarios,
+					scenarios: finalScenarios,
 				}),
 			);
 
@@ -146,7 +153,7 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
 				cycle_code: pack?.cycle_code,
 				pack_code: pack?.code,
 				campaign_id: campaign.id,
-				scenarios: storyScenarioGroups.filter(checkScenario),
+				scenarios: finalScenarios,
 				custom_content: customContent,
 				is_size_supported: Boolean(isSizeSupported),
 				is_canonical,
@@ -157,6 +164,9 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
 						!dedicatedScenarioEncounterCodes.has(encounterCode),
 				),
 				extra_encounter_sets: extraEncounters,
+				...(storyEncounterSetSizes.length > 0
+					? { encounter_set_data: storyEncounterSetSizes }
+					: {}),
 			};
 		})
 		.filter(isNotNil);

@@ -1,8 +1,7 @@
 import type { IDatabase } from "@/types/database";
 import { uniq } from "ramda";
-import { getStoryScenarioEncounters } from "./getStoryScenarioEncounters";
 
-const ownSetCodes = (
+export const ownSetCodes = (
 	scenario: IDatabase.StoryScenario,
 	encounterSets: IDatabase.EncounterSet[],
 ): string[] => {
@@ -18,14 +17,22 @@ const ownSetCodes = (
 	// Return campaigns reuse the original scenario id but ship
 	// `return_to_${id}` as the scenario's own encounter set.
 	const returnCode = `return_to_${scenario.id}`;
-	const byReturn = encounterSets.find(
-		(encounter) => encounter.code === returnCode,
-	);
-	if (byReturn) {
-		codes.push(byReturn.code);
+	const isReturnScenario =
+		Boolean(scenario.campaign_id?.startsWith("rt")) ||
+		Boolean(scenario.campaign_id?.startsWith("zrt")) ||
+		scenario.id.startsWith("return_to_") ||
+		Boolean(scenario.encounter_sets?.includes(returnCode));
+
+	if (isReturnScenario) {
+		const byReturn = encounterSets.find(
+			(encounter) => encounter.code === returnCode,
+		);
+		if (byReturn) {
+			codes.push(byReturn.code);
+		}
 	}
 
-	// Match by printed scenario name (Return to Disappearance…).
+	// Match by printed scenario name (Return to Disappearance…, Dead Heat, etc.).
 	if (scenario.scenario_name) {
 		const byName = encounterSets.find(
 			(encounter) => encounter.name === scenario.scenario_name,
@@ -46,7 +53,18 @@ const ownSetCodes = (
 		}
 	}
 
-	return codes;
+	if (codes.length === 0 && scenario.icon) {
+		const byScenarioIcon = encounterSets.find(
+			(encounter) =>
+				encounter.icon === scenario.icon &&
+				Boolean(scenario.encounter_sets?.includes(encounter.code)),
+		);
+		if (byScenarioIcon) {
+			codes.push(byScenarioIcon.code);
+		}
+	}
+
+	return uniq(codes);
 };
 
 /**
@@ -69,17 +87,9 @@ export const getDedicatedScenarioEncounterCodes = ({
 	encounterSets: IDatabase.EncounterSet[];
 	scenarios: IDatabase.StoryScenario[];
 }): string[] => {
-	const scenarioIds = new Set(
-		getStoryScenarioEncounters({ encounterSets, scenarios }),
+	return uniq(
+		scenarios
+			.filter((scenario) => scenario.id !== "core")
+			.flatMap((scenario) => ownSetCodes(scenario, encounterSets)),
 	);
-
-	const fromDividers = scenarios
-		.filter((scenario) => scenarioIds.has(scenario.id))
-		.flatMap((scenario) => ownSetCodes(scenario, encounterSets));
-
-	const byScenarioId = scenarios.flatMap((scenario) =>
-		ownSetCodes(scenario, encounterSets),
-	);
-
-	return uniq([...fromDividers, ...byScenarioId]);
 };

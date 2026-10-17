@@ -1,0 +1,23 @@
+{
+	"code": "lol",
+	"encounter_sets": [
+		{
+			"code": "epic_multiplayer",
+			"size": 20
+		},
+		{
+			"code": "single_group",
+			"size": 13
+		}
+	],
+	"extra_encounter_sets": [],
+	"scenarios": [
+		{
+			"code": "in_the_labyrinths_of_lunacy",
+			"size": 47,
+			"encounter_sets": ["epic_multiplayer", "single_group"],
+			"extra_encounter_sets": []
+		}
+	],
+	"size": 80
+}

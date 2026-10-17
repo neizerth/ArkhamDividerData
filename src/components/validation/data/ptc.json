@@ -1,0 +1,161 @@
+{
+	"code": "ptc",
+	"encounter_sets": [
+		{
+			"code": "vortex",
+			"size": 4
+		},
+		{
+			"code": "flood",
+			"size": 4
+		},
+		{
+			"code": "delusions",
+			"size": 6
+		},
+		{
+			"code": "byakhee",
+			"size": 4
+		},
+		{
+			"code": "inhabitants_of_carcosa",
+			"size": 3
+		},
+		{
+			"code": "evil_portents",
+			"size": 6
+		},
+		{
+			"code": "hauntings",
+			"size": 4
+		},
+		{
+			"code": "hasturs_gift",
+			"size": 6
+		},
+		{
+			"code": "cult_of_the_yellow_sign",
+			"size": 6
+		},
+		{
+			"code": "decay",
+			"size": 6
+		},
+		{
+			"code": "stranger",
+			"size": 3
+		}
+	],
+	"extra_encounter_sets": [
+		{
+			"code": "agents_of_hastur",
+			"size": 4
+		},
+		{
+			"code": "arkham",
+			"size": 5,
+			"full_size": 20,
+			"note": "Only the 5 treachery cards (2x False Lead and 3x Hunting Shadow) are used in 'Echoes of the Past' and 'The Phantom of Truth'"
+		},
+		{
+			"code": "pentagram",
+			"size": 6
+		},
+		{
+			"code": "ancient_evils",
+			"size": 3
+		},
+		{
+			"code": "striking_fear",
+			"size": 7
+		},
+		{
+			"code": "rats",
+			"size": 3
+		},
+		{
+			"code": "locked_doors",
+			"size": 2
+		},
+		{
+			"code": "ghouls",
+			"size": 7
+		},
+		{
+			"code": "chilling_cold",
+			"size": 4
+		}
+	],
+	"scenarios": [
+		{
+			"code": "echoes_of_the_past",
+			"size": 32,
+			"encounter_sets": ["cult_of_the_yellow_sign", "delusions"],
+			"extra_encounter_sets": ["arkham", "locked_doors", "pentagram"]
+		},
+		{
+			"code": "the_unspeakable_oath",
+			"size": 36,
+			"encounter_sets": [
+				"hasturs_gift",
+				"inhabitants_of_carcosa",
+				"delusions",
+				"decay"
+			],
+			"extra_encounter_sets": ["agents_of_hastur"]
+		},
+		{
+			"code": "a_phantom_of_truth",
+			"size": 38,
+			"encounter_sets": ["evil_portents", "byakhee", "stranger"],
+			"extra_encounter_sets": ["agents_of_hastur", "arkham"]
+		},
+		{
+			"code": "the_pallid_mask",
+			"size": 36,
+			"encounter_sets": ["hauntings"],
+			"extra_encounter_sets": ["ghouls", "chilling_cold"]
+		},
+		{
+			"code": "black_stars_rise",
+			"size": 30,
+			"encounter_sets": [
+				"evil_portents",
+				"byakhee",
+				"inhabitants_of_carcosa",
+				"stranger",
+				"flood",
+				"vortex"
+			],
+			"extra_encounter_sets": ["pentagram", "ancient_evils"]
+		},
+		{
+			"code": "dim_carcosa",
+			"size": 36,
+			"encounter_sets": [
+				"delusions",
+				"cult_of_the_yellow_sign",
+				"inhabitants_of_carcosa"
+			],
+			"extra_encounter_sets": ["agents_of_hastur", "striking_fear"]
+		},
+		{
+			"code": "curtain_call",
+			"size": 20,
+			"encounter_sets": [
+				"evil_portents",
+				"delusions",
+				"hauntings",
+				"cult_of_the_yellow_sign"
+			],
+			"extra_encounter_sets": ["striking_fear", "rats"]
+		},
+		{
+			"code": "the_last_king",
+			"size": 25,
+			"encounter_sets": ["hasturs_gift", "decay", "stranger"],
+			"extra_encounter_sets": ["ancient_evils"]
+		}
+	],
+	"size": 305
+}

@@ -1,0 +1,16 @@
+{
+	"code": "coh",
+	"encounter_sets": [],
+	"extra_encounter_sets": [],
+	"scenarios": [
+		{
+			"code": "venice",
+			"size": 55,
+			"full_size": 62,
+			"note": "55 physical cards in the Carnevale of Horrors encounter set; the retail pack lists 62 cards (counting the 7 shared Masked Carnevale-Goer back faces).",
+			"encounter_sets": [],
+			"extra_encounter_sets": []
+		}
+	],
+	"size": 62
+}

@@ -1,0 +1,23 @@
+{
+	"code": "fof",
+	"encounter_sets": [
+		{
+			"code": "fortunes_chosen",
+			"size": 4
+		},
+		{
+			"code": "plan_in_shambles",
+			"size": 13
+		}
+	],
+	"extra_encounter_sets": [],
+	"scenarios": [
+		{
+			"code": "fortune_and_folly",
+			"size": 61,
+			"encounter_sets": ["fortunes_chosen", "plan_in_shambles"],
+			"extra_encounter_sets": []
+		}
+	],
+	"size": 78
+}

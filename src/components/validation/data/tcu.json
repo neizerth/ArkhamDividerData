@@ -1,0 +1,208 @@
+{
+	"code": "tcu",
+	"encounter_sets": [
+		{
+			"code": "music_of_the_damned",
+			"size": 8
+		},
+		{
+			"code": "secrets_of_the_universe",
+			"size": 8
+		},
+		{
+			"code": "the_watcher",
+			"size": 3
+		},
+		{
+			"code": "agents_of_azathoth",
+			"size": 4
+		},
+		{
+			"code": "anettes_coven",
+			"size": 4
+		},
+		{
+			"code": "witchcraft",
+			"size": 7
+		},
+		{
+			"code": "silver_twilight_lodge",
+			"size": 6
+		},
+		{
+			"code": "city_of_sins",
+			"size": 5
+		},
+		{
+			"code": "spectral_predators",
+			"size": 5
+		},
+		{
+			"code": "trapped_spirits",
+			"size": 4
+		},
+		{
+			"code": "realm_of_death",
+			"size": 4
+		},
+		{
+			"code": "inexorable_fate",
+			"size": 6
+		}
+	],
+	"extra_encounter_sets": [
+		{
+			"code": "chilling_cold",
+			"size": 4
+		},
+		{
+			"code": "ancient_evils",
+			"size": 3
+		},
+		{
+			"code": "pentagram",
+			"size": 6
+		},
+		{
+			"code": "locked_doors",
+			"size": 2
+		},
+		{
+			"code": "nightgaunts",
+			"size": 4
+		},
+		{
+			"code": "striking_fear",
+			"size": 7
+		},
+		{
+			"code": "arkham",
+			"size": 5,
+			"full_size": 20,
+			"note": "Only the 5 treachery cards (2x False Lead and 3x Hunting Shadow) are used in 'In the Clutches of Chaos'"
+		},
+		{
+			"code": "rats",
+			"size": 3
+		},
+		{
+			"code": "tentacles",
+			"size": 6,
+			"full_size": 18,
+			"note": "Only the 6 Arkham Woods locations are used in 'The Witching Hour'"
+		},
+		{
+			"code": "agents_of_shub",
+			"size": 4
+		}
+	],
+	"scenarios": [
+		{
+			"code": "the_secret_name",
+			"size": 38,
+			"encounter_sets": [
+				"city_of_sins",
+				"inexorable_fate",
+				"realm_of_death",
+				"witchcraft"
+			],
+			"extra_encounter_sets": ["rats"]
+		},
+		{
+			"code": "the_wages_of_sin",
+			"size": 40,
+			"encounter_sets": [
+				"anettes_coven",
+				"city_of_sins",
+				"inexorable_fate",
+				"realm_of_death",
+				"trapped_spirits",
+				"witchcraft",
+				"the_watcher"
+			],
+			"extra_encounter_sets": []
+		},
+		{
+			"code": "for_the_greater_good",
+			"size": 38,
+			"encounter_sets": ["city_of_sins", "silver_twilight_lodge"],
+			"extra_encounter_sets": ["ancient_evils", "pentagram", "locked_doors"]
+		},
+		{
+			"code": "union_and_disillusion",
+			"size": 42,
+			"encounter_sets": [
+				"inexorable_fate",
+				"realm_of_death",
+				"spectral_predators",
+				"anettes_coven",
+				"silver_twilight_lodge",
+				"the_watcher"
+			],
+			"extra_encounter_sets": ["ancient_evils", "chilling_cold"]
+		},
+		{
+			"code": "in_the_clutches_of_chaos",
+			"size": 22,
+			"encounter_sets": [
+				"agents_of_azathoth",
+				"music_of_the_damned",
+				"anettes_coven",
+				"city_of_sins",
+				"witchcraft",
+				"secrets_of_the_universe",
+				"silver_twilight_lodge"
+			],
+			"extra_encounter_sets": ["nightgaunts", "striking_fear", "arkham"]
+		},
+		{
+			"code": "before_the_black_throne",
+			"size": 36,
+			"encounter_sets": ["agents_of_azathoth", "inexorable_fate"],
+			"extra_encounter_sets": ["ancient_evils", "pentagram"]
+		},
+		{
+			"code": "disappearance_at_the_twilight_estate",
+			"size": 7,
+			"encounter_sets": [
+				"at_deaths_doorstep",
+				"inexorable_fate",
+				"realm_of_death",
+				"spectral_predators",
+				"trapped_spirits",
+				"the_watcher"
+			],
+			"extra_encounter_sets": ["chilling_cold"]
+		},
+		{
+			"code": "the_witching_hour",
+			"size": 15,
+			"encounter_sets": [
+				"anettes_coven",
+				"city_of_sins",
+				"witchcraft",
+				"agents_of_azathoth"
+			],
+			"extra_encounter_sets": [
+				"ancient_evils",
+				"striking_fear",
+				"tentacles",
+				"agents_of_shub"
+			]
+		},
+		{
+			"code": "at_deaths_doorstep",
+			"size": 21,
+			"encounter_sets": [
+				"silver_twilight_lodge",
+				"spectral_predators",
+				"trapped_spirits",
+				"inexorable_fate",
+				"realm_of_death",
+				"the_watcher"
+			],
+			"extra_encounter_sets": ["chilling_cold"]
+		}
+	],
+	"size": 323
+}

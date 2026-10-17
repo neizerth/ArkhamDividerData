@@ -1,0 +1,26 @@
+{
+	"code": "mtt",
+	"encounter_sets": [
+		{
+			"code": "machinations_through_time_single_group",
+			"size": 2
+		},
+		{
+			"code": "machinations_through_time_epic_multiplayer",
+			"size": 2
+		}
+	],
+	"extra_encounter_sets": [],
+	"scenarios": [
+		{
+			"code": "machinations_through_time",
+			"size": 75,
+			"encounter_sets": [
+				"machinations_through_time_epic_multiplayer",
+				"machinations_through_time_single_group"
+			],
+			"extra_encounter_sets": []
+		}
+	],
+	"size": 78
+}

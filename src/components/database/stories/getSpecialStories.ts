@@ -17,6 +17,7 @@ import { createStoryCampaignHandler } from "./features/getStoryCampaign";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
 import { checkScenario } from "./scenarios/checkScenario";
 import { getDedicatedScenarioEncounterCodes } from "./scenarios/getDedicatedScenarioEncounterCodes";
+import { getStoryEncounterSetSizes } from "./scenarios/getEncounterSetSizes";
 import { createStoryScenarioHandler } from "./scenarios/getStoryScenario";
 import { getStoryScenarioEncounters } from "./scenarios/getStoryScenarioEncounters";
 import { groupStoryScenarios } from "./scenarios/groupStoryScenarios";
@@ -187,15 +188,26 @@ export const getSpecialStories = (): IDatabase.Story[] => {
 				),
 			);
 
+			const storyScenarioGroups = groupStoryScenarios({
+				iconDB,
+				scenarios: storyScenarios,
+				encounterSets,
+			});
+			const finalScenarios = storyScenarioGroups.filter(checkScenario);
+			const storyEncounterSetSizes = getStoryEncounterSetSizes({
+				scenarios: finalScenarios,
+				encounterSets,
+			});
+
 			const storyScenarioEncounters = getStoryScenarioEncounters({
 				encounterSets,
-				scenarios: storyScenarios,
+				scenarios: finalScenarios,
 			});
 
 			const dedicatedScenarioEncounterCodes = new Set(
 				getDedicatedScenarioEncounterCodes({
 					encounterSets,
-					scenarios: storyScenarios,
+					scenarios: finalScenarios,
 				}),
 			);
 
@@ -212,11 +224,6 @@ export const getSpecialStories = (): IDatabase.Story[] => {
 							!dedicatedScenarioEncounterCodes.has(encounterCode),
 					),
 				};
-			});
-
-			const storyScenarioGroups = groupStoryScenarios({
-				iconDB,
-				scenarios: storyScenarios,
 			});
 
 			const investigators = packInvestigators.filter(propEq(code, "pack_code"));
@@ -243,7 +250,7 @@ export const getSpecialStories = (): IDatabase.Story[] => {
 				icon,
 				code,
 				campaigns: storyCampaigns,
-				scenarios: storyScenarioGroups.filter(checkScenario),
+				scenarios: finalScenarios,
 				cycle_code: cycleCode,
 				pack_code: code,
 				type,
@@ -253,6 +260,9 @@ export const getSpecialStories = (): IDatabase.Story[] => {
 						!dedicatedScenarioEncounterCodes.has(encounterCode),
 				),
 				extra_encounter_sets: extraEncounters,
+				...(storyEncounterSetSizes.length > 0
+					? { encounter_set_data: storyEncounterSetSizes }
+					: {}),
 				custom_content: customContent,
 				scenario_encounter_sets: storyScenarioEncounters,
 				return_to_code: getReturnToCode(code),

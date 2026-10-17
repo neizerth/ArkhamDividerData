@@ -1,0 +1,45 @@
+{
+	"code": "guardians",
+	"encounter_sets": [
+		{
+			"code": "brotherhood_of_the_beast",
+			"size": 6
+		},
+		{
+			"code": "sands_of_egypt",
+			"size": 33
+		},
+		{
+			"code": "abyssal_tribute",
+			"size": 2
+		},
+		{
+			"code": "abyssal_gifts",
+			"size": 2
+		}
+	],
+	"extra_encounter_sets": [],
+	"scenarios": [
+		{
+			"code": "the_eternal_slumber",
+			"size": 18,
+			"encounter_sets": [
+				"sands_of_egypt",
+				"brotherhood_of_the_beast",
+				"abyssal_tribute"
+			],
+			"extra_encounter_sets": []
+		},
+		{
+			"code": "the_nights_usurper",
+			"size": 17,
+			"encounter_sets": [
+				"sands_of_egypt",
+				"brotherhood_of_the_beast",
+				"abyssal_gifts"
+			],
+			"extra_encounter_sets": []
+		}
+	],
+	"size": 78
+}

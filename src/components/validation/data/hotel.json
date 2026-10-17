@@ -1,0 +1,41 @@
+{
+	"code": "hotel",
+	"encounter_sets": [
+		{
+			"code": "alien_interference",
+			"size": 5
+		},
+		{
+			"code": "excelsior_management",
+			"size": 5
+		},
+		{
+			"code": "dark_rituals",
+			"size": 5
+		},
+		{
+			"code": "vile_experiments",
+			"size": 5
+		},
+		{
+			"code": "sins_of_the_past",
+			"size": 5
+		}
+	],
+	"extra_encounter_sets": [],
+	"scenarios": [
+		{
+			"code": "murder_at_the_excelsior_hotel",
+			"size": 53,
+			"encounter_sets": [
+				"alien_interference",
+				"dark_rituals",
+				"excelsior_management",
+				"sins_of_the_past",
+				"vile_experiments"
+			],
+			"extra_encounter_sets": []
+		}
+	],
+	"size": 78
+}

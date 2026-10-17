@@ -1,0 +1,225 @@
+{
+	"code": "tsk",
+	"encounter_sets": [
+		{
+			"code": "crimson_conspiracy",
+			"size": 5
+		},
+		{
+			"code": "strange_happenings",
+			"size": 4
+		},
+		{
+			"code": "mysteries_abound",
+			"size": 4
+		},
+		{
+			"code": "shadow_of_a_doubt",
+			"size": 4
+		},
+		{
+			"code": "dark_veiling",
+			"size": 4
+		},
+		{
+			"code": "cleanup_crew",
+			"size": 6
+		},
+		{
+			"code": "scarlet_sorcery",
+			"size": 4
+		},
+		{
+			"code": "outsiders",
+			"size": 6
+		},
+		{
+			"code": "secret_war",
+			"size": 7
+		},
+		{
+			"code": "agents_of_the_outside",
+			"size": 4
+		},
+		{
+			"code": "agents_of_yuggoth",
+			"size": 4
+		},
+		{
+			"code": "spatial_anomaly",
+			"size": 8
+		},
+		{
+			"code": "spreading_corruption",
+			"size": 6
+		},
+		{
+			"code": "beyond_the_beyond",
+			"size": 11
+		},
+		{
+			"code": "red_coterie",
+			"size": 10
+		},
+		{
+			"code": "globetrotting",
+			"size": 15
+		}
+	],
+	"extra_encounter_sets": [
+		{
+			"code": "chilling_cold",
+			"size": 4
+		},
+		{
+			"code": "locked_doors",
+			"size": 2
+		},
+		{
+			"code": "arkham",
+			"size": 5,
+			"full_size": 20,
+			"note": "Only the 5 treachery cards (2x False Lead and 3x Hunting Shadow) are used in 'Riddles and Rain' and 'Dealings in the Dark'"
+		},
+		{
+			"code": "ghouls",
+			"size": 7
+		},
+		{
+			"code": "striking_fear",
+			"size": 7,
+			"note": "All 7 cards are used in 'Dead Heat' and 'Shades of Suffering'; only 4 cards (2x Dissonant Voices and 2x Frozen in Fear, excluding 3x Rotting Remains) are used in 'Congress of the Keys'"
+		},
+		{
+			"code": "nightgaunts",
+			"size": 4
+		},
+		{
+			"code": "ancient_evils",
+			"size": 3
+		},
+		{
+			"code": "pentagram",
+			"size": 6
+		}
+	],
+	"scenarios": [
+		{
+			"code": "riddles_and_rain",
+			"size": 19,
+			"encounter_sets": [
+				"crimson_conspiracy",
+				"dark_veiling",
+				"outsiders",
+				"shadow_of_a_doubt",
+				"strange_happenings"
+			],
+			"extra_encounter_sets": ["chilling_cold", "locked_doors", "arkham"]
+		},
+		{
+			"code": "dead_heat",
+			"size": 31,
+			"encounter_sets": ["scarlet_sorcery", "spreading_corruption"],
+			"extra_encounter_sets": ["ghouls", "striking_fear"]
+		},
+		{
+			"code": "sanguine_shadows",
+			"size": 25,
+			"encounter_sets": [
+				"dark_veiling",
+				"mysteries_abound",
+				"shadow_of_a_doubt",
+				"strange_happenings"
+			],
+			"extra_encounter_sets": ["locked_doors", "nightgaunts"]
+		},
+		{
+			"code": "dealings_in_the_dark",
+			"size": 30,
+			"encounter_sets": ["agents_of_yuggoth", "dark_veiling"],
+			"extra_encounter_sets": [
+				"ancient_evils",
+				"pentagram",
+				"locked_doors",
+				"arkham"
+			]
+		},
+		{
+			"code": "dancing_mad",
+			"size": 19,
+			"encounter_sets": [
+				"agents_of_the_outside",
+				"cleanup_crew",
+				"crimson_conspiracy",
+				"secret_war",
+				"shadow_of_a_doubt"
+			],
+			"extra_encounter_sets": []
+		},
+		{
+			"code": "on_thin_ice",
+			"size": 31,
+			"encounter_sets": [
+				"agents_of_the_outside",
+				"agents_of_yuggoth",
+				"crimson_conspiracy",
+				"dark_veiling",
+				"outsiders",
+				"spatial_anomaly"
+			],
+			"extra_encounter_sets": ["chilling_cold"]
+		},
+		{
+			"code": "dogs_of_war",
+			"size": 31,
+			"encounter_sets": [
+				"scarlet_sorcery",
+				"spatial_anomaly",
+				"spreading_corruption",
+				"cleanup_crew"
+			],
+			"extra_encounter_sets": ["pentagram"]
+		},
+		{
+			"code": "shades_of_suffering",
+			"size": 27,
+			"encounter_sets": [
+				"globetrotting",
+				"dark_veiling",
+				"mysteries_abound",
+				"scarlet_sorcery",
+				"spreading_corruption"
+			],
+			"extra_encounter_sets": ["striking_fear"]
+		},
+		{
+			"code": "without_a_trace",
+			"size": 13,
+			"encounter_sets": [
+				"globetrotting",
+				"agents_of_the_outside",
+				"beyond_the_beyond",
+				"outsiders",
+				"secret_war",
+				"spreading_corruption"
+			],
+			"extra_encounter_sets": []
+		},
+		{
+			"code": "congress_of_the_keys",
+			"size": 22,
+			"encounter_sets": [
+				"red_coterie",
+				"scarlet_sorcery",
+				"spatial_anomaly",
+				"spreading_corruption",
+				"agents_of_the_outside",
+				"beyond_the_beyond",
+				"outsiders",
+				"secret_war"
+			],
+			"extra_encounter_sets": ["locked_doors", "ancient_evils", "striking_fear"]
+		}
+	],
+	"size": 350
+}

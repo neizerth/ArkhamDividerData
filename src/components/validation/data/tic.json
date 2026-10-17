@@ -1,0 +1,172 @@
+{
+	"code": "tic",
+	"encounter_sets": [
+		{
+			"code": "agents_of_dagon",
+			"size": 4
+		},
+		{
+			"code": "agents_of_hydra",
+			"size": 4
+		},
+		{
+			"code": "creatures_of_the_deep",
+			"size": 6
+		},
+		{
+			"code": "rising_tide",
+			"size": 6
+		},
+		{
+			"code": "fog_over_innsmouth",
+			"size": 3
+		},
+		{
+			"code": "shattered_memories",
+			"size": 6
+		},
+		{
+			"code": "malfunction",
+			"size": 2
+		},
+		{
+			"code": "syzygy",
+			"size": 4
+		},
+		{
+			"code": "flooded_caverns",
+			"size": 6
+		},
+		{
+			"code": "the_locals",
+			"size": 6
+		}
+	],
+	"extra_encounter_sets": [
+		{
+			"code": "striking_fear",
+			"size": 7
+		},
+		{
+			"code": "ancient_evils",
+			"size": 3
+		},
+		{
+			"code": "agents_of_cthulhu",
+			"size": 4
+		},
+		{
+			"code": "pentagram",
+			"size": 6
+		},
+		{
+			"code": "locked_doors",
+			"size": 2
+		},
+		{
+			"code": "rats",
+			"size": 3
+		},
+		{
+			"code": "chilling_cold",
+			"size": 4
+		},
+		{
+			"code": "nightgaunts",
+			"size": 4
+		},
+		{
+			"code": "arkham",
+			"size": 5,
+			"full_size": 20,
+			"note": "Only the 5 treachery cards (2x False Lead and 3x Hunting Shadow) are used in 'The Vanishing of Elina Harper'"
+		}
+	],
+	"scenarios": [
+		{
+			"code": "the_pit_of_despair",
+			"size": 18,
+			"encounter_sets": [
+				"creatures_of_the_deep",
+				"flooded_caverns",
+				"rising_tide",
+				"shattered_memories"
+			],
+			"extra_encounter_sets": ["agents_of_cthulhu", "rats"]
+		},
+		{
+			"code": "the_vanishing_of_elina_harper",
+			"size": 28,
+			"encounter_sets": ["agents_of_dagon", "fog_over_innsmouth", "the_locals"],
+			"extra_encounter_sets": [
+				"chilling_cold",
+				"locked_doors",
+				"nightgaunts",
+				"arkham"
+			]
+		},
+		{
+			"code": "in_too_deep",
+			"size": 35,
+			"encounter_sets": [
+				"creatures_of_the_deep",
+				"rising_tide",
+				"syzygy",
+				"the_locals"
+			],
+			"extra_encounter_sets": ["agents_of_cthulhu"]
+		},
+		{
+			"code": "devil_reef",
+			"size": 38,
+			"encounter_sets": [
+				"agents_of_hydra",
+				"creatures_of_the_deep",
+				"flooded_caverns",
+				"malfunction",
+				"rising_tide"
+			],
+			"extra_encounter_sets": []
+		},
+		{
+			"code": "horror_in_high_gear",
+			"size": 42,
+			"encounter_sets": [
+				"fog_over_innsmouth",
+				"malfunction",
+				"shattered_memories"
+			],
+			"extra_encounter_sets": ["ancient_evils"]
+		},
+		{
+			"code": "a_light_in_the_fog",
+			"size": 40,
+			"encounter_sets": [
+				"creatures_of_the_deep",
+				"flooded_caverns",
+				"rising_tide",
+				"syzygy"
+			],
+			"extra_encounter_sets": ["striking_fear"]
+		},
+		{
+			"code": "the_lair_of_dagon",
+			"size": 36,
+			"encounter_sets": ["agents_of_dagon", "flooded_caverns", "syzygy"],
+			"extra_encounter_sets": ["pentagram", "locked_doors"]
+		},
+		{
+			"code": "into_the_maelstrom",
+			"size": 42,
+			"encounter_sets": [
+				"agents_of_hydra",
+				"creatures_of_the_deep",
+				"flooded_caverns",
+				"shattered_memories",
+				"syzygy"
+			],
+			"extra_encounter_sets": ["ancient_evils"]
+		}
+	],
+	"size": 326
+}

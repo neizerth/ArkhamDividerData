@@ -1,0 +1,14 @@
+{
+	"code": "tmg",
+	"encounter_sets": [],
+	"extra_encounter_sets": [],
+	"scenarios": [
+		{
+			"code": "the_midwinter_gala",
+			"size": 78,
+			"encounter_sets": [],
+			"extra_encounter_sets": []
+		}
+	],
+	"size": 78
+}

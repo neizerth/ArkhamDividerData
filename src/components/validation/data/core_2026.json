@@ -1,0 +1,134 @@
+{
+	"code": "core_2026",
+	"encounter_sets": [
+		{
+			"code": "miskatonic_university",
+			"size": 5
+		},
+		{
+			"code": "ashen_pilgrims",
+			"size": 4
+		},
+		{
+			"code": "bystanders",
+			"size": 3
+		},
+		{
+			"code": "cosmic_evils",
+			"size": 3
+		},
+		{
+			"code": "eldritch_lore",
+			"size": 4
+		},
+		{
+			"code": "hallucinations",
+			"size": 4
+		},
+		{
+			"code": "fire_ch2",
+			"size": 7
+		},
+		{
+			"code": "mad_science",
+			"size": 4
+		},
+		{
+			"code": "people_of_arkham",
+			"size": 6
+		},
+		{
+			"code": "arkham_ch2",
+			"size": 12
+		},
+		{
+			"code": "arcane_lock",
+			"size": 2
+		},
+		{
+			"code": "bad_weather",
+			"size": 4
+		},
+		{
+			"code": "dead_ends",
+			"size": 4
+		},
+		{
+			"code": "flying_terrors",
+			"size": 4
+		},
+		{
+			"code": "gangs_of_arkham",
+			"size": 4
+		},
+		{
+			"code": "whippoorwills_ch2",
+			"size": 5
+		},
+		{
+			"code": "arkham_sewers",
+			"size": 6
+		},
+		{
+			"code": "cultists_ch2",
+			"size": 6
+		},
+		{
+			"code": "reeking_decay",
+			"size": 4
+		},
+		{
+			"code": "torment",
+			"size": 6
+		}
+	],
+	"extra_encounter_sets": [],
+	"scenarios": [
+		{
+			"code": "spreading_flames",
+			"size": 11,
+			"encounter_sets": [
+				"ashen_pilgrims",
+				"bystanders",
+				"cosmic_evils",
+				"eldritch_lore",
+				"fire_ch2",
+				"hallucinations",
+				"mad_science",
+				"miskatonic_university"
+			],
+			"extra_encounter_sets": []
+		},
+		{
+			"code": "smoke_and_mirrors",
+			"size": 9,
+			"encounter_sets": [
+				"arcane_lock",
+				"arkham_ch2",
+				"bad_weather",
+				"dead_ends",
+				"flying_terrors",
+				"gangs_of_arkham",
+				"people_of_arkham",
+				"whippoorwills_ch2"
+			],
+			"extra_encounter_sets": []
+		},
+		{
+			"code": "queen_of_ash",
+			"size": 16,
+			"encounter_sets": [
+				"ashen_pilgrims",
+				"cosmic_evils",
+				"cultists_ch2",
+				"fire_ch2",
+				"hallucinations",
+				"reeking_decay",
+				"arkham_sewers",
+				"torment"
+			],
+			"extra_encounter_sets": []
+		}
+	],
+	"size": 133
+}

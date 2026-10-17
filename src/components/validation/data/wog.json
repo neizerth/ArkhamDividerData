@@ -1,0 +1,31 @@
+{
+	"code": "wog",
+	"encounter_sets": [
+		{
+			"code": "death_of_stars",
+			"size": 9
+		},
+		{
+			"code": "children_of_paradise",
+			"size": 9
+		},
+		{
+			"code": "swarm_of_assimilation",
+			"size": 9
+		}
+	],
+	"extra_encounter_sets": [],
+	"scenarios": [
+		{
+			"code": "war_of_the_outer_gods",
+			"size": 51,
+			"encounter_sets": [
+				"children_of_paradise",
+				"swarm_of_assimilation",
+				"death_of_stars"
+			],
+			"extra_encounter_sets": []
+		}
+	],
+	"size": 78
+}

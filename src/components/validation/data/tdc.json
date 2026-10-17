@@ -1,0 +1,229 @@
+{
+	"code": "tdc",
+	"encounter_sets": [
+		{
+			"code": "stowaways",
+			"size": 6
+		},
+		{
+			"code": "pilgrims",
+			"size": 4
+		},
+		{
+			"code": "star_spawn",
+			"size": 4
+		},
+		{
+			"code": "cosmic_legacy",
+			"size": 4
+		},
+		{
+			"code": "elder_mist",
+			"size": 4
+		},
+		{
+			"code": "undersea_creatures",
+			"size": 5
+		},
+		{
+			"code": "tdc_flood",
+			"size": 6
+		},
+		{
+			"code": "rlyeh",
+			"size": 4
+		},
+		{
+			"code": "domination",
+			"size": 5
+		},
+		{
+			"code": "the_inescapable",
+			"size": 4
+		},
+		{
+			"code": "deep_ones",
+			"size": 5
+		},
+		{
+			"code": "dreams",
+			"size": 6
+		},
+		{
+			"code": "alien_machinery",
+			"size": 5
+		},
+		{
+			"code": "tasks",
+			"size": 8
+		},
+		{
+			"code": "tdc_expedition",
+			"size": 9
+		}
+	],
+	"extra_encounter_sets": [
+		{
+			"code": "chilling_cold",
+			"size": 4
+		},
+		{
+			"code": "locked_doors",
+			"size": 2
+		},
+		{
+			"code": "arkham",
+			"size": 16,
+			"full_size": 20,
+			"note": "Only the 11 locations and 5 treacheries are used (excluding scenario reference, act, and agenda cards): locations in 'One Last Job' and 'The Doom of Arkham, Part II', and both locations and treacheries in 'The Doom of Arkham, Part I'"
+		},
+		{
+			"code": "rats",
+			"size": 3
+		},
+		{
+			"code": "striking_fear",
+			"size": 7
+		},
+		{
+			"code": "agents_of_cthulhu",
+			"size": 4
+		},
+		{
+			"code": "pentagram",
+			"size": 6
+		},
+		{
+			"code": "ancient_evils",
+			"size": 3
+		},
+		{
+			"code": "nightgaunts",
+			"size": 4
+		}
+	],
+	"scenarios": [
+		{
+			"code": "one_last_job",
+			"size": 22,
+			"encounter_sets": ["dreams"],
+			"extra_encounter_sets": [
+				"chilling_cold",
+				"locked_doors",
+				"arkham",
+				"rats",
+				"striking_fear"
+			]
+		},
+		{
+			"code": "the_western_wall",
+			"size": 23,
+			"encounter_sets": [
+				"cosmic_legacy",
+				"deep_ones",
+				"tdc_flood",
+				"rlyeh",
+				"star_spawn",
+				"the_inescapable",
+				"undersea_creatures"
+			],
+			"extra_encounter_sets": ["agents_of_cthulhu"]
+		},
+		{
+			"code": "the_drowned_quarter",
+			"size": 21,
+			"encounter_sets": [
+				"alien_machinery",
+				"cosmic_legacy",
+				"deep_ones",
+				"elder_mist",
+				"tdc_flood",
+				"rlyeh",
+				"undersea_creatures"
+			],
+			"extra_encounter_sets": []
+		},
+		{
+			"code": "the_apiary",
+			"size": 40,
+			"encounter_sets": [
+				"cosmic_legacy",
+				"elder_mist",
+				"the_inescapable",
+				"pilgrims",
+				"star_spawn",
+				"stowaways"
+			],
+			"extra_encounter_sets": ["pentagram", "striking_fear"]
+		},
+		{
+			"code": "the_grand_vault",
+			"size": 29,
+			"encounter_sets": [
+				"alien_machinery",
+				"tdc_flood",
+				"the_inescapable",
+				"rlyeh",
+				"star_spawn"
+			],
+			"extra_encounter_sets": []
+		},
+		{
+			"code": "court_of_the_ancients",
+			"size": 31,
+			"encounter_sets": [
+				"domination",
+				"dreams",
+				"elder_mist",
+				"rlyeh",
+				"star_spawn",
+				"stowaways",
+				"pilgrims",
+				"the_inescapable"
+			],
+			"extra_encounter_sets": []
+		},
+		{
+			"code": "obsidian_canyons",
+			"size": 45,
+			"encounter_sets": [
+				"cosmic_legacy",
+				"elder_mist",
+				"rlyeh",
+				"star_spawn",
+				"the_inescapable"
+			],
+			"extra_encounter_sets": [
+				"ancient_evils",
+				"chilling_cold",
+				"nightgaunts",
+				"striking_fear"
+			]
+		},
+		{
+			"code": "sepulchre_of_the_sleeper",
+			"size": 9,
+			"encounter_sets": [
+				"domination",
+				"dreams",
+				"rlyeh",
+				"star_spawn",
+				"tdc_expedition"
+			],
+			"extra_encounter_sets": ["ancient_evils", "striking_fear"]
+		},
+		{
+			"code": "the_doom_of_arkham_part_1",
+			"size": 7,
+			"encounter_sets": ["deep_ones", "domination", "dreams", "star_spawn"],
+			"extra_encounter_sets": ["agents_of_cthulhu", "arkham"]
+		},
+		{
+			"code": "the_doom_of_arkham_part_2",
+			"size": 44,
+			"encounter_sets": ["domination", "elder_mist", "tdc_flood", "star_spawn"],
+			"extra_encounter_sets": ["agents_of_cthulhu", "arkham"]
+		}
+	],
+	"size": 350
+}

@@ -7,6 +7,10 @@ import { toArrayIf } from "@/util/common";
 import { normalizeEncounterCodes } from "@/util/encounterCanonical";
 import { prop, propEq, uniqBy } from "ramda";
 import { romanize } from "romans";
+import {
+	getStepEncounterSetSizes,
+	mergeScenarioEncounterSetSizes,
+} from "./getEncounterSetSizes";
 
 export const getScenarioIconIds = ({
 	campaignId,
@@ -133,24 +137,43 @@ export const createStoryScenarioHandler = ({
 					title,
 					aside,
 					type,
+					subtext,
 					encounter_sets = [],
-				}): IDatabase.ScenarioEncounterSetGroup => ({
-					id,
-					title,
-					type,
-					aside,
-					encounter_sets: normalizeEncounterCodes(
+				}): IDatabase.ScenarioEncounterSetGroup => {
+					const normalizedSets = normalizeEncounterCodes(
 						encounter_sets,
 						canonicalizeEncounterCode,
-					),
-					...getStepSetup(id),
-				}),
+					);
+					const stepSizes = getStepEncounterSetSizes({
+						encounterSetCodes: normalizedSets,
+						subtext,
+						encounterSets,
+					});
+
+					return {
+						id,
+						title,
+						type,
+						aside,
+						encounter_sets: normalizedSets,
+						...(stepSizes.length > 0 ? { encounter_set_data: stepSizes } : {}),
+						...getStepSetup(id),
+					};
+				},
 			);
+
+		const scenarioEncounterSetSizes = mergeScenarioEncounterSetSizes({
+			groups: encounterSetGroups,
+			encounterSets,
+		});
 
 		return {
 			...data,
 			encounter_sets: requiredEncounters,
 			extra_encounter_sets: extraEncounters,
+			...(scenarioEncounterSetSizes.length > 0
+				? { encounter_set_data: scenarioEncounterSetSizes }
+				: {}),
 			encounter_set_groups: encounterSetGroups,
 		};
 	};

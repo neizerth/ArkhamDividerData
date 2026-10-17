@@ -3,7 +3,6 @@ import * as ArkhamDB from "@/components/arkhamDB";
 import { sanitizeEncounterSynonyms } from "@/util/common";
 import { showError } from "@/util/console";
 import { whereSynonyms } from "@/util/criteria";
-import { groupBy, prop, propEq, toPairs } from "ramda";
 
 const SPECIAL_GROUP_NAMES = ["Epic Multiplayer", "Single Group"];
 
@@ -13,48 +12,20 @@ export const getEncounterSets = async () => {
 
 	console.log("loading ArkhamDB encounter sets...");
 	const arkhamDBEncounters = await ArkhamDB.getEncounterSets();
-
-	const specialGroups = toPairs(groupBy(prop("name"), arkhamDBEncounters))
-		.map(([name, group = []]) => {
-			return {
-				name,
-				group,
-			};
-		})
-		.filter(({ group, name }) => {
-			if (!SPECIAL_GROUP_NAMES.includes(name)) {
-				return false;
-			}
-			return group.length > 1;
-		});
-
-	// const specialNames = specialGroups.map(prop('name'));
-
-	// console.log(`found special groups: ${specialNames.join(", ")}...`);
+	const arkhamDBCodes = new Set(
+		arkhamDBEncounters.map((encounter) => encounter.code),
+	);
 
 	const prepareText = (text: string) => text.trim().toLowerCase();
 	const isEditionVariantCode = (code: string) => /_ch\d+$/i.test(code);
 
 	const matches = arkhamDBEncounters.map((encounter) => {
-		const specialGroup = specialGroups.find(propEq(encounter.name, "name"));
-		if (specialGroup) {
-			const synonyms = [
-				...encounter.synonyms,
-				...specialGroup.group
-					.map(prop("code"))
-					.filter((code) => code !== encounter.code),
-			];
-
-			return {
-				...encounter,
-				synonyms,
-			};
-		}
-
 		const arkhamCardsEncounter =
 			arkhamCardsEncounters.find(({ code }) => code === encounter.code) ??
 			arkhamCardsEncounters.find(
-				({ name }) => prepareText(encounter.name) === prepareText(name),
+				({ code, name }) =>
+					!arkhamDBCodes.has(code) &&
+					prepareText(encounter.name) === prepareText(name),
 			);
 
 		if (!arkhamCardsEncounter) {

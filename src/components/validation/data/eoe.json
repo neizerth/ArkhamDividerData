@@ -1,0 +1,180 @@
+{
+	"code": "eoe",
+	"encounter_sets": [
+		{
+			"code": "the_crash",
+			"size": 5
+		},
+		{
+			"code": "lost_in_the_night",
+			"size": 21
+		},
+		{
+			"code": "seeping_nightmares",
+			"size": 9
+		},
+		{
+			"code": "the_great_seal",
+			"size": 14
+		},
+		{
+			"code": "stirring_in_the_deep",
+			"size": 31
+		},
+		{
+			"code": "agents_of_the_unknown",
+			"size": 4
+		},
+		{
+			"code": "creatures_in_the_ice",
+			"size": 7
+		},
+		{
+			"code": "deadly_weather",
+			"size": 6
+		},
+		{
+			"code": "elder_things",
+			"size": 6
+		},
+		{
+			"code": "hazards_of_antarctica",
+			"size": 5
+		},
+		{
+			"code": "left_behind",
+			"size": 6
+		},
+		{
+			"code": "nameless_horrors",
+			"size": 6
+		},
+		{
+			"code": "miasma",
+			"size": 4
+		},
+		{
+			"code": "penguins",
+			"size": 4
+		},
+		{
+			"code": "shoggoths",
+			"size": 3
+		},
+		{
+			"code": "silence_and_mystery",
+			"size": 5
+		},
+		{
+			"code": "expedition_team",
+			"size": 9
+		},
+		{
+			"code": "tekelili",
+			"size": 16
+		},
+		{
+			"code": "memorials_of_the_lost",
+			"size": 9
+		}
+	],
+	"extra_encounter_sets": [
+		{
+			"code": "locked_doors",
+			"size": 2
+		},
+		{
+			"code": "chilling_cold",
+			"size": 4
+		},
+		{
+			"code": "ancient_evils",
+			"size": 3
+		},
+		{
+			"code": "striking_fear",
+			"size": 4,
+			"full_size": 7,
+			"note": "Only 4 cards (2x Dissonant Voices and 2x Frozen in Fear, excluding 3x Rotting Remains) are used in 'The Heart of Madness, Part II'"
+		}
+	],
+	"scenarios": [
+		{
+			"code": "ice_and_death",
+			"size": 21,
+			"encounter_sets": [
+				"the_crash",
+				"creatures_in_the_ice",
+				"deadly_weather",
+				"hazards_of_antarctica",
+				"silence_and_mystery",
+				"tekelili",
+				"lost_in_the_night",
+				"left_behind",
+				"seeping_nightmares"
+			],
+			"extra_encounter_sets": ["ancient_evils"]
+		},
+		{
+			"code": "fatal_mirage",
+			"size": 53,
+			"encounter_sets": [
+				"agents_of_the_unknown",
+				"left_behind",
+				"miasma",
+				"nameless_horrors",
+				"silence_and_mystery",
+				"tekelili"
+			],
+			"extra_encounter_sets": ["chilling_cold"]
+		},
+		{
+			"code": "to_the_forbidden_peaks",
+			"size": 34,
+			"encounter_sets": [
+				"deadly_weather",
+				"elder_things",
+				"hazards_of_antarctica",
+				"nameless_horrors",
+				"tekelili"
+			],
+			"extra_encounter_sets": []
+		},
+		{
+			"code": "city_of_the_elder_things",
+			"size": 47,
+			"encounter_sets": [
+				"elder_things",
+				"miasma",
+				"nameless_horrors",
+				"penguins",
+				"shoggoths",
+				"tekelili",
+				"creatures_in_the_ice",
+				"silence_and_mystery"
+			],
+			"extra_encounter_sets": ["locked_doors", "chilling_cold"]
+		},
+		{
+			"code": "the_heart_of_madness",
+			"size": 18,
+			"encounter_sets": [
+				"the_great_seal",
+				"miasma",
+				"nameless_horrors",
+				"penguins",
+				"shoggoths",
+				"tekelili",
+				"stirring_in_the_deep",
+				"agents_of_the_unknown"
+			],
+			"extra_encounter_sets": [
+				"ancient_evils",
+				"locked_doors",
+				"chilling_cold",
+				"striking_fear"
+			]
+		}
+	],
+	"size": 343
+}

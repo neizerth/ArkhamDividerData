@@ -35,11 +35,26 @@ export const getCampaignEncounterSets = (): ICache.ScenarioEncounterSet[] => {
 		const additionalCodes =
 			packsData.find(propEq(code, "pack_code"))?.add_encounter_sets || [];
 
+		const coreScenario = scenarios.find(
+			(scenario) => scenario.id === "core" || scenario.type === "core",
+		);
+		const coreDayEncounterSets =
+			coreScenario?.steps
+				.filter((step) => step.id.startsWith("gather_day_"))
+				.flatMap((step) => step.encounter_sets ?? []) ?? [];
+
 		const packScenarioEncounters = scenarios.map((scenario) => {
+			const sharedDaySets = scenario.setup?.includes(
+				"$gather_day_encounter_set",
+			)
+				? coreDayEncounterSets
+				: [];
+
 			const scenarioEncounters = scenario.steps
 				.map(prop("encounter_sets"))
 				.filter(isNotNil)
 				.flat()
+				.concat(sharedDaySets)
 				.concat(additionalCodes);
 
 			const getIsExtra = (code: string) => {

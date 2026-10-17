@@ -1,0 +1,31 @@
+{
+	"code": "film_fatale",
+	"encounter_sets": [
+		{
+			"code": "cosmic_journey",
+			"size": 15
+		},
+		{
+			"code": "forgotten_island",
+			"size": 15
+		},
+		{
+			"code": "abominable_contessa",
+			"size": 15
+		}
+	],
+	"extra_encounter_sets": [],
+	"scenarios": [
+		{
+			"code": "film_fatale",
+			"size": 33,
+			"encounter_sets": [
+				"cosmic_journey",
+				"forgotten_island",
+				"abominable_contessa"
+			],
+			"extra_encounter_sets": []
+		}
+	],
+	"size": 78
+}

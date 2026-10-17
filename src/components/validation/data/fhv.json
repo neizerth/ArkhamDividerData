@@ -1,0 +1,220 @@
+{
+	"code": "fhv",
+	"encounter_sets": [
+		{
+			"code": "the_first_day",
+			"size": 4
+		},
+		{
+			"code": "the_second_day",
+			"size": 4
+		},
+		{
+			"code": "the_final_day",
+			"size": 4
+		},
+		{
+			"code": "day_of_rest",
+			"size": 2
+		},
+		{
+			"code": "day_of_rain",
+			"size": 6
+		},
+		{
+			"code": "day_of_the_feast",
+			"size": 8
+		},
+		{
+			"code": "residents",
+			"size": 11
+		},
+		{
+			"code": "heirlooms",
+			"size": 3
+		},
+		{
+			"code": "horrors_in_the_rock",
+			"size": 12
+		},
+		{
+			"code": "agents_of_the_colour",
+			"size": 4
+		},
+		{
+			"code": "transfiguration",
+			"size": 4
+		},
+		{
+			"code": "blight",
+			"size": 4
+		},
+		{
+			"code": "refractions",
+			"size": 5
+		},
+		{
+			"code": "the_forest",
+			"size": 11
+		},
+		{
+			"code": "myconids",
+			"size": 5
+		},
+		{
+			"code": "mutations",
+			"size": 4
+		},
+		{
+			"code": "fire",
+			"size": 5
+		},
+		{
+			"code": "the_vale",
+			"size": 9
+		}
+	],
+	"extra_encounter_sets": [
+		{
+			"code": "chilling_cold",
+			"size": 4
+		},
+		{
+			"code": "ghouls",
+			"size": 7
+		},
+		{
+			"code": "locked_doors",
+			"size": 2
+		},
+		{
+			"code": "rats",
+			"size": 3
+		},
+		{
+			"code": "striking_fear",
+			"size": 7
+		},
+		{
+			"code": "arkham",
+			"size": 5,
+			"full_size": 20,
+			"note": "Only the 5 treachery cards (2x False Lead and 3x Hunting Shadow) are used in 'The Longest Night'"
+		}
+	],
+	"scenarios": [
+		{
+			"code": "written_in_rock",
+			"size": 36,
+			"encounter_sets": [
+				"horrors_in_the_rock",
+				"refractions",
+				"residents",
+				"the_first_day",
+				"the_second_day",
+				"the_final_day"
+			],
+			"extra_encounter_sets": ["chilling_cold", "ghouls"]
+		},
+		{
+			"code": "hemlock_house",
+			"size": 31,
+			"encounter_sets": [
+				"agents_of_the_colour",
+				"blight",
+				"fire",
+				"transfiguration",
+				"residents",
+				"the_first_day",
+				"the_second_day",
+				"the_final_day"
+			],
+			"extra_encounter_sets": ["locked_doors", "rats"]
+		},
+		{
+			"code": "the_silent_heath",
+			"size": 26,
+			"encounter_sets": [
+				"agents_of_the_colour",
+				"blight",
+				"horrors_in_the_rock",
+				"refractions",
+				"transfiguration",
+				"residents",
+				"the_first_day",
+				"the_second_day",
+				"the_final_day"
+			],
+			"extra_encounter_sets": ["striking_fear"]
+		},
+		{
+			"code": "the_lost_sister",
+			"size": 28,
+			"encounter_sets": [
+				"blight",
+				"horrors_in_the_rock",
+				"mutations",
+				"myconids",
+				"residents",
+				"the_first_day",
+				"the_second_day",
+				"the_final_day"
+			],
+			"extra_encounter_sets": []
+		},
+		{
+			"code": "the_thing_in_the_depths",
+			"size": 29,
+			"encounter_sets": [
+				"blight",
+				"the_forest",
+				"mutations",
+				"residents",
+				"the_first_day",
+				"the_second_day",
+				"the_final_day"
+			],
+			"extra_encounter_sets": []
+		},
+		{
+			"code": "the_twisted_hollow",
+			"size": 31,
+			"encounter_sets": [
+				"the_first_day",
+				"the_forest",
+				"myconids",
+				"residents"
+			],
+			"extra_encounter_sets": []
+		},
+		{
+			"code": "the_longest_night",
+			"size": 38,
+			"encounter_sets": [
+				"the_second_day",
+				"blight",
+				"transfiguration",
+				"fire",
+				"residents"
+			],
+			"extra_encounter_sets": ["chilling_cold", "arkham", "striking_fear"]
+		},
+		{
+			"code": "fate_of_the_vale",
+			"size": 31,
+			"encounter_sets": [
+				"the_final_day",
+				"day_of_the_feast",
+				"agents_of_the_colour",
+				"fire",
+				"horrors_in_the_rock",
+				"refractions",
+				"residents",
+				"transfiguration",
+				"the_vale"
+			],
+			"extra_encounter_sets": []
+		}
+	],
+	"size": 355
+}

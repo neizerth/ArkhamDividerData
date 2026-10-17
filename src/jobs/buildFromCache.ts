@@ -1,7 +1,8 @@
-import { getCustomContent } from "@/components/custom/getCustomContent";
 import { enrichCustomContentSizes } from "@/components/arkhamBuildFan";
+import { getCustomContent } from "@/components/custom/getCustomContent";
+import { validateBuild } from "@/components/validation";
 import { VERSION } from "@/constants";
-import customTranslations from '@/data/translations';
+import customTranslations from "@/data/translations";
 import type { IBuild } from "@/types/build";
 import { CacheType } from "@/types/cache";
 import type { Mapping } from "@/types/common";
@@ -12,123 +13,129 @@ import { prop } from "ramda";
 import * as Cache from "../util/cache";
 
 export const buildFromCache = async () => {
-  const languages = buildI18NSources();
+	const languages = buildI18NSources();
 
-  await buildCoreSources(languages);
-}
+	await buildCoreSources(languages);
+};
 
 export const buildI18NSources = () => {
-  console.log('building i18n...');
-  const languages = Cache.getCampaignLanguages();
+	console.log("building i18n...");
+	const languages = Cache.getCampaignLanguages();
 
-  return languages.filter(buildLanguageSource);
-}
+	return languages.filter(buildLanguageSource);
+};
 
 export const buildLanguageSource = (language: string) => {
-  if (language === 'en') {
-    return true;
-  }
+	if (language === "en") {
+		return true;
+	}
 
-  console.log(`building language source: ${language}...`);
-  const getCache = createI18NCacheReader(language);
+	console.log(`building language source: ${language}...`);
+	const getCache = createI18NCacheReader(language);
 
-  const translatedStoriesCache = getCache<string[]>(CacheType.TRANSLATED_STORIES);
+	const translatedStoriesCache = getCache<string[]>(
+		CacheType.TRANSLATED_STORIES,
+	);
 
-  const custom = customTranslations[language];
+	const custom = customTranslations[language];
 
-  const customTranslatedStories = custom ? Object.keys(custom.translations) : [];
+	const customTranslatedStories = custom
+		? Object.keys(custom.translations)
+		: [];
 
-  const translatedStories = [
-    ...translatedStoriesCache,
-    ...customTranslatedStories
-  ]
+	const translatedStories = [
+		...translatedStoriesCache,
+		...customTranslatedStories,
+	];
 
-  if (translatedStories.length === 0) {
-    return false;
-  }
+	if (translatedStories.length === 0) {
+		return false;
+	}
 
-  const translatedCampaigns = getCache<string[]>(CacheType.TRANSLATED_CAMPAIGNS);
-  const translatedScenarios = getCache<string[]>(CacheType.TRANSLATED_SCENARIOS);
+	const translatedCampaigns = getCache<string[]>(
+		CacheType.TRANSLATED_CAMPAIGNS,
+	);
+	const translatedScenarios = getCache<string[]>(
+		CacheType.TRANSLATED_SCENARIOS,
+	);
 
-  const campaigns = getCache<Mapping>(CacheType.CAMPAIGNS);
-  const scenarios = getCache<Mapping>(CacheType.SCENARIOS);
-  const common = getCache<Mapping>(CacheType.COMMON_TRANSLATION);
-  const encounterSets = getCache<Mapping>(CacheType.ENCOUNTER_SETS);
-  const investigators = getCache<Mapping>(CacheType.INVESTIGATORS);
+	const campaigns = getCache<Mapping>(CacheType.CAMPAIGNS);
+	const scenarios = getCache<Mapping>(CacheType.SCENARIOS);
+	const common = getCache<Mapping>(CacheType.COMMON_TRANSLATION);
+	const encounterSets = getCache<Mapping>(CacheType.ENCOUNTER_SETS);
+	const investigators = getCache<Mapping>(CacheType.INVESTIGATORS);
 
-  const storiesCache = getCache<Mapping>(CacheType.DATABASE_STORIES);
-  const customStoriesTranslation = custom?.common || {};
+	const storiesCache = getCache<Mapping>(CacheType.DATABASE_STORIES);
+	const customStoriesTranslation = custom?.common || {};
 
-  const stories = {
-    ...storiesCache,
-    ...customStoriesTranslation
-  }
+	const stories = {
+		...storiesCache,
+		...customStoriesTranslation,
+	};
 
-  const data: IBuild.Translation = {
-    translatedCampaigns,
-    translatedScenarios,
-    translatedStories,
-    campaigns,
-    encounterSets,
-    scenarios,
-    stories,
-    investigators,
-    custom: custom?.translations || {},
-    common
-  }
+	const data: IBuild.Translation = {
+		translatedCampaigns,
+		translatedScenarios,
+		translatedStories,
+		campaigns,
+		encounterSets,
+		scenarios,
+		stories,
+		investigators,
+		custom: custom?.translations || {},
+		common,
+	};
 
-  buildSource(language, data);
-  return true;
-}
+	buildSource(language, data);
+	return true;
+};
 
 export const buildCoreSources = async (languages: string[]) => {
-  console.log('building core sources...');
-  const cachedStories = Cache.getStories();
-  const cachedEncounterSets = Cache.getDatabaseEncounterSets();
-  const icons = Cache.getDatabaseIcons();
-  
-  const cachedPacks = Cache.getPacks();
-  const cycles = Cache.getCycles();
+	console.log("building core sources...");
+	const cachedStories = Cache.getStories();
+	const cachedEncounterSets = Cache.getDatabaseEncounterSets();
+	const icons = Cache.getDatabaseIcons();
 
-  const uniqueCustomContent = await enrichCustomContentSizes(getCustomContent());
+	const cachedPacks = Cache.getPacks();
+	const cycles = Cache.getCycles();
 
-  const customStories = uniqueCustomContent.map(prop('story'));
-  const customEncounterSets = uniqueCustomContent
-    .flatMap(prop('encounterSets'));
-    
-  const customPacks = uniqueCustomContent.map(prop('pack'));
+	const uniqueCustomContent = await enrichCustomContentSizes(
+		getCustomContent(),
+	);
 
-  const stories = [
-    ...cachedStories,
-    ...customStories
-  ];
+	const customStories = uniqueCustomContent.map(prop("story"));
+	const customEncounterSets = uniqueCustomContent.flatMap(
+		prop("encounterSets"),
+	);
 
-  const encounterSets = [
-    ...cachedEncounterSets,
-    ...customEncounterSets,
-  ].map((encounterSet) => ({
-    ...encounterSet,
-    synonyms: sanitizeEncounterSynonyms(
-      encounterSet.code,
-      encounterSet.synonyms ?? [],
-    ),
-  }));
+	const customPacks = uniqueCustomContent.map(prop("pack"));
 
-  const packs = [
-    ...cachedPacks,
-    ...customPacks
-  ]
+	const stories = [...cachedStories, ...customStories];
 
-  const data: IBuild.Core = {
-    version: VERSION,
-    languages,
-    stories,
-    encounterSets,
-    packs,
-    cycles,
-    icons,
-  };
+	const encounterSets = [...cachedEncounterSets, ...customEncounterSets].map(
+		(encounterSet) => ({
+			...encounterSet,
+			synonyms: sanitizeEncounterSynonyms(
+				encounterSet.code,
+				encounterSet.synonyms ?? [],
+			),
+		}),
+	);
 
-  buildSource(CacheType.CORE, data);
-  buildSource('icons', icons);
-}
+	const packs = [...cachedPacks, ...customPacks];
+
+	const data: IBuild.Core = {
+		version: VERSION,
+		languages,
+		stories,
+		encounterSets,
+		packs,
+		cycles,
+		icons,
+	};
+
+	validateBuild({ stories, encounterSets });
+
+	buildSource(CacheType.CORE, data);
+	buildSource("icons", icons);
+};

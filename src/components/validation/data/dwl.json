@@ -1,0 +1,144 @@
+{
+	"code": "dwl",
+	"encounter_sets": [
+		{
+			"code": "sorcery",
+			"size": 6
+		},
+		{
+			"code": "bishops_thralls",
+			"size": 6
+		},
+		{
+			"code": "dunwich",
+			"size": 4
+		},
+		{
+			"code": "whippoorwills",
+			"size": 5
+		},
+		{
+			"code": "bad_luck",
+			"size": 6
+		},
+		{
+			"code": "beast_thralls",
+			"size": 6
+		},
+		{
+			"code": "naomis_crew",
+			"size": 6
+		},
+		{
+			"code": "the_beyond",
+			"size": 6
+		},
+		{
+			"code": "hideous_abominations",
+			"size": 3
+		},
+		{
+			"code": "armitages_fate",
+			"size": 1
+		}
+	],
+	"extra_encounter_sets": [
+		{
+			"code": "nightgaunts",
+			"size": 4
+		},
+		{
+			"code": "ancient_evils",
+			"size": 3
+		},
+		{
+			"code": "striking_fear",
+			"size": 7
+		},
+		{
+			"code": "pentagram",
+			"size": 6
+		},
+		{
+			"code": "locked_doors",
+			"size": 2
+		},
+		{
+			"code": "agents_of_yog",
+			"size": 4
+		},
+		{
+			"code": "rats",
+			"size": 3
+		},
+		{
+			"code": "chilling_cold",
+			"size": 4
+		}
+	],
+	"scenarios": [
+		{
+			"code": "extracurricular_activity",
+			"size": 21,
+			"encounter_sets": [
+				"sorcery",
+				"the_beyond",
+				"bishops_thralls",
+				"whippoorwills"
+			],
+			"extra_encounter_sets": ["ancient_evils", "locked_doors", "agents_of_yog"]
+		},
+		{
+			"code": "the_house_always_wins",
+			"size": 23,
+			"encounter_sets": ["bad_luck", "naomis_crew", "hideous_abominations"],
+			"extra_encounter_sets": ["rats", "striking_fear"]
+		},
+		{
+			"code": "the_miskatonic_museum",
+			"size": 34,
+			"encounter_sets": ["bad_luck", "sorcery", "the_beyond"],
+			"extra_encounter_sets": ["chilling_cold", "locked_doors"]
+		},
+		{
+			"code": "lost_in_time_and_space",
+			"size": 36,
+			"encounter_sets": ["sorcery", "the_beyond", "hideous_abominations"],
+			"extra_encounter_sets": ["agents_of_yog"]
+		},
+		{
+			"code": "essex_county_express",
+			"size": 36,
+			"encounter_sets": ["the_beyond"],
+			"extra_encounter_sets": ["striking_fear", "ancient_evils", "pentagram"]
+		},
+		{
+			"code": "blood_on_the_altar",
+			"size": 38,
+			"encounter_sets": ["dunwich", "whippoorwills", "naomis_crew"],
+			"extra_encounter_sets": ["nightgaunts", "ancient_evils"]
+		},
+		{
+			"code": "undimensioned_and_unseen",
+			"size": 38,
+			"encounter_sets": ["whippoorwills", "beast_thralls", "dunwich"],
+			"extra_encounter_sets": ["striking_fear"]
+		},
+		{
+			"code": "where_doom_awaits",
+			"size": 32,
+			"encounter_sets": [
+				"beast_thralls",
+				"sorcery",
+				"bishops_thralls",
+				"hideous_abominations"
+			],
+			"extra_encounter_sets": [
+				"striking_fear",
+				"ancient_evils",
+				"chilling_cold"
+			]
+		}
+	],
+	"size": 307
+}
