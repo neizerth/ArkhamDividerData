@@ -1,3 +1,4 @@
+import { checkStories } from "@/components/validation";
 import * as app from "@/config/app";
 import {
 	buildFromCache,
@@ -40,6 +41,8 @@ export class App {
 				return await createAssets();
 			case "build":
 				return await buildFromCache();
+			case "validate":
+				return checkStories();
 			case "validate-counts":
 				// Local OCR validation only — not invoked by CI (`npm start` default).
 				return await validateEncounterCounts(process.argv[3]);

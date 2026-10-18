@@ -1,6 +1,5 @@
 import { enrichCustomContentSizes } from "@/components/arkhamBuildFan";
 import { getCustomContent } from "@/components/custom/getCustomContent";
-import { validateBuild } from "@/components/validation";
 import { VERSION } from "@/constants";
 import customTranslations from "@/data/translations";
 import type { IBuild } from "@/types/build";
@@ -133,8 +132,6 @@ export const buildCoreSources = async (languages: string[]) => {
 		cycles,
 		icons,
 	};
-
-	validateBuild({ stories, encounterSets });
 
 	buildSource(CacheType.CORE, data);
 	buildSource("icons", icons);

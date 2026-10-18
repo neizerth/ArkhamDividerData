@@ -13,6 +13,7 @@
 		"build": "tsc && tsc-alias",
 		"pack": "npm run build && npm publish",
 		"db": "npm start database && npm start build",
+		"validate": "tsx ./src/index.ts validate",
 		"validate:counts": "tsx ./src/index.ts validate-counts",
 		"validate:hobbyGames": "tsx ./src/index.ts validate-hobbyGames"
 	},
