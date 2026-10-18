@@ -1,50 +1,52 @@
 {
-  "without_size_support": [],
-  "arkham_db_mapping": [
-    {
-      "campaign_id": "tskc",
-      "pack_code": "tsk"
-    },
-    {
-      "campaign_id": "tdea",
-      "pack_code": "tde"
-    },
-    {
-      "campaign_id": "tdeb",
-      "pack_code": "tde"
-    },
-    {
-      "campaign_id": "rttic",
-      "pack_code": "zrttic"
-    },
-    {
-      "campaign_id": "boa",
-      "pack_code": "core_2026"
-    }
-  ],
-  "encounter_priority_campaigns": ["tskc"],
-  "ignore_campaign_scenarios": [
-    {
-      "campaign_id": "tdc",
-      "scenario_ids": ["core"]
-    },
-    {
-      "campaign_id": "fhv",
-      "scenario_ids": [
-        "fhv_prologue",
-        "the_first_evening",
-        "dawn_of_the_second_day",
-        "the_second_evening",
-        "dawn_of_the_final_day",
-        "the_final_evening",
-        "fhv_epilogue"
-      ]
-    },
-    {
-      "campaign_id": "cob",
-      "scenario_ids": [
-        "friends_in_low_places"
-      ]
-    }
-  ]
+	"without_size_support": [],
+	"arkham_db_mapping": [
+		{
+			"campaign_id": "tskc",
+			"pack_code": "tsk"
+		},
+		{
+			"campaign_id": "tdea",
+			"pack_code": "tde"
+		},
+		{
+			"campaign_id": "tdeb",
+			"pack_code": "tde"
+		},
+		{
+			"campaign_id": "rttic",
+			"pack_code": "zrttic"
+		},
+		{
+			"campaign_id": "boa",
+			"pack_code": "core_2026"
+		}
+	],
+	"encounter_priority_campaigns": ["tskc"],
+	"ignore_campaign_scenarios": [
+		{
+			"campaign_id": "tdc",
+			"scenario_ids": ["core"]
+		},
+		{
+			"campaign_id": "fhv",
+			"scenario_ids": [
+				"fhv_prologue",
+				"the_first_evening",
+				"dawn_of_the_second_day",
+				"the_second_evening",
+				"dawn_of_the_final_day",
+				"the_final_evening",
+				"fhv_epilogue"
+			]
+		},
+		{
+			"campaign_id": "cob",
+			"scenario_ids": ["friends_in_low_places"]
+		},
+		{
+			"campaign_id": "eoe",
+			"scenario_ids": ["fatal_mirage_2", "fatal_mirage_3"]
+		}
+	]
 }

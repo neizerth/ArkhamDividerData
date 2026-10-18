@@ -179,7 +179,6 @@ export const groupStoryScenariosByNumber = ({
 					full_name: coreScenario.full_name || coreScenario.scenario_name,
 					scenario_name: coreScenario.scenario_name,
 					header: "",
-					scenarios,
 				};
 			}
 
@@ -223,11 +222,16 @@ export const groupStoryScenariosByHeader = ({
 				return first;
 			}
 
+			const scenariosWithEncounters = group.filter(withEncounters);
+			if (scenariosWithEncounters.length <= 1) {
+				return scenariosWithEncounters;
+			}
+
 			const primary =
 				group.find(
 					(scenario) =>
 						!/(_part)?_\d+$/.test(scenario.id) && scenario.type !== "interlude",
-				) ?? first;
+				) ?? scenariosWithEncounters[0];
 
 			const scenarioGroup = omit(
 				["encounter_sets", "extra_encounter_sets", "encounter_set_data"],
@@ -236,8 +240,8 @@ export const groupStoryScenariosByHeader = ({
 
 			return {
 				...scenarioGroup,
-				...getGroupEncounters(group, encounterSets),
-				scenarios: group,
+				...getGroupEncounters(scenariosWithEncounters, encounterSets),
+				scenarios: scenariosWithEncounters,
 			};
 		});
 };
