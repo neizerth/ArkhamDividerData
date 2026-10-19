@@ -1,5 +1,6 @@
 import blob from "./blob.json";
 import coh from "./coh.json";
+import core from "./core.json";
 import core_2026 from "./core_2026.json";
 import dwl from "./dwl.json";
 import eoe from "./eoe.json";
@@ -23,6 +24,7 @@ import wog from "./wog.json";
 export {
 	blob,
 	coh,
+	core,
 	core_2026,
 	dwl,
 	eoe,
@@ -45,6 +47,7 @@ export {
 };
 
 export default [
+	core,
 	core_2026,
 	dwl,
 	ptc,

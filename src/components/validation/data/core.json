@@ -1,0 +1,100 @@
+{
+	"code": "core",
+	"encounter_sets": [
+		{
+			"code": "chilling_cold",
+			"size": 4
+		},
+		{
+			"code": "nightgaunts",
+			"size": 4
+		},
+		{
+			"code": "pentagram",
+			"size": 6
+		},
+		{
+			"code": "locked_doors",
+			"size": 2
+		},
+		{
+			"code": "cultists",
+			"size": 5
+		},
+		{
+			"code": "ancient_evils",
+			"size": 3
+		},
+		{
+			"code": "striking_fear",
+			"size": 7
+		},
+		{
+			"code": "ghouls",
+			"size": 7
+		},
+		{
+			"code": "agents_of_yog",
+			"size": 4
+		},
+		{
+			"code": "agents_of_shub",
+			"size": 4
+		},
+		{
+			"code": "agents_of_cthulhu",
+			"size": 4
+		},
+		{
+			"code": "agents_of_hastur",
+			"size": 4
+		},
+		{
+			"code": "rats",
+			"size": 3
+		}
+	],
+	"extra_encounter_sets": [],
+	"scenarios": [
+		{
+			"code": "torch",
+			"size": 16,
+			"encounter_sets": [
+				"rats",
+				"ghouls",
+				"striking_fear",
+				"ancient_evils",
+				"chilling_cold"
+			],
+			"extra_encounter_sets": []
+		},
+		{
+			"code": "arkham",
+			"size": 20,
+			"encounter_sets": [
+				"chilling_cold",
+				"nightgaunts",
+				"pentagram",
+				"locked_doors",
+				"cultists"
+			],
+			"extra_encounter_sets": []
+		},
+		{
+			"code": "tentacles",
+			"size": 18,
+			"encounter_sets": [
+				"ancient_evils",
+				"striking_fear",
+				"ghouls",
+				"pentagram",
+				"agents_of_yog",
+				"agents_of_shub",
+				"agents_of_cthulhu",
+				"agents_of_hastur"
+			],
+			"extra_encounter_sets": []
+		}
+	],
+	"size": 111
+}
