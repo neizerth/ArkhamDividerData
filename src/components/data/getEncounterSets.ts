@@ -1,3 +1,4 @@
+import * as ArkhamCardsAPI from "@/api/arkhamCards/api";
 import * as ArkhamCards from "@/components/arkhamCards";
 import * as ArkhamDB from "@/components/arkhamDB";
 import { sanitizeEncounterSynonyms } from "@/util/common";
@@ -8,7 +9,26 @@ const SPECIAL_GROUP_NAMES = ["Epic Multiplayer", "Single Group"];
 
 export const getEncounterSets = async () => {
 	console.log("loading Arkham Cards encounter sets...");
-	const arkhamCardsEncounters = await ArkhamCards.getEncounterSets();
+	const arkhamCardsJsonEncounters = await ArkhamCards.getEncounterSets();
+
+	// Campaign assets (`all_campaigns.txt`) can still use older app codes that
+	// differ from `encounter_sets.json` / ArkhamDB (e.g. `sewers` vs
+	// `arkham_sewers`). Pull those in so name matching can record synonyms.
+	const appEncounterMapping = await ArkhamCardsAPI.loadEncounterSets("en");
+	const knownArkhamCardsCodes = new Set(
+		arkhamCardsJsonEncounters.map((encounter) => encounter.code),
+	);
+	const appOnlyEncounters = Object.entries(appEncounterMapping)
+		.filter(([code]) => !knownArkhamCardsCodes.has(code))
+		.map(([code, name]) => ({
+			code,
+			name,
+			synonyms: [] as string[],
+		}));
+	const arkhamCardsEncounters = [
+		...arkhamCardsJsonEncounters,
+		...appOnlyEncounters,
+	];
 
 	console.log("loading ArkhamDB encounter sets...");
 	const arkhamDBEncounters = await ArkhamDB.getEncounterSets();
@@ -20,13 +40,16 @@ export const getEncounterSets = async () => {
 	const isEditionVariantCode = (code: string) => /_ch\d+$/i.test(code);
 
 	const matches = arkhamDBEncounters.map((encounter) => {
+		const nameAliases = arkhamCardsEncounters.filter(
+			({ code, name }) =>
+				code !== encounter.code &&
+				!arkhamDBCodes.has(code) &&
+				prepareText(encounter.name) === prepareText(name),
+		);
+
 		const arkhamCardsEncounter =
 			arkhamCardsEncounters.find(({ code }) => code === encounter.code) ??
-			arkhamCardsEncounters.find(
-				({ code, name }) =>
-					!arkhamDBCodes.has(code) &&
-					prepareText(encounter.name) === prepareText(name),
-			);
+			nameAliases[0];
 
 		if (!arkhamCardsEncounter) {
 			showError(`Arkham Cards encounter not found: ${encounter.code}`);
@@ -34,27 +57,27 @@ export const getEncounterSets = async () => {
 			return encounter;
 		}
 
-		if (encounter.code === arkhamCardsEncounter.code) {
-			return encounter;
-		}
-
 		// Treat edition variants (e.g. `_ch2`) as distinct encounter sets.
 		// Matching solely by name can incorrectly merge `fire` and `fire_ch2`,
 		// which should remain separate codes.
-		if (
-			isEditionVariantCode(encounter.code) ||
-			isEditionVariantCode(arkhamCardsEncounter.code)
-		) {
+		const aliasCodes = nameAliases
+			.map(({ code }) => code)
+			.filter(
+				(code) =>
+					!isEditionVariantCode(encounter.code) && !isEditionVariantCode(code),
+			);
+
+		if (aliasCodes.length === 0) {
 			return encounter;
 		}
 
 		console.log(
-			`found encounter code difference: ${encounter.code}/${arkhamCardsEncounter.code}`,
+			`found encounter code difference: ${encounter.code}/${aliasCodes.join(", ")}`,
 		);
 
 		return {
 			...encounter,
-			synonyms: [...encounter.synonyms, arkhamCardsEncounter.code],
+			synonyms: [...encounter.synonyms, ...aliasCodes],
 		};
 	});
 
