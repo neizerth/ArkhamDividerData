@@ -1,0 +1,56 @@
+{
+	"code": "zhod",
+	"encounter_sets": [
+		{
+			"code": "zhod_lands_of_the_congo",
+			"size": 12
+		},
+		{
+			"code": "zhod_african_wildlife",
+			"size": 8
+		},
+		{
+			"code": "zhod_the_darkness",
+			"size": 18
+		},
+		{
+			"code": "zhod_cult_of_darkness",
+			"size": 8
+		}
+	],
+	"extra_encounter_sets": [],
+	"scenarios": [
+		{
+			"code": "zhod_africa_is_watching",
+			"size": 38,
+			"encounter_sets": [
+				"zhod_lands_of_the_congo",
+				"zhod_african_wildlife",
+				"zhod_the_darkness"
+			],
+			"extra_encounter_sets": []
+		},
+		{
+			"code": "zhod_to_the_heart_of_the_congo",
+			"size": 55,
+			"encounter_sets": [
+				"zhod_the_darkness",
+				"zhod_lands_of_the_congo",
+				"zhod_cult_of_darkness",
+				"zhod_african_wildlife"
+			],
+			"extra_encounter_sets": []
+		},
+		{
+			"code": "zhod_the_avatar_of_darkness",
+			"size": 65,
+			"encounter_sets": [
+				"zhod_lands_of_the_congo",
+				"zhod_the_darkness",
+				"zhod_cult_of_darkness"
+			],
+			"extra_encounter_sets": []
+		}
+	],
+	"size": 204
+}
