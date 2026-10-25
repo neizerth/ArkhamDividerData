@@ -2,6 +2,10 @@
 	"common": {
 		"Dark Matter: Science Expansion": "Тёмная материя: Наука"
 	},
+	"translations": {
+		"Purchasable Science Cards": "Наука: изучаемые сюжетные активы",
+		"Researched Story Assets": "Наука: карты колоды сканирования"
+	},
 	"translated_by": [
 		{
 			"name": "@Renegat_693",

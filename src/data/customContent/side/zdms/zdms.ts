@@ -7,10 +7,15 @@ export default createCustomContent({
 		type: "side_story",
 		name: "Dark Matter: Science Expansion",
 	},
+	scenarios: false,
 	encounterSets: [
 		{
-			name: "Dark Matter: Science Expansion",
+			name: "Purchasable Science Cards",
 			code: "cards",
+		},
+		{
+			name: "Researched Story Assets",
+			code: "zdms",
 		},
 	],
 	icons: [

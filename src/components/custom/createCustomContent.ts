@@ -26,14 +26,19 @@ export type CreateCustomContentOptions = {
 		height: number;
 		circled?: boolean;
 	}>;
-	scenarios?: Array<
-		Omit<IDatabase.StoryScenario, "header" | "full_name" | "campaign_id"> & {
-			prefix?: string | false | boolean;
-			campaign_id?: string;
-			header?: string;
-			full_name?: string;
-		}
-	>;
+	scenarios?:
+		| Array<
+				Omit<
+					IDatabase.StoryScenario,
+					"header" | "full_name" | "campaign_id"
+				> & {
+					prefix?: string | false | boolean;
+					campaign_id?: string;
+					header?: string;
+					full_name?: string;
+				}
+		  >
+		| false;
 	encounterSets?: Omit<
 		CustomContentEncounter,
 		"synonyms" | "is_canonical" | "is_official"
@@ -57,7 +62,7 @@ export type CreateCustomContentOptions = {
 };
 
 export type CustomContentEncounter = IDatabase.EncounterSet & {
-	prefix?: boolean
+	prefix?: boolean;
 };
 
 export const createCustomContent = (options: CreateCustomContentOptions) => {
@@ -93,35 +98,43 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 
 	const toId = (id: string) => (id === code ? code : withCode(id));
 
-	const scenarios: IDatabase.StoryScenario[] = options.scenarios
-		? options.scenarios.map((scenario) => {
-				const iconId = scenario.icon || scenario.id;
-				const icon = scenario.prefix === false ? iconId : toId(iconId);
-				return {
-					...scenario,
-					id: toId(scenario.id),
-					icon,
-					campaign_id: code,
-					full_name: scenario.full_name || scenario.scenario_name,
-					header: scenario.header || scenario.scenario_name,
-					encounter_sets: scenario.encounter_sets?.map(toId) || [
-						toId(scenario.id),
-					].filter(filterEncounterSet),
-				};
-			})
-		: [
-				{
-					id: code,
-					icon: code,
-					campaign_id: code,
-					scenario_name: name,
-					header: name,
-					full_name: name,
-				},
-			];
+	let scenarios: IDatabase.StoryScenario[] = [];
 
-	const campaignScenarios =
-		scenarios.length > 0 ? scenarios.map(prop("id")) : [code];
+	if (options.scenarios !== false) {
+		scenarios = options.scenarios
+			? options.scenarios.map((scenario) => {
+					const iconId = scenario.icon || scenario.id;
+					const icon = scenario.prefix === false ? iconId : toId(iconId);
+					return {
+						...scenario,
+						id: toId(scenario.id),
+						icon,
+						campaign_id: code,
+						full_name: scenario.full_name || scenario.scenario_name,
+						header: scenario.header || scenario.scenario_name,
+						encounter_sets:
+							scenario.encounter_sets?.map(toId) ||
+							[toId(scenario.id)].filter(filterEncounterSet),
+					};
+				})
+			: [
+					{
+						id: code,
+						icon: code,
+						campaign_id: code,
+						scenario_name: name,
+						header: name,
+						full_name: name,
+					},
+				];
+	}
+
+	let campaignScenarios: string[] = [];
+
+	if (options.scenarios !== false) {
+		campaignScenarios =
+			scenarios.length > 0 ? scenarios.map(prop("id")) : [code];
+	}
 
 	const campaign: IDatabase.StoryCampaign = {
 		id: code,
@@ -138,7 +151,7 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 				...packEncounterSetBase,
 				code: toId(encounterSet.code),
 				icon: getIcon(encounterSet.icon || encounterSet.code),
-			}
+			};
 		}) || [];
 
 	const requiredEncounters =
@@ -157,7 +170,9 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 		...requiredEncounters,
 		...scenarioRequiredEncounters,
 	])
-		.filter((encounterCode) => !dedicatedScenarioEncounterCodes.has(encounterCode))
+		.filter(
+			(encounterCode) => !dedicatedScenarioEncounterCodes.has(encounterCode),
+		)
 		.filter(filterEncounterSet);
 
 	const extraEncounters = uniq([
