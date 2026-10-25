@@ -103,7 +103,9 @@ const loadProductEncounterCards = (
 	}
 	const cycleCode = story.cycle_code;
 	const allowCycleMatch =
-		Boolean(cycleCode) && !HOBBY_GAMES_SHARED_CYCLES.has(cycleCode as string);
+		packCodes.size === 0 &&
+		Boolean(cycleCode) &&
+		!HOBBY_GAMES_SHARED_CYCLES.has(cycleCode as string);
 
 	const selectedPacks = packs.filter(
 		(pack) =>
@@ -135,8 +137,12 @@ const sizeFromPackEncounterCache = (
 		packCodes.add(story.pack_code);
 	}
 	const cycleCode = story.cycle_code;
+	// When the story names its packs, never inflate from the whole cycle
+	// (shared cycles like zcam / side_stories mix many products).
 	const allowCycleMatch =
-		Boolean(cycleCode) && !HOBBY_GAMES_SHARED_CYCLES.has(cycleCode as string);
+		packCodes.size === 0 &&
+		Boolean(cycleCode) &&
+		!HOBBY_GAMES_SHARED_CYCLES.has(cycleCode as string);
 
 	const sizeBySet = new Map<string, number>();
 

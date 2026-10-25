@@ -10,7 +10,7 @@ import {
 	createEncounterCanonicalLookup,
 	normalizeEncounterCodes,
 } from "@/util/encounterCanonical";
-import { isNotNil, prop, propEq } from "ramda";
+import { isNotNil, prop, propEq, uniq } from "ramda";
 import { getStoryCustomContent } from "./features/getStoryCustomContent";
 import { checkScenario } from "./scenarios/checkScenario";
 import { getDedicatedScenarioEncounterCodes } from "./scenarios/getDedicatedScenarioEncounterCodes";
@@ -81,13 +81,6 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
 				canonicalizeEncounterCode,
 			);
 
-			const extraEncounters = normalizeEncounterCodes(
-				scenarioEncounters
-					.filter(propEq(true, "is_extra"))
-					.map(prop("encounter_set_code")),
-				canonicalizeEncounterCode,
-			);
-
 			const name = pack?.name || campaign.name;
 
 			const {
@@ -126,6 +119,13 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
 				scenarios: finalScenarios,
 			});
 
+			const scenarioExtraEncounters = uniq(
+				finalScenarios
+					.flatMap((scenario) => scenario.extra_encounter_sets ?? [])
+					.filter(isNotNil),
+			);
+			const scenarioExtraEncounterCodes = new Set(scenarioExtraEncounters);
+
 			const dedicatedScenarioEncounterCodes = new Set(
 				getDedicatedScenarioEncounterCodes({
 					encounterSets,
@@ -161,9 +161,10 @@ export const getSideCampaignStories = (): IDatabase.Story[] => {
 				scenario_encounter_sets: storyScenarioEncounters,
 				encounter_sets: requiredEncounters.filter(
 					(encounterCode) =>
-						!dedicatedScenarioEncounterCodes.has(encounterCode),
+						!dedicatedScenarioEncounterCodes.has(encounterCode) &&
+						!scenarioExtraEncounterCodes.has(encounterCode),
 				),
-				extra_encounter_sets: extraEncounters,
+				extra_encounter_sets: scenarioExtraEncounters,
 				...(storyEncounterSetSizes.length > 0
 					? { encounter_set_data: storyEncounterSetSizes }
 					: {}),

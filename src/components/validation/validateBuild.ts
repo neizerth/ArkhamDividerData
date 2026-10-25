@@ -75,6 +75,10 @@ export const validateBuild = ({
 			(item) => item.code,
 		);
 		const expectedScenarioCodes = validation.scenarios.map((item) => item.code);
+		const ownPackCodes = new Set(expectedEncounterCodes);
+		const expectedScenarioExtraCodes = [
+			...new Set(validation.scenarios.flatMap((s) => s.extra_encounter_sets)),
+		];
 
 		const encDiffErr = formatDiffError(
 			code,
@@ -85,13 +89,32 @@ export const validateBuild = ({
 			errors.push(encDiffErr);
 		}
 
-		const extraDiffErr = formatDiffError(
+		// Pack encounter_sets must live in encounter_sets, never in extra.
+		for (const setCode of story.extra_encounter_sets ?? []) {
+			if (ownPackCodes.has(setCode)) {
+				errors.push(
+					`[${code}] encounter set "${setCode}" belongs to encounter_sets, not story.extra_encounter_sets`,
+				);
+			}
+		}
+
+		// Story extra must include every scenario extra (and match campaign extras).
+		const storyExtraDiffErr = formatDiffError(
 			code,
 			"extra_encounter_sets",
 			diffCodes(expectedExtraEncounterCodes, story.extra_encounter_sets),
 		);
-		if (extraDiffErr) {
-			errors.push(extraDiffErr);
+		if (storyExtraDiffErr) {
+			errors.push(storyExtraDiffErr);
+		}
+
+		const scenarioExtraUnionDiffErr = formatDiffError(
+			code,
+			"extra_encounter_sets (from scenarios)",
+			diffCodes(expectedScenarioExtraCodes, story.extra_encounter_sets),
+		);
+		if (scenarioExtraUnionDiffErr) {
+			errors.push(scenarioExtraUnionDiffErr);
 		}
 
 		const scenSetDiffErr = formatDiffError(
@@ -157,9 +180,45 @@ export const validateBuild = ({
 			if (scExtraErr) {
 				errors.push(scExtraErr);
 			}
+
+			// Pack encounter_sets must not appear in scenario.extra.
+			for (const setCode of actualScenarioExtraEncounters) {
+				if (ownPackCodes.has(setCode)) {
+					errors.push(
+						`[${code}/${valScenario.code}] encounter set "${setCode}" belongs to encounter_sets, not scenario.extra_encounter_sets`,
+					);
+				}
+			}
+
+			// Scenario extras must be in scenario.extra and story.extra.
+			for (const setCode of valScenario.extra_encounter_sets) {
+				const inScenarioExtra = actualScenarioExtraEncounters.includes(setCode);
+				const inStoryExtra = (story.extra_encounter_sets ?? []).includes(
+					setCode,
+				);
+				const inScenarioEnc = actualScenarioEncounters.includes(setCode);
+
+				if (!inScenarioExtra) {
+					errors.push(
+						`[${code}/${valScenario.code}] extra encounter set "${setCode}" must be in scenario.extra_encounter_sets` +
+							(inScenarioEnc ? " (found in scenario.encounter_sets)" : ""),
+					);
+				}
+				if (!inStoryExtra) {
+					errors.push(
+						`[${code}/${valScenario.code}] extra encounter set "${setCode}" must be in story.extra_encounter_sets`,
+					);
+				}
+			}
 		}
 
 		// 4. Encounter set and scenario sizes
+		// Product box = encounter_sets + scenarios (extras belong to other products).
+		const expectedProductSizeFromParts = [
+			...validation.encounter_sets,
+			...validation.scenarios,
+		].reduce((sum, item) => sum + item.size, 0);
+
 		for (const item of [
 			...validation.encounter_sets,
 			...validation.scenarios,
@@ -169,6 +228,10 @@ export const validateBuild = ({
 				errors.push(
 					`[${code}] encounter set "${item.code}" not found in encounterSets`,
 				);
+				continue;
+			}
+			// Custom campaigns often lack ArkhamDB sizes; skip numeric check then.
+			if (dbSet.size == null) {
 				continue;
 			}
 			if (dbSet.size !== item.size) {
@@ -187,6 +250,9 @@ export const validateBuild = ({
 				continue;
 			}
 			const expectedFullSize = item.full_size ?? item.size;
+			if (dbSet.size == null) {
+				continue;
+			}
 			if (dbSet.size !== expectedFullSize) {
 				errors.push(
 					`[${code}] extra encounter set size mismatch for "${item.code}": expected ${expectedFullSize}, got ${dbSet.size}`,
@@ -233,16 +299,39 @@ export const validateBuild = ({
 			}
 		}
 
-		// 5. Product total size
+		// 5. Product total size (own encounter_sets + scenarios; never extras)
 		const productSize = getCampaignProductSize(
 			story,
 			packEncounterSets,
 			encounterSets,
 		);
 		if (productSize.total !== validation.size) {
-			errors.push(
-				`[${code}] product size mismatch: expected ${validation.size}, got ${productSize.total}`,
-			);
+			// Fallback when pack cache has no usable sizes (common for custom).
+			if (
+				productSize.total === 0 &&
+				expectedProductSizeFromParts === validation.size
+			) {
+				const storyProductCodes = [
+					...(story.encounter_sets ?? []),
+					...(story.scenario_encounter_sets ?? []),
+				];
+				const expectedProductCodes = [
+					...expectedEncounterCodes,
+					...expectedScenarioCodes,
+				];
+				const productCodesErr = formatDiffError(
+					code,
+					"product encounter sets",
+					diffCodes(expectedProductCodes, storyProductCodes),
+				);
+				if (productCodesErr) {
+					errors.push(productCodesErr);
+				}
+			} else {
+				errors.push(
+					`[${code}] product size mismatch: expected ${validation.size}, got ${productSize.total}`,
+				);
+			}
 		}
 	}
 

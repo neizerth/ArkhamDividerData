@@ -157,13 +157,6 @@ export const getSpecialStories = (): IDatabase.Story[] => {
 				canonicalizeEncounterCode,
 			);
 
-			const extraEncounters = normalizeEncounterCodes(
-				packEncounters
-					.filter(propEq(true, "is_extra"))
-					.map(prop("encounter_set_code")),
-				canonicalizeEncounterCode,
-			);
-
 			if (campaigns.length === 0) {
 				showError(`campaigns not found: ${code}`);
 			}
@@ -204,6 +197,14 @@ export const getSpecialStories = (): IDatabase.Story[] => {
 				scenarios: finalScenarios,
 			});
 
+			// Story extras = union of scenario extras (never pack encounter_sets).
+			const scenarioExtraEncounters = uniq(
+				finalScenarios
+					.flatMap((scenario) => scenario.extra_encounter_sets ?? [])
+					.filter(isNotNil),
+			);
+			const scenarioExtraEncounterCodes = new Set(scenarioExtraEncounters);
+
 			const dedicatedScenarioEncounterCodes = new Set(
 				getDedicatedScenarioEncounterCodes({
 					encounterSets,
@@ -237,7 +238,7 @@ export const getSpecialStories = (): IDatabase.Story[] => {
 
 			const sizedEncounterCodes = uniq([
 				...requiredEncounters,
-				...extraEncounters,
+				...scenarioExtraEncounters,
 				...storyScenarioEncounters,
 			]);
 
@@ -257,9 +258,10 @@ export const getSpecialStories = (): IDatabase.Story[] => {
 				investigators,
 				encounter_sets: requiredEncounters.filter(
 					(encounterCode) =>
-						!dedicatedScenarioEncounterCodes.has(encounterCode),
+						!dedicatedScenarioEncounterCodes.has(encounterCode) &&
+						!scenarioExtraEncounterCodes.has(encounterCode),
 				),
-				extra_encounter_sets: extraEncounters,
+				extra_encounter_sets: scenarioExtraEncounters,
 				...(storyEncounterSetSizes.length > 0
 					? { encounter_set_data: storyEncounterSetSizes }
 					: {}),

@@ -239,6 +239,14 @@ export const getCycleStories = (): IDatabase.Story[] => {
 			scenarios: finalScenarios,
 		});
 
+		// Story extras = union of scenario extras (never pack encounter_sets).
+		const scenarioExtraEncounters = uniq(
+			finalScenarios
+				.flatMap((scenario) => scenario.extra_encounter_sets ?? [])
+				.filter(isNotNil),
+		);
+		const scenarioExtraEncounterCodes = new Set(scenarioExtraEncounters);
+
 		const dedicatedScenarioEncounterCodes = new Set(
 			getDedicatedScenarioEncounterCodes({
 				encounterSets,
@@ -308,8 +316,9 @@ export const getCycleStories = (): IDatabase.Story[] => {
 			is_size_supported: isSizeSupported,
 			encounter_sets: requiredEncounters
 				.filter((code) => !dedicatedScenarioEncounterCodes.has(code))
+				.filter((code) => !scenarioExtraEncounterCodes.has(code))
 				.filter(filterEncounterSet),
-			extra_encounter_sets: extraEncounters.filter(filterEncounterSet),
+			extra_encounter_sets: scenarioExtraEncounters.filter(filterEncounterSet),
 			...(storyEncounterSetSizes.length > 0
 				? { encounter_set_data: storyEncounterSetSizes }
 				: {}),

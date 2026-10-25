@@ -134,5 +134,6 @@ export const HOBBY_GAMES_SHARED_CYCLES = new Set([
 	"promotional",
 	"return",
 	"zffg",
+	"zcam",
 	"small_campaign_expansions",
 ]);
