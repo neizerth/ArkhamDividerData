@@ -120,9 +120,8 @@
 		"code": "hanged_man"
 	},
 	{
-		"name": "Allies",
-		"code": "allies",
-		"icon": "bloodborne"
+		"name": "Fellow Hunters",
+		"code": "fellow_hunters"
 	},
 	{
 		"name": "Guidance",
