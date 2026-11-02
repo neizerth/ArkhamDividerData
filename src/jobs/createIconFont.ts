@@ -149,20 +149,37 @@ export const copyExtraIcons = async () => {
 	}
 };
 
+const ICON_FONT_FILE_NAME = "icons";
+const ICON_FONT_FAMILY = `Arkham Divider Icons v${VERSION}`;
+
 export const createAssets = async () => {
 	mkDir(FONTS_DIR);
 
 	const codepoints = getCodepoints();
 
+	// `name` is the output filename. fontName is applied after it inside
+	// fantasticon, so the family can differ from icons.ttf / icons.woff.
+	const svgFormatOptions = { fontName: ICON_FONT_FAMILY };
+
 	await generateFonts({
-		name: "icons",
+		name: ICON_FONT_FILE_NAME,
 		inputDir: ICONS_CACHE_DIR,
 		outputDir: FONTS_DIR,
 		normalize: true,
 		codepoints,
 		fontTypes: [FontAssetType.WOFF, FontAssetType.WOFF2, FontAssetType.TTF],
 		assetTypes: [OtherAssetType.JSON, OtherAssetType.HTML, OtherAssetType.CSS],
+		formatOptions: {
+			svg: svgFormatOptions,
+		},
 	});
+
+	const cssPath = path.join(FONTS_DIR, `${ICON_FONT_FILE_NAME}.css`);
+	const css = fs.readFileSync(cssPath, "utf8").replace(
+		/font-family:\s*"?icons"?/g,
+		`font-family: "${ICON_FONT_FAMILY}"`,
+	);
+	fs.writeFileSync(cssPath, css);
 
 	// Fantasticon may omit glyphs without an SVG; merge so historical
 	// codepoints stay published and never shift for clients.
