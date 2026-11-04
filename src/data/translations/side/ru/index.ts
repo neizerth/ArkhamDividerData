@@ -1,6 +1,7 @@
 export { default as blbe } from './blbe.json';
 export { default as blood_spilled_in_salem } from './blood_spilled_in_salem.json';
 export { default as code_red_at_bleeding_heart } from './code_red_at_bleeding_heart.json';
+export { default as devils_in_the_canyon } from './devils_in_the_canyon.json';
 export { default as enc } from './enc.json';
 export { default as ltr } from './ltr.json';
 export { default as return_to_consternation_on_the_constellation } from './return_to_consternation_on_the_constellation.json';
