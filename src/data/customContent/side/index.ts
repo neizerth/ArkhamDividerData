@@ -1,5 +1,6 @@
 export { default as blood_spilled_in_salem } from "./blood_spilled_in_salem/blood_spilled_in_salem";
 export { default as code_red_at_bleeding_heart } from "./code_red_at_bleeding_heart/code_red_at_bleeding_heart";
+export { default as devils_in_the_canyon } from "./devils_in_the_canyon/devils_in_the_canyon";
 export { default as knightfall } from "./knightfall/knightfall";
 export { default as return_to_consternation_on_the_constellation } from "./return_to_consternation_on_the_constellation/return_to_consternation_on_the_constellation";
 export { default as return_to_the_wendigo } from "./return_to_the_wendigo/return_to_the_wendigo";
