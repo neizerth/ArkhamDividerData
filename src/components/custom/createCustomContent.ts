@@ -17,6 +17,38 @@ export type CustomStoryType =
 	| "side_story";
 ("parallel");
 
+type CustomScenario = Omit<
+	IDatabase.StoryScenario,
+	"header" | "full_name" | "campaign_id"
+> & {
+	prefix?: string | false | boolean;
+	campaign_id?: string;
+	header?: string;
+	full_name?: string;
+};
+
+type CustomEncounterSet = Omit<
+	IDatabase.EncounterSet,
+	"synonyms" | "is_canonical" | "is_official"
+>;
+
+type CustomStory = Omit<
+	IDatabase.Story,
+	| "type"
+	| "scenario_encounter_sets"
+	| "encounter_sets"
+	| "extra_encounter_sets"
+	| "investigators"
+	| "is_size_supported"
+> & {
+	type: CustomStoryType;
+	scenario_encounter_sets?: string[];
+	encounter_sets?: string[];
+	extra_encounter_sets?: string[];
+	investigators?: ICache.PackInvestigator[];
+	is_size_supported?: boolean;
+};
+
 export type CreateCustomContentOptions = {
 	dir?: string;
 	prefix?: string | false;
@@ -26,39 +58,9 @@ export type CreateCustomContentOptions = {
 		height: number;
 		circled?: boolean;
 	}>;
-	scenarios?:
-		| Array<
-				Omit<
-					IDatabase.StoryScenario,
-					"header" | "full_name" | "campaign_id"
-				> & {
-					prefix?: string | false | boolean;
-					campaign_id?: string;
-					header?: string;
-					full_name?: string;
-				}
-		  >
-		| false;
-	encounterSets?: Omit<
-		CustomContentEncounter,
-		"synonyms" | "is_canonical" | "is_official"
-	>[];
-	story: Omit<
-		IDatabase.Story,
-		| "type"
-		| "scenario_encounter_sets"
-		| "encounter_sets"
-		| "extra_encounter_sets"
-		| "investigators"
-		| "is_size_supported"
-	> & {
-		type: CustomStoryType;
-		scenario_encounter_sets?: string[];
-		encounter_sets?: string[];
-		extra_encounter_sets?: string[];
-		investigators?: ICache.PackInvestigator[];
-		is_size_supported?: boolean;
-	};
+	scenarios?: CustomScenario[] | false;
+	encounterSets?: CustomEncounterSet[];
+	story: CustomStory;
 };
 
 export type CustomContentEncounter = IDatabase.EncounterSet & {

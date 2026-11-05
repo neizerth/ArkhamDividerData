@@ -1,18 +1,220 @@
 [
-	{ "name": "Lodge Members", "code": "lodge_members" },
-	{ "name": "Wards & Traps", "code": "wards_and_traps" },
-	{ "name": "Custodes", "code": "custodes" },
-	{ "name": "Darkness", "code": "darkness" },
-	{ "name": "Spectral Assault", "code": "spectral_assault" },
-	{ "name": "Despair", "code": "despair" },
-	{ "name": "Traps", "code": "traps" },
-	{ "name": "Daytime", "code": "daytime" },
-	{ "name": "Nighttime", "code": "nighttime" },
-	{ "name": "Deep Hunters", "code": "deep_hunters" },
-	{ "name": "Agents of Cthulhu", "code": "agents_of_cthulhu" },
-	{ "name": "Warriors of the Deep", "code": "warriors_of_the_deep" },
-	{ "name": "Dread City", "code": "dread_city" },
-	{ "name": "Bombardment", "code": "bombardment" },
-	{ "name": "Dread Cthulhu", "code": "dread_cthulhu" },
-	{ "name": "Unnatural Geometry", "code": "unnatural_geometry" }
+	{
+		"name": "The Silver Twilight Lodge",
+		"code": "silver_twilight_lodge",
+		"size": 40,
+		"types": [
+			{ "type": "scenario", "size": 1 },
+			{ "type": "agenda", "size": 5 },
+			{ "type": "act", "size": 10 },
+			{ "type": "location", "size": 11 },
+			{ "type": "enemy", "size": 5 },
+			{ "type": "asset", "size": 2 },
+			{ "type": "treachery", "size": 6 }
+		]
+	},
+	{
+		"name": "Look to the Future!",
+		"code": "look_to_the_future",
+		"size": 51,
+		"types": [
+			{ "type": "scenario", "size": 1 },
+			{ "type": "agenda", "size": 5 },
+			{ "type": "act", "size": 6 },
+			{ "type": "location", "size": 11 },
+			{ "type": "enemy", "size": 13 },
+			{ "type": "asset", "size": 5 },
+			{ "type": "treachery", "size": 10 }
+		]
+	},
+	{
+		"name": "The Coven of Cannich",
+		"code": "coven_of_cannich",
+		"size": 37,
+		"types": [
+			{ "type": "scenario", "size": 1 },
+			{ "type": "agenda", "size": 3 },
+			{ "type": "act", "size": 3 },
+			{ "type": "location", "size": 10 },
+			{ "type": "enemy", "size": 9 },
+			{ "type": "asset", "size": 1 },
+			{ "type": "treachery", "size": 7 },
+			{ "type": "story", "size": 3 }
+		]
+	},
+	{
+		"name": "Devil's Canyon",
+		"code": "devils_canyon",
+		"size": 44,
+		"types": [
+			{ "type": "scenario", "size": 1 },
+			{ "type": "agenda", "size": 3 },
+			{ "type": "act", "size": 4 },
+			{ "type": "location", "size": 11 },
+			{ "type": "enemy", "size": 9 },
+			{ "type": "asset", "size": 7 },
+			{ "type": "treachery", "size": 9 }
+		]
+	},
+	{
+		"name": "The Woodie House",
+		"code": "woodie_house",
+		"size": 38,
+		"types": [
+			{ "type": "scenario", "size": 1 },
+			{ "type": "agenda", "size": 3 },
+			{ "type": "act", "size": 4 },
+			{ "type": "location", "size": 11 },
+			{ "type": "enemy", "size": 13 },
+			{ "type": "treachery", "size": 6 }
+		]
+	},
+	{
+		"name": "Watchers of Rapa Nui",
+		"code": "watchers_of_rapa_nui",
+		"size": 43,
+		"types": [
+			{ "type": "scenario", "size": 1 },
+			{ "type": "agenda", "size": 3 },
+			{ "type": "act", "size": 9 },
+			{ "type": "location", "size": 9 },
+			{ "type": "enemy", "size": 2 },
+			{ "type": "asset", "size": 13 },
+			{ "type": "treachery", "size": 4 },
+			{ "type": "story", "size": 2 }
+		]
+	},
+	{
+		"name": "Rise of R'lyeh",
+		"code": "rise_of_rlyeh",
+		"size": 28,
+		"types": [
+			{ "type": "scenario", "size": 1 },
+			{ "type": "agenda", "size": 3 },
+			{ "type": "act", "size": 5 },
+			{ "type": "enemy", "size": 8 },
+			{ "type": "asset", "size": 4 },
+			{ "type": "treachery", "size": 7 }
+		]
+	},
+	{
+		"name": "Escape from R'lyeh",
+		"code": "escape_from_rlyeh",
+		"size": 9,
+		"types": [
+			{ "type": "scenario", "size": 1 },
+			{ "type": "agenda", "size": 2 },
+			{ "type": "act", "size": 4 },
+			{ "type": "location", "size": 2 }
+		]
+	},
+	{
+		"name": "Lodge Members",
+		"code": "lodge_members",
+		"size": 6,
+		"types": [
+			{ "type": "enemy", "size": 4 },
+			{ "type": "treachery", "size": 2 }
+		]
+	},
+	{
+		"name": "Wards & Traps",
+		"code": "wards_and_traps",
+		"size": 6,
+		"types": [{ "type": "treachery", "size": 6 }]
+	},
+	{
+		"name": "Custodes",
+		"code": "custodes",
+		"size": 3,
+		"types": [{ "type": "enemy", "size": 3 }]
+	},
+	{
+		"name": "Darkness",
+		"code": "darkness",
+		"size": 4,
+		"types": [{ "type": "treachery", "size": 4 }]
+	},
+	{
+		"name": "Spectral Assault",
+		"code": "spectral_assault",
+		"size": 12,
+		"types": [{ "type": "treachery", "size": 12 }]
+	},
+	{
+		"name": "Despair",
+		"code": "despair",
+		"size": 6,
+		"types": [{ "type": "treachery", "size": 6 }]
+	},
+	{
+		"name": "Traps",
+		"code": "traps",
+		"size": 18,
+		"types": [{ "type": "treachery", "size": 18 }]
+	},
+	{
+		"name": "Daytime",
+		"code": "daytime",
+		"size": 17,
+		"types": [
+			{ "type": "enemy", "size": 3 },
+			{ "type": "treachery", "size": 14 }
+		]
+	},
+	{
+		"name": "Nighttime",
+		"code": "nighttime",
+		"size": 3,
+		"types": [{ "type": "enemy", "size": 3 }]
+	},
+	{
+		"name": "Deep Hunters",
+		"code": "deep_hunters",
+		"size": 4,
+		"types": [{ "type": "enemy", "size": 4 }]
+	},
+	{
+		"name": "Warriors of the Deep",
+		"code": "warriors_of_the_deep",
+		"size": 4,
+		"types": [{ "type": "enemy", "size": 4 }]
+	},
+	{
+		"name": "Dread City",
+		"code": "dread_city",
+		"size": 15,
+		"types": [
+			{ "type": "location", "size": 10 },
+			{ "type": "enemy", "size": 1 },
+			{ "type": "treachery", "size": 4 }
+		]
+	},
+	{
+		"name": "Bombardment",
+		"code": "bombardment",
+		"size": 6,
+		"types": [
+			{ "type": "enemy", "size": 1 },
+			{ "type": "treachery", "size": 5 }
+		]
+	},
+	{
+		"name": "Dread Cthulhu",
+		"code": "dread_cthulhu",
+		"size": 11,
+		"types": [
+			{ "type": "enemy", "size": 4 },
+			{ "type": "treachery", "size": 7 }
+		]
+	},
+	{
+		"name": "Unnatural Geometry",
+		"code": "unnatural_geometry",
+		"size": 6,
+		"types": [
+			{ "type": "enemy", "size": 2 },
+			{ "type": "treachery", "size": 4 }
+		]
+	}
 ]

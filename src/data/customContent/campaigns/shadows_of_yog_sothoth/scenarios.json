@@ -60,10 +60,9 @@
 			"nighttime",
 			"darkness",
 			"deep_hunters",
-			"agents_of_cthulhu",
 			"warriors_of_the_deep"
 		],
-		"extra_encounter_sets": ["chilling_cold", "dark_cult"]
+		"extra_encounter_sets": ["chilling_cold", "dark_cult", "agents_of_cthulhu"]
 	},
 	{
 		"id": "rise_of_rlyeh",
@@ -74,13 +73,12 @@
 			"rise_of_rlyeh",
 			"lodge_members",
 			"dread_city",
-			"agents_of_cthulhu",
 			"unnatural_geometry",
 			"deep_hunters",
 			"bombardment",
 			"warriors_of_the_deep"
 		],
-		"extra_encounter_sets": ["ancient_evils"]
+		"extra_encounter_sets": ["ancient_evils", "agents_of_cthulhu"]
 	},
 	{
 		"id": "escape_from_rlyeh",
@@ -91,9 +89,8 @@
 			"escape_from_rlyeh",
 			"dread_cthulhu",
 			"unnatural_geometry",
-			"dread_city",
-			"agents_of_cthulhu"
+			"dread_city"
 		],
-		"extra_encounter_sets": ["ancient_evils"]
+		"extra_encounter_sets": ["ancient_evils", "agents_of_cthulhu"]
 	}
 ]

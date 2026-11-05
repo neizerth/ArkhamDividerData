@@ -1,27 +1,124 @@
 [
-	{ "icon": "shadows_of_yog_sothoth", "width": 2064, "height": 1896 },
-	{ "icon": "silver_twilight_lodge", "width": 146, "height": 329 },
-	{ "icon": "lodge_members", "width": 288, "height": 288 },
-	{ "icon": "look_to_the_future", "width": 2308, "height": 2308 },
-	{ "icon": "coven_of_cannich", "width": 288, "height": 288 },
-	{ "icon": "devils_canyon", "width": 2308, "height": 2308 },
-	{ "icon": "woodie_house", "width": 477, "height": 477 },
-	{ "icon": "watchers_of_rapa_nui", "width": 2385, "height": 2385 },
-	{ "icon": "rise_of_rlyeh", "width": 165, "height": 177 },
-	{ "icon": "escape_from_rlyeh", "width": 165, "height": 177 },
-	{ "icon": "bombardment", "width": 2106, "height": 1944 },
-	{ "icon": "custodes", "width": 2308, "height": 2308 },
-	{ "icon": "agents_of_cthulhu", "width": 125, "height": 125 },
-	{ "icon": "dread_cthulhu", "width": 150, "height": 150 },
-	{ "icon": "dread_city", "width": 812, "height": 980 },
-	{ "icon": "darkness", "width": 577, "height": 577 },
-	{ "icon": "deep_hunters", "width": 220, "height": 220 },
-	{ "icon": "warriors_of_the_deep", "width": 213, "height": 213 },
-	{ "icon": "despair", "width": 290, "height": 277 },
-	{ "icon": "nighttime", "width": 225, "height": 225 },
-	{ "icon": "daytime", "width": 2050, "height": 2050 },
-	{ "icon": "spectral_assault", "width": 2400, "height": 2400 },
-	{ "icon": "traps", "width": 2385, "height": 2385 },
-	{ "icon": "wards_and_traps", "width": 303, "height": 293 },
-	{ "icon": "unnatural_geometry", "width": 2025, "height": 2025 }
+	{
+		"icon": "shadows_of_yog_sothoth",
+		"width": 1909,
+		"height": 1671
+	},
+	{
+		"icon": "silver_twilight_lodge",
+		"width": 123,
+		"height": 310
+	},
+	{
+		"icon": "lodge_members",
+		"width": 129,
+		"height": 262
+	},
+	{
+		"icon": "look_to_the_future",
+		"width": 2188,
+		"height": 2118,
+		"circled": true
+	},
+	{
+		"icon": "coven_of_cannich",
+		"width": 276,
+		"height": 182
+	},
+	{
+		"icon": "devils_canyon",
+		"width": 802,
+		"height": 2096
+	},
+	{
+		"icon": "woodie_house",
+		"width": 335,
+		"height": 345
+	},
+	{
+		"icon": "watchers_of_rapa_nui",
+		"width": 1259,
+		"height": 2115
+	},
+	{
+		"icon": "rise_of_rlyeh",
+		"width": 165,
+		"height": 177
+	},
+	{
+		"icon": "escape_from_rlyeh",
+		"width": 165,
+		"height": 177
+	},
+	{
+		"icon": "bombardment",
+		"width": 1979,
+		"height": 1848
+	},
+	{
+		"icon": "custodes",
+		"width": 1492,
+		"height": 1952
+	},
+	{
+		"icon": "dread_cthulhu",
+		"width": 125,
+		"height": 125
+	},
+	{
+		"icon": "dread_city",
+		"width": 150,
+		"height": 150
+	},
+	{
+		"icon": "darkness",
+		"width": 405,
+		"height": 454
+	},
+	{
+		"icon": "deep_hunters",
+		"width": 193,
+		"height": 126
+	},
+	{
+		"icon": "warriors_of_the_deep",
+		"width": 200,
+		"height": 132
+	},
+	{
+		"icon": "despair",
+		"width": 290,
+		"height": 275
+	},
+	{
+		"icon": "nighttime",
+		"width": 188,
+		"height": 225
+	},
+	{
+		"icon": "daytime",
+		"width": 1795,
+		"height": 1790
+	},
+	{
+		"icon": "spectral_assault",
+		"width": 1597,
+		"height": 2146
+	},
+	{
+		"icon": "traps",
+		"width": 1799,
+		"height": 1489
+	},
+	{
+		"icon": "wards_and_traps",
+		"width": 303,
+		"height": 293
+	},
+	{
+		"icon": "unnatural_geometry",
+		"width": 2025,
+		"height": 2025,
+		"circled": true
+	}
 ]

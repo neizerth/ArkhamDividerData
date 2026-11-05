@@ -9,6 +9,7 @@ export default createCustomContent({
 		code: "shadows_of_yog_sothoth",
 		type: "side_campaign",
 		name: "Shadows of Yog-Sothoth",
+		is_size_supported: true,
 		custom_content: {
 			creators: [
 				{
