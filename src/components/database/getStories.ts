@@ -1,5 +1,6 @@
 import type { IDatabase } from "@/types/database";
 import { getCycleStories } from "./stories/getCycleStories";
+import { getScenarioPackStories } from "./stories/getScenarioPackStories";
 import { getSideScenarioStories } from "./stories/getSideScenarioStories";
 import { getSpecialStories } from "./stories/getSpecialStories";
 import { getSideCampaignStories } from "./stories/getSideCampaignsStories";
@@ -15,6 +16,9 @@ export const getStories = (): IDatabase.Story[] => {
 
   console.log('caching side scenario stories...');
   data.push(...getSideScenarioStories());
+
+  console.log('caching scenario pack stories...');
+  data.push(...getScenarioPackStories());
 
   console.log('caching side campaign stories...');
   data.push(...getSideCampaignStories());

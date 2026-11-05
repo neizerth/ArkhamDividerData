@@ -5,6 +5,7 @@ import { download } from "@/api/download"
 import { DOWNLOADS_DIR } from '@/config/app';
 import { mkDir, rmDir } from '@/util/fs';
 import * as API from '@/config/api';
+import { showWarning } from '@/util/console';
 
 export const downloadRepos = async () => {
   rmDir(DOWNLOADS_DIR);
@@ -20,6 +21,13 @@ export const downloadRepos = async () => {
 
   console.log('processing Arkham Build Fan Content...');
   await processRepo(API.ARKHAM_BUILD_FAN_REPO_ARCHIVE_URL);
+
+  try {
+    console.log('processing Arkham Build...');
+    await processRepo(API.ARKHAM_BUILD_REPO_ARCHIVE_URL);
+  } catch (error) {
+    showWarning('arkham.build repo skipped:', error);
+  }
 }
 
 export const processRepo = async (url: string) => {

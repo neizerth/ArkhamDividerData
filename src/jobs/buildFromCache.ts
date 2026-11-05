@@ -59,9 +59,17 @@ export const buildLanguageSource = (language: string) => {
 	);
 
 	const campaigns = getCache<Mapping>(CacheType.CAMPAIGNS);
-	const scenarios = getCache<Mapping>(CacheType.SCENARIOS);
+	const scenarios = { ...getCache<Mapping>(CacheType.SCENARIOS) };
 	const common = getCache<Mapping>(CacheType.COMMON_TRANSLATION);
-	const encounterSets = getCache<Mapping>(CacheType.ENCOUNTER_SETS);
+	const encounterSets = { ...getCache<Mapping>(CacheType.ENCOUNTER_SETS) };
+	applyCustomPhrases(
+		{
+			...(custom?.common ?? {}),
+			...Object.assign({}, ...Object.values(custom?.translations ?? {})),
+		},
+		scenarios,
+		encounterSets,
+	);
 	const investigators = getCache<Mapping>(CacheType.INVESTIGATORS);
 
 	const storiesCache = getCache<Mapping>(CacheType.DATABASE_STORIES);
@@ -87,6 +95,35 @@ export const buildLanguageSource = (language: string) => {
 
 	buildSource(language, data);
 	return true;
+};
+
+const applyCustomPhrases = (
+	phrases: Mapping,
+	scenarios: Mapping,
+	encounterSets: Mapping,
+) => {
+	const encounterNames = new Set(
+		Cache.getDatabaseEncounterSets().map((encounterSet) => encounterSet.name),
+	);
+	const scenarioNames = new Set(
+		Cache.getStories().flatMap((story) =>
+			(story.scenarios ?? []).flatMap((scenario) =>
+				[scenario.scenario_name, scenario.full_name].filter(Boolean),
+			),
+		),
+	);
+
+	for (const [english, translated] of Object.entries(phrases)) {
+		if (!translated || english === translated) {
+			continue;
+		}
+		if (encounterNames.has(english) && !encounterSets[english]) {
+			encounterSets[english] = translated;
+		}
+		if (scenarioNames.has(english) && !scenarios[english]) {
+			scenarios[english] = translated;
+		}
+	}
 };
 
 export const buildCoreSources = async (languages: string[]) => {

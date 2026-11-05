@@ -1,4 +1,4 @@
-import { getCycleDir } from "@/api/arkhamDB/api";
+import { getCycleDir, getPackFileBase } from "@/api/arkhamDB/api";
 import { ARKHAMDB_DATA_FOLDER_NAME } from "@/config/api";
 import { DOWNLOADS_DIR } from "@/config/app";
 import type { ICache } from "@/types/cache";
@@ -78,9 +78,10 @@ const loadLocalPackEncounterCards = (
 		getCycleDir(cycleCode),
 	);
 
+	const fileBase = getPackFileBase(cycleCode, packCode);
 	const cards = [
-		...readJsonArray(path.join(dir, `${packCode}_encounter.json`)),
-		...readJsonArray(path.join(dir, `${packCode}.json`)),
+		...readJsonArray(path.join(dir, `${fileBase}_encounter.json`)),
+		...readJsonArray(path.join(dir, `${fileBase}.json`)),
 	];
 
 	const byCode = new Map<string, BoxCard>();

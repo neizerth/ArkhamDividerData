@@ -1,3 +1,4 @@
+import { getArkhamBuildIcons } from "@/components/arkhamBuild/icons/getArkhamBuildIcons";
 import * as Data from "@/components/data";
 import * as Database from "@/components/database";
 import { CacheType } from "@/types/cache";
@@ -45,7 +46,9 @@ export const createDatabaseIconsCache = () => {
 
 export const createIconsCache = async () => {
 	console.log("caching IcoMoon icons...");
-	cache(CacheType.ICONS, await Data.getIcoMoonIcons());
+	const icons = await Data.getIcoMoonIcons();
+	const buildIcons = getArkhamBuildIcons(icons);
+	cache(CacheType.ICONS, [...icons, ...buildIcons]);
 
 	console.log("caching icons mapping...");
 	cache(CacheType.ICONS_MAPPING, await Data.getIconsMapping());

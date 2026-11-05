@@ -6,6 +6,7 @@ export default createCustomContent({
 		code: "devils_in_the_canyon",
 		type: "side_story",
 		name: "Devils in the Canyon",
+		is_size_supported: true,
 		custom_content: {
 			creators: [
 				{
@@ -34,16 +35,25 @@ export default createCustomContent({
 	],
 	encounterSets: [
 		{
+			code: "devils_in_the_canyon",
+			name: "Devils in the Canyon",
+			icon: "devils_in_the_canyon_set",
+			size: 82,
+		},
+		{
 			code: "brynes_expedition",
 			name: "Bryne's Expedition",
+			size: 5,
 		},
 		{
 			code: "watchful_eye",
 			name: "Watchful Eye",
+			size: 4,
 		},
 		{
 			code: "canyon_protector",
 			name: "Canyon Protector",
+			size: 5,
 		},
 	],
 	icons: [

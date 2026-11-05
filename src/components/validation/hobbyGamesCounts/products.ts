@@ -136,4 +136,5 @@ export const HOBBY_GAMES_SHARED_CYCLES = new Set([
 	"zffg",
 	"zcam",
 	"small_campaign_expansions",
+	"scenario_packs_ch2",
 ]);

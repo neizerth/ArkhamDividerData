@@ -9,6 +9,9 @@ export const INVESTIGATOR_CODE = 'investigator';
 
 export const PROMOTIONAL_CODE = 'promotional';
 
+/** Chapter 2 standalone scenario products. JSON lives under `/pack/scenario_packs`. */
+export const SCENARIO_PACKS_CODE = 'scenario_packs_ch2';
+
 export const DEFAULT_CAMPAIGN_TYPE = 'campaign';
 
 export const SPECIAL_CAMPAIGN_TYPES = [

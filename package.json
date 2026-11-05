@@ -53,6 +53,7 @@
 		"tsx": "^4.19.0"
 	},
 	"dependencies": {
+		"fontkit": "^2.0.4",
 		"graphql-request": "^7.4.0",
 		"pathkit-wasm": "^1.0.0",
 		"svg-path-commander": "^2.1.11",

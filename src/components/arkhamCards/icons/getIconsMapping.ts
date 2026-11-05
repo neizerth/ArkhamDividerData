@@ -1,4 +1,5 @@
 import { loadIconsPatch } from "@/api/arkhamCards/api";
+import { ARKHAM_BUILD_ICON_SET } from "@/components/arkhamBuild/icons/getArkhamBuildIcons";
 import * as Cache from '@/util/cache';
 import type { Mapping } from "@/types/common";
 import { fromPairs, toPairs } from "ramda";
@@ -8,9 +9,25 @@ export const getIconsMapping = async () => {
   const contents = await loadIconsPatch();
 
   const mapping = parsePatchContents(contents);
+  addArkhamBuildMapping(mapping);
 
   return removeMissingIcons(mapping);
 }
+
+const addArkhamBuildMapping = (mapping: Mapping) => {
+  for (const icon of Cache.getIcons()) {
+    if (icon.properties.iconSetName !== ARKHAM_BUILD_ICON_SET) {
+      continue;
+    }
+
+    const { name } = icon.properties;
+    if (mapping[name]) {
+      continue;
+    }
+
+    mapping[name] = name;
+  }
+};
 
 export const PATCH_EXPRESSION = /(\s*case '(.*)':[^\n ]*)+\s*return this\.[^(]+\('(.*)'/gm;
 

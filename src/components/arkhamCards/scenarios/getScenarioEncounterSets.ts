@@ -1,6 +1,7 @@
 import type { ICache } from '@/types/cache';
 import { getCampaignEncounterSets } from './encounterSets/getCampaignEncounterSets';
 import { getSideEncounterSets } from './encounterSets/getSideEncounterSets';
+import { getScenarioPackEncounterSets } from './scenarioPacks';
 
 export const getScenarioEncounterSets = (): ICache.ScenarioEncounterSet[] => {
   const data = [];
@@ -10,6 +11,9 @@ export const getScenarioEncounterSets = (): ICache.ScenarioEncounterSet[] => {
 
   console.log('caching side scenarios encounter sets...');
   data.push(...getSideEncounterSets());
+
+  console.log('caching scenario pack encounter sets...');
+  data.push(...getScenarioPackEncounterSets(data));
 
   return data;
 }

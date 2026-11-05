@@ -327,7 +327,10 @@ export const getCycleStories = (): IDatabase.Story[] => {
 
 	return cycles
 		.filter(({ is_official, code }) => {
-			if (CAMPAIGN_SKIP_CYCLE_CODES.includes(code)) {
+			if (
+				CAMPAIGN_SKIP_CYCLE_CODES.includes(code) ||
+				code === ArkhamDBConstants.SCENARIO_PACKS_CODE
+			) {
 				return false;
 			}
 			if (!is_official) {

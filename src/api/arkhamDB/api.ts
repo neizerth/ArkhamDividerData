@@ -2,6 +2,7 @@ import * as C from "@/config/api";
 import * as R from "@/api/request";
 import * as F from "@/api/fileRepo";
 import type { IArkhamDB } from "@/types/arkhamDB";
+import { SCENARIO_PACKS_CODE } from "./constants";
 
 const getAPIData = R.getWithPrefix(C.ARKHAMDB_API_BASE_URL);
 const getPageContents = R.getWithPrefix(C.ARKHAMDB_BASE_URL);
@@ -16,7 +17,8 @@ export const loadPacks = async () => {
 
 export const loadLocalPackCards = async (cycleCode: string, code: string, language: string) => {
   const cycle = getCycleDir(cycleCode);
-  const url = `translations/${language}/pack/${cycle}/${code}.json`;
+  const file = getPackFileBase(cycleCode, code);
+  const url = `translations/${language}/pack/${cycle}/${file}.json`;
   const { data } = await getGithubJSON<IArkhamDB.API.Card[]>(url, {
     defaultData: []
   });
@@ -78,12 +80,35 @@ export const getCycleDir = (code: string) => {
     return 'investigator';
   }
 
+  // Scenario Packs cycle code is `scenario_packs_ch2`, JSON lives under `/pack/scenario_packs`.
+  if (code === SCENARIO_PACKS_CODE) {
+    return 'scenario_packs';
+  }
+
   return code;
+}
+
+/**
+ * Basename of a pack JSON file under `/pack/{cycle}/`.
+ * Scenario pack codes append `_pack` so they don't collide with the encounter
+ * set code, while the file keeps the scenario name (`traces_to_nowhere.json`).
+ */
+export const getPackFileBase = (cycleCode: string, packCode: string) => {
+  if (getCycleDir(cycleCode) !== 'scenario_packs') {
+    return packCode;
+  }
+
+  if (packCode.endsWith('_pack')) {
+    return packCode.slice(0, -'_pack'.length);
+  }
+
+  return packCode;
 }
 
 export const loadJSONPackEncounterCards = async (cycleCode: string, code: string) => {
   const cycle = getCycleDir(cycleCode);
-  const { data } = await getGithubJSON<IArkhamDB.JSON.EncounterCard[]>(`/pack/${cycle}/${code}_encounter.json`, {
+  const file = getPackFileBase(cycleCode, code);
+  const { data } = await getGithubJSON<IArkhamDB.JSON.EncounterCard[]>(`/pack/${cycle}/${file}_encounter.json`, {
     defaultData: []
   });
   return data
@@ -91,7 +116,8 @@ export const loadJSONPackEncounterCards = async (cycleCode: string, code: string
 
 export const loadJSONPackCards = async (cycleCode: string, code: string) => {
   const cycle = getCycleDir(cycleCode);
-  const { data } = await getGithubJSON<IArkhamDB.JSON.Card[]>(`/pack/${cycle}/${code}.json`, {
+  const file = getPackFileBase(cycleCode, code);
+  const { data } = await getGithubJSON<IArkhamDB.JSON.Card[]>(`/pack/${cycle}/${file}.json`, {
     defaultData: []
   });
   return data
