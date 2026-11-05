@@ -18,9 +18,6 @@ export default createCustomContent({
 					language: "en",
 					links: [
 						{
-							link: "https://drive.google.com/drive/folders/19MDLOIsdcfJItOdq2RBExWXOAnuH6Zgw",
-						},
-						{
 							link: "https://mysteriouschanting.wordpress.com/2025/12/01/devils-in-the-canyon-standalone-scenario/",
 						},
 					],

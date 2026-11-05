@@ -1,0 +1,99 @@
+[
+	{
+		"id": "silver_twilight_lodge",
+		"scenario_name": "The Silver Twilight Lodge",
+		"number_text": "I",
+		"number": 1,
+		"encounter_sets": [
+			"silver_twilight_lodge",
+			"lodge_members",
+			"wards_and_traps",
+			"custodes",
+			"darkness"
+		],
+		"extra_encounter_sets": ["locked_doors"]
+	},
+	{
+		"id": "look_to_the_future",
+		"scenario_name": "Look to the Future!",
+		"number_text": "II",
+		"number": 2,
+		"encounter_sets": [
+			"look_to_the_future",
+			"wards_and_traps",
+			"custodes"
+		],
+		"extra_encounter_sets": ["sorcery", "locked_doors"]
+	},
+	{
+		"id": "coven_of_cannich",
+		"scenario_name": "The Coven of Cannich",
+		"number_text": "III",
+		"number": 3,
+		"encounter_sets": ["coven_of_cannich", "lodge_members"],
+		"extra_encounter_sets": ["chilling_cold", "dunwich", "midnight_masks"]
+	},
+	{
+		"id": "devils_canyon",
+		"scenario_name": "Devil's Canyon",
+		"number_text": "IV",
+		"number": 4,
+		"encounter_sets": ["devils_canyon", "spectral_assault", "despair"]
+	},
+	{
+		"id": "woodie_house",
+		"scenario_name": "The Woodie House",
+		"number_text": "V",
+		"number": 5,
+		"encounter_sets": ["woodie_house", "traps", "darkness"],
+		"extra_encounter_sets": ["striking_fear", "rats"]
+	},
+	{
+		"id": "watchers_of_rapa_nui",
+		"scenario_name": "Watchers of Rapa Nui",
+		"number_text": "VI",
+		"number": 6,
+		"encounter_sets": [
+			"watchers_of_rapa_nui",
+			"despair",
+			"daytime",
+			"nighttime",
+			"darkness",
+			"deep_hunters",
+			"agents_of_cthulhu",
+			"warriors_of_the_deep"
+		],
+		"extra_encounter_sets": ["chilling_cold", "dark_cult"]
+	},
+	{
+		"id": "rise_of_rlyeh",
+		"scenario_name": "Rise of R'lyeh",
+		"number_text": "VII",
+		"number": 7,
+		"encounter_sets": [
+			"rise_of_rlyeh",
+			"lodge_members",
+			"dread_city",
+			"agents_of_cthulhu",
+			"unnatural_geometry",
+			"deep_hunters",
+			"bombardment",
+			"warriors_of_the_deep"
+		],
+		"extra_encounter_sets": ["ancient_evils"]
+	},
+	{
+		"id": "escape_from_rlyeh",
+		"scenario_name": "Escape from R'lyeh",
+		"number_text": "VIII",
+		"number": 8,
+		"encounter_sets": [
+			"escape_from_rlyeh",
+			"dread_cthulhu",
+			"unnatural_geometry",
+			"dread_city",
+			"agents_of_cthulhu"
+		],
+		"extra_encounter_sets": ["ancient_evils"]
+	}
+]

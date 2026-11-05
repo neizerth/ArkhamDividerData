@@ -9,8 +9,10 @@ export { default as jumanji } from "./jumanji/jumanji";
 export { default as night_of_vespers } from "./night_of_vespers/night_of_vespers";
 export { default as north_country_cycle } from "./north_country_cycle/north_country_cycle";
 export { default as of_sphinx_and_sands } from "./of_sphinx_and_sands/of_sphinx_and_sands";
+export { default as shadows_of_yog_sothoth } from "./shadows_of_yog_sothoth/shadows_of_yog_sothoth";
 export { default as souls_of_darkness } from "./souls_of_darkness/souls_of_darkness";
 export { default as the_ghosts_of_onigawa } from "./the_ghosts_of_onigawa/the_ghosts_of_onigawa";
 export { default as the_matter_of_britain } from "./the_matter_of_britain/the_matter_of_britain";
 export { default as winter_winds } from "./winter_winds/winter_winds";
+
 

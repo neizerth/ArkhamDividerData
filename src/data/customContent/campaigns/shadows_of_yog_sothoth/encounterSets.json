@@ -1,0 +1,18 @@
+[
+	{ "name": "Lodge Members", "code": "lodge_members" },
+	{ "name": "Wards & Traps", "code": "wards_and_traps" },
+	{ "name": "Custodes", "code": "custodes" },
+	{ "name": "Darkness", "code": "darkness" },
+	{ "name": "Spectral Assault", "code": "spectral_assault" },
+	{ "name": "Despair", "code": "despair" },
+	{ "name": "Traps", "code": "traps" },
+	{ "name": "Daytime", "code": "daytime" },
+	{ "name": "Nighttime", "code": "nighttime" },
+	{ "name": "Deep Hunters", "code": "deep_hunters" },
+	{ "name": "Agents of Cthulhu", "code": "agents_of_cthulhu" },
+	{ "name": "Warriors of the Deep", "code": "warriors_of_the_deep" },
+	{ "name": "Dread City", "code": "dread_city" },
+	{ "name": "Bombardment", "code": "bombardment" },
+	{ "name": "Dread Cthulhu", "code": "dread_cthulhu" },
+	{ "name": "Unnatural Geometry", "code": "unnatural_geometry" }
+]
