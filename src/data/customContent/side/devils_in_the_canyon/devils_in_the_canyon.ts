@@ -54,8 +54,8 @@ export default createCustomContent({
 		},
 		{
 			icon: "devils_in_the_canyon_set",
-			width: 249,
-			height: 244,
+			width: 512,
+			height: 512,
 		},
 		{
 			icon: "brynes_expedition",
