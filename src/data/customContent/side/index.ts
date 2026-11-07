@@ -4,6 +4,7 @@ export { default as devils_in_the_canyon } from "./devils_in_the_canyon/devils_i
 export { default as knightfall } from "./knightfall/knightfall";
 export { default as return_to_consternation_on_the_constellation } from "./return_to_consternation_on_the_constellation/return_to_consternation_on_the_constellation";
 export { default as return_to_the_wendigo } from "./return_to_the_wendigo/return_to_the_wendigo";
+export { default as sanitarium } from "./sanitarium/sanitarium";
 export { default as stranger_things } from "./stranger_things/stranger_things";
 export { default as the_collector } from "./the_collector/the_collector";
 export { default as the_festival } from "./the_festival/the_festival";
