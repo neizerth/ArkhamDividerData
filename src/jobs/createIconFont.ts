@@ -27,7 +27,6 @@ import type { Mapping } from "@/types/common";
 import { getIconContents } from "./font/getIconContents";
 import { getCustomContent } from "@/components/custom/getCustomContent";
 import specialIcons from "@/data/icons/special";
-import { VERSION } from "@/constants";
 import { getCodepoints } from "./font/getCodepoints";
 import { createDatabaseIconsCache } from "./createCache";
 
@@ -150,7 +149,7 @@ export const copyExtraIcons = async () => {
 };
 
 const ICON_FONT_FILE_NAME = "icons";
-const ICON_FONT_FAMILY = `Arkham Divider Icons v${VERSION}`;
+const ICON_FONT_FAMILY = `Arkham Divider Icons`;
 
 export const createAssets = async () => {
 	mkDir(FONTS_DIR);
