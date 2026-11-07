@@ -98,6 +98,7 @@ export const getScenarioPackStories = (): IDatabase.Story[] => {
 			code: pack.code,
 			icon: iconDB.getIcon({ id: pack.code }),
 			type: IDatabase.StoryType.SIDE,
+			...(pack.chapter != null ? { chapter: pack.chapter } : {}),
 			investigators: packInvestigators.filter(propEq(pack.code, "pack_code")),
 			pack_code: pack.code,
 			cycle_code: pack.cycle_code,
