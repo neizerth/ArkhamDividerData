@@ -20,6 +20,7 @@ import {
 	createWriter,
 	mkDir,
 } from "@/util/fs";
+import { VERSION } from "@/constants";
 import { showInfo } from "@/util/console";
 import { isNotNil, prop, propEq, toPairs } from "ramda";
 import { CacheType, type ICache } from "@/types/cache";
