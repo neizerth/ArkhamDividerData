@@ -10,6 +10,7 @@ export { default as rop } from './rop.json';
 export { default as rtr } from './rtr.json';
 export { default as the_legend_of_sleepy_hollow } from './the_legend_of_sleepy_hollow.json';
 export { default as the_nameless_city } from './the_nameless_city.json';
+export { default as the_phantom_of_the_opera } from './the_phantom_of_the_opera.json';
 export { default as zatw } from './zatw.json';
 export { default as zcos } from './zcos.json';
 export { default as zlf } from './zlf.json';
