@@ -11,3 +11,7 @@ export { default as zdms } from "./zdms.json";
 export { default as zez } from "./zez.json";
 export { default as zhod } from "./zhod.json";
 export { default as zrttic } from "./zrttic.json";
+export { default as zoz } from "./zoz.json";
+export { default as zcf } from "./zcf.json";
+export { default as zce } from "./zce.json";
+export { default as zcp } from "./zcp.json";

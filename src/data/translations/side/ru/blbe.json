@@ -5,5 +5,16 @@
   },
   "translations": {
     "Mi-Go Incursion II": "Вторжение ми-го II"
-  }
+  },
+  "translated_by": [
+    {
+      "name": "@helios_sunrise",
+      "link": "https://t.me/helios_sunrise"
+    }
+  ],
+  "download_links": [
+    {
+      "link": "https://drive.google.com/drive/folders/1bEdEDiav3cV_G8Cvxu__9jRYWrXXi366?usp=drive_link"
+    }
+  ]
 }

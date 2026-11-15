@@ -1,10 +1,21 @@
 {
-	"common": {
-		"The Colour Out of Space": "Цвет из иных миров"
-	},
-	"translations": {
-		"Unnatural Disturbances": "Неестественные нарушения",
-		"Inhospitable Locality": "Негостеприимная местность",
-		"Made Flesh": "Ставшее плотью"
-	}
+  "common": {
+    "The Colour Out of Space": "Цвет из иных миров"
+  },
+  "translations": {
+    "Unnatural Disturbances": "Неестественные нарушения",
+    "Inhospitable Locality": "Негостеприимная местность",
+    "Made Flesh": "Ставшее плотью"
+  },
+  "translated_by": [
+    {
+      "name": "@ceifer",
+      "link": "https://t.me/ceifer"
+    }
+  ],
+  "download_links": [
+    {
+      "link": "https://t.me/arkhamhorrorlcg_ru_chat/3258/1657399"
+    }
+  ]
 }

@@ -28,6 +28,20 @@ export default createCustomContent({
 						},
 					],
 				},
+				{
+					language: "ru",
+					links: [
+						{
+							link: "https://disk.yandex.ru/d/1YUlRDloQZ7V-g",
+							translated_by: [
+								{
+									name: "@Renegat_693",
+									link: "https://t.me/Renegat_693",
+								},
+							],
+						},
+					],
+				},
 			],
 		},
 	},

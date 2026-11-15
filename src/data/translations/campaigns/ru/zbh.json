@@ -1,8 +1,17 @@
 {
+  "common": {
+    "Barkham Horror": "Ужас Гавкхэма"
+  },
+  "translations": {},
   "translated_by": [
     {
-      "name": "Сергей Вакуленко",
-      "link": "https://t.me/alexalansmith14"
+      "name": "@helios_sunrise",
+      "link": "https://t.me/helios_sunrise"
+    }
+  ],
+  "download_links": [
+    {
+      "link": "https://drive.google.com/drive/folders/1e7o-_kIHYuq4waGp6lnJhiUmL_i0Fr1N"
     }
   ]
 }

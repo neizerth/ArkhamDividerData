@@ -6,6 +6,33 @@ export default createCustomContent({
 		code: "zdms",
 		type: "side_story",
 		name: "Dark Matter: Science Expansion",
+		custom_content: {
+			creators: [
+				{
+					name: "Axolotl",
+				},
+			],
+			download_links: [
+				{
+					language: "ru",
+					links: [
+						{
+							link: "https://disk.yandex.ru/d/If2zxNhdu5w0iQ",
+							translated_by: [
+								{
+									name: "@Renegat_693",
+									link: "https://t.me/Renegat_693",
+								},
+								{
+									name: "@gigabytesergey",
+									link: "https://t.me/gigabytesergey",
+								},
+							],
+						},
+					],
+				},
+			],
+		},
 	},
 	scenarios: false,
 	encounterSets: [

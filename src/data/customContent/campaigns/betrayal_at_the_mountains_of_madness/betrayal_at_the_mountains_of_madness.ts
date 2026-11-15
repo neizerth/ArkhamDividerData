@@ -23,6 +23,20 @@ export default createCustomContent({
               link: 'https://arkhamcentral.com/index.php/betrayal-at-the-mountains-of-madness/'
             }
           ]
+        },
+        {
+          language: 'ru',
+          links: [
+            {
+              link: 'https://disk.yandex.ru/d/jtQGcu3IswJnbg',
+              translated_by: [
+                {
+                  name: '@Renegat_693',
+                  link: 'https://t.me/Renegat_693'
+                }
+              ]
+            }
+          ]
         }
       ]
     }

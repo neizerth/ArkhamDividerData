@@ -1,5 +1,6 @@
 import { enrichCustomContentSizes } from "@/components/arkhamBuildFan";
 import { getCustomContent } from "@/components/custom/getCustomContent";
+import { applyTranslationDownloadLinks } from "@/components/translations/applyTranslationDownloadLinks";
 import { VERSION } from "@/constants";
 import customTranslations from "@/data/translations";
 import type { IBuild } from "@/types/build";
@@ -146,7 +147,10 @@ export const buildCoreSources = async (languages: string[]) => {
 
 	const customPacks = uniqueCustomContent.map(prop("pack"));
 
-	const stories = [...cachedStories, ...customStories];
+	const stories = applyTranslationDownloadLinks([
+		...cachedStories,
+		...customStories,
+	]);
 
 	const encounterSets = [...cachedEncounterSets, ...customEncounterSets].map(
 		(encounterSet) => ({

@@ -24,6 +24,11 @@ export type StoryTranslation = {
   common: Mapping
   translations: Mapping
   translated_by?: IDatabase.CustomContentTranslator[]
+  /** Per-language download URLs for parser/arkhamCards fan stories (language = translation file locale). */
+  download_links?: Array<{
+    link: string
+    name?: string
+  }>
 }
 
 export type LanguageStoryTranslation = Mapping<StoryTranslation>;

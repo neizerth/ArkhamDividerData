@@ -39,6 +39,20 @@ export default createCustomContent({
 						},
 					],
 				},
+				{
+					language: "ru",
+					links: [
+						{
+							link: "https://drive.google.com/drive/folders/14LY95Z04sXk2uEaO5FDvBTcFyoNQJ2SF",
+							translated_by: [
+								{
+									name: "@darkfakke",
+									link: "https://t.me/darkfakke",
+								},
+							],
+						},
+					],
+				},
 			],
 		},
 	},

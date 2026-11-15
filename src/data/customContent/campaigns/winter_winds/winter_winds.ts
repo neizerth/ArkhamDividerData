@@ -28,11 +28,15 @@ export default createCustomContent({
           language: "ru",
           links: [
             {
-              link: "https://t.me/arkhamhorrorlcg_ru_chat/3258/816212",
+              link: "https://disk.yandex.ru/d/sHrTKqMMTkHCcQ",
               translated_by: [
                 {
-                  name: "@ceifer",
-                  link: "https://t.me/ceifer"
+                  name: "@Renegat_693",
+                  link: "https://t.me/Renegat_693"
+                },
+                {
+                  name: "@gigabytesergey",
+                  link: "https://t.me/gigabytesergey"
                 }
               ]
             }
