@@ -9,7 +9,9 @@ export { default as return_to_consternation_on_the_constellation } from './retur
 export { default as return_to_the_wendigo } from './return_to_the_wendigo.json';
 export { default as rop } from './rop.json';
 export { default as rtr } from './rtr.json';
+export { default as sanitarium } from './sanitarium.json';
 export { default as the_legend_of_sleepy_hollow } from './the_legend_of_sleepy_hollow.json';
+
 export { default as the_nameless_city } from './the_nameless_city.json';
 export { default as the_phantom_of_the_opera } from './the_phantom_of_the_opera.json';
 export { default as zatw } from './zatw.json';

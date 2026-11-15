@@ -113,7 +113,7 @@ export default createCustomContent({
 		{ icon: "hollow_road", width: 672, height: 1024 },
 		{ icon: "hollow_road_set", width: 956, height: 1024 },
 		{ icon: "broken_mirror", width: 770, height: 1024 },
-		{ icon: "final_hour", width: 1024, height: 1016 },
+		{ icon: "final_hour", width: 1024, height: 1016, circled: true },
 		{ icon: "celestial_children", width: 1024, height: 848 },
 		{ icon: "nameless_shadow", width: 628, height: 1024 },
 		{ icon: "vortex", width: 1024, height: 1006 },
