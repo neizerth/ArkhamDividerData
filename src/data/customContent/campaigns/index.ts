@@ -5,6 +5,7 @@ export { default as bloodborne } from "./bloodborne/bloodborne";
 export { default as celtic_rising } from "./celtic_rising/celtic_rising";
 export { default as circus_ex_mortis } from "./circus_ex_mortis/circus_ex_mortis";
 export { default as darkham_horror } from "./darkham_horror/darkham_horror";
+export { default as idol_thoughts } from "./idol_thoughts/idol_thoughts";
 export { default as jumanji } from "./jumanji/jumanji";
 export { default as night_of_vespers } from "./night_of_vespers/night_of_vespers";
 export { default as north_country_cycle } from "./north_country_cycle/north_country_cycle";

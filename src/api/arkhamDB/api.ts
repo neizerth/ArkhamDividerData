@@ -16,7 +16,7 @@ export const loadPacks = async () => {
 }
 
 export const loadLocalPackCards = async (cycleCode: string, code: string, language: string) => {
-  const cycle = getCycleDir(cycleCode);
+  const cycle = getTranslationCycleDir(cycleCode);
   const file = getPackFileBase(cycleCode, code);
   const url = `translations/${language}/pack/${cycle}/${file}.json`;
   const { data } = await getGithubJSON<IArkhamDB.API.Card[]>(url, {
@@ -60,15 +60,11 @@ export const loadJSONTranslationCycles = async (language: string) => {
   return data;
 }
 
+/**
+ * Directory under `/pack/` for canonical (English) ArkhamDB JSON.
+ * Locale packs use short aliases — see getTranslationCycleDir.
+ */
 export const getCycleDir = (code: string) => {
-  if (code === 'side_stories') {
-    return 'side';
-  }
-
-  if (code === 'promotional') {
-    return 'promo';
-  }
-
   // ArkhamDB JSON data stores Chapter 2 core packs under `/pack/core/*`
   // even though their cycle code is `core_ch2`.
   if (code === 'core_ch2') {
@@ -86,6 +82,22 @@ export const getCycleDir = (code: string) => {
   }
 
   return code;
+}
+
+/**
+ * Directory under `translations/{lang}/pack/` — ArkhamDB shortens
+ * `side_stories` → `side` and `promotional` → `promo` in locale trees only.
+ */
+export const getTranslationCycleDir = (code: string) => {
+  if (code === 'side_stories') {
+    return 'side';
+  }
+
+  if (code === 'promotional') {
+    return 'promo';
+  }
+
+  return getCycleDir(code);
 }
 
 /**

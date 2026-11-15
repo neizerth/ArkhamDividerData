@@ -4,7 +4,7 @@
     "module": "ESNext",
     "declaration": true,
     // "skipLibCheck": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     // "allowImportingTsExtensions": true,
     "emitDeclarationOnly": true,
     // "noEmit": true,
@@ -15,6 +15,7 @@
         "./src/*"
       ]
     },
+    "rootDir": "./src",
     "outDir": "./build"
   },
   "exclude": [ "node_modules" ],

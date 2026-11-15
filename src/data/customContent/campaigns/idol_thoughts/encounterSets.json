@@ -1,0 +1,23 @@
+[
+	{
+		"code": "alaric_gang",
+		"name": "Alaric Gang",
+		"size": 6,
+		"types": [
+			{ "type": "enemy", "size": 3 },
+			{ "type": "treachery", "size": 3 }
+		]
+	},
+	{
+		"code": "easy_living",
+		"name": "Easy Living",
+		"size": 8,
+		"types": [{ "type": "treachery", "size": 8 }]
+	},
+	{
+		"code": "alternate_encounters",
+		"name": "Alternate Encounters",
+		"size": 2,
+		"types": [{ "type": "treachery", "size": 2 }]
+	}
+]

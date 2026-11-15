@@ -1,0 +1,42 @@
+[
+	{
+		"icon": "idol_thoughts",
+		"width": 512,
+		"height": 512
+	},
+	{
+		"icon": "bread_and_circuses",
+		"width": 512,
+		"height": 512
+	},
+	{
+		"icon": "enter_the_dragon",
+		"width": 512,
+		"height": 512
+	},
+	{
+		"icon": "bon_voyage",
+		"width": 512,
+		"height": 512
+	},
+	{
+		"icon": "cost_of_azure",
+		"width": 512,
+		"height": 512
+	},
+	{
+		"icon": "alaric_gang",
+		"width": 512,
+		"height": 512
+	},
+	{
+		"icon": "easy_living",
+		"width": 512,
+		"height": 512
+	},
+	{
+		"icon": "alternate_encounters",
+		"width": 512,
+		"height": 512
+	}
+]

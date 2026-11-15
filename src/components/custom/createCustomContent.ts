@@ -25,12 +25,17 @@ type CustomScenario = Omit<
 	campaign_id?: string;
 	header?: string;
 	full_name?: string;
+	/** Size of the dedicated scenario encounter set (synthesized into encounterSets). */
+	size?: number;
+	types?: IDatabase.EncounterSetType[];
 };
 
 type CustomEncounterSet = Omit<
 	IDatabase.EncounterSet,
 	"synonyms" | "is_canonical" | "is_official"
->;
+> & {
+	prefix?: boolean;
+};
 
 type CustomStory = Omit<
 	IDatabase.Story,
@@ -105,10 +110,16 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 	if (options.scenarios !== false) {
 		scenarios = options.scenarios
 			? options.scenarios.map((scenario) => {
+					const {
+						size: _size,
+						types: _types,
+						prefix: _prefix,
+						...scenarioRest
+					} = scenario;
 					const iconId = scenario.icon || scenario.id;
 					const icon = scenario.prefix === false ? iconId : toId(iconId);
 					return {
-						...scenario,
+						...scenarioRest,
 						id: toId(scenario.id),
 						icon,
 						campaign_id: code,
@@ -145,16 +156,41 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 		icon: code,
 	};
 
-	const encounters: CustomContentEncounter[] =
-		options.encounterSets?.map((encounterSet) => {
-			const getIcon = encounterSet.prefix === false ? identity : toId;
-			return {
-				...encounterSet,
-				...packEncounterSetBase,
-				code: toId(encounterSet.code),
-				icon: getIcon(encounterSet.icon || encounterSet.code),
-			};
-		}) || [];
+	const explicitEncounterCodes = new Set(
+		(options.encounterSets || []).map(prop("code")),
+	);
+
+	const scenarioEncounterInputs: CustomEncounterSet[] = Array.isArray(
+		options.scenarios,
+	)
+		? options.scenarios
+				.filter(
+					(scenario) =>
+						(scenario.size != null || scenario.types != null) &&
+						!explicitEncounterCodes.has(scenario.id),
+				)
+				.map((scenario) => ({
+					code: scenario.id,
+					name: scenario.scenario_name,
+					...(scenario.size != null ? { size: scenario.size } : {}),
+					...(scenario.types != null ? { types: scenario.types } : {}),
+					...(scenario.icon ? { icon: scenario.icon } : {}),
+					...(scenario.prefix === false ? { prefix: false } : {}),
+				}))
+		: [];
+
+	const encounters: CustomContentEncounter[] = [
+		...scenarioEncounterInputs,
+		...(options.encounterSets || []),
+	].map((encounterSet) => {
+		const getIcon = encounterSet.prefix === false ? identity : toId;
+		return {
+			...encounterSet,
+			...packEncounterSetBase,
+			code: toId(encounterSet.code),
+			icon: getIcon(encounterSet.icon || encounterSet.code),
+		};
+	});
 
 	const requiredEncounters =
 		options.story.encounter_sets || encounters.map(prop("code"));

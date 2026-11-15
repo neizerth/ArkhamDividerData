@@ -1,0 +1,74 @@
+[
+	{
+		"id": "bread_and_circuses",
+		"scenario_name": "Bread and Circuses",
+		"number": 1,
+		"number_text": "I",
+		"size": 52,
+		"types": [
+			{ "type": "scenario", "size": 1 },
+			{ "type": "agenda", "size": 3 },
+			{ "type": "act", "size": 2 },
+			{ "type": "location", "size": 10 },
+			{ "type": "enemy", "size": 10 },
+			{ "type": "asset", "size": 14 },
+			{ "type": "treachery", "size": 12 }
+		],
+		"encounter_sets": [
+			"bread_and_circuses",
+			"easy_living",
+			"alaric_gang"
+		]
+	},
+	{
+		"id": "enter_the_dragon",
+		"scenario_name": "Enter the Dragon",
+		"number": 2,
+		"number_text": "II",
+		"size": 60,
+		"types": [
+			{ "type": "scenario", "size": 1 },
+			{ "type": "agenda", "size": 4 },
+			{ "type": "act", "size": 8 },
+			{ "type": "location", "size": 9 },
+			{ "type": "enemy", "size": 10 },
+			{ "type": "asset", "size": 3 },
+			{ "type": "treachery", "size": 25 }
+		],
+		"encounter_sets": ["enter_the_dragon"]
+	},
+	{
+		"id": "bon_voyage",
+		"scenario_name": "Bon Voyage",
+		"number": 3,
+		"number_text": "III",
+		"size": 53,
+		"types": [
+			{ "type": "scenario", "size": 1 },
+			{ "type": "agenda", "size": 5 },
+			{ "type": "act", "size": 3 },
+			{ "type": "location", "size": 8 },
+			{ "type": "enemy", "size": 9 },
+			{ "type": "asset", "size": 4 },
+			{ "type": "treachery", "size": 23 }
+		],
+		"encounter_sets": ["bon_voyage"]
+	},
+	{
+		"id": "cost_of_azure",
+		"scenario_name": "Cost of Azure",
+		"number": 4,
+		"number_text": "IV",
+		"size": 68,
+		"types": [
+			{ "type": "scenario", "size": 1 },
+			{ "type": "agenda", "size": 6 },
+			{ "type": "act", "size": 4 },
+			{ "type": "location", "size": 7 },
+			{ "type": "enemy", "size": 17 },
+			{ "type": "asset", "size": 9 },
+			{ "type": "treachery", "size": 24 }
+		],
+		"encounter_sets": ["cost_of_azure"]
+	}
+]
