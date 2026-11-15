@@ -116,6 +116,6 @@ export default createCustomContent({
 		{ icon: "final_hour", width: 1024, height: 1016, circled: true },
 		{ icon: "celestial_children", width: 1024, height: 848 },
 		{ icon: "nameless_shadow", width: 628, height: 1024 },
-		{ icon: "vortex", width: 1024, height: 1006 },
+		{ icon: "vortex", width: 1024, height: 1006, circled: true },
 	],
 });
