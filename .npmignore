@@ -1,4 +1,23 @@
+# Source / local data (package ships build + assets)
 /src
 /cache
 /dist
 /.github
+
+# Secrets & local env
+.env
+.env.*
+*.local
+
+# Temp / editor / tooling
+.tmp/
+.vscode/
+.idea/
+.DS_Store
+*.log
+logs
+node_modules
+eslint.config.js
+
+# Optional local workdirs
+/cli
