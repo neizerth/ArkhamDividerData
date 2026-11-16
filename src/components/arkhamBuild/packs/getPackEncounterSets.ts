@@ -4,6 +4,7 @@ import type { IArkhamBuild } from "@/types/arkhamBuild";
 import type { IArkhamDB } from "@/types/arkhamDB";
 import { ICache } from "@/types/cache";
 import * as Cache from "@/util/cache";
+import { getMinCardNumberFromTypes } from "@/util/encounterSizes";
 import { groupBy } from "ramda";
 
 const toEncounterCard = (
@@ -59,6 +60,7 @@ export const getPackEncounterSets = async (): Promise<
 				(total, { size: typeSize }) => total + typeSize,
 				0,
 			);
+			const min_card_number = getMinCardNumberFromTypes(types);
 
 			result.push({
 				pack_code,
@@ -66,6 +68,7 @@ export const getPackEncounterSets = async (): Promise<
 				source: ICache.Source.ARKHAM_BUILD,
 				encounter_set_code,
 				size,
+				...(min_card_number != null ? { min_card_number } : {}),
 				types,
 			});
 		}

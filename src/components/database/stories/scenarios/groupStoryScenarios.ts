@@ -1,6 +1,7 @@
 import type { IIconDB } from "@/components/arkhamCards/icons/IconDB";
 import type { IDatabase } from "@/types/database";
 import { withEncounters } from "@/util/criteria";
+import { minDefined } from "@/util/encounterSizes";
 import { groupBy, isNotNil, omit, prop, uniq, values } from "ramda";
 import { deromanize, romanize } from "romans";
 import { mergeScenarioEncounterSetSizes } from "./getEncounterSetSizes";
@@ -61,9 +62,14 @@ export const getGroupEncounters = (
 		encounterSets: allEncounterSets,
 	});
 
+	const min_card_number = minDefined(
+		...scenarios.map((scenario) => scenario.min_card_number),
+	);
+
 	return {
 		encounter_sets: encounterSets,
 		extra_encounter_sets: extraEncounterSets,
+		...(min_card_number != null ? { min_card_number } : {}),
 		...(encounterSetSizes.length > 0
 			? { encounter_set_data: encounterSetSizes }
 			: {}),

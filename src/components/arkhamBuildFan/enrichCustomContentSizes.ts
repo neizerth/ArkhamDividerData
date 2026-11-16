@@ -1,6 +1,7 @@
 import * as API from "@/api/arkhamBuildFan/api";
 import type { createCustomContent } from "@/components/custom/createCustomContent";
 import { showInfo, showWarning } from "@/util/console";
+import { minDefined } from "@/util/encounterSizes";
 import {
 	findEncounterSize,
 	findFanProject,
@@ -62,6 +63,40 @@ export const enrichCustomContentSizes = async (
 				...encounterSet,
 				size: matched.size,
 				types: matched.types,
+				...(matched.min_card_number != null
+					? { min_card_number: matched.min_card_number }
+					: {}),
+			};
+		});
+
+		const minByCode = new Map(
+			encounterSets
+				.filter((set) => set.min_card_number != null)
+				.map((set) => [set.code, set.min_card_number] as const),
+		);
+
+		const scenarios = content.story.scenarios?.map((scenario) => {
+			const fromSets = minDefined(
+				...(scenario.encounter_sets ?? []).map((code) => minByCode.get(code)),
+				minByCode.get(scenario.id),
+			);
+			const min_card_number = scenario.min_card_number ?? fromSets;
+			return {
+				...scenario,
+				...(min_card_number != null ? { min_card_number } : {}),
+			};
+		});
+
+		const campaigns = content.story.campaigns?.map((campaign) => {
+			const fromSets = minDefined(
+				...(campaign.encounter_sets ?? []).map((code) => minByCode.get(code)),
+				...encounterSets.map((set) => set.min_card_number),
+				...(scenarios ?? []).map((scenario) => scenario.min_card_number),
+			);
+			const min_card_number = campaign.min_card_number ?? fromSets;
+			return {
+				...campaign,
+				...(min_card_number != null ? { min_card_number } : {}),
 			};
 		});
 
@@ -75,6 +110,8 @@ export const enrichCustomContentSizes = async (
 			encounterSets,
 			story: {
 				...content.story,
+				...(scenarios ? { scenarios } : {}),
+				...(campaigns ? { campaigns } : {}),
 				is_size_supported,
 			},
 		};

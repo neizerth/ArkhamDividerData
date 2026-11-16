@@ -119,6 +119,8 @@ export namespace ICache {
     encounter_set_code: string
     source: Source
     size?: number;
+    /** Minimum pack card number (position) among cards in this set. */
+    min_card_number?: number;
     types?: EncounterSetType[]
   }
 

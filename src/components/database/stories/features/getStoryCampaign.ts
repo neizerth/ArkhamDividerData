@@ -3,15 +3,18 @@ import type { IArkhamCards } from "@/types/arkhamCards";
 import type { ICache } from "@/types/cache";
 import type { IDatabase } from "@/types/database";
 import { normalizeEncounterCodes } from "@/util/encounterCanonical";
+import { getMinCardNumberForCodes } from "@/util/encounterSizes";
 import { prop, propEq, uniqBy } from "ramda";
 
 export const createStoryCampaignHandler = ({
 	iconDB,
 	scenarioEncounters,
+	encounterSets,
 	canonicalizeEncounterCode,
 }: {
 	iconDB: IIconDB;
 	scenarioEncounters: ICache.ScenarioEncounterSet[];
+	encounterSets: IDatabase.EncounterSet[];
 	canonicalizeEncounterCode: (code: string) => string;
 }) => {
 	return ({
@@ -27,7 +30,7 @@ export const createStoryCampaignHandler = ({
 
 		const iconList = [id, cycle_code];
 
-		const notCore = scenarios.filter(({ id }) => id !== 'core');
+		const notCore = scenarios.filter(({ id }) => id !== "core");
 
 		const data = {
 			id,
@@ -55,8 +58,14 @@ export const createStoryCampaignHandler = ({
 			canonicalizeEncounterCode,
 		);
 
+		const min_card_number = getMinCardNumberForCodes(
+			requiredEncounters,
+			encounterSets,
+		);
+
 		return {
 			...data,
+			...(min_card_number != null ? { min_card_number } : {}),
 			encounter_sets: requiredEncounters,
 			extra_encounter_sets: extraEncounters,
 		};

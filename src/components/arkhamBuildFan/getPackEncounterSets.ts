@@ -79,6 +79,9 @@ export const getPackEncounterSets = async (): Promise<
 				encounter_set_code: def.code,
 				source: ICache.Source.ARKHAM_BUILD,
 				size: sizeData.size,
+				...(sizeData.min_card_number != null
+					? { min_card_number: sizeData.min_card_number }
+					: {}),
 				types: sizeData.types,
 			});
 		}

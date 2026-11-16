@@ -18,9 +18,13 @@ const mergeEncounterSetGroup = (
 		if (sizeOf(acc) > sizeOf(entry)) {
 			merged.size = acc.size;
 			merged.types = acc.types ?? entry.types;
+			merged.min_card_number = acc.min_card_number ?? entry.min_card_number;
 		} else if (sizeOf(entry) > sizeOf(acc)) {
 			merged.size = entry.size;
 			merged.types = entry.types ?? acc.types;
+			merged.min_card_number = entry.min_card_number ?? acc.min_card_number;
+		} else {
+			merged.min_card_number = acc.min_card_number ?? entry.min_card_number;
 		}
 
 		return merged;

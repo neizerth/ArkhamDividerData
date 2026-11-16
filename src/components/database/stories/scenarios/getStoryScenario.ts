@@ -5,8 +5,10 @@ import type { ICache } from "@/types/cache";
 import type { IDatabase } from "@/types/database";
 import { toArrayIf } from "@/util/common";
 import { normalizeEncounterCodes } from "@/util/encounterCanonical";
+import { getMinCardNumberForCodes } from "@/util/encounterSizes";
 import { prop, propEq, uniqBy } from "ramda";
 import { romanize } from "romans";
+import { ownSetCodes } from "./getDedicatedScenarioEncounterCodes";
 import {
 	getStepEncounterSetSizes,
 	mergeScenarioEncounterSetSizes,
@@ -167,10 +169,20 @@ export const createStoryScenarioHandler = ({
 			encounterSets,
 		});
 
-		return {
+		const scenarioWithEncounters: IDatabase.StoryScenario = {
 			...data,
 			encounter_sets: requiredEncounters,
 			extra_encounter_sets: extraEncounters,
+		};
+
+		const min_card_number = getMinCardNumberForCodes(
+			ownSetCodes(scenarioWithEncounters, encounterSets),
+			encounterSets,
+		);
+
+		return {
+			...scenarioWithEncounters,
+			...(min_card_number != null ? { min_card_number } : {}),
 			...(scenarioEncounterSetSizes.length > 0
 				? { encounter_set_data: scenarioEncounterSetSizes }
 				: {}),

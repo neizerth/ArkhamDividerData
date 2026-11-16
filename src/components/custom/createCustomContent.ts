@@ -2,6 +2,10 @@ import { ICache } from "@/types/cache";
 import type { IDatabase } from "@/types/database";
 import { prefix } from "@/util/common";
 import { filterEncounterSet } from "@/util/criteria";
+import {
+	getMinCardNumberFromTypes,
+	minDefined,
+} from "@/util/encounterSizes";
 import path from "path";
 import { identity, isNotNil, prop, uniq } from "ramda";
 
@@ -118,6 +122,9 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 					} = scenario;
 					const iconId = scenario.icon || scenario.id;
 					const icon = scenario.prefix === false ? iconId : toId(iconId);
+					const min_card_number =
+						scenario.min_card_number ??
+						getMinCardNumberFromTypes(scenario.types);
 					return {
 						...scenarioRest,
 						id: toId(scenario.id),
@@ -125,6 +132,7 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 						campaign_id: code,
 						full_name: scenario.full_name || scenario.scenario_name,
 						header: scenario.header || scenario.scenario_name,
+						...(min_card_number != null ? { min_card_number } : {}),
 						encounter_sets:
 							scenario.encounter_sets?.map(toId) ||
 							[toId(scenario.id)].filter(filterEncounterSet),
@@ -149,13 +157,6 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 			scenarios.length > 0 ? scenarios.map(prop("id")) : [code];
 	}
 
-	const campaign: IDatabase.StoryCampaign = {
-		id: code,
-		name,
-		scenarios: campaignScenarios,
-		icon: code,
-	};
-
 	const explicitEncounterCodes = new Set(
 		(options.encounterSets || []).map(prop("code")),
 	);
@@ -169,14 +170,20 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 						(scenario.size != null || scenario.types != null) &&
 						!explicitEncounterCodes.has(scenario.id),
 				)
-				.map((scenario) => ({
-					code: scenario.id,
-					name: scenario.scenario_name,
-					...(scenario.size != null ? { size: scenario.size } : {}),
-					...(scenario.types != null ? { types: scenario.types } : {}),
-					...(scenario.icon ? { icon: scenario.icon } : {}),
-					...(scenario.prefix === false ? { prefix: false } : {}),
-				}))
+				.map((scenario) => {
+					const min_card_number =
+						scenario.min_card_number ??
+						getMinCardNumberFromTypes(scenario.types);
+					return {
+						code: scenario.id,
+						name: scenario.scenario_name,
+						...(scenario.size != null ? { size: scenario.size } : {}),
+						...(scenario.types != null ? { types: scenario.types } : {}),
+						...(min_card_number != null ? { min_card_number } : {}),
+						...(scenario.icon ? { icon: scenario.icon } : {}),
+						...(scenario.prefix === false ? { prefix: false } : {}),
+					};
+				})
 		: [];
 
 	const encounters: CustomContentEncounter[] = [
@@ -184,13 +191,32 @@ export const createCustomContent = (options: CreateCustomContentOptions) => {
 		...(options.encounterSets || []),
 	].map((encounterSet) => {
 		const getIcon = encounterSet.prefix === false ? identity : toId;
+		const min_card_number =
+			encounterSet.min_card_number ??
+			getMinCardNumberFromTypes(encounterSet.types);
 		return {
 			...encounterSet,
 			...packEncounterSetBase,
 			code: toId(encounterSet.code),
 			icon: getIcon(encounterSet.icon || encounterSet.code),
+			...(min_card_number != null ? { min_card_number } : {}),
 		};
 	});
+
+	const campaignMinCardNumber = minDefined(
+		...scenarios.map((scenario) => scenario.min_card_number),
+		...encounters.map((encounter) => encounter.min_card_number),
+	);
+
+	const campaign: IDatabase.StoryCampaign = {
+		id: code,
+		name,
+		scenarios: campaignScenarios,
+		icon: code,
+		...(campaignMinCardNumber != null
+			? { min_card_number: campaignMinCardNumber }
+			: {}),
+	};
 
 	const requiredEncounters =
 		options.story.encounter_sets || encounters.map(prop("code"));

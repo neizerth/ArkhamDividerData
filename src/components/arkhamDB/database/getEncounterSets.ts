@@ -17,6 +17,7 @@ export const getEncounterSets = (): IDatabase.EncounterSet[] => {
       encounter_set_code,
       types,
       size,
+      min_card_number,
     } = packEncounterSet;
 
     const encounter = {
@@ -24,6 +25,7 @@ export const getEncounterSets = (): IDatabase.EncounterSet[] => {
       cycle_code,
       pack_code,
       size,
+      ...(min_card_number != null ? { min_card_number } : {}),
       types,
       is_canonical: true,
       is_official: true,

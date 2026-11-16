@@ -2,6 +2,7 @@ import { getEncounterSetTypes } from "@/components/arkhamDB/packs/getPackEncount
 import type { IArkhamBuildFan } from "@/types/arkhamBuildFan";
 import type { IArkhamDB } from "@/types/arkhamDB";
 import type { ICache } from "@/types/cache";
+import { getMinCardNumberFromTypes } from "@/util/encounterSizes";
 import { groupBy } from "ramda";
 import {
 	compactName,
@@ -13,6 +14,7 @@ import {
 export type EncounterSizeData = {
 	size: number;
 	types: ICache.EncounterSetType[];
+	min_card_number?: number;
 };
 
 export type NamedEncounter = {
@@ -57,9 +59,14 @@ export const getSizesByEncounterName = (
 
 		const types = getEncounterSetTypes(cards.map(toEncounterCard));
 		const size = types.reduce((total, { size: typeSize }) => total + typeSize, 0);
+		const min_card_number = getMinCardNumberFromTypes(types);
 
 		if (size > 0) {
-			sizes.set(encounterMatchKey(set.name), { size, types });
+			sizes.set(encounterMatchKey(set.name), {
+				size,
+				types,
+				...(min_card_number != null ? { min_card_number } : {}),
+			});
 		}
 	}
 

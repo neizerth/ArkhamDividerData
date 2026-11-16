@@ -3,6 +3,7 @@ import * as ArkhamBuildFan from "@/components/arkhamBuildFan";
 import * as ArkhamCards from "@/components/arkhamCards";
 import * as ArkhamDB from "@/components/arkhamDB";
 import type { ICache } from "@/types/cache";
+import { getMinCardNumberFromTypes } from "@/util/encounterSizes";
 
 const encounterKey = ({
 	pack_code,
@@ -46,10 +47,15 @@ export const mergePackEncounterSets = (
 			continue;
 		}
 
+		const types = entry.types ?? current.types;
 		byKey.set(key, {
 			...current,
 			size: entry.size,
-			types: entry.types ?? current.types,
+			types,
+			min_card_number:
+				getMinCardNumberFromTypes(types) ??
+				entry.min_card_number ??
+				current.min_card_number,
 		});
 	}
 

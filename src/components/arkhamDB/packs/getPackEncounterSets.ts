@@ -2,6 +2,7 @@ import * as API from "@/api/arkhamDB/api";
 import type { IArkhamDB } from "@/types/arkhamDB";
 import { ICache } from "@/types/cache";
 import * as Cache from "@/util/cache";
+import { getMinCardNumberFromTypes } from "@/util/encounterSizes";
 import { groupBy, isNotNil, prop, propEq, uniq, uniqBy } from "ramda";
 
 export const getPackEncounterSets = async (): Promise<
@@ -39,12 +40,14 @@ const getEncounterSets = async (pack: ICache.Pack) => {
 	return Object.entries(groups).map(([encounter_set_code, groupCards = []]) => {
 		const types = getEncounterSetTypes(groupCards);
 		const size = types.reduce((total, { size }) => total + size, 0);
+		const min_card_number = getMinCardNumberFromTypes(types);
 		return {
 			pack_code: code,
 			cycle_code,
 			source: ICache.Source.ARKHAMDB,
 			encounter_set_code,
 			size,
+			...(min_card_number != null ? { min_card_number } : {}),
 			types,
 		};
 	});

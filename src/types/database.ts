@@ -54,6 +54,8 @@ export namespace IDatabase {
 		cycle_code?: string;
 		synonyms: string[];
 		size?: number;
+		/** Minimum pack card number (position) among cards in this set. */
+		min_card_number?: number;
 		types?: EncounterSetType[];
 		is_canonical: boolean;
 		is_official: boolean;
@@ -90,6 +92,8 @@ export namespace IDatabase {
 		part_text?: string;
 		part_number?: number;
 		icon?: string;
+		/** Minimum pack card number from the scenario's dedicated encounter set(s). */
+		min_card_number?: number;
 		scenarios?: StoryScenario[];
 		encounter_sets?: string[];
 		extra_encounter_sets?: string[];
@@ -102,6 +106,8 @@ export namespace IDatabase {
 		icon?: string;
 		name: string;
 		scenarios: string[];
+		/** Minimum pack card number among the campaign's required encounter sets. */
+		min_card_number?: number;
 		encounter_sets?: string[];
 		extra_encounter_sets?: string[];
 		encounter_set_data?: EncounterSetData[];
