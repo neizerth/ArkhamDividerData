@@ -212,6 +212,8 @@ export const getSpecialStories = (): IDatabase.Story[] => {
 				}),
 			);
 
+			// Prefer ArkhamDB pack title over ArkhamCards campaign.name.
+			// Return campaigns are often "Return to The X" upstream; packs use "the".
 			const storyCampaigns = campaigns.map((fullCampaign) => {
 				const campaign = getStoryCampaign({
 					fullCampaign,
@@ -220,6 +222,7 @@ export const getSpecialStories = (): IDatabase.Story[] => {
 
 				return {
 					...campaign,
+					name,
 					encounter_sets: campaign.encounter_sets.filter(
 						(encounterCode) =>
 							!dedicatedScenarioEncounterCodes.has(encounterCode),
