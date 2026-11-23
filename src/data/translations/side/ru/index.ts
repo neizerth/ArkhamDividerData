@@ -4,12 +4,14 @@ export { default as code_red_at_bleeding_heart } from './code_red_at_bleeding_he
 export { default as devils_in_the_canyon } from './devils_in_the_canyon.json';
 export { default as enc } from './enc.json';
 export { default as hollow_road } from './hollow_road.json';
+export { default as last_christmas } from './last_christmas.json';
 export { default as ltr } from './ltr.json';
 export { default as return_to_consternation_on_the_constellation } from './return_to_consternation_on_the_constellation.json';
 export { default as return_to_the_wendigo } from './return_to_the_wendigo.json';
 export { default as rop } from './rop.json';
 export { default as rtr } from './rtr.json';
 export { default as sanitarium } from './sanitarium.json';
+export { default as the_last_night_of_all_time } from './the_last_night_of_all_time.json';
 export { default as the_legend_of_sleepy_hollow } from './the_legend_of_sleepy_hollow.json';
 
 export { default as the_nameless_city } from './the_nameless_city.json';

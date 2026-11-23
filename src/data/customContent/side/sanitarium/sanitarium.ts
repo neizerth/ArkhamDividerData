@@ -90,8 +90,8 @@ export default createCustomContent({
 	icons: [
 		{
 			icon: "sanitarium",
-			width: 671,
-			height: 849,
+			width: 822,
+			height: 1024,
 		},
 	],
 });
