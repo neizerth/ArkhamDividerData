@@ -54,18 +54,19 @@ jobs:
         with:
           # Upload dist repository
           path: './dist'
-      - name: Prepare R2 upload
-        run: mkdir -p ./dist/r2 && cp -r ./dist/*.json ./dist/r2
-      - name: Upload artifact to R2
-        uses: ryand56/r2-upload-action@latest # Can be any release
-        with:
-          r2-account-id: ${{ secrets.R2_ACCOUNT_ID }}
-          r2-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
-          r2-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          r2-bucket: ${{ secrets.R2_BUCKET }}
-          source-dir: dist/r2
-          destination-dir: ./
-          keep-file-fresh: true # defaults to false
+      # Temporarily disabled
+      # - name: Prepare R2 upload
+      #   run: mkdir -p ./dist/r2 && cp -r ./dist/*.json ./dist/r2
+      # - name: Upload artifact to R2
+      #   uses: ryand56/r2-upload-action@latest # Can be any release
+      #   with:
+      #     r2-account-id: ${{ secrets.R2_ACCOUNT_ID }}
+      #     r2-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
+      #     r2-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      #     r2-bucket: ${{ secrets.R2_BUCKET }}
+      #     source-dir: dist/r2
+      #     destination-dir: ./
+      #     keep-file-fresh: true # defaults to false
 
   deploy:
     needs: build

@@ -73,5 +73,65 @@
     "icon": "jumanji",
     "width": 32.887,
     "height": 29.708
+  },
+  {
+    "icon": "climate",
+    "width": 953,
+    "height": 1024
+  },
+  {
+    "icon": "crocodiles",
+    "width": 821,
+    "height": 1024
+  },
+  {
+    "icon": "earthquake",
+    "width": 1024,
+    "height": 975
+  },
+  {
+    "icon": "gorillas",
+    "width": 952,
+    "height": 1024
+  },
+  {
+    "icon": "hippos",
+    "width": 1024,
+    "height": 920
+  },
+  {
+    "icon": "insects",
+    "width": 891,
+    "height": 1024
+  },
+  {
+    "icon": "monsoon",
+    "width": 1017,
+    "height": 1024
+  },
+  {
+    "icon": "quicksand",
+    "width": 1024,
+    "height": 965
+  },
+  {
+    "icon": "snakes",
+    "width": 1024,
+    "height": 774
+  },
+  {
+    "icon": "spiders",
+    "width": 1024,
+    "height": 915
+  },
+  {
+    "icon": "stampede",
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "icon": "tigers",
+    "width": 932,
+    "height": 1024
   }
 ]

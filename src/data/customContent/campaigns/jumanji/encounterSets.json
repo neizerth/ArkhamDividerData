@@ -38,5 +38,65 @@
   {
     "code": "hunter",
     "name": "Hunter"
+  },
+  {
+    "code": "climate",
+    "name": "Climate",
+    "size": 3
+  },
+  {
+    "code": "crocodiles",
+    "name": "Crocodiles",
+    "size": 3
+  },
+  {
+    "code": "earthquake",
+    "name": "Earthquake",
+    "size": 3
+  },
+  {
+    "code": "gorillas",
+    "name": "Gorillas",
+    "size": 3
+  },
+  {
+    "code": "hippos",
+    "name": "Hippos",
+    "size": 3
+  },
+  {
+    "code": "insects",
+    "name": "Insects",
+    "size": 3
+  },
+  {
+    "code": "monsoon",
+    "name": "Monsoon",
+    "size": 3
+  },
+  {
+    "code": "quicksand",
+    "name": "Quicksand",
+    "size": 3
+  },
+  {
+    "code": "snakes",
+    "name": "Snakes",
+    "size": 3
+  },
+  {
+    "code": "spiders",
+    "name": "Spiders",
+    "size": 3
+  },
+  {
+    "code": "stampede",
+    "name": "Stampede",
+    "size": 3
+  },
+  {
+    "code": "tigers",
+    "name": "Tigers",
+    "size": 3
   }
 ]
